@@ -1,3 +1,5 @@
+image:https://circleci.com/gh/spring-cloud-samples/spring-cloud-contract-samples.svg?style=svg["CircleCI", link="https://circleci.com/gh/spring-cloud-samples/spring-cloud-contract-samples"]
+
 = Spring Cloud Contract samples
 
 This repository contains the consumer and the producer applications to use with Spring Cloud Contract
