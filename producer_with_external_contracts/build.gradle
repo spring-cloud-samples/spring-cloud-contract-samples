@@ -2,6 +2,9 @@ buildscript {
 	repositories {
 		mavenCentral()
 		mavenLocal()
+		maven { url "http://repo.spring.io/snapshot" }
+		maven { url "http://repo.spring.io/milestone" }
+		maven { url "http://repo.spring.io/release" }
 	}
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE"
@@ -15,6 +18,9 @@ version = '0.0.1-SNAPSHOT'
 repositories {
 	mavenCentral()
 	mavenLocal()
+	maven { url "http://repo.spring.io/snapshot" }
+	maven { url "http://repo.spring.io/milestone" }
+	maven { url "http://repo.spring.io/release" }
 }
 
 apply plugin: 'groovy'
