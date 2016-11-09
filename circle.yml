@@ -14,8 +14,7 @@ dependencies:
     - ./mvnw --fail-never dependency:go-offline || true
 test:
   override:
-    - rm -rf ~/.m2/repository/com/example
-    - ./mvnw clean install -U -nsu --batch-mode -Dmaven.test.redirectTestOutputToFile=true -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+    - ./scripts/runAcceptanceTests.sh
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/target/.*-reports/.*" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
