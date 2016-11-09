@@ -1,5 +1,6 @@
 package com.example;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer-external")
+@Ignore
 public class ExternalBeerVerificationListenerTest extends AbstractTest {
 
 	@Autowired StubTrigger stubTrigger;

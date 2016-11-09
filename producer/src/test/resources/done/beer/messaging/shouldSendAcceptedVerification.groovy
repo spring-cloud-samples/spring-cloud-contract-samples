@@ -1,25 +1,25 @@
-package contracts.beer.messaging
+package done.beer.messaging
 
 org.springframework.cloud.contract.spec.Contract.make {
 	description("""
-Sends a negative verification message when person is not eligible to get the beer
+Sends a positive verification message when person is eligible to get the beer
 
 ```
 given:
-	client is too young
+	client is old enough
 when:
 	he applies for a beer
 then:
-	we'll send a message with a negative verification
+	we'll send a message with a positive verification
 ```
 
 """)
 	// Label by means of which the output message can be triggered
-	label 'rejected_verification'
+	label 'accepted_verification'
 	// input to the contract
 	input {
 		// the contract will be triggered by a method
-		triggeredBy('clientIsTooYoung()')
+		triggeredBy('clientIsOldEnough()')
 	}
 	// output message of the contract
 	outputMessage {
@@ -27,7 +27,7 @@ then:
 		sentTo 'verifications'
 		// the body of the output message
 		body([
-				eligible: false
+				eligible: true
 		])
 	}
 }

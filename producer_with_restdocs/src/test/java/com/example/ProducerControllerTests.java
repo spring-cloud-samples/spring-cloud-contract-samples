@@ -1,7 +1,5 @@
 package com.example;
 
-import com.example.model.PersonToCheck;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,14 +9,12 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.cloud.contract.wiremock.restdocs.WireMockRestDocs.verify;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import com.example.model.PersonToCheck;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Marcin Grzejszczak
@@ -44,7 +40,19 @@ public class ProducerControllerTests {
 
 	@Test
 	public void should_grant_a_beer_when_person_is_old_enough() throws Exception {
-		PersonToCheck personToCheck = new PersonToCheck(34);
+
+	}
+
+	@Test
+	public void should_reject_a_beer_when_person_is_too_young() throws Exception {
+
+	}
+
+}
+
+/*
+
+PersonToCheck personToCheck = new PersonToCheck(34);
 		mockMvc.perform(MockMvcRequestBuilders.post("/check")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(personToCheck).getJson()))
@@ -53,10 +61,10 @@ public class ProducerControllerTests {
 						.jsonPath("$[?(@.age >= 20)]")
 						.contentType(MediaType.valueOf("application/json"))
 						.stub("shouldGrantABeerIfOldEnough"));
-	}
 
-	@Test
-	public void should_reject_a_beer_when_person_is_too_young() throws Exception {
+
+
+
 		PersonToCheck personToCheck = new PersonToCheck(10);
 		mockMvc.perform(MockMvcRequestBuilders.post("/check")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -66,6 +74,5 @@ public class ProducerControllerTests {
 						.jsonPath("$[?(@.age < 20)]")
 						.contentType(MediaType.valueOf("application/json"))
 						.stub("shouldRejectABeerIfTooYoung"));
-	}
 
-}
+ */

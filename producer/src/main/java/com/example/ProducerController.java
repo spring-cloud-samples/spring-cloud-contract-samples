@@ -19,10 +19,7 @@ public class ProducerController {
 			consumes="application/json",
 			produces="application/json")
 	public Response check(@RequestBody PersonToCheck personToCheck) {
-		if (personCheckingService.shouldGetBeer(personToCheck)) {
-			return new Response(BeerCheckStatus.OK);
-		}
-		return new Response(BeerCheckStatus.NOT_OK);
+		return null;
 	}
 	
 }
@@ -53,3 +50,10 @@ class Response {
 enum BeerCheckStatus {
 	OK, NOT_OK
 }
+
+/*
+		if (personCheckingService.shouldGetBeer(personToCheck)) {
+			return new Response(BeerCheckStatus.OK);
+		}
+		return new Response(BeerCheckStatus.NOT_OK);
+ */

@@ -38,3 +38,27 @@ public class BeerVerificationListenerTest extends AbstractTest {
 		then(listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
 	}
 }
+
+
+/*
+
+	@Autowired StubTrigger stubTrigger;
+	@Autowired BeerVerificationListener listener;
+
+	@Test public void should_increase_the_eligible_counter_when_im_old_enough() throws Exception {
+		int initialCounter = listener.eligibleCounter.get();
+
+		stubTrigger.trigger("accepted_verification");
+
+		then(listener.eligibleCounter.get()).isGreaterThan(initialCounter);
+	}
+
+	@Test public void should_increase_the_noteligible_counter_when_im_old_enough() throws Exception {
+		int initialCounter = listener.notEligibleCounter.get();
+
+		stubTrigger.trigger("rejected_verification");
+
+		then(listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
+	}
+
+ */

@@ -1,7 +1,6 @@
 package com.example;
 
 import org.springframework.cloud.stream.messaging.Source;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,11 +15,12 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 		this.source = source;
 	}
 
+	/**
+	 * Will send verification result to source
+	 */
 	@Override
 	public boolean shouldGetBeer(PersonToCheck personToCheck) {
-		boolean shouldGetBeer = personToCheck.age >= 20;
-		source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
-		return shouldGetBeer;
+		return false;
 	}
 
 	public static class Verification {
@@ -42,3 +42,11 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 		}
 	}
 }
+
+/*
+
+		boolean shouldGetBeer = personToCheck.age >= 20;
+		source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		return shouldGetBeer;
+
+ */
