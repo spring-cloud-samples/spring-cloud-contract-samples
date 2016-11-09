@@ -1,4 +1,4 @@
-package contracts.beer.rest
+package done.beer.rest
 
 import com.example.PatternUtils
 import org.springframework.cloud.contract.spec.Contract
