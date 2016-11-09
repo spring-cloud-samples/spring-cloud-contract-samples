@@ -48,6 +48,7 @@ contracts {
 		stringNotation = 'com.example:beer-contracts'
 	}
 	contractsWorkOffline = true
+	basePackageForTests = "com.example"
 	baseClassMappings {
 		baseClassMapping(".*beer-api-producer.*messaging.*", "com.example.BeerMessagingBase")
 		baseClassMapping(".*beer-api-producer.*rest.*", "com.example.BeerRestBase")

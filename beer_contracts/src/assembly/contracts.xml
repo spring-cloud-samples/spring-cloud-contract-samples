@@ -13,10 +13,12 @@
 			<useDefaultExcludes>true</useDefaultExcludes>
 			<excludes>
 				<exclude>**/${project.build.directory}/**</exclude>
-				<exclude>mvnw</exclude>
-				<exclude>mvnw.cmd</exclude>
-				<exclude>.mvn/**</exclude>
-				<exclude>src/**</exclude>
+				<exclude>**/mvnw</exclude>
+				<exclude>**/mvnw.cmd</exclude>
+				<exclude>**/.mvn/**</exclude>
+				<exclude>**/src/assembly/**</exclude>
+				<exclude>**/src/test/**</exclude>
+				<exclude>**/target/**</exclude>
 			</excludes>
 		</fileSet>
 	</fileSets>

@@ -10,11 +10,11 @@ you have to (from the root of the repo)
 
 [source,bash]
 ----
-cd com/example/server/
+cd src/main/resources/contracts/com/example/beer-api-producer-external/
 mvn clean install -DskipTests
 ----
 
-Then if you do `ls ./target` you'll see `server-0.0.1-SNAPSHOT-stubs.jar`. This jar will
+Then if you do `ls ./target` you'll see `beer-api-producer-external-0.0.1-SNAPSHOT-stubs.jar`. This jar will
  contain the stubs generated from your contracts. That way you
 can reference the `com.example:server:+:stubs` dependency in your consumer tests.
 
@@ -46,8 +46,8 @@ Example for Maven
         <!-- url not required for working locally -->
         <contractsWorkOffline>true<contractsWorkOffline>
         <contractDependency>
-            <groupId>com.example.standalone</groupId>
-            <artifactId>contracts</artifactId>
+            <groupId>com.example</groupId>
+            <artifactId>beer-contracts</artifactId>
         </contractDependency>
     </configuration>
 </plugin>
@@ -63,7 +63,7 @@ contracts {
     baseClassForTests = 'org.springframework.cloud.MvcSpec'
     contractsWorkOffline = true
     contractDependency {
-        stringNotation = "com.example:contracts"
+        stringNotation = "com.example:beer-contracts"
     }
 }
 ----
