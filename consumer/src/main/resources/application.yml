@@ -1,0 +1,4 @@
+spring:
+  application.name: beer-api-consumer
+  cloud.stream.bindings.input.destination: verifications
+server.port: ${PORT:8081}

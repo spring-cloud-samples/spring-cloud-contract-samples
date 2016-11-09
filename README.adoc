@@ -1,0 +1,77 @@
+= Spring Cloud Contract samples
+
+This repository contains the consumer and the producer applications to use with Spring Cloud Contract
+project. It shows examples of
+
+- storing contracts on the producer side
+- storing contracts in a common repo
+- passing stubs via Rest docs
+
+Both for REST and Messaging. Built with Maven and Gradle.
+Also some additional Spring Cloud Contract plugin configuration is present.
+
+== Projects
+
+=== Beer_contracts
+
+Contains the repo with all contracts for all applications. It can be used
+when you want to store all contracts in a single place.
+
+=== Producer
+
+The producer application contains contracts for both REST and messaging
+communication. From these contracts tests and stubs will be generated.
+
+=== Producer_with_external_contracts
+
+The producer application that downloads its contracts for both REST and messaging
+communication, from the `Beer-contracts` JAR. From these contracts tests and stubs will be generated.
+
+=== Producer_with_restdocs
+
+The producer application that uses both contracts and Spring Cloud Contract WireMock with RESTDocs.
+Contracts are used for messaging but the HTTP stubs are created via REST Docs tests.
+
+=== Consumer
+
+The consumer application is using the stubs of the producer for both
+rest and messaging.
+
+=== Consumer_with_restdocs
+
+The consumer application is using the stubs of the producer for both
+rest and messaging. The stubs come from the test compile dependency of the producer.
+
+== How to build it?
+
+You can run Maven from the root folder
+
+[source,bash]
+----
+./mvnw clean install
+----
+
+The order should be as follows
+
+- beer-contracts
+- producer
+- producer_with_external_contracts
+- consumer
+
+If the order is different then your apps will blow up most likely due to missing stubs.
+
+You can also go to each of the projects and run Gradle wrapper:
+
+[source,bash]
+----
+./gradlew clean build publishToMavenLocal
+----
+
+== How to test it?
+
+You can run the script
+
+[source,bash]
+----
+./scripts/runAcceptanceTests.sh
+----
