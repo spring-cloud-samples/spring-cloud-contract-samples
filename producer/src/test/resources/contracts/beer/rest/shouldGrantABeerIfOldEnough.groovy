@@ -12,10 +12,10 @@ when:
 then:
 	we'll grant him the beer
 """)
-		method 'POST'
-		url '/check'
+		method ''
+		url ''
 		body(
-				age: value(consumer(regex('[2-9][0-9]')))
+			[:]
 		)
 		headers {
 			header 'Content-Type', 'application/json'
@@ -24,9 +24,7 @@ then:
 	response {
 		status 200
 		body( """
-			{
-				"status": "OK"
-			}
+
 			""")
 		headers {
 			header(
