@@ -33,28 +33,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 // Broken for some reason
-//@AutoConfigureWireMock(stubs = "META-INF/com.example/beer-api-producer-restdocs", port = 8090)
+//@AutoConfigureWireMock(stubs = "classpath:/META-INF/com.example/beer-api-producer-restdocs/**/*.json", port = 8090)
 @AutoConfigureWireMock(port = 8090)
 public class BeerControllerTest extends AbstractTest {
 
-	@Autowired  MockMvc mockMvc;
-
-	@Value("classpath:META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/mappings/shouldGrantABeerIfOldEnough.json")
-	private Resource successful;
-
-	@Value("classpath:META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/mappings/shouldRejectABeerIfTooYoung.json")
-	private Resource rejected;
-
-	@Autowired
-	private WireMockServer server;
-
-	@Before
-	public void setupWireMock() throws IOException {
-		server.addStubMapping(StubMapping.buildFrom(StreamUtils.copyToString(
-				successful.getInputStream(), Charset.forName("UTF-8"))));
-		server.addStubMapping(StubMapping.buildFrom(StreamUtils.copyToString(
-				rejected.getInputStream(), Charset.forName("UTF-8"))));
-	}
+	@Autowired MockMvc mockMvc;
 
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
