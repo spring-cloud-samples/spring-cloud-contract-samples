@@ -54,6 +54,7 @@
 				<configuration>
 					<!-- By default it would search under src/test/resources/ -->
 					<contractsDirectory>${project.basedir}</contractsDirectory>
+					<excludedFiles>**/target/**/*.*</excludedFiles>
 				</configuration>
 			</plugin>
 		</plugins>
