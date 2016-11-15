@@ -50,8 +50,8 @@ contracts {
 	contractsWorkOffline = true
 	basePackageForTests = "com.example"
 	baseClassMappings {
-		baseClassMapping(".*beer-api-producer.*messaging.*", "com.example.BeerMessagingBase")
-		baseClassMapping(".*beer-api-producer.*rest.*", "com.example.BeerRestBase")
+		baseClassMapping(".*messaging.*", "com.example.BeerMessagingBase")
+		baseClassMapping(".*rest.*", "com.example.BeerRestBase")
 	}
 }
 
