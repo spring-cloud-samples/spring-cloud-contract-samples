@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>beer-api-producer</artifactId>
+	<artifactId>beer-api-producer-external</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>Beer API producer Stubs</name>
