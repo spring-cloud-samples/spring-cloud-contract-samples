@@ -24,7 +24,7 @@ public class ExternalBeerVerificationListenerTest extends AbstractTest {
 	@Autowired StubTrigger stubTrigger;
 	@Autowired BeerVerificationListener listener;
 
-	@Test public void should_increase_the_eligible_counter_when_im_old_enough() throws Exception {
+	@Test public void should_increase_the_eligible_counter_when_positive_verification_takes_place() throws Exception {
 		int initialCounter = listener.eligibleCounter.get();
 
 		stubTrigger.trigger("accepted_verification");
@@ -32,7 +32,7 @@ public class ExternalBeerVerificationListenerTest extends AbstractTest {
 		then(listener.eligibleCounter.get()).isGreaterThan(initialCounter);
 	}
 
-	@Test public void should_increase_the_noteligible_counter_when_im_old_enough() throws Exception {
+	@Test public void should_increase_the_noteligible_counter_when_negative_verification_takes_place() throws Exception {
 		int initialCounter = listener.notEligibleCounter.get();
 
 		stubTrigger.trigger("rejected_verification");
