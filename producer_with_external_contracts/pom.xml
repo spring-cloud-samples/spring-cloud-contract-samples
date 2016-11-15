@@ -78,11 +78,11 @@
 				<configuration>
 					<baseClassMappings>
 						<baseClassMapping>
-							<contractPackageRegex>.*beer-api-producer.*messaging.*</contractPackageRegex>
+							<contractPackageRegex>.*messaging.*</contractPackageRegex>
 							<baseClassFQN>com.example.BeerMessagingBase</baseClassFQN>
 						</baseClassMapping>
 						<baseClassMapping>
-							<contractPackageRegex>.*beer-api-producer.*rest.*</contractPackageRegex>
+							<contractPackageRegex>.*rest.*</contractPackageRegex>
 							<baseClassFQN>com.example.BeerRestBase</baseClassFQN>
 						</baseClassMapping>
 					</baseClassMappings>
