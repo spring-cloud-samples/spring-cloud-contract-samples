@@ -58,9 +58,6 @@ and for Gradle:
 [source,groovy]
 ----
 contracts {
-    targetFramework = 'Spock'
-    testMode = 'JaxRsClient'
-    baseClassForTests = 'org.springframework.cloud.MvcSpec'
     contractsWorkOffline = true
     contractDependency {
         stringNotation = "com.example:beer-contracts"
