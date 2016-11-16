@@ -59,6 +59,8 @@ The order should be as follows
 - producer
 - producer_with_external_contracts
 - consumer
+- producer_with_restdocs
+- consumer_with_restdocs
 
 If the order is different then your apps will blow up most likely due to missing stubs.
 
