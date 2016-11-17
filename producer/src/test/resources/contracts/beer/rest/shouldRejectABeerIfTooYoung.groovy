@@ -1,8 +1,13 @@
 package contracts.beer.rest
 
-org.springframework.cloud.contract.spec.Contract.make {
-	request {
-		description("""
+import com.example.RegexTrait
+import org.springframework.cloud.contract.spec.Contract
+
+class Helper implements RegexTrait {
+	Contract build() {
+		Contract.make {
+			request {
+				description("""
 Represents a unsuccessful scenario of getting a beer
 
 given:
@@ -12,26 +17,30 @@ when:
 then:
 	we'll NOT grant him the beer
 """)
-		method 'POST'
-		url '/check'
-		body(
-				age: value(consumer(regex('[0-1][0-9]')))
-		)
-		headers {
-			header 'Content-Type', 'application/json'
-		}
-	}
-	response {
-		status 200
-		body( """
+				method 'POST'
+				url '/check'
+				body(
+						age: value(consumer(tooYoung()))
+				)
+				headers {
+					header 'Content-Type', 'application/json'
+				}
+			}
+			response {
+				status 200
+				body( """
 			{
 				"status": "NOT_OK"
 			}
 			""")
-		headers {
-			header(
-					'Content-Type', value(consumer('application/json'),producer(regex('application/json.*')))
-			)
+				headers {
+					header(
+							'Content-Type', value(consumer('application/json'),producer(regex('application/json.*')))
+					)
+				}
+			}
 		}
 	}
 }
+
+new Helper().build()

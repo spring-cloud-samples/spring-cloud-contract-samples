@@ -12,6 +12,7 @@
     <description>Spring Cloud Contract Samples</description>
 
     <modules>
+		<module>common</module>
 		<module>beer_contracts</module>
 		<module>producer</module>
 		<module>producer_with_external_contracts</module>
