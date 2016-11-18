@@ -1,6 +1,11 @@
 package contracts.beer.rest
 
-org.springframework.cloud.contract.spec.Contract.make {
+import org.springframework.cloud.contract.spec.Contract
+
+import static com.example.ConsumerUtils.oldEnough
+import static com.example.ProducerUtils.ok
+
+Contract.make {
 	request {
 		description("""
 Represents a successful scenario of getting a beer
@@ -15,7 +20,7 @@ then:
 		method 'POST'
 		url '/check'
 		body(
-				age: value(consumer(regex('[2-9][0-9]')))
+				age: $(oldEnough())
 		)
 		headers {
 			header 'Content-Type', 'application/json'
@@ -23,9 +28,9 @@ then:
 	}
 	response {
 		status 200
-		body( """
+		body("""
 			{
-				"status": "OK"
+				"status": "${value(ok())}"
 			}
 			""")
 		headers {
