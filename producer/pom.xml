@@ -95,7 +95,7 @@
 						<groupId>com.example</groupId>
 						<artifactId>beer-common</artifactId>
 						<version>${project.version}</version>
-						<scope>runtime</scope>
+						<scope>compile</scope>
 					</dependency>
 				</dependencies>
 			</plugin>

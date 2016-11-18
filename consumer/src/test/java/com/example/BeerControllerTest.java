@@ -1,5 +1,9 @@
 package com.example;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 /**
  * @author Marcin Grzejszczak
  */
@@ -26,7 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8090")
 public class BeerControllerTest extends AbstractTest {
 
-	@Autowired  MockMvc mockMvc;
+	@Autowired MockMvc mockMvc;
+	@Autowired BeerController beerController;
+
+	@Before
+	public void setupPort() {
+		beerController.port = 8090;
+	}
 
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
