@@ -6,11 +6,13 @@ buildscript {
 		maven { url "http://repo.spring.io/milestone" }
 		maven { url "http://repo.spring.io/release" }
 	}
+	// tag::test_dep_in_plugin[]
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE"
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
 		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
 	}
+	// end::test_dep_in_plugin[]
 }
 
 group = 'com.example'
@@ -42,7 +44,9 @@ dependencies {
 
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
+	// tag::test_dep[]
 	testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
+	// end::test_dep[]
 }
 
 contracts {
