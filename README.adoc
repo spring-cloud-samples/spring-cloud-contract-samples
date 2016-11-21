@@ -14,6 +14,10 @@ Also some additional Spring Cloud Contract plugin configuration is present.
 
 == Projects
 
+=== Common
+
+Contains the JAR with common classes used in the contracts on the producer side.
+
 === Beer_contracts
 
 Contains the repo with all contracts for all applications. It can be used
@@ -55,6 +59,7 @@ You can run Maven from the root folder
 
 The order should be as follows
 
+- common
 - beer-contracts
 - producer
 - producer_with_external_contracts
