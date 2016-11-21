@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
-
+rm -rf ~/.m2/repository/com/example/
 ROOT=`pwd`
 
 cat <<'EOF'
@@ -18,8 +18,13 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-rm -rf ~/.m2/repository/com/example/
+echo -e "\n\nInstalling common\n\n"
+cd ${ROOT}/common
 ./mvnw clean install
+cd ${ROOT}
+
+echo -e "\n\nBuilding everything\n\n"
+./mvnw clean install -Ptest
 
 
 cat <<'EOF'
@@ -76,6 +81,7 @@ echo -e "\n\nBuilding the external contracts jar\n\n"
 cd "${ROOT}/beer_contracts"
 ./mvnw clean install
 
+build common
 build producer
 build producer_with_external_contracts
 build producer_with_restdocs

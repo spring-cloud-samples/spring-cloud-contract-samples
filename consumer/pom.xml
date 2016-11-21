@@ -62,6 +62,12 @@
 			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>beer-common</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

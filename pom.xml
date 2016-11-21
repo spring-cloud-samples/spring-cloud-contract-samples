@@ -11,15 +11,6 @@
     <name>Spring Cloud Contract Samples</name>
     <description>Spring Cloud Contract Samples</description>
 
-    <modules>
-		<module>beer_contracts</module>
-		<module>producer</module>
-		<module>producer_with_external_contracts</module>
-		<module>producer_with_restdocs</module>
-		<module>consumer</module>
-		<module>consumer_with_restdocs</module>
-	</modules>
-
  	<build>
 		<plugins>
 	        <plugin>
@@ -30,5 +21,37 @@
 	        </plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>common</module>
+				<module>beer_contracts</module>
+				<module>producer</module>
+				<module>producer_with_external_contracts</module>
+				<module>producer_with_restdocs</module>
+				<module>consumer</module>
+				<module>consumer_with_restdocs</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>test</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<modules>
+				<module>beer_contracts</module>
+				<module>producer</module>
+				<module>producer_with_external_contracts</module>
+				<module>producer_with_restdocs</module>
+				<module>consumer</module>
+				<module>consumer_with_restdocs</module>
+			</modules>
+		</profile>
+	</profiles>
 
 </project>

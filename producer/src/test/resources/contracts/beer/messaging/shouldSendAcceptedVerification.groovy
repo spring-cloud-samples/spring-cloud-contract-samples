@@ -1,6 +1,12 @@
 package contracts.beer.messaging
 
-org.springframework.cloud.contract.spec.Contract.make {
+import com.example.ProducerUtils
+import org.springframework.cloud.contract.spec.Contract
+
+// only to see if it works on both sides
+ProducerUtils producerUtils = new ProducerUtils()
+
+Contract.make {
 	description("""
 Sends a positive verification message when person is eligible to get the beer
 

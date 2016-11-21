@@ -9,6 +9,7 @@ buildscript {
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE"
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
+		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
 	}
 }
 
@@ -41,6 +42,7 @@ dependencies {
 
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
+	testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
 }
 
 contracts {
