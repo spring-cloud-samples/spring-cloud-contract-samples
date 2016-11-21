@@ -25,8 +25,10 @@
 		<spring-cloud.version>Camden.BUILD-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>1.0.2.BUILD-SNAPSHOT</spring-cloud-contract.version>
 
+		<!-- tag::skip_jar[] -->
 		<!-- we don't want the verifier to do a jar for us -->
 		<spring.cloud.contract.verifier.skip>true</spring.cloud.contract.verifier.skip>
+		<!-- end::skip_jar[] -->
 	</properties>
 
 	<dependencies>
@@ -100,6 +102,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<!-- tag::assembly[] -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -118,6 +121,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- end::assembly[] -->
 			<!-- SPRING CLOUD CONTRACT -->
 
 		</plugins>
