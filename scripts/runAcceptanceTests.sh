@@ -20,11 +20,11 @@ EOF
 
 echo -e "\n\nInstalling common\n\n"
 cd ${ROOT}/common
-./mvnw clean install
+./mvnw clean install -U
 cd ${ROOT}
 
 echo -e "\n\nBuilding everything\n\n"
-./mvnw clean install -Ptest
+./mvnw clean install -Ptest -U
 
 
 cat <<'EOF'
@@ -48,7 +48,7 @@ echo -e "\n\nBuilding only the subset of contracts\n\n"
 cd "${ROOT}/beer_contracts/src/main/resources/contracts/com/example/beer-api-producer-external"
 cp "${ROOT}/mvnw" .
 cp -r "${ROOT}/.mvn" .
-./mvnw clean install -DskipTests
+./mvnw clean install -DskipTests -U
 
 rm -rf ~/.m2/repository/com/example/
 
@@ -79,7 +79,7 @@ function build() {
 
 echo -e "\n\nBuilding the external contracts jar\n\n"
 cd "${ROOT}/beer_contracts"
-./mvnw clean install
+./mvnw clean install -U
 
 build common
 build producer
