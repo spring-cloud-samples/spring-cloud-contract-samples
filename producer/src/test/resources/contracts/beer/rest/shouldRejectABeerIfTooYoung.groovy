@@ -19,10 +19,10 @@ we'll NOT grant him the beer
 		method 'POST'
 		url '/check'
 		body(
-				age: value(consumer(tooYoung()))
+				age: $(c(tooYoung()))
 		)
 		headers {
-			header 'Content-Type', 'application/json'
+			contentType(applicationJson())
 		}
 	}
 	response {
@@ -33,9 +33,7 @@ we'll NOT grant him the beer
 	}
 	""")
 		headers {
-			header(
-					'Content-Type', value(consumer('application/json'),producer(regex('application/json.*')))
-			)
+			contentType(applicationJson())
 		}
 	}
 }
