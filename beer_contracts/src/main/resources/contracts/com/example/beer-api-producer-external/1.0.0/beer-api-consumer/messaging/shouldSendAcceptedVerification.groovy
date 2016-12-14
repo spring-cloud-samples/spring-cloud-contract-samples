@@ -14,6 +14,7 @@ then:
 ```
 
 """)
+	ignored()
 	// Label by means of which the output message can be triggered
 	label 'accepted_verification'
 	// input to the contract

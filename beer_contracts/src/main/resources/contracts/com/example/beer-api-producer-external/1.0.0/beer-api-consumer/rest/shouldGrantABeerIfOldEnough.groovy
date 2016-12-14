@@ -15,10 +15,10 @@ then:
 		method 'POST'
 		url '/check'
 		body(
-				age: value(consumer(regex('[2-9][0-9]')))
+				age: $(regex('[2-9][0-9]'))
 		)
 		headers {
-			header 'Content-Type', 'application/json'
+			contentType(applicationJson())
 		}
 	}
 	response {
@@ -29,9 +29,7 @@ then:
 			}
 			""")
 		headers {
-			header(
-					'Content-Type', value(consumer('application/json'),producer(regex('application/json.*')))
-			)
+			contentType(applicationJson())
 		}
 	}
 }
