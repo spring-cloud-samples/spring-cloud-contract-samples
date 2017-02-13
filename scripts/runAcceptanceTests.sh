@@ -1,7 +1,48 @@
 #!/bin/bash
 
 set -o errexit
-rm -rf ~/.m2/repository/com/example/
+
+function build_maven() {
+    echo -e "\n\nInstalling common\n\n"
+    cd ${ROOT}/common
+    ./mvnw clean install -U
+    cd ${ROOT}
+
+    echo -e "\n\nBuilding everything\n\n"
+    ./mvnw clean install -Ptest -U
+}
+
+function clean() {
+    rm -rf ~/.m2/repository/com/example/
+    rm -rf ~/.gradle/caches/modules-2/files-2.1/com.example/
+}
+
+function build() {
+    local folder="${1}"
+    echo -e "\n\nBuilding ${folder}\n\n"
+    cd "${ROOT}/${folder}"
+    ./gradlew clean build publishToMavenLocal
+    cd "${ROOT}"
+}
+
+function build_gradle() {
+    clean
+
+    echo -e "\n\nBuilding the external contracts jar\n\n"
+    cd "${ROOT}/beer_contracts"
+    ./mvnw clean install -U
+
+    build common
+    build producer
+    build producer_with_external_contracts
+    build producer_with_restdocs
+    build consumer
+    build consumer_with_restdocs
+    return 0
+}
+
+
+clean
 ROOT=`pwd`
 RETRIES=3
 
@@ -19,14 +60,15 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-echo -e "\n\nInstalling common\n\n"
-cd ${ROOT}/common
-./mvnw clean install -U
-cd ${ROOT}
-
-echo -e "\n\nBuilding everything\n\n"
-./mvnw clean install -Ptest -U
-
+for i in $( seq 1 "${RETRIES}" ); do
+    echo "Attempt #$i/${RETRIES}..."
+    if build_maven; then
+    echo "Tests succeeded!"
+        break;
+    else
+        echo "Fail #$i/${RETRIES}... will try again"
+    fi
+done
 
 cat <<'EOF'
  .----------------.  .----------------.  .-----------------. .----------------.  .----------------.  .----------------.
@@ -51,8 +93,7 @@ cp "${ROOT}/mvnw" .
 cp -r "${ROOT}/.mvn" .
 ./mvnw clean install -DskipTests -U
 
-rm -rf ~/.m2/repository/com/example/
-
+clean
 
 cat <<'EOF'
  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.
@@ -68,30 +109,6 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-function build() {
-    local folder="${1}"
-    echo -e "\n\nBuilding ${folder}\n\n"
-    cd "${ROOT}/${folder}"
-    ./gradlew clean build publishToMavenLocal
-    cd "${ROOT}"
-}
-
-function build_gradle() {
-    rm -rf ~/.m2/repository/com/example/
-    rm -rf ~/.gradle/caches/modules-2/files-2.1/com.example/
-
-    echo -e "\n\nBuilding the external contracts jar\n\n"
-    cd "${ROOT}/beer_contracts"
-    ./mvnw clean install -U
-
-    build common
-    build producer
-    build producer_with_external_contracts
-    build producer_with_restdocs
-    build consumer
-    build consumer_with_restdocs
-    return 0
-}
 
 for i in $( seq 1 "${RETRIES}" ); do
     echo "Attempt #$i/${RETRIES}..."
