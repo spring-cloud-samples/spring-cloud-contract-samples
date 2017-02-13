@@ -1,8 +1,9 @@
 #!/bin/bash
 
-set -e
+set -o errexit
 rm -rf ~/.m2/repository/com/example/
 ROOT=`pwd`
+RETRIES=3
 
 cat <<'EOF'
  .----------------.  .----------------.  .----------------.  .----------------.  .-----------------.
@@ -67,8 +68,6 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-rm -rf ~/.m2/repository/com/example/
-
 function build() {
     local folder="${1}"
     echo -e "\n\nBuilding ${folder}\n\n"
@@ -77,13 +76,29 @@ function build() {
     cd "${ROOT}"
 }
 
-echo -e "\n\nBuilding the external contracts jar\n\n"
-cd "${ROOT}/beer_contracts"
-./mvnw clean install -U
+function build_gradle() {
+    rm -rf ~/.m2/repository/com/example/
+    rm -rf ~/.gradle/caches/modules-2/files-2.1/com.example/
 
-build common
-build producer
-build producer_with_external_contracts
-build producer_with_restdocs
-build consumer
-build consumer_with_restdocs
+    echo -e "\n\nBuilding the external contracts jar\n\n"
+    cd "${ROOT}/beer_contracts"
+    ./mvnw clean install -U
+
+    build common
+    build producer
+    build producer_with_external_contracts
+    build producer_with_restdocs
+    build consumer
+    build consumer_with_restdocs
+    return 0
+}
+
+for i in $( seq 1 "${RETRIES}" ); do
+    echo "Attempt #$i/${RETRIES}..."
+    if build_gradle; then
+    echo "Tests succeeded!"
+        exit 0
+    else
+        echo "Fail #$i/${RETRIES}... will try again"
+    fi
+done
