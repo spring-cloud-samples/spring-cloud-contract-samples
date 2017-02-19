@@ -43,6 +43,12 @@ Contracts are used for messaging but the HTTP stubs are created via REST Docs te
 The consumer application is using the stubs of the producer for both
 rest and messaging.
 
+=== Consumer_with_discovery
+
+The consumer application is using the stubs of the producer for rest. It sends requests
+via a load balanced rest template. In the tests Spring Cloud Contract stubs out
+ any discovery service infrastructure.
+
 === Consumer_with_restdocs
 
 The consumer application is using the stubs of the producer for both
