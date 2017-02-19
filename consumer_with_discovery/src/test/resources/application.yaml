@@ -1,0 +1,3 @@
+stubrunner:
+  idsToServiceIds:
+    beer-api-producer: somenameforconsumer
