@@ -70,6 +70,7 @@ The order should be as follows
 - producer
 - producer_with_external_contracts
 - consumer
+- consumer_with_discovery
 - producer_with_restdocs
 - consumer_with_restdocs
 
