@@ -35,6 +35,7 @@
 				<module>producer_with_external_contracts</module>
 				<module>producer_with_restdocs</module>
 				<module>consumer</module>
+				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
 			</modules>
 		</profile>
@@ -49,6 +50,7 @@
 				<module>producer_with_external_contracts</module>
 				<module>producer_with_restdocs</module>
 				<module>consumer</module>
+				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
 			</modules>
 		</profile>
