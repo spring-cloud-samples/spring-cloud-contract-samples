@@ -12,6 +12,11 @@ project. It shows examples of
 Both for REST and Messaging. Built with Maven and Gradle.
 Also some additional Spring Cloud Contract plugin configuration is present.
 
+These samples were used in the following presentation. It might help to use the samples.
+
+- https://goo.gl/qhVmg3[SlideShare]
+- https://www.youtube.com/watch?v=sAAklvxmPmk[YouTube]
+
 == Projects
 
 === Common
