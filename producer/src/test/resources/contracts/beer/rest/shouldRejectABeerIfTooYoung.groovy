@@ -19,10 +19,13 @@ we'll NOT grant him the beer
 		method 'POST'
 		url '/check'
 		body(
-				age: $(c(tooYoung()))
+				age: 10
 		)
 		headers {
 			contentType(applicationJson())
+		}
+		stubMatchers {
+			jsonPath('$.age', byRegex(tooYoung()))
 		}
 	}
 	response {
@@ -34,6 +37,9 @@ we'll NOT grant him the beer
 	""")
 		headers {
 			contentType(applicationJson())
+		}
+		testMatchers {
+			jsonPath('$.status', byType())
 		}
 	}
 }

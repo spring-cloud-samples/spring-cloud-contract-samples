@@ -32,6 +32,9 @@ when you want to store all contracts in a single place.
 The producer application contains contracts for both REST and messaging
 communication. From these contracts tests and stubs will be generated.
 
+The producer in the contract also uses features like usage of common libraries, different
+combination of dynamic properties.
+
 === Producer_with_external_contracts
 
 The producer application that downloads its contracts for both REST and messaging
