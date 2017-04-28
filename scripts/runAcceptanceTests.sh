@@ -91,7 +91,7 @@ echo -e "\n\nBuilding beer_contracts\n\n"
 cd "${ROOT}/beer_contracts"
 
 echo -e "\n\nBuilding only the subset of contracts\n\n"
-cd "${ROOT}/beer_contracts/src/main/resources/contracts/com/example/beer-api-producer-external"
+cd "${ROOT}/beer_contracts/src/main/resources/contracts/com/example/beer-api-producer-external/1.0.0"
 cp "${ROOT}/mvnw" .
 cp -r "${ROOT}/.mvn" .
 ./mvnw clean install -DskipTests -U
