@@ -1,0 +1,54 @@
+package com.example;
+
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class BeerServingController {
+
+	private final ResponseProvider responseProvider;
+
+	public BeerServingController(ResponseProvider responseProvider) {
+		this.responseProvider = responseProvider;
+	}
+
+	@RequestMapping(value = "/beer",
+			method=RequestMethod.POST,
+			consumes="application/json",
+			produces="application/json")
+	public Response check(@RequestBody Customer customer) {
+		return this.responseProvider.thereYouGo(customer);
+	}
+	
+}
+
+interface ResponseProvider {
+	Response thereYouGo(Customer personToCheck);
+}
+
+class Customer {
+	public String name;
+
+	public Customer(String name) {
+		this.name = name;
+	}
+
+	public Customer() {
+	}
+}
+
+class Response {
+	public DrunkLevel previousStatus;
+	public DrunkLevel currentStatus;
+
+	public Response(DrunkLevel previousStatus, DrunkLevel currentStatus) {
+		this.previousStatus = previousStatus;
+		this.currentStatus = currentStatus;
+	}
+}
+
+enum DrunkLevel {
+	SOBER, TIPSY, DRUNK, WASTED
+}

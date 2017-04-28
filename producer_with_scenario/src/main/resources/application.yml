@@ -1,0 +1,3 @@
+spring:
+    application.name: beer-api-producer
+server.port: ${PORT:8080}
