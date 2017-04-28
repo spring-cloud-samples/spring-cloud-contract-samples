@@ -90,7 +90,6 @@
 						<groupId>com.example</groupId>
 						<artifactId>beer-contracts</artifactId>
 					</contractDependency>
-					<!-- Can't turn this on cause NPE will be thrown ;) -->
 					<contractsWorkOffline>true</contractsWorkOffline>
 					<basePackageForTests>com.example</basePackageForTests>
 				</configuration>
