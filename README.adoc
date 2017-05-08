@@ -1,9 +1,14 @@
-image:https://circleci.com/gh/spring-cloud-samples/spring-cloud-contract-samples.svg?style=svg["CircleCI", link="https://circleci.com/gh/spring-cloud-samples/spring-cloud-contract-samples"]
+image:https://circleci.com/gh/spring-cloud-samples/spring-cloud-contract-samples/tree/1.0.x.svg?style=svg["CircleCI", link="https://circleci.com/gh/spring-cloud-samples/spring-cloud-contract-samples/tree/1.0.x"]
 
 = Spring Cloud Contract samples
 
 This repository contains the consumer and the producer applications to use with Spring Cloud Contract
-project. It shows examples of
+project.
+
+It contains 2 important branches. `master` where we test against the latest versions of
+Spring Cloud Contract, and `1.0.x` where we test against `1.0.x` versions of Spring Cloud Contract.
+
+This repository shows examples of
 
 - storing contracts on the producer side
 - storing contracts in a common repo
@@ -45,6 +50,17 @@ communication, from the `Beer-contracts` JAR. From these contracts tests and stu
 The producer application that uses both contracts and Spring Cloud Contract WireMock with RESTDocs.
 Contracts are used for messaging but the HTTP stubs are created via REST Docs tests.
 
+=== Producer_with_scenarios
+
+The producer application that uses scenario based contracts. That means that the produced
+stubs are stateful.
+
+=== Producer_with_stubs_per_consumer
+
+The producer application stores the contracts in such way that every consumer has its
+own, delegated folder. Then on the consumer side by turning on the stubs per consumer
+feature only respective stubs for the given consumer will be used.
+
 === Consumer
 
 The consumer application is using the stubs of the producer for both
@@ -60,6 +76,16 @@ via a load balanced rest template. In the tests Spring Cloud Contract stubs out
 
 The consumer application is using the stubs of the producer for both
 rest and messaging. The stubs come from the test compile dependency of the producer.
+
+=== Consumer_with_scenario
+
+The consumer side of the stateful scenario case. By calling the same endpoint a couple
+of times we get different responses due to changing state.
+
+=== Consumer_with_stubs_per_consumer
+
+The consumer application that has the stub of the HTTP server get fed with stubs that
+lay under proper folder in the reused JAR.
 
 == How to build it?
 
