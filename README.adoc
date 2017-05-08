@@ -1,4 +1,4 @@
-image:https://circleci.com/gh/spring-cloud-samples/spring-cloud-contract-samples/tree/1.0.x.svg?style=svg["CircleCI", link="https://circleci.com/gh/spring-cloud-samples/spring-cloud-contract-samples/tree/1.0.x"]
+image:https://circleci.com/gh/spring-cloud-samples/spring-cloud-contract-samples.svg?style=svg["CircleCI", link="https://circleci.com/gh/spring-cloud-samples/spring-cloud-contract-samples"]
 
 = Spring Cloud Contract samples
 
