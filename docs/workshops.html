@@ -422,13 +422,153 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Spring Cloud Contract Workshops</h1>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>This documentation will allow you to go through Spring Cloud Contract Workshops by completing
+a series of tasks that will teach you the basic and more advanced concept behind Consumer Driven Contracts
+and Spring Cloud Contract as such.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_workshop_setup">Workshop setup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The repository mostly consists of pairs of <code>producer</code> and <code>consumer</code> applications that show
+different use cases of Spring Cloud Contract. The initial state of the repository
+is such that all the examples are working and the tests are passing. In order for you to prepare
+the repository so it has only the basic pieces of code set up execute this Gradle command</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">./gradlew prepareForWorkshops</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command will remove most of the code / contracts / project setup so that you can start
+with the workshops.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Whenever your lost - don&#8217;t worry. It&#8217;s enough to check what&#8217;s there in the <code>master</code> branch
+where all of the examples are ready and working.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_workshop_tasks">Workshop tasks</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Introduction to Consumer Driven Contracts</p>
+</li>
+<li>
+<p>Introduction to Spring Cloud Contract</p>
+<div class="ulist">
+<ul>
+<li>
+<p>what modules does Spring Cloud Contract consist of (Verifier, Stub Runner)</p>
+</li>
+<li>
+<p>description of what the DSL contains for HTTP and Messaging</p>
+</li>
+<li>
+<p>automatic test generation from DSL</p>
+</li>
+<li>
+<p>ways of defining base classes for the generated tests</p>
+</li>
+<li>
+<p>how to work with Rest Docs</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Contracts on the producer side (in pairs)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>simple DSL examples for HTTP &amp; Messaging</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Contracts that lay in an external repository (in pairs)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>simple DSL examples for HTTP &amp; Messaging</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Spring Cloud Contract with Rest Docs (in pairs)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>generating stubs using Rest Docs</p>
+</li>
+<li>
+<p>generating contracts using Rest Docs</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Contracts on the producer side (single person teams)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>more sophisticated DSL manipulations (regexs, code execution, referencing request from response)</p>
+</li>
+<li>
+<p>working with stub and test matchers</p>
+</li>
+<li>
+<p>contracts representing scenarios (stateful stubs)</p>
+</li>
+<li>
+<p>creating a library with common code shareable between teams</p>
+</li>
+<li>
+<p>stubbing out service discovery</p>
+</li>
+<li>
+<p>stubs per consumer feature</p>
+</li>
+<li>
+<p>classpath scanning</p>
+</li>
+<li>
+<p>using JUnit rule</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Stub Runner Boot</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-05-10 14:49:35 CEST
+Last updated 2017-05-10 15:35:53 CEST
 </div>
 </div>
 </body>
