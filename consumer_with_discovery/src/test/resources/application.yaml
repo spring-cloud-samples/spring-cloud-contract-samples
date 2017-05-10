@@ -1,3 +1,5 @@
 stubrunner:
   idsToServiceIds:
+    # remove::start[]
     beer-api-producer: somenameforconsumer
+    # remove::end[]

@@ -19,12 +19,14 @@ public class ProducerController {
 			consumes="application/json",
 			produces="application/json")
 	public Response check(@RequestBody PersonToCheck personToCheck) {
+		//remove::start[]
 		if (personCheckingService.shouldGetBeer(personToCheck)) {
 			return new Response(BeerCheckStatus.OK);
 		}
 		return new Response(BeerCheckStatus.NOT_OK);
+		//remove::end[]
 	}
-	
+
 }
 
 interface PersonCheckingService {
@@ -32,6 +34,7 @@ interface PersonCheckingService {
 }
 
 class PersonToCheck {
+	//remove::start[]
 	public int age;
 
 	public PersonToCheck(int age) {
@@ -40,11 +43,12 @@ class PersonToCheck {
 
 	public PersonToCheck() {
 	}
+	//remove::end[]
 }
 
 class Response {
 	public BeerCheckStatus status;
-	
+
 	Response(BeerCheckStatus status) {
 		this.status = status;
 	}
