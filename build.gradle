@@ -1,0 +1,15 @@
+wrapper {
+    gradleVersion '3.4.1'
+}
+
+// Workshop tasks
+task removeFiles(type: Delete) {
+    group = "Workshop tasks"
+    description = "Removes unnecessary Groovy code"
+    List<String> folders = ['producer', 'producer_with_scenario',
+    'producer_with_restdocs', 'producer_with_stubs_per_consumer'].collect {
+        "${it}/src/test/resources/contracts/"
+    }
+    delete folders
+    delete 'beer_contracts/src/main/resources/contracts/'
+}
