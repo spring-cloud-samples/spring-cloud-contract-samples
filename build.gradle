@@ -3,13 +3,43 @@ wrapper {
 }
 
 // Workshop tasks
-task removeFiles(type: Delete) {
+task removeContracts(type: Delete) {
     group = "Workshop tasks"
-    description = "Removes unnecessary Groovy code"
-    List<String> folders = ['producer', 'producer_with_scenario',
-    'producer_with_restdocs', 'producer_with_stubs_per_consumer'].collect {
+    description = "Removes all contracts"
+    List<String> producers =  ['producer', 'producer_with_scenario',
+                               'producer_with_restdocs', 'producer_with_stubs_per_consumer']
+    List<String> folders = producers.collect {
         "${it}/src/test/resources/contracts/"
     }
     delete folders
     delete 'beer_contracts/src/main/resources/contracts/'
+}
+
+task removeTextFromFiles() {
+    group = "Workshop tasks"
+    description = "Removes written implementation"
+    doLast {
+        FileTree tree = fileTree(dir: '.', include: '**/*.java')
+        tree.each { File file ->
+            String text = file.text
+            if (!text.contains("remove::start")) {
+                return
+            }
+            StringBuilder newString = new StringBuilder()
+            boolean remove = false
+            text.eachLine { String line ->
+                if (line.contains("remove::end")) {
+                    remove = false
+                }
+                if (!remove) {
+                    if (line.contains("remove::start")) {
+                        remove = true
+                    } else if (!line.contains("remove::end")) {
+                        newString.append(line).append("\n")
+                    }
+                }
+            }
+            file.text = newString.toString()
+        }
+    }
 }
