@@ -27,19 +27,23 @@ public class BeerVerificationListenerWithConsumerNameTest extends AbstractTest {
 	@Autowired StubTrigger stubTrigger;
 	@Autowired BeerVerificationListener listener;
 
-	@Test public void should_increase_the_eligible_counter_when_im_old_enough() throws Exception {
+	@Test public void should_increase_the_eligible_counter_when_verification_was_accepted() throws Exception {
+		//remove::start[]
 		int initialCounter = listener.eligibleCounter.get();
 
 		stubTrigger.trigger("accepted_verification");
 
 		then(listener.eligibleCounter.get()).isGreaterThan(initialCounter);
+		//remove::end[]
 	}
 
-	@Test public void should_increase_the_noteligible_counter_when_im_old_enough() throws Exception {
+	@Test public void should_increase_the_noteligible_counter_when_verification_was_rejected() throws Exception {
+		//remove::start[]
 		int initialCounter = listener.notEligibleCounter.get();
 
 		stubTrigger.trigger("rejected_verification");
 
 		then(listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
+		//remove::end[]
 	}
 }

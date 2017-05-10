@@ -1,6 +1,10 @@
 package com.example;
 
 import com.example.model.PersonToCheck;
+
+import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
+
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.verifier.messaging.MessageVerifier;
 import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.inject.Inject;
-import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -28,11 +29,15 @@ public abstract class BeerMessagingBase {
 	}
 
 	public void clientIsOldEnough() {
+		//remove::start[]
 		personCheckingService.shouldGetBeer(new PersonToCheck(25));
+		//remove::end[]
 	}
 
 	public void clientIsTooYoung() {
+		//remove::start[]
 		personCheckingService.shouldGetBeer(new PersonToCheck(5));
+		//remove::end[]
 	}
 	
 }
