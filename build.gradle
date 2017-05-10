@@ -21,12 +21,19 @@ wrapper {
 // Documentation tasks
 task generateMainReadme(type: JRubyExec) {
     group = "Documentation"
-    description = "Creates the README.md for the project"
+    description = "Creates the README.adoc for the project"
     script "${projectDir}/docs/coalesce-readme.rb"
     scriptArgs "-i ${projectDir}/docs/README.adoc", "-o ${projectDir}/README.adoc"
 }
 
-task generateIndex(type: JRubyExec) {
+task generateWorkshopsReadme(type: JRubyExec) {
+    group = "Documentation"
+    description = "Creates the workshops.html"
+    script "${projectDir}/docs/generate-index.rb"
+    scriptArgs "${projectDir}/docs/workshops.adoc"
+}
+
+task generateIndex(type: JRubyExec, dependsOn: ["generateWorkshopsReadme"]) {
     group = "Documentation"
     description = "Creates the index.html"
     script "${projectDir}/docs/generate-index.rb"
