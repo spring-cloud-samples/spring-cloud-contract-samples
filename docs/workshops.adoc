@@ -1,3 +1,7 @@
+:toc: left
+:toclevels: 8
+:nofooter:
+
 = Spring Cloud Contract Workshops
 
 This documentation will allow you to go through Spring Cloud Contract Workshops by completing
@@ -22,15 +26,15 @@ with the workshops.
 TIP: Whenever your lost - don't worry. It's enough to check what's there in the `master` branch
 where all of the examples are ready and working.
 
-== Workshop tasks
+TIP: You can start with any task - you don't have to do them in the provided order.
+
+== Workshop resources
 
 - Introduction to Consumer Driven Contracts
 - Introduction to Spring Cloud Contract
-  * what modules does Spring Cloud Contract consist of (Verifier, Stub Runner)
-  * description of what the DSL contains for HTTP and Messaging
-  * automatic test generation from DSL
-  * ways of defining base classes for the generated tests
-  * how to work with Rest Docs
+
+== Workshop tasks
+
 - Contracts on the producer side (in pairs)
   * simple DSL examples for HTTP & Messaging
 - Contracts that lay in an external repository (in pairs)
@@ -48,3 +52,27 @@ where all of the examples are ready and working.
   * classpath scanning
   * using JUnit rule
 - Stub Runner Boot
+
+=== Contracts on the producer side
+
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<plugin>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+    <version>${spring-cloud-contract.version}</version>
+    <extensions>true</extensions>
+    <configuration>
+        <testMode>EXPLICIT</testMode>
+    </configuration>
+</plugin>
+----
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+contracts {
+		testMode = 'EXPLICIT'
+}
+----

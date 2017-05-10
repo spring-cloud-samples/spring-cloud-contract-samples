@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
+<meta name="generator" content="Asciidoctor 1.5.3">
 <title>Spring Cloud Contract Workshops</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -416,10 +416,96 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
 </style>
+<style>
+.hidden {
+	display: none;
+}
+
+.switch {
+	border-width: 1px 1px 0 1px;
+	border-style: solid;
+	border-color: #7a2518;
+	display: inline-block;
+}
+
+.switch--item {
+	padding: 10px;
+	background-color: #ffffff;
+	color: #7a2518;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.switch--item.selected {
+	background-color: #7a2519;
+	color: #ffffff;
+}
+</style>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+<script type="text/javascript">
+function addBlockSwitches() {
+	$('.primary').each(function() {
+		primary = $(this);
+		createSwitchItem(primary, createBlockSwitch(primary)).item.addClass("selected");
+		primary.children('.title').remove();
+	});
+	$('.secondary').each(function(idx, node) {
+		secondary = $(node);
+		primary = findPrimary(secondary);
+		switchItem = createSwitchItem(secondary, primary.children('.switch'));
+		switchItem.content.addClass('hidden');
+		findPrimary(secondary).append(switchItem.content);
+		secondary.remove();
+	});
+}
+
+function createBlockSwitch(primary) {
+	blockSwitch = $('<div class="switch"></div>');
+	primary.prepend(blockSwitch);
+	return blockSwitch;
+}
+
+function findPrimary(secondary) {
+	candidate = secondary.prev();
+	while (!candidate.is('.primary')) {
+		candidate = candidate.prev();
+	}
+	return candidate;
+}
+
+function createSwitchItem(block, blockSwitch) {
+	blockName = block.children('.title').text();
+	content = block.children('.content').first().append(block.next('.colist'));
+	item = $('<div class="switch--item">' + blockName + '</div>');
+	item.on('click', '', content, function(e) {
+		$(this).addClass('selected');
+		$(this).siblings().removeClass('selected');
+		e.data.siblings('.content').addClass('hidden');
+		e.data.removeClass('hidden');
+	});
+	blockSwitch.append(item);
+	return {'item': item, 'content': content};
+}
+
+$(addBlockSwitches);
+</script>
 </head>
-<body class="article">
+
+<body class="article toc2 toc-left">
 <div id="header">
 <h1>Spring Cloud Contract Workshops</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_workshop_setup">Workshop setup</a></li>
+<li><a href="#_workshop_resources">Workshop resources</a></li>
+<li><a href="#_workshop_tasks">Workshop tasks</a>
+<ul class="sectlevel2">
+<li><a href="#_contracts_on_the_producer_side">Contracts on the producer side</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
@@ -462,10 +548,22 @@ where all of the examples are ready and working.
 </tr>
 </table>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+You can start with any task - you don&#8217;t have to do them in the provided order.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_workshop_tasks">Workshop tasks</h2>
+<h2 id="_workshop_resources">Workshop resources</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -474,26 +572,16 @@ where all of the examples are ready and working.
 </li>
 <li>
 <p>Introduction to Spring Cloud Contract</p>
-<div class="ulist">
-<ul>
-<li>
-<p>what modules does Spring Cloud Contract consist of (Verifier, Stub Runner)</p>
-</li>
-<li>
-<p>description of what the DSL contains for HTTP and Messaging</p>
-</li>
-<li>
-<p>automatic test generation from DSL</p>
-</li>
-<li>
-<p>ways of defining base classes for the generated tests</p>
-</li>
-<li>
-<p>how to work with Rest Docs</p>
 </li>
 </ul>
 </div>
-</li>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_workshop_tasks">Workshop tasks</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
 <li>
 <p>Contracts on the producer side (in pairs)</p>
 <div class="ulist">
@@ -563,12 +651,32 @@ where all of the examples are ready and working.
 </li>
 </ul>
 </div>
+<div class="sect2">
+<h3 id="_contracts_on_the_producer_side">Contracts on the producer side</h3>
+<div class="listingblock primary">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-contract-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;${spring-cloud-contract.version}&lt;/version&gt;
+    &lt;extensions&gt;true&lt;/extensions&gt;
+    &lt;configuration&gt;
+        &lt;testMode&gt;EXPLICIT&lt;/testMode&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">contracts {
+		testMode = 'EXPLICIT'
+}</code></pre>
 </div>
 </div>
 </div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2017-05-10 15:35:53 CEST
+</div>
 </div>
 </div>
 </body>
