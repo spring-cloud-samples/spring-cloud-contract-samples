@@ -43,3 +43,8 @@ task removeTextFromFiles() {
         }
     }
 }
+
+task prepareForWorkshops(dependsOn: ['removeContracts', 'removeTextFromFiles']) {
+    group = "Workshop tasks"
+    description = "Executes all tasks to set initial state for workshops"
+}
