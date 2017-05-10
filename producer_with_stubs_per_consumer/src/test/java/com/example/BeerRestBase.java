@@ -14,6 +14,7 @@ import static org.mockito.Matchers.argThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public abstract class BeerRestBase {
+	//remove::start[]
 
 	@Mock PersonCheckingService personCheckingService;
 	@InjectMocks ProducerController producerController;
@@ -35,5 +36,5 @@ public abstract class BeerRestBase {
 			}
 		};
 	}
-	
+	//remove::end[]
 }

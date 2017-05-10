@@ -18,14 +18,6 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		<spring-cloud.version>Dalston.BUILD-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>1.1.1.BUILD-SNAPSHOT</spring-cloud-contract.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -54,6 +46,7 @@
 		</dependency>
 
 		<!-- spring cloud contract test dependencies -->
+		<!-- remove::start[] -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
@@ -67,7 +60,16 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- end::test_dep[] -->
+		<!-- remove::end[] -->
 	</dependencies>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Dalston.BUILD-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>1.1.1.BUILD-SNAPSHOT</spring-cloud-contract.version>
+	</properties>
 
 	<build>
 		<plugins>
@@ -76,7 +78,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-
+			<!-- remove::start[] -->
 			<!-- SPRING CLOUD CONTRACT -->
 			<!-- tag::test_dep_in_plugin[] -->
 			<plugin>
@@ -102,6 +104,7 @@
 				</dependencies>
 			</plugin>
 			<!-- end::test_dep_in_plugin[] -->
+			<!-- remove::end[] -->
 
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>

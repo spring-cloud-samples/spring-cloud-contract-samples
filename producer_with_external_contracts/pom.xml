@@ -54,11 +54,13 @@
 		</dependency>
 
 		<!-- spring cloud contract test dependencies -->
+		<!-- remove::start[] -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- remove::end[] -->
 	</dependencies>
 
 	<build>
@@ -70,6 +72,7 @@
 
 
 			<!-- SPRING CLOUD CONTRACT -->
+			<!-- remove::start[] -->
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
@@ -103,6 +106,7 @@
 				</dependencies>
 			</plugin>
 			<!-- SPRING CLOUD CONTRACT -->
+			<!-- remove::end[] -->
 
 		</plugins>
 	</build>

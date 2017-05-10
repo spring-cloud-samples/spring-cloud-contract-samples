@@ -1,3 +1,50 @@
 = Spring Cloud Contract Workshops
 
-TODO
+This documentation will allow you to go through Spring Cloud Contract Workshops by completing
+a series of tasks that will teach you the basic and more advanced concept behind Consumer Driven Contracts
+and Spring Cloud Contract as such.
+
+== Workshop setup
+
+The repository mostly consists of pairs of `producer` and `consumer` applications that show
+different use cases of Spring Cloud Contract. The initial state of the repository
+is such that all the examples are working and the tests are passing. In order for you to prepare
+the repository so it has only the basic pieces of code set up execute this Gradle command
+
+[source,groovy]
+----
+./gradlew prepareForWorkshops
+----
+
+This command will remove most of the code / contracts / project setup so that you can start
+with the workshops.
+
+TIP: Whenever your lost - don't worry. It's enough to check what's there in the `master` branch
+where all of the examples are ready and working.
+
+== Workshop tasks
+
+- Introduction to Consumer Driven Contracts
+- Introduction to Spring Cloud Contract
+  * what modules does Spring Cloud Contract consist of (Verifier, Stub Runner)
+  * description of what the DSL contains for HTTP and Messaging
+  * automatic test generation from DSL
+  * ways of defining base classes for the generated tests
+  * how to work with Rest Docs
+- Contracts on the producer side (in pairs)
+  * simple DSL examples for HTTP & Messaging
+- Contracts that lay in an external repository (in pairs)
+  * simple DSL examples for HTTP & Messaging
+- Spring Cloud Contract with Rest Docs (in pairs)
+  * generating stubs using Rest Docs
+  * generating contracts using Rest Docs
+- Contracts on the producer side (single person teams)
+  * more sophisticated DSL manipulations (regexs, code execution, referencing request from response)
+  * working with stub and test matchers
+  * contracts representing scenarios (stateful stubs)
+  * creating a library with common code shareable between teams
+  * stubbing out service discovery
+  * stubs per consumer feature
+  * classpath scanning
+  * using JUnit rule
+- Stub Runner Boot
