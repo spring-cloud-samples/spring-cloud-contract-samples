@@ -499,9 +499,15 @@ $(addBlockSwitches);
 <ul class="sectlevel1">
 <li><a href="#_workshop_setup">Workshop setup</a></li>
 <li><a href="#_workshop_resources">Workshop resources</a></li>
+<li><a href="#_workshop_scenarios">Workshop scenarios</a></li>
 <li><a href="#_workshop_tasks">Workshop tasks</a>
 <ul class="sectlevel2">
 <li><a href="#_contracts_on_the_producer_side">Contracts on the producer side</a></li>
+</ul>
+</li>
+<li><a href="#_solutions">Solutions</a>
+<ul class="sectlevel2">
+<li><a href="#_contracts_on_the_producer_side_2">Contracts on the producer side</a></li>
 </ul>
 </li>
 </ul>
@@ -574,6 +580,54 @@ You can start with any task - you don&#8217;t have to do them in the provided or
 <p>Introduction to Spring Cloud Contract</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_workshop_scenarios">Workshop scenarios</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#8217;ll be in most cases trying to code the following scenarios:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/beer_1.png" alt="beer 1">
+</div>
+<div class="title">Figure 1. Positive beer selling via HTTP</div>
+</div>
+<div class="paragraph">
+<p>&#160;
+&#160;</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/beer_2.png" alt="beer 2">
+</div>
+<div class="title">Figure 2. Negative beer selling via HTTP</div>
+</div>
+<div class="paragraph">
+<p>&#160;
+&#160;</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/msg_1.png" alt="msg 1">
+</div>
+<div class="title">Figure 3. Positive age verification via messaging</div>
+</div>
+<div class="paragraph">
+<p>&#160;
+&#160;</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/msg_2.png" alt="msg 2">
+</div>
+<div class="title">Figure 4. Negative age verification via messaging</div>
+</div>
+<div class="paragraph">
+<p>&#160;
+&#160;</p>
 </div>
 </div>
 </div>
@@ -653,26 +707,52 @@ You can start with any task - you don&#8217;t have to do them in the provided or
 </div>
 <div class="sect2">
 <h3 id="_contracts_on_the_producer_side">Contracts on the producer side</h3>
+<div class="paragraph">
+<p>Consumer Driven Contract is like TDD on the layer of architecture. Let&#8217;s start with writing a test on the
+consumer side.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Open in your IDE the <code>consumer</code> project (either via Maven or Gradle)</p>
+</li>
+<li>
+<p>The code will fail to compile due to missing Spring Cloud Contract dependencies.
+You have to add the Spring Cloud Starter Contract Stub Runner dependency.
+<a href="#task1_deps">Show solution</a></p>
+</li>
+<li>
+<p>Add <code>@Ignore</code> to all tests under <code>src/test/java/com/example</code> other than <code>AbstractTest</code> and
+<code>BeerControllerTest</code> we don&#8217;t want them to be executed at the moment.
+-</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solutions">Solutions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_contracts_on_the_producer_side_2">Contracts on the producer side</h3>
+<div class="paragraph">
+<p><a id="task1_deps"></a><strong>Adding dependencies</strong></p>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;plugin&gt;
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-cloud-contract-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;${spring-cloud-contract.version}&lt;/version&gt;
-    &lt;extensions&gt;true&lt;/extensions&gt;
-    &lt;configuration&gt;
-        &lt;testMode&gt;EXPLICIT&lt;/testMode&gt;
-    &lt;/configuration&gt;
-&lt;/plugin&gt;</code></pre>
+    &lt;artifactId&gt;spring-cloud-starter-contract-stub-runner&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">contracts {
-		testMode = 'EXPLICIT'
-}</code></pre>
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")</code></pre>
 </div>
 </div>
 </div>

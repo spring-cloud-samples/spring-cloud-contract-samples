@@ -29,6 +29,7 @@ class BeerStatsController {
 			value = "/stats",
 			consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String howManyHaveIDrankAlready(@RequestBody StatsRequest statsRequest) throws MalformedURLException {
+		//remove::start[]
 		ResponseEntity<StatsResponse> response = this.restTemplate.exchange(
 				RequestEntity
 						.post(URI.create("http://localhost:" + port + "/stats"))
@@ -36,6 +37,7 @@ class BeerStatsController {
 						.body(new StatsRequest(statsRequest.getName())),
 				StatsResponse.class);
 		return response.getBody().getText() + ". You've drank <" + response.getBody().getQuantity() + "> beers";
+		//remove::end[]
 	}
 }
 

@@ -41,8 +41,8 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- STUB DEPENDENCY -->
 		<!-- remove::start[] -->
+		<!-- STUB DEPENDENCY -->
 		<dependency>
 			<groupId>com.example</groupId>
 			<artifactId>beer-api-producer-restdocs</artifactId>
@@ -56,13 +56,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- remove::end[] -->
 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- remove::end[] -->
 
 		<!-- Stream dependencies -->
 		<dependency>

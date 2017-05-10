@@ -44,11 +44,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-contract-wiremock</artifactId>
-			<scope>test</scope>
-		</dependency>
+
+		<!-- remove::start[] -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
@@ -60,6 +57,7 @@
 			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- remove::end[] -->
 	</dependencies>
 
 	<dependencyManagement>

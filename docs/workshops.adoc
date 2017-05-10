@@ -33,6 +33,30 @@ TIP: You can start with any task - you don't have to do them in the provided ord
 - Introduction to Consumer Driven Contracts
 - Introduction to Spring Cloud Contract
 
+== Workshop scenarios
+
+We'll be in most cases trying to code the following scenarios:
+
+image::images/beer_1.png[title="Positive beer selling via HTTP"]
+
+{nbsp}
+{nbsp}
+
+image::images/beer_2.png[title="Negative beer selling via HTTP"]
+
+{nbsp}
+{nbsp}
+
+image::images/msg_1.png[title="Positive age verification via messaging"]
+
+{nbsp}
+{nbsp}
+
+image::images/msg_2.png[title="Negative age verification via messaging"]
+
+{nbsp}
+{nbsp}
+
 == Workshop tasks
 
 - Contracts on the producer side (in pairs)
@@ -53,26 +77,43 @@ TIP: You can start with any task - you don't have to do them in the provided ord
   * using JUnit rule
 - Stub Runner Boot
 
+
 === Contracts on the producer side
+
+Consumer Driven Contract is like TDD on the layer of architecture. Let's start with writing a test on the
+consumer side.
+
+- Open in your IDE the `consumer` project (either via Maven or Gradle)
+- The code will fail to compile due to missing Spring Cloud Contract dependencies.
+You have to add the Spring Cloud Starter Contract Stub Runner dependency.
+<<task1_deps,Show solution>>
+- Add `@Ignore` to all tests under `src/test/java/com/example` other than `AbstractTest`,
+`BeerControllerTest` and `BeerVerificationListenerTest`. We don't want them to be executed at the moment.
+- Add the missing `return` statements to make the code compile.
+- Open the `BeerControllerTest` test. Since CDC is like TDD we have 2 tests that describe our beer selling features.
+- Now check the `BeerController` class. We're already providing some basic setup for you (in real TDD
+example you'd have to code all of that yourself)
+- Write the missing bodies in the `BeerControllerTest`. We want the responses to be `THERE YOU GO` and
+`GET LOST` for the positive and negative scenario respectively.
+
+== Solutions
+
+=== Contracts on the producer side
+
+[[task1_deps]]*Adding dependencies*
 
 [source,xml,indent=0,subs="verbatim,attributes",role="primary"]
 .Maven
 ----
-<plugin>
+<dependency>
     <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-contract-maven-plugin</artifactId>
-    <version>${spring-cloud-contract.version}</version>
-    <extensions>true</extensions>
-    <configuration>
-        <testMode>EXPLICIT</testMode>
-    </configuration>
-</plugin>
+    <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+    <scope>test</scope>
+</dependency>
 ----
 
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-contracts {
-		testMode = 'EXPLICIT'
-}
+testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 ----
