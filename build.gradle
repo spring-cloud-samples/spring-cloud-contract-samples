@@ -19,7 +19,7 @@ task removeTextFromFiles() {
     group = "Workshop tasks"
     description = "Removes written implementation"
     doLast {
-        FileTree tree = fileTree(dir: '.', include: ['**/*.java', '**/*.properties'])
+        FileTree tree = fileTree(dir: '.')
         tree.each { File file ->
             String text = file.text
             if (!text.contains("remove::start")) {
