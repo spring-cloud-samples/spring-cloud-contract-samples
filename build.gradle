@@ -19,22 +19,15 @@ task removeTextFromFiles() {
     group = "Workshop tasks"
     description = "Removes written implementation"
     doLast {
-        FileTree tree = fileTree(dir: '.')
+        FileTree tree = fileTree(dir: '.', include: ['**/*.java',
+                                                     '**/*.xml',
+                                                     '**/*.gradle',
+                                                     '**/*.properties'])
         tree.each { File file ->
             String text = file.text
-            if (!text.contains("remove::start")) {
-                return
-            }
-            StringBuilder newString = new StringBuilder()
-            boolean remove = false
-            text.eachLine { String line ->
-                if (line.contains("remove::end")) {
                     remove = false
                 }
                 if (!remove) {
-                    if (line.contains("remove::start")) {
-                        remove = true
-                    } else if (!line.contains("remove::end")) {
                         newString.append(line).append("\n")
                     }
                 }
