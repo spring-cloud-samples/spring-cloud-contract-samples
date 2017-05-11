@@ -21,7 +21,9 @@ import static org.assertj.core.api.BDDAssertions.then;
 //remove::end[]
 public class BeerVerificationListenerTest extends AbstractTest {
 
+	//remove::start[]
 	@Autowired StubTrigger stubTrigger;
+	//remove::end[]
 	@Autowired BeerVerificationListener listener;
 
 	@Test public void should_increase_the_eligible_counter_when_verification_was_accepted() throws Exception {

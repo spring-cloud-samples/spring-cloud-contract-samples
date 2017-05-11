@@ -25,7 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
+//remove::start[]
 @AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer-external:+:stubs:8095")
+//remove::end[]
 @DirtiesContext
 //@org.junit.Ignore
 public class ExternalBeerControllerTest extends AbstractTest {

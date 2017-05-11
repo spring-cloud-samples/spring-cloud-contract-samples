@@ -74,12 +74,12 @@ task removeTextFromFiles() {
                     remove = false
                 } else if (line.contains("remove::end[return]")) {
                     // only related to java
-                    newString.append(line.replace("//remove::end[return]", "return null;"))
+                    newString.append(line.replace("//remove::end[return]", "return null;")).append("\n")
                     remove = false
                     return
                 } else if (line.contains("//@org.junit.Ignore")) {
                     // only related to java
-                    newString.append(line.replace("//", ""))
+                    newString.append(line.replace("//", "")).append("\n")
                     return
                 }
                 if (!remove) {
