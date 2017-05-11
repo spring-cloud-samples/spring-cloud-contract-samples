@@ -1,5 +1,7 @@
 package com.example;
 
+import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
+
 import java.util.Random;
 
 import org.hamcrest.Description;
@@ -9,8 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyString;

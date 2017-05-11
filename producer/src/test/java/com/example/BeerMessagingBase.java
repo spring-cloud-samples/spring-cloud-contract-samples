@@ -13,9 +13,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+//remove::start[]
 @AutoConfigureMessageVerifier
+//remove::end[]
 public abstract class BeerMessagingBase {
-	//remove::start[]
 	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
@@ -27,11 +28,14 @@ public abstract class BeerMessagingBase {
 	}
 
 	public void clientIsOldEnough() {
+		//remove::start[]
 		personCheckingService.shouldGetBeer(new PersonToCheck(25));
+		//remove::end[]
 	}
 
 	public void clientIsTooYoung() {
+		//remove::start[]
 		personCheckingService.shouldGetBeer(new PersonToCheck(5));
+		//remove::end[]
 	}
-	//remove::end[]
 }

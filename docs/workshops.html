@@ -498,6 +498,7 @@ $(addBlockSwitches);
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_setup">Setup</a></li>
+<li><a href="#_generating_the_documentation">Generating the documentation</a></li>
 <li><a href="#_resources">Resources</a></li>
 <li><a href="#_scenarios">Scenarios</a></li>
 <li><a href="#_tasks">Tasks</a></li>
@@ -525,7 +526,9 @@ the repository so it has only the basic pieces of code set up execute this Gradl
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">./gradlew prepareForWorkshops</code></pre>
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">$ git clone https://github.com/spring-cloud-samples/spring-cloud-contract-samples
+$ cd spring-cloud-contract-samples
+$ ./gradlew prepareForWorkshops</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -544,6 +547,21 @@ where all of the examples are ready and working.
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generating_the_documentation">Generating the documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To generate the whole documentation it&#8217;s enough to call the Gradle task:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">$ git clone https://github.com/spring-cloud-samples/spring-cloud-contract-samples
+$ cd spring-cloud-contract-samples
+$ ./gradlew generateDocumentation</code></pre>
+</div>
 </div>
 </div>
 </div>

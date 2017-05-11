@@ -15,9 +15,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+//remove::start[]
 @AutoConfigureMessageVerifier
+//remove::end[]
 public abstract class BeerMessagingBase {
-
 	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 

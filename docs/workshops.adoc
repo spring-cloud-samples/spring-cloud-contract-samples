@@ -18,7 +18,9 @@ the repository so it has only the basic pieces of code set up execute this Gradl
 
 [source,groovy]
 ----
-./gradlew prepareForWorkshops
+$ git clone https://github.com/spring-cloud-samples/spring-cloud-contract-samples
+$ cd spring-cloud-contract-samples
+$ ./gradlew prepareForWorkshops
 ----
 
 This command will remove most of the code / contracts / project setup so that you can start
@@ -27,7 +29,20 @@ with the workshops.
 TIP: Whenever your lost - don't worry. It's enough to check what's there in the `master` branch
 where all of the examples are ready and working.
 
+== Generating the documentation
+
+To generate the whole documentation it's enough to call the Gradle task:
+
+[source,groovy]
+----
+$ git clone https://github.com/spring-cloud-samples/spring-cloud-contract-samples
+$ cd spring-cloud-contract-samples
+$ ./gradlew generateDocumentation
+----
+
 == Resources
+
+//TODO: Add the links / slides
 
 - Introduction to Consumer Driven Contracts
 - Introduction to Spring Cloud Contract

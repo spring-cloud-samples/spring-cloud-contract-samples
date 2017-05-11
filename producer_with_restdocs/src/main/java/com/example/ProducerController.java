@@ -33,5 +33,5 @@ public class ProducerController {
 }
 
 interface PersonCheckingService {
-	boolean shouldGetBeer(PersonToCheck personToCheck);
+	Boolean shouldGetBeer(PersonToCheck personToCheck);
 }
