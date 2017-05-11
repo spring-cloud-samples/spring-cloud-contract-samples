@@ -27,8 +27,6 @@ with the workshops.
 TIP: Whenever your lost - don't worry. It's enough to check what's there in the `master` branch
 where all of the examples are ready and working.
 
-TIP: You can start with any task - you don't have to do them in the provided order.
-
 == Resources
 
 - Introduction to Consumer Driven Contracts
