@@ -53,11 +53,13 @@
 		</dependency>
 
 		<!-- remove::start[] -->
+		<!-- tag::stubrunner[] -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- end::stubrunner[] -->
 		<dependency>
 			<groupId>com.example</groupId>
 			<artifactId>beer-common</artifactId>

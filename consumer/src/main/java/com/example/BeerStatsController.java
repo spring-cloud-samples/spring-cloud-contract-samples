@@ -37,7 +37,7 @@ class BeerStatsController {
 						.body(new StatsRequest(statsRequest.getName())),
 				StatsResponse.class);
 		return response.getBody().getText() + ". You've drank <" + response.getBody().getQuantity() + "> beers";
-		//remove::end[]
+		//remove::end[return]
 	}
 }
 

@@ -43,7 +43,7 @@ class BeerController {
 		default:
 			return "GET LOST";
 		}
-		//remove::end[]
+		//remove::end[return]
 	}
 }
 

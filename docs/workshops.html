@@ -507,7 +507,7 @@ $(addBlockSwitches);
 </li>
 <li><a href="#_solutions">Solutions</a>
 <ul class="sectlevel2">
-<li><a href="#_contracts_on_the_producer_side_2">Contracts on the producer side</a></li>
+<li><a href="#__a_id_stub_runner_dep_a_adding_spring_cloud_contract_stub_runner"><a id="stub_runner_dep"></a>Adding Spring Cloud Contract Stub Runner</a></li>
 </ul>
 </li>
 </ul>
@@ -719,12 +719,18 @@ consumer side.</p>
 <li>
 <p>The code will fail to compile due to missing Spring Cloud Contract dependencies.
 You have to add the Spring Cloud Starter Contract Stub Runner dependency.
-<a href="#task1_deps">Show solution</a></p>
+<a href="#stub_runner_dep">Show solution</a></p>
 </li>
 <li>
-<p>Add <code>@Ignore</code> to all tests under <code>src/test/java/com/example</code> other than <code>AbstractTest</code> and
-<code>BeerControllerTest</code> we don&#8217;t want them to be executed at the moment.
--</p>
+<p>Open the <code>BeerControllerTest</code> test. Since CDC is like TDD we have 2 tests that describe our beer selling features.</p>
+</li>
+<li>
+<p>Now check the <code>BeerController</code> class. We&#8217;re already providing some basic setup for you (in real TDD
+example you&#8217;d have to code all of that yourself)</p>
+</li>
+<li>
+<p>Write the missing bodies in the <code>BeerControllerTest</code>. We want the responses to be <code>THERE YOU GO</code> and
+<code>GET LOST</code> for the positive and negative scenario respectively.</p>
 </li>
 </ul>
 </div>
@@ -735,17 +741,14 @@ You have to add the Spring Cloud Starter Contract Stub Runner dependency.
 <h2 id="_solutions">Solutions</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_contracts_on_the_producer_side_2">Contracts on the producer side</h3>
-<div class="paragraph">
-<p><a id="task1_deps"></a><strong>Adding dependencies</strong></p>
-</div>
+<h3 id="__a_id_stub_runner_dep_a_adding_spring_cloud_contract_stub_runner"><a id="stub_runner_dep"></a>Adding Spring Cloud Contract Stub Runner</h3>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
 <pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-cloud-starter-contract-stub-runner&lt;/artifactId&gt;
-    &lt;scope&gt;test&lt;/scope&gt;
+	&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-cloud-starter-contract-stub-runner&lt;/artifactId&gt;
+	&lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>

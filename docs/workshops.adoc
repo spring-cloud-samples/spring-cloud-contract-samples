@@ -1,6 +1,9 @@
 :toc: left
 :toclevels: 8
 :nofooter:
+:root: ..
+:consumer: {root}/consumer
+:producer: {root}/producer
 
 = Spring Cloud Contract Workshops
 
@@ -86,10 +89,7 @@ consumer side.
 - Open in your IDE the `consumer` project (either via Maven or Gradle)
 - The code will fail to compile due to missing Spring Cloud Contract dependencies.
 You have to add the Spring Cloud Starter Contract Stub Runner dependency.
-<<task1_deps,Show solution>>
-- Add `@Ignore` to all tests under `src/test/java/com/example` other than `AbstractTest`,
-`BeerControllerTest` and `BeerVerificationListenerTest`. We don't want them to be executed at the moment.
-- Add the missing `return` statements to make the code compile.
+<<stub_runner_dep,Show solution>>
 - Open the `BeerControllerTest` test. Since CDC is like TDD we have 2 tests that describe our beer selling features.
 - Now check the `BeerController` class. We're already providing some basic setup for you (in real TDD
 example you'd have to code all of that yourself)
@@ -98,22 +98,16 @@ example you'd have to code all of that yourself)
 
 == Solutions
 
-=== Contracts on the producer side
-
-[[task1_deps]]*Adding dependencies*
+=== [[stub_runner_dep]]Adding Spring Cloud Contract Stub Runner
 
 [source,xml,indent=0,subs="verbatim,attributes",role="primary"]
 .Maven
 ----
-<dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
-    <scope>test</scope>
-</dependency>
+include::{consumer}/pom.xml[tags=stubrunner]
 ----
 
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
+include::{consumer}/build.gradle[tags=stubrunner]
 ----

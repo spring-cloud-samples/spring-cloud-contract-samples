@@ -16,7 +16,9 @@ import static org.assertj.core.api.BDDAssertions.then;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ClientApplication.class, webEnvironment = WebEnvironment.NONE)
+//remove::start[]
 @AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer-restdocs")
+//remove::end[]
 public class BeerVerificationListenerTest extends AbstractTest {
 
 	@Autowired StubTrigger stubTrigger;

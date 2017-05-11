@@ -39,7 +39,9 @@ dependencies {
 
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
 	// remove::start[]
+	// tag::stubrunner[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
+	// end::stubrunner[]
 	testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
 	// remove::end[]
 }

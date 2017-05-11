@@ -22,13 +22,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Marcin Grzejszczak
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.MOCK,
-		properties = {"spring.application.name=foo-consumer"})
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
+//remove::start[]
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK,
+		properties = {"spring.application.name=foo-consumer"})
 @AutoConfigureStubRunner(workOffline = true,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer:+:stubs:8090",
 		stubsPerConsumer = true)
+//remove::end[]
 @DirtiesContext
 public class BeerControllerTest extends AbstractTest {
 

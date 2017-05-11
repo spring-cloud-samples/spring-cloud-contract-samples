@@ -67,8 +67,14 @@ task removeTextFromFiles() {
             StringBuilder newString = new StringBuilder()
             boolean remove = false
             text.eachLine { String line ->
-                if (line.contains("remove::end")) {
+                if (line.contains("remove::end[]")) {
                     remove = false
+                } else if (line.contains("remove::end[return]")) {
+                    // only related to java
+                    newString.append(line.replace("//remove::end[return]", "return null;"))
+                } else if (line.contains("//@org.junit.Ignore")) {
+                    // only related to java
+                    newString.append(line.replace("//", ""))
                 }
                 if (!remove) {
                     if (line.contains("remove::start")) {

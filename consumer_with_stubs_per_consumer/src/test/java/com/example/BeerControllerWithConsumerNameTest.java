@@ -25,10 +25,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
+//remove::start[]
 @AutoConfigureStubRunner(workOffline = true,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer:+:stubs:8090",
 		stubsPerConsumer = true,
 		consumerName = "foo-consumer")
+//remove::end[]
 @DirtiesContext
 public class BeerControllerWithConsumerNameTest extends AbstractTest {
 

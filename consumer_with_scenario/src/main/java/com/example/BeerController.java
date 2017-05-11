@@ -37,7 +37,7 @@ class BeerController {
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class).getBody();
-		//remove::end[]
+		//remove::end[return]
 	}
 }
 

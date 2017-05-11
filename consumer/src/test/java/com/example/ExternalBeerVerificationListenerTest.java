@@ -19,6 +19,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer-external")
 @DirtiesContext
+//@org.junit.Ignore
 public class ExternalBeerVerificationListenerTest extends AbstractTest {
 
 	@Autowired StubTrigger stubTrigger;

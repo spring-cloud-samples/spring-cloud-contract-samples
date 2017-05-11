@@ -17,7 +17,9 @@ import static org.assertj.core.api.BDDAssertions.then;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
+//remove::start[]
 @AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer")
+//remove::end[]
 @DirtiesContext
 public class BeerVerificationListenerTest extends AbstractTest {
 

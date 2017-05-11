@@ -17,10 +17,12 @@ import static org.assertj.core.api.BDDAssertions.then;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
+//remove::start[]
 @AutoConfigureStubRunner(workOffline = true,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true,
 		consumerName = "foo-consumer")
+//remove::end[]
 @DirtiesContext
 public class BeerVerificationListenerWithConsumerNameTest extends AbstractTest {
 

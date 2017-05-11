@@ -16,11 +16,13 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Marcin Grzejszczak
  */
 @RunWith(SpringRunner.class)
+//remove::start[]
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK,
 		properties = {"spring.application.name=foo-consumer"})
 @AutoConfigureStubRunner(workOffline = true,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true)
+//remove::end[]
 @DirtiesContext
 public class BeerVerificationListenerTest extends AbstractTest {
 
