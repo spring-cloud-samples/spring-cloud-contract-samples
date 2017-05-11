@@ -60,6 +60,9 @@ task removeTextFromFiles() {
                                                      '**/*.gradle',
                                                      '**/*.properties'])
         tree.each { File file ->
+            if (file.absolutePath == new File(project.rootDir, "build.gradle").absolutePath) {
+                return
+            }
             String text = file.text
             if (!text.contains("remove::start")) {
                 return
@@ -72,9 +75,12 @@ task removeTextFromFiles() {
                 } else if (line.contains("remove::end[return]")) {
                     // only related to java
                     newString.append(line.replace("//remove::end[return]", "return null;"))
+                    remove = false
+                    return
                 } else if (line.contains("//@org.junit.Ignore")) {
                     // only related to java
                     newString.append(line.replace("//", ""))
+                    return
                 }
                 if (!remove) {
                     if (line.contains("remove::start")) {

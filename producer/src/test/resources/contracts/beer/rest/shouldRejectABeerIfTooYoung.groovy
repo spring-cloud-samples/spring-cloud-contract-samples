@@ -5,17 +5,20 @@ import org.springframework.cloud.contract.spec.Contract
 import static com.example.PatternUtils.tooYoung
 
 Contract.make {
-	request {
-		description("""
+	description("""
 Represents a unsuccessful scenario of getting a beer
 
+```
 given:
-client is not old enough
+	client is not old enough
 when:
-he applies for a beer
+	he applies for a beer
 then:
-we'll NOT grant him the beer
+	we'll NOT grant him the beer
+```
+
 """)
+	request {
 		method 'POST'
 		url '/check'
 		body(

@@ -507,7 +507,8 @@ $(addBlockSwitches);
 </li>
 <li><a href="#_solutions">Solutions</a>
 <ul class="sectlevel2">
-<li><a href="#__a_id_stub_runner_dep_a_adding_spring_cloud_contract_stub_runner"><a id="stub_runner_dep"></a>Adding Spring Cloud Contract Stub Runner</a></li>
+<li><a href="#_proposal_of_simple_contracts">Proposal of simple contracts</a></li>
+<li><a href="#_adding_spring_cloud_contract_stub_runner">Adding Spring Cloud Contract Stub Runner</a></li>
 </ul>
 </li>
 </ul>
@@ -717,20 +718,154 @@ consumer side.</p>
 <p>Open in your IDE the <code>consumer</code> project (either via Maven or Gradle)</p>
 </li>
 <li>
-<p>The code will fail to compile due to missing Spring Cloud Contract dependencies.
-You have to add the Spring Cloud Starter Contract Stub Runner dependency.
-<a href="#stub_runner_dep">Show solution</a></p>
-</li>
-<li>
 <p>Open the <code>BeerControllerTest</code> test. Since CDC is like TDD we have 2 tests that describe our beer selling features.</p>
 </li>
 <li>
-<p>Now check the <code>BeerController</code> class. We&#8217;re already providing some basic setup for you (in real TDD
+<p>We have two objectives for HTTP</p>
+<div class="ulist">
+<ul>
+<li>
+<p>when a client wants a beer and has
+e.g. name "marcin" and age 22 - the answer that we&#8217;ll respond with <code>THERE YOU GO</code></p>
+</li>
+<li>
+<p>when a client is an underage and wants a beer and has
+e.g. name "marcin" and age 17 - the answer that we&#8217;ll respond with <code>GET LOST</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>and we have two objectives for messaging</p>
+<div class="ulist">
+<ul>
+<li>
+<p>when a verification message with <code>eligible</code> field equal to <code>true</code> was sent to the <code>verifications</code> channel
+then we increment the <code>eligible</code> counter</p>
+</li>
+<li>
+<p>when a verification message with <code>eligible</code> field equal to <code>false was sent to the `verifications</code> channel
+then we increment the <code>notEligible</code> counter</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Let&#8217;s start with HTTP. Open the <code>BeerController</code> class. We&#8217;re already providing some basic setup for you (in real TDD
 example you&#8217;d have to code all of that yourself)</p>
 </li>
 <li>
-<p>Write the missing bodies in the <code>BeerControllerTest</code>. We want the responses to be <code>THERE YOU GO</code> and
-<code>GET LOST</code> for the positive and negative scenario respectively.</p>
+<p>Technically speaking for both cases we want to use MockMvc to send a request to the <code>/beer</code> endpoint
+with a JSON pojo containing <code>name</code> and <code>age</code>. From the controller we want to send a request to
+<code><a href="http://localhost:8090/" class="bare">http://localhost:8090/</a></code> where the producer will be waiting for out requests.</p>
+</li>
+<li>
+<p>The problem is such that we don&#8217;t yet know what API we would like to have&#8230;&#8203; This is where we touch
+the very essence of Consumer Driven Contracts. As consumers we want to drive the change of the API
+that&#8217;s why, <strong>as consumers</strong>, we will work on the producer code. Open the <code>producer</code> project in your
+IDE (we simulate the case where you&#8217;ve cloned the producer code)</p>
+</li>
+<li>
+<p>Time to play with the API! Create a <code>src/test/resources/contracts/beer/rest</code> and
+<code>src/test/resources/contracts/beer/messaging</code> folders. (<a href="#_proposal_of_simple_contracts">Show solution</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>You can define the contracts using Groovy DSL. Let&#8217;s create our first HTTP contract.</p>
+</li>
+<li>
+<p>Under the <code>rest</code> folder create a file <code>shouldGrantABeerIfOldEnough.groovy</code></p>
+</li>
+<li>
+<p>Call the <code>org.springframework.cloud.contract.spec.Contract.make { }</code> method to start defining the contract</p>
+</li>
+<li>
+<p>You can call <code>description()</code> method to provide some meaningful description. TIP: You can use the
+Groovy multiline String <code>""" """</code> to have all special characters escaped. Every new line in the String
+will be converted into a new line character</p>
+</li>
+<li>
+<p>Now call the <code>request { }</code> and <code>response { }</code> methods</p>
+</li>
+<li>
+<p>Let&#8217;s assume that we&#8217;re interested in sending a <code>POST</code> method. Call <code>method POST()</code> or <code>method "POST"</code>.
+TIP: In Groovy you don&#8217;t need to provide parentheses (in most cases). You can write either <code>method POST()</code>
+or <code>method(POST())</code>. In both cases it&#8217;s the same syntax</p>
+</li>
+<li>
+<p>Now we need to provide some URL. Let it be <code>/check</code>. Let&#8217;s write <code>url "/check"</code></p>
+</li>
+<li>
+<p>Now time to define some body. We&#8217;ll leverage some of the Groovy power over here so if you&#8217;re lost
+you can always check the <a href="http://groovy-lang.org/json.html">Groovy JSON documentation</a>. Let&#8217;s call the
+<code>body()</code> method with brackets.</p>
+</li>
+<li>
+<p>In Groovy you can use the map notation in such a way <code>[key: "value", secondKey: 2]</code>. In the same way
+we can describe the body of a JSON. So in order to send a JSON looking like this <code>{ "age": 22, "name": "marcin" }</code>
+we can create a map notation of <code>[age:22, name:"marcin"]</code>. The <code>body</code> method accepts a map and in Groovy
+if a method accepts a map then the <code>[]</code> brackets can be omited. So you can either write
+<code>body([age:22, name:"marcin"])</code> or <code>body(age:22, name:"marcin")</code>. The latter one contains less boilerplate
+code so let&#8217;s write that one</p>
+</li>
+<li>
+<p>Now time for the headers&#8230;&#8203; Call the <code>headers { }</code> method</p>
+</li>
+<li>
+<p>Inside that method let&#8217;s define that we want to use the <code>Content-Type: "application/json</code> header. Just
+call <code>contentType(applicationJson())</code> methods</p>
+</li>
+<li>
+<p>Congratulations! You defined how you would like the contract for the request to look like! Time for the
+response</p>
+</li>
+<li>
+<p>In the <code>response</code> block we would like to define that that the status of our response will be 200.
+Just call <code>status 200</code></p>
+</li>
+<li>
+<p>We&#8217;d like our response to have some body. As you could have assumed there&#8217;s a <code>body</code> method here too.
+We&#8217;ll now use another way of defining bodies (which is the less preferred option in Spring Cloud Contract
+but still can be useful) - using String</p>
+</li>
+<li>
+<p>We&#8217;re assuming that we would like to send back a field called <code>status</code> that will return <code>OK</code> when the
+person can get the beer</p>
+</li>
+<li>
+<p>Call the <code>body(""" { "status" : "OK" } """)</code>. That way you&#8217;re defining how the response body will look like
+by providing the exact JSON value</p>
+</li>
+<li>
+<p>Last thing to add are the response headers. We&#8217;re doing exactly the same thing as we have done previously
+for the request. <code>headers { contentType(applicationJson()) }</code>.</p>
+</li>
+<li>
+<p>Congratulations! You have created your first contract!</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Time for you to create the second contract. Create a file called <code>shouldRejectABeerIfTooYoung.groovy</code>.
+If you&#8217;re lost just check out the <a href="#_proposal_of_simple_contracts">solution</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Set the <code>age</code> in the request to <code>17</code></p>
+</li>
+<li>
+<p>Update the response body to return a <code>status</code> equal to <code>NOT_OK</code>.</p>
+</li>
+<li>
+<p>Update the description</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Now it&#8217;s time to turn on the magic! Let&#8217;s add the Spring Cloud Starter Contract Stub Runner dependency.
+<a href="#_adding_spring_cloud_contract_stub_runner">Show solution</a></p>
 </li>
 </ul>
 </div>
@@ -741,7 +876,177 @@ example you&#8217;d have to code all of that yourself)</p>
 <h2 id="_solutions">Solutions</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="__a_id_stub_runner_dep_a_adding_spring_cloud_contract_stub_runner"><a id="stub_runner_dep"></a>Adding Spring Cloud Contract Stub Runner</h3>
+<h3 id="_proposal_of_simple_contracts">Proposal of simple contracts</h3>
+<div class="paragraph">
+<p><strong>HTTP communication</strong></p>
+</div>
+<div class="listingblock primary">
+<div class="title">Old Enough</div>
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">// rest/shouldGrantABeerIfOldEnough.groovy
+org.springframework.cloud.contract.spec.Contract.make {
+		description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+
+""")
+	request {
+		method 'POST'
+		url '/check'
+		body(
+				age: 22,
+				name: "marcin"
+		)
+		headers {
+			contentType(applicationJson())
+		}
+	}
+	response {
+		status 200
+		body("""
+			{
+				"status": "OK"
+			}
+			""")
+		headers {
+			contentType(applicationJson())
+		}
+	}
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Too Young</div>
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">// rest/shouldRejectABeerIfTooYoung.groovy
+org.springframework.cloud.contract.spec.Contract.make {
+		description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+
+""")
+	request {
+		method 'POST'
+		url '/check'
+		body(
+				age: 17,
+				name: "marcin"
+		)
+		headers {
+			contentType(applicationJson())
+		}
+	}
+	response {
+		status 200
+		body("""
+			{
+				"status": "NOT_OK"
+			}
+			""")
+		headers {
+			contentType(applicationJson())
+		}
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Messaging communication</strong></p>
+</div>
+<div class="listingblock primary">
+<div class="title">Positive Verification</div>
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">// messaging/shouldSendAcceptedVerification.groovy
+org.springframework.cloud.contract.spec.Contract.make {
+	description("""
+Sends a positive verification message when person is eligible to get the beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll send a message with a positive verification
+```
+
+""")
+	// Label by means of which the output message can be triggered
+	label 'accepted_verification'
+	input {
+		// the contract will be triggered by a method - as consumers at this moment we
+		// don't care how
+		triggeredBy('')
+	}
+	// output message of the contract
+	outputMessage {
+		// destination to which the output message will be sent
+		sentTo 'verifications'
+		// the body of the output message
+		body([
+				eligible: true
+		])
+	}
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Negative Verification</div>
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">// messaging/shouldSendRejectedVerification.groovy
+org.springframework.cloud.contract.spec.Contract.make {
+	description("""
+Sends a negative verification message when person is not eligible to get the beer
+
+```
+given:
+	client is too young
+when:
+	he applies for a beer
+then:
+	we'll send a message with a negative verification
+```
+
+""")
+	// Label by means of which the output message can be triggered
+	label 'rejected_verification'
+	// input to the contract
+	input {
+		// the contract will be triggered by a method - as consumers at this moment we
+		// don't care how
+		triggeredBy('')
+	}
+	// output message of the contract
+	outputMessage {
+		// destination to which the output message will be sent
+		sentTo 'verifications'
+		// the body of the output message
+		body([
+				eligible: false
+		])
+	}
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adding_spring_cloud_contract_stub_runner">Adding Spring Cloud Contract Stub Runner</h3>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
