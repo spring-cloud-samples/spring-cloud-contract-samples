@@ -47,11 +47,13 @@
 
 		<!-- spring cloud contract test dependencies -->
 		<!-- remove::start[] -->
+		<!-- tag::verifier_dep[] -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- end::verifier_dep[] -->
 		<!-- tag::test_dep[] -->
 		<dependency>
 			<groupId>com.example</groupId>

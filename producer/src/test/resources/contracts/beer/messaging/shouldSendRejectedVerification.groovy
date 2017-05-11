@@ -26,8 +26,11 @@ then:
 		// destination to which the output message will be sent
 		sentTo 'verifications'
 		// the body of the output message
-		body([
-				eligible: false
-		])
+		body(
+			eligible: false
+		)
+		headers {
+			header("contentType", applicationJsonUtf8())
+		}
 	}
 }

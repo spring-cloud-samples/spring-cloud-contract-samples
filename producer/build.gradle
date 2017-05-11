@@ -49,7 +49,9 @@ dependencies {
 
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
 	// remove::start[]
+	// tag::verifier_dep[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	// end::verifier_dep[]
 	// tag::test_dep[]
 	testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
 	// end::test_dep[]

@@ -39,6 +39,7 @@ public class BeerControllerTest extends AbstractTest {
 		beerController.port = 8090;
 	}
 
+	//tag::tests[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
@@ -58,6 +59,7 @@ public class BeerControllerTest extends AbstractTest {
 				.andExpect(content().string("GET LOST"));
 		//remove::end[]
 	}
+	//end::tests[]
 }
 
 
