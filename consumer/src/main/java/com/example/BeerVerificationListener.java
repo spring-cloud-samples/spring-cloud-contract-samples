@@ -23,11 +23,13 @@ class BeerVerificationListener {
 	public void listen(Verification verification) {
 		log.info("Received new verification");
 		//remove::start[]
+		//tag::listener[]
 		if (verification.eligible) {
 			eligibleCounter.incrementAndGet();
 		} else {
 			notEligibleCounter.incrementAndGet();
 		}
+		//end::listener[]
 		//remove::end[]
 	}
 

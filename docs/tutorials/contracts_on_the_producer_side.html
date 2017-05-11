@@ -514,6 +514,9 @@ $(addBlockSwitches);
 <li><a href="#_adding_spring_cloud_contract_stub_runner">Adding Spring Cloud Contract Stub Runner</a></li>
 <li><a href="#_stub_logs">Stub Logs</a></li>
 <li><a href="#_beer_request">Beer Request</a></li>
+<li><a href="#_beer_request_2">Beer Request</a></li>
+<li><a href="#_missing_listener_code">Missing listener code</a></li>
+<li><a href="#_missing_triggers">Missing triggers</a></li>
 </ul>
 </li>
 <li><a href="#_back_to_the_main_page">Back to the main page</a></li>
@@ -952,6 +955,100 @@ also change the values of age to e.g. <code>45</code> for the positive case and 
 <li>
 <p>We&#8217;ve gone through the HTTP scenario and now it&#8217;s time for the messaging part.</p>
 </li>
+<li>
+<p>Let' start with a test as usual. Let&#8217;s check out the <code>BeerVerificationListenerTest</code> test class</p>
+<div class="ulist">
+<ul>
+<li>
+<p>there are 2 test methods with empty bodies</p>
+</li>
+<li>
+<p>in both cases we need to trigger a message that will get sent to a destination at which our
+listener class is awaiting messages</p>
+</li>
+<li>
+<p>we&#8217;re missing the triggering part - but we&#8217;ll add it in a second</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>On the consumer side let&#8217;s check out the <code>BeerVerificationListener</code> class.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;re using the Spring Cloud Stream&#8217;s abstraction of a queue / topic which is called a <code>channel</code>.</p>
+</li>
+<li>
+<p>There are 2 channels that come out od the box with SC-Stream. These are <code>input</code> and <code>output</code>.
+Those channels can be found in 2 interfaces - <code>Sink</code> and <code>Source</code>. <code>Sink</code> contains the <code>input</code> channel
+which is used for listening for messages and <code>Source</code> contains the <code>output</code> channel which
+is used to send messages. In the listener class you can see that we use the <code>Sink</code> one cause we&#8217;re waiting for
+a message to be received.</p>
+</li>
+<li>
+<p>We have to configure the <code>destination</code>, so the actual name of a queue / topic on which we will be
+listening. To do that you have to set in the <code>src/main/resources/application.yml</code> the property
+<code>spring.cloud.stream.bindings.input.destination: verifications</code>. That means that the we&#8217;ll use the
+<code>input</code> channel (so the channel in the <code>Sink</code> interface) to listen to messages coming from a
+destination called <code>verifications</code>.</p>
+</li>
+<li>
+<p>Now that we have configured Spring Cloud Stream let&#8217;s write the missing feature. If the <code>eligible</code> flag
+in the incoming message is <code>true</code> - increase the <code>eligibleCounter</code> value. Otherwise increment the
+other <code>notEligibleCounter</code> one. (<a href="#_missing_listener_code">Show solution</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Now that the implementation is written - let&#8217;s try to run our <code>BeerVerificationListenerTest</code> tests.
+Unfortunately they will fail cause no message has been received - we&#8217;ll still missing that part</p>
+</li>
+<li>
+<p>Time to use Spring Cloud Contract!</p>
+<div class="ulist">
+<ul>
+<li>
+<p>We need to use Spring Cloud Contract Stub Runner so that it downloads the stubs. Just add the
+<code>@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer")</code> to download
+the latest stubs of <code>com.example:beer-api-producer</code>, with classifier <code>stubs</code> and if the JAR
+contains any HTTP stubs then register them at a random port.</p>
+</li>
+<li>
+<p>Now we need a solution to trigger the message. To do that we need to autowire a <code>StubTrigger</code> interface.
+Just add <code>@Autowired StubTrigger stubTrigger</code> field to your test</p>
+</li>
+<li>
+<p>In the contract on the producer side we&#8217;ve described 2 labels. <code>accepted_verification</code> and <code>rejected_verification</code>.
+You can use the <code>StubTrigger#trigger</code> method to trigger a message with a given label. For example
+if you call <code>stubTrigger.trigger("accepted_verification")</code> you&#8217;ll trigger a message that got described
+with the <code>accepted_verification</code> label.</p>
+</li>
+<li>
+<p>Now add the missing <code>StubTrigger#tigger</code> method in the test bodies. (<a href="#_missing_triggers">Show solution</a>)</p>
+</li>
+<li>
+<p>Run the tests and they should pass!</p>
+</li>
+<li>
+<p>You can change the <code>destination</code> name in <code>src/main/resources/application.yml</code> to <code>foo</code> and rerun the
+tests - you&#8217;ll see that they&#8217;ll start failing. That&#8217;s because you&#8217;re listening to messages
+at destination <code>foo</code> whereas the message is sent to <code>verifications</code></p>
+</li>
+<li>
+<p>You can also play around with the <code>Verification</code> payload class. If you change the field name from
+<code>eligible</code> to <code>foo</code> an rerun the tests - the tests will fail. If you change the type from <code>boolean</code>
+to <code>Integer</code> (and change the production code too) then the tests will fail due to serialization problems</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Congratulations! As consumers - we&#8217;ve successfully played around with the API of the producer both for
+HTTP and messaging. Now we&#8217;re filing a PR to their code with the proposal of contract and let&#8217;s switch to
+the producer side.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -1284,6 +1381,57 @@ then:
 	public BeerRequest() {
 	}
 }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_beer_request_2">Beer Request</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yml" data-lang="yml">spring:
+  application.name: beer-api-consumer
+  # remove::start[]
+  cloud.stream.bindings.input.destination: verifications
+  # remove::end[]
+server.port: ${PORT:8081}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_missing_listener_code">Missing listener code</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">		if (verification.eligible) {
+			eligibleCounter.incrementAndGet();
+		} else {
+			notEligibleCounter.incrementAndGet();
+		}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_missing_triggers">Missing triggers</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">	@Test public void should_increase_the_eligible_counter_when_verification_was_accepted() throws Exception {
+		int initialCounter = listener.eligibleCounter.get();
+
+		//remove::start[]
+		stubTrigger.trigger("accepted_verification");
+		//remove::end[]
+
+		then(listener.eligibleCounter.get()).isGreaterThan(initialCounter);
+	}
+
+	@Test public void should_increase_the_noteligible_counter_when_verification_was_rejected() throws Exception {
+		int initialCounter = listener.notEligibleCounter.get();
+
+		//remove::start[]
+		stubTrigger.trigger("rejected_verification");
+		//remove::end[]
+
+		then(listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
+	}</code></pre>
 </div>
 </div>
 </div>

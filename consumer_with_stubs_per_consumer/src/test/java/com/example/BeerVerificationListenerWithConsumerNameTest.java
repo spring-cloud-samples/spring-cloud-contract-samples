@@ -32,22 +32,22 @@ public class BeerVerificationListenerWithConsumerNameTest extends AbstractTest {
 	@Autowired BeerVerificationListener listener;
 
 	@Test public void should_increase_the_eligible_counter_when_verification_was_accepted() throws Exception {
-		//remove::start[]
 		int initialCounter = listener.eligibleCounter.get();
 
+		//remove::start[]
 		stubTrigger.trigger("accepted_verification");
+		//remove::end[]
 
 		then(listener.eligibleCounter.get()).isGreaterThan(initialCounter);
-		//remove::end[]
 	}
 
 	@Test public void should_increase_the_noteligible_counter_when_verification_was_rejected() throws Exception {
-		//remove::start[]
 		int initialCounter = listener.notEligibleCounter.get();
 
+		//remove::start[]
 		stubTrigger.trigger("rejected_verification");
+		//remove::end[]
 
 		then(listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
-		//remove::end[]
 	}
 }
