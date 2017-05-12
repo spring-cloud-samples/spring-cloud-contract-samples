@@ -83,7 +83,7 @@ task removeTextFromFiles() {
             StringBuilder newString = new StringBuilder()
             boolean remove = false
             text.eachLine { String line ->
-                if (line.contains("import org.springframework.cloud.contract")) {
+                if (line.contains("import org.springframework.cloud.contract") || line.contains("tag::")) {
                   return
                 }
                 if (line.contains("remove::end[]")) {
