@@ -39,9 +39,9 @@ image::{images_folder}/consumer_flow_1.png[title="Interact with cloned producer 
   then we increment the `eligible` counter
   * when a verification message with `eligible` field equal to `false` was sent to the `verifications` channel
   then we increment the `notEligible` counter
-- Let's start with HTTP. Open the `BeerController` class. We're already providing some basic setup for you (in real TDD
+- Let's start with HTTP. Open the `BeerControllerTest` class. We're already providing some basic setup for you (in real TDD
 example you'd have to code all of that yourself)
-- Technically speaking for both cases we want to use MockMvc to send a request to the `/beer` endpoint
+- Technically speaking for both cases we want to use `MockMvc` to send a request to the `/beer` endpoint
 with a JSON pojo containing `name` and `age`. From the controller we want to send a request to
 `http://localhost:8090/` where the producer will be waiting for out requests. Let's write the missing
 tests body. (<<_written_consumer_tests,Show solution>>)
