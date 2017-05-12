@@ -417,97 +417,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .show-for-print{display:inherit!important}}
 </style>
 <style>
-/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
-/*pre.CodeRay {background-color:#f7f7f8;}*/
-.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
-.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
-.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
-table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
-table.CodeRay td{vertical-align: top;line-height:1.45}
-table.CodeRay td.line-numbers{text-align:right}
-table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
-table.CodeRay td.code{padding:0 0 0 .5em}
-table.CodeRay td.code>pre{padding:0}
-.CodeRay .debug{color:#fff !important;background:#000080 !important}
-.CodeRay .annotation{color:#007}
-.CodeRay .attribute-name{color:#000080}
-.CodeRay .attribute-value{color:#700}
-.CodeRay .binary{color:#509}
-.CodeRay .comment{color:#998;font-style:italic}
-.CodeRay .char{color:#04d}
-.CodeRay .char .content{color:#04d}
-.CodeRay .char .delimiter{color:#039}
-.CodeRay .class{color:#458;font-weight:bold}
-.CodeRay .complex{color:#a08}
-.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
-.CodeRay .color{color:#099}
-.CodeRay .class-variable{color:#369}
-.CodeRay .decorator{color:#b0b}
-.CodeRay .definition{color:#099}
-.CodeRay .delimiter{color:#000}
-.CodeRay .doc{color:#970}
-.CodeRay .doctype{color:#34b}
-.CodeRay .doc-string{color:#d42}
-.CodeRay .escape{color:#666}
-.CodeRay .entity{color:#800}
-.CodeRay .error{color:#808}
-.CodeRay .exception{color:inherit}
-.CodeRay .filename{color:#099}
-.CodeRay .function{color:#900;font-weight:bold}
-.CodeRay .global-variable{color:#008080}
-.CodeRay .hex{color:#058}
-.CodeRay .integer,.CodeRay .float{color:#099}
-.CodeRay .include{color:#555}
-.CodeRay .inline{color:#000}
-.CodeRay .inline .inline{background:#ccc}
-.CodeRay .inline .inline .inline{background:#bbb}
-.CodeRay .inline .inline-delimiter{color:#d14}
-.CodeRay .inline-delimiter{color:#d14}
-.CodeRay .important{color:#555;font-weight:bold}
-.CodeRay .interpreted{color:#b2b}
-.CodeRay .instance-variable{color:#008080}
-.CodeRay .label{color:#970}
-.CodeRay .local-variable{color:#963}
-.CodeRay .octal{color:#40e}
-.CodeRay .predefined{color:#369}
-.CodeRay .preprocessor{color:#579}
-.CodeRay .pseudo-class{color:#555}
-.CodeRay .directive{font-weight:bold}
-.CodeRay .type{font-weight:bold}
-.CodeRay .predefined-type{color:inherit}
-.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
-.CodeRay .key{color:#808}
-.CodeRay .key .delimiter{color:#606}
-.CodeRay .key .char{color:#80f}
-.CodeRay .value{color:#088}
-.CodeRay .regexp .delimiter{color:#808}
-.CodeRay .regexp .content{color:#808}
-.CodeRay .regexp .modifier{color:#808}
-.CodeRay .regexp .char{color:#d14}
-.CodeRay .regexp .function{color:#404;font-weight:bold}
-.CodeRay .string{color:#d20}
-.CodeRay .string .string .string{background:#ffd0d0}
-.CodeRay .string .content{color:#d14}
-.CodeRay .string .char{color:#d14}
-.CodeRay .string .delimiter{color:#d14}
-.CodeRay .shell{color:#d14}
-.CodeRay .shell .delimiter{color:#d14}
-.CodeRay .symbol{color:#990073}
-.CodeRay .symbol .content{color:#a60}
-.CodeRay .symbol .delimiter{color:#630}
-.CodeRay .tag{color:#008080}
-.CodeRay .tag-special{color:#d70}
-.CodeRay .variable{color:#036}
-.CodeRay .insert{background:#afa}
-.CodeRay .delete{background:#faa}
-.CodeRay .change{color:#aaf;background:#007}
-.CodeRay .head{color:#f8f;background:#505}
-.CodeRay .insert .insert{color:#080}
-.CodeRay .delete .delete{color:#800}
-.CodeRay .change .change{color:#66f}
-.CodeRay .head .head{color:#f4f}
-</style>
-<style>
 .hidden {
 	display: none;
 }
@@ -735,9 +644,6 @@ consumer side.</p>
 <p>Open in your IDE the <code>consumer</code> project (either via Maven or Gradle)</p>
 </li>
 <li>
-<p>Open the <code>BeerControllerTest</code> test. Since CDC is like TDD we have 2 tests that describe our beer selling features.</p>
-</li>
-<li>
 <p>We have two objectives for HTTP</p>
 <div class="ulist">
 <ul>
@@ -768,11 +674,15 @@ then we increment the <code>notEligible</code> counter</p>
 </div>
 </li>
 <li>
-<p>Let&#8217;s start with HTTP. Open the <code>BeerController</code> class. We&#8217;re already providing some basic setup for you (in real TDD
+<p>Let&#8217;s start with HTTP.</p>
+</li>
+<li>
+<p>Open the <code>BeerControllerTest</code> test. Since CDC is like TDD we have 2 tests that describe our beer selling features.
+and we&#8217;re already providing some basic setup for you (in real TDD
 example you&#8217;d have to code all of that yourself)</p>
 </li>
 <li>
-<p>Technically speaking for both cases we want to use MockMvc to send a request to the <code>/beer</code> endpoint
+<p>Technically speaking for both cases we want to use <code>MockMvc</code> to send a request to the <code>/beer</code> endpoint
 with a JSON pojo containing <code>name</code> and <code>age</code>. From the controller we want to send a request to
 <code><a href="http://localhost:8090/" class="bare">http://localhost:8090/</a></code> where the producer will be waiting for out requests. Let&#8217;s write the missing
 tests body. (<a href="#_written_consumer_tests">Show solution</a>)</p>
@@ -825,7 +735,7 @@ dependencies. You need to add <code>spring-cloud-starter-contract-verifier</code
 <p>Call the <code>Contract.make</code> method to start defining the contract</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
 
 }</code></pre>
 </div>
@@ -837,10 +747,10 @@ Groovy multiline String <code>""" """</code> to have all special characters esca
 will be converted into a new line character. Example</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+    """)
 }</code></pre>
 </div>
 </div>
@@ -849,10 +759,10 @@ will be converted into a new line character. Example</p>
 <p>Now call the <code>request { }</code> and <code>response { }</code> methods</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+    """)
     request {
     }
     response {
@@ -867,10 +777,10 @@ TIP: In Groovy you don&#8217;t need to provide parentheses (in most cases). You 
 or <code>method(POST())</code>. In both cases it&#8217;s the same syntax</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+    """)
     request {
         method POST()
     }
@@ -884,13 +794,13 @@ or <code>method(POST())</code>. In both cases it&#8217;s the same syntax</p>
 <p>Now we need to provide some URL. Let it be <code>/check</code>. Let&#8217;s write <code>url "/check"</code></p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+    """)
     request {
         method POST()
-        url <span class="string"><span class="delimiter">&quot;</span><span class="content">/check</span><span class="delimiter">&quot;</span></span>
+        url "/check"
     }
     response {
     }
@@ -912,15 +822,15 @@ if a method accepts a map then the <code>[]</code> brackets can be omited. So yo
 code so let&#8217;s write that one</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+    """)
     request {
         method POST()
-        url <span class="string"><span class="delimiter">&quot;</span><span class="content">/check</span><span class="delimiter">&quot;</span></span>
+        url "/check"
         body(
-            <span class="key">age</span>: <span class="integer">22</span>, <span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">marcin</span><span class="delimiter">&quot;</span></span>
+            age: 22, name: "marcin"
             )
     }
     response {
@@ -933,15 +843,15 @@ code so let&#8217;s write that one</p>
 <p>Now time for the headers&#8230;&#8203; Call the <code>headers { }</code> method</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+    """)
     request {
         method POST()
-        url <span class="string"><span class="delimiter">&quot;</span><span class="content">/check</span><span class="delimiter">&quot;</span></span>
+        url "/check"
         body(
-            <span class="key">age</span>: <span class="integer">22</span>, <span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">marcin</span><span class="delimiter">&quot;</span></span>
+            age: 22, name: "marcin"
             )
         headers {
 
@@ -958,15 +868,15 @@ code so let&#8217;s write that one</p>
 call <code>contentType(applicationJson())</code> methods</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+    """)
     request {
         method POST()
-        url <span class="string"><span class="delimiter">&quot;</span><span class="content">/check</span><span class="delimiter">&quot;</span></span>
+        url "/check"
         body(
-            <span class="key">age</span>: <span class="integer">22</span>, <span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">marcin</span><span class="delimiter">&quot;</span></span>
+            age: 22, name: "marcin"
             )
         headers {
             contentType(applicationJson())
@@ -987,22 +897,22 @@ response</p>
 Just call <code>status 200</code></p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+    """)
     request {
         method POST()
-        url <span class="string"><span class="delimiter">&quot;</span><span class="content">/check</span><span class="delimiter">&quot;</span></span>
+        url "/check"
         body(
-            <span class="key">age</span>: <span class="integer">22</span>, <span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">marcin</span><span class="delimiter">&quot;</span></span>
+            age: 22, name: "marcin"
             )
         headers {
             contentType(applicationJson())
         }
     }
     response {
-        status <span class="integer">200</span>
+        status 200
     }
 }</code></pre>
 </div>
@@ -1022,25 +932,25 @@ person can get the beer</p>
 by providing the exact JSON value</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+    """)
     request {
         method POST()
-        url <span class="string"><span class="delimiter">&quot;</span><span class="content">/check</span><span class="delimiter">&quot;</span></span>
+        url "/check"
         body(
-            <span class="key">age</span>: <span class="integer">22</span>, <span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">marcin</span><span class="delimiter">&quot;</span></span>
+            age: 22, name: "marcin"
             )
         headers {
             contentType(applicationJson())
         }
     }
     response {
-        status <span class="integer">200</span>
-        body(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
-            { &quot;status&quot; : &quot;OK&quot; }
-        </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+        status 200
+        body("""
+            { "status" : "OK" }
+        """)
     }
 }</code></pre>
 </div>
@@ -1051,25 +961,25 @@ by providing the exact JSON value</p>
 for the request. <code>headers { contentType(applicationJson()) }</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+    """)
     request {
         method POST()
-        url <span class="string"><span class="delimiter">&quot;</span><span class="content">/check</span><span class="delimiter">&quot;</span></span>
+        url "/check"
         body(
-            <span class="key">age</span>: <span class="integer">22</span>, <span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">marcin</span><span class="delimiter">&quot;</span></span>
+            age: 22, name: "marcin"
             )
         headers {
             contentType(applicationJson())
         }
     }
     response {
-        status <span class="integer">200</span>
-        body(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
-            { &quot;status&quot; : &quot;OK&quot; }
-        </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+        status 200
+        body("""
+            { "status" : "OK" }
+        """)
         headers {
             contentType(applicationJson())
         }
@@ -1124,7 +1034,7 @@ create a <code>shouldSendAcceptedVerification.groovy</code> file. If you&#8217;r
 <p>Call the <code>org.springframework.cloud.contract.spec.Contract.make { }</code> method to start defining the contract</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
 }</code></pre>
 </div>
 </div>
@@ -1135,10 +1045,10 @@ Groovy multiline String <code>""" """</code> to have all special characters esca
 will be converted into a new line character</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+    """)
 }</code></pre>
 </div>
 </div>
@@ -1151,11 +1061,11 @@ trigger that message. That hook is called a <code>label</code> in Spring Cloud C
 <code>label 'accepted_verification'</code></p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-    label <span class="string"><span class="delimiter">&quot;</span><span class="content">accepted_verification</span><span class="delimiter">&quot;</span></span>
+    """)
+    label "accepted_verification"
 }</code></pre>
 </div>
 </div>
@@ -1165,11 +1075,11 @@ trigger that message. That hook is called a <code>label</code> in Spring Cloud C
 <code>outputMessage</code>. You can call that message in the Groovy DSL <code>outputMessage { }</code></p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-    label <span class="string"><span class="delimiter">&quot;</span><span class="content">accepted_verification</span><span class="delimiter">&quot;</span></span>
+    """)
+    label "accepted_verification"
     outputMessage {
 
     }
@@ -1184,13 +1094,13 @@ to send the message to the <code>verifications</code> channel. Let&#8217;s defin
 by calling <code>sentTo 'verifications'</code></p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-    label <span class="string"><span class="delimiter">&quot;</span><span class="content">accepted_verification</span><span class="delimiter">&quot;</span></span>
+    """)
+    label "accepted_verification"
     outputMessage {
-        sentTo <span class="string"><span class="delimiter">&quot;</span><span class="content">verifications</span><span class="delimiter">&quot;</span></span>
+        sentTo "verifications"
     }
 }</code></pre>
 </div>
@@ -1200,14 +1110,14 @@ by calling <code>sentTo 'verifications'</code></p>
 <p>As for the body we just can call <code>body(eligible: true)</code>. That way we&#8217;ll send a JSON body via messaging</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-    label <span class="string"><span class="delimiter">&quot;</span><span class="content">accepted_verification</span><span class="delimiter">&quot;</span></span>
+    """)
+    label "accepted_verification"
     outputMessage {
-        sentTo <span class="string"><span class="delimiter">&quot;</span><span class="content">verifications</span><span class="delimiter">&quot;</span></span>
-        body(<span class="key">eligible</span>: <span class="predefined-constant">true</span>)
+        sentTo "verifications"
+        body(eligible: true)
     }
 }</code></pre>
 </div>
@@ -1220,16 +1130,16 @@ type of the payload is called <code>contentType</code>. So we need to set it lik
 <code>header("contentType", applicationJsonUtf8())</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-    label <span class="string"><span class="delimiter">&quot;</span><span class="content">accepted_verification</span><span class="delimiter">&quot;</span></span>
+    """)
+    label "accepted_verification"
     outputMessage {
-        sentTo <span class="string"><span class="delimiter">&quot;</span><span class="content">verifications</span><span class="delimiter">&quot;</span></span>
-        body(<span class="key">eligible</span>: <span class="predefined-constant">true</span>)
+        sentTo "verifications"
+        body(eligible: true)
         headers {
-            header(<span class="string"><span class="delimiter">&quot;</span><span class="content">contentType</span><span class="delimiter">&quot;</span></span>, applicationJsonUtf8())
+            header("contentType", applicationJsonUtf8())
         }
     }
 }</code></pre>
@@ -1293,13 +1203,13 @@ is the Spring Cloud Contract plugin. Let&#8217;s add it to the producer&#8217;s 
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ ./mvnw clean install -DskipTests</code></pre>
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">$ ./mvnw clean install -DskipTests</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ ./gradlew clean build publishToMavenLocal -x test</code></pre>
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">$ ./gradlew clean build publishToMavenLocal -x test</code></pre>
 </div>
 </div>
 </li>
@@ -1579,7 +1489,7 @@ that got submitted to via a branch called <code>the_pr</code> looks like this:</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">git fetch origin
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">git fetch origin
 git checkout -b the_pr origin/the_pr
 git merge master</code></pre>
 </div>
@@ -1634,22 +1544,22 @@ have a base class with fully qualified name equal to X)</p>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;plugin&gt;</span>
-    <span class="tag">&lt;groupId&gt;</span>org.springframework.cloud<span class="tag">&lt;/groupId&gt;</span>
-    <span class="tag">&lt;artifactId&gt;</span>spring-cloud-contract-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
-    <span class="tag">&lt;version&gt;</span>${spring-cloud-contract.version}<span class="tag">&lt;/version&gt;</span>
-    <span class="tag">&lt;extensions&gt;</span>true<span class="tag">&lt;/extensions&gt;</span>
-    <span class="tag">&lt;configuration&gt;</span>
-        <span class="tag">&lt;packageWithBaseClasses&gt;</span>com.example<span class="tag">&lt;/packageWithBaseClasses&gt;</span>
-    <span class="tag">&lt;/configuration&gt;</span>
-<span class="tag">&lt;/plugin&gt;</span></code></pre>
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-contract-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;${spring-cloud-contract.version}&lt;/version&gt;
+    &lt;extensions&gt;true&lt;/extensions&gt;
+    &lt;configuration&gt;
+        &lt;packageWithBaseClasses&gt;com.example&lt;/packageWithBaseClasses&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">contracts {
-    packageWithBaseClasses = <span class="string"><span class="delimiter">'</span><span class="content">com.example</span><span class="delimiter">'</span></span>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">contracts {
+    packageWithBaseClasses = 'com.example'
 }</code></pre>
 </div>
 </div>
@@ -1702,19 +1612,19 @@ So if in the base class we expect to have a method called <code>triggerSomeMessa
 for tests, then we would write <code>input { triggeredBy("triggerSomeMessage()") }</code> to make this happen. Example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
         some interesting description
-    </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-    label <span class="string"><span class="delimiter">&quot;</span><span class="content">accepted_verification</span><span class="delimiter">&quot;</span></span>
+    """)
+    label "accepted_verification"
     input {
-        triggeredBy(<span class="string"><span class="delimiter">&quot;</span><span class="content">triggerSomeMessage()</span><span class="delimiter">&quot;</span></span>)
+        triggeredBy("triggerSomeMessage()")
     }
     outputMessage {
-        sentTo <span class="string"><span class="delimiter">&quot;</span><span class="content">verifications</span><span class="delimiter">&quot;</span></span>
-        body(<span class="key">eligible</span>: <span class="predefined-constant">true</span>)
+        sentTo "verifications"
+        body(eligible: true)
         headers {
-            header(<span class="string"><span class="delimiter">&quot;</span><span class="content">contentType</span><span class="delimiter">&quot;</span></span>, applicationJsonUtf8())
+            header("contentType", applicationJsonUtf8())
         }
     }
 }</code></pre>
@@ -1741,13 +1651,13 @@ from the base class. (<a href="#_messaging_dsls">Show solution</a>)</p>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ ./mvnw clean install</code></pre>
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">$ ./mvnw clean install</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ ./gradlew clean build publishToMavenLocal</code></pre>
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">$ ./gradlew clean build publishToMavenLocal</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1811,8 +1721,8 @@ That means that we will work with mock of the <code>PersonCheckingService</code>
 <p>Let&#8217;s annotate the test class with <code>@RunWith(MockitoJUnitRunner.class)</code> to enable Mockito runner.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@RunWith</span>(MockitoJUnitRunner.class)
-<span class="directive">public</span> <span class="directive">abstract</span> <span class="type">class</span> <span class="class">BeerRestBase</span> {
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(MockitoJUnitRunner.class)
+public abstract class BeerRestBase {
 ...
 }</code></pre>
 </div>
@@ -1823,12 +1733,12 @@ That means that we will work with mock of the <code>PersonCheckingService</code>
 producerController</code>. Mockito will inject any mocks for us via the constructor.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">    <span class="annotation">@Mock</span> PersonCheckingService personCheckingService;
-    <span class="annotation">@InjectMocks</span> ProducerController producerController;
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Mock PersonCheckingService personCheckingService;
+    @InjectMocks ProducerController producerController;
 
-    <span class="annotation">@Before</span>
-    <span class="directive">public</span> <span class="type">void</span> setup() {
-        given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(<span class="predefined-constant">true</span>);
+    @Before
+    public void setup() {
+        given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
     }</code></pre>
 </div>
 </div>
@@ -1839,15 +1749,15 @@ the <code>shouldGetBeer</code> method in such a way that if the user is old enou
 true. Let&#8217;s now add the <code>oldEnoughMethod()</code></p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">        <span class="directive">private</span> TypeSafeMatcher&lt;PersonToCheck&gt; oldEnough() {
-                <span class="keyword">return</span> <span class="keyword">new</span> TypeSafeMatcher&lt;PersonToCheck&gt;() {
-                        <span class="annotation">@Override</span> <span class="directive">protected</span> <span class="type">boolean</span> matchesSafely(PersonToCheck personToCheck) {
-                                <span class="keyword">return</span> personToCheck.age &gt;= <span class="integer">20</span>;
-                        }
-                        <span class="annotation">@Override</span> <span class="directive">public</span> <span class="type">void</span> describeTo(Description description) {
-                        }
-                };
-        }</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	private TypeSafeMatcher&lt;PersonToCheck&gt; oldEnough() {
+		return new TypeSafeMatcher&lt;PersonToCheck&gt;() {
+			@Override protected boolean matchesSafely(PersonToCheck personToCheck) {
+				return personToCheck.age &gt;= 20;
+			}
+			@Override public void describeTo(Description description) {
+			}
+		};
+	}</code></pre>
 </div>
 </div>
 </li>
@@ -1861,24 +1771,24 @@ to send requests. In our case we want to profit from MockMvc. In order to set th
 with RestAssured it&#8217;s enough to call <code>RestAssuredMockMvc.standaloneSetup(producerController);</code></p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@RunWith</span>(MockitoJUnitRunner.class)
-<span class="directive">public</span> <span class="directive">abstract</span> <span class="type">class</span> <span class="class">BeerRestBase</span> {
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(MockitoJUnitRunner.class)
+public abstract class BeerRestBase {
 
-    <span class="annotation">@Mock</span> PersonCheckingService personCheckingService;
-    <span class="annotation">@InjectMocks</span> ProducerController producerController;
+    @Mock PersonCheckingService personCheckingService;
+    @InjectMocks ProducerController producerController;
 
-    <span class="annotation">@Before</span>
-    <span class="directive">public</span> <span class="type">void</span> setup() {
-        given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(<span class="predefined-constant">true</span>);
+    @Before
+    public void setup() {
+        given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
         RestAssuredMockMvc.standaloneSetup(producerController);
     }
 
-    <span class="directive">private</span> TypeSafeMatcher&lt;PersonToCheck&gt; oldEnough() {
-        <span class="keyword">return</span> <span class="keyword">new</span> TypeSafeMatcher&lt;PersonToCheck&gt;() {
-            <span class="annotation">@Override</span> <span class="directive">protected</span> <span class="type">boolean</span> matchesSafely(PersonToCheck personToCheck) {
-                <span class="keyword">return</span> personToCheck.age &gt;= <span class="integer">20</span>;
+    private TypeSafeMatcher&lt;PersonToCheck&gt; oldEnough() {
+        return new TypeSafeMatcher&lt;PersonToCheck&gt;() {
+            @Override protected boolean matchesSafely(PersonToCheck personToCheck) {
+                return personToCheck.age &gt;= 20;
             }
-            <span class="annotation">@Override</span> <span class="directive">public</span> <span class="type">void</span> describeTo(Description description) {
+            @Override public void describeTo(Description description) {
             }
         };
     }
@@ -1913,10 +1823,10 @@ add the <code>@AutoConfigureMessageVerifier</code> annotation on the test class.
 the setup related to messaging and Spring Cloud Contract.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@RunWith</span>(SpringRunner.class)
-<span class="annotation">@SpringBootTest</span>(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-<span class="annotation">@AutoConfigureMessageVerifier</span>
-<span class="directive">public</span> <span class="directive">abstract</span> <span class="type">class</span> <span class="class">BeerMessagingBase</span> {
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@AutoConfigureMessageVerifier
+public abstract class BeerMessagingBase {
 ...
 }</code></pre>
 </div>
@@ -1956,13 +1866,13 @@ In this case we&#8217;re sending a message to the <code>output</code> channel (t
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ ./mvnw clean install</code></pre>
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">$ ./mvnw clean install</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ ./gradlew clean build publishToMavenLocal</code></pre>
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">$ ./gradlew clean build publishToMavenLocal</code></pre>
 </div>
 </div>
 </li>
@@ -1998,15 +1908,15 @@ we&#8217;d like to download them from the remote location</p>
 code) it&#8217;s enough to remove the <code>workOffline</code> flag and to pass the <code>repositoryRoot</code> parameter</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@RunWith</span>(SpringRunner.class)
-<span class="annotation">@SpringBootTest</span>(webEnvironment = WebEnvironment.MOCK)
-<span class="annotation">@AutoConfigureMockMvc</span>
-<span class="annotation">@AutoConfigureJsonTesters</span>
-<span class="annotation">@AutoConfigureStubRunner</span>(repositoryRoot=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://foo.com/bar,
-ids = </span><span class="delimiter">&quot;</span></span>com.example:beer-api-producer-with-scenario:+:stubs:<span class="integer">8090</span><span class="string"><span class="delimiter">&quot;</span><span class="content">)
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
+@AutoConfigureMockMvc
+@AutoConfigureJsonTesters
+@AutoConfigureStubRunner(repositoryRoot="http://foo.com/bar,
+ids = "com.example:beer-api-producer-with-scenario:+:stubs:8090")
 @DirtiesContext
 public class BeerControllerTest extends AbstractTest {
-}</span></span></code></pre>
+}</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -2030,25 +1940,25 @@ system / environment property, or via an <code>application.yml</code></p>
 <h3 id="_written_consumer_tests">Written consumer tests</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">        <span class="annotation">@Test</span> <span class="directive">public</span> <span class="type">void</span> should_give_me_a_beer_when_im_old_enough() <span class="directive">throws</span> <span class="exception">Exception</span> {
-                <span class="comment">//remove::start[]</span>
-                mockMvc.perform(MockMvcRequestBuilders.post(<span class="string"><span class="delimiter">&quot;</span><span class="content">/beer</span><span class="delimiter">&quot;</span></span>)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(json.write(<span class="keyword">new</span> Person(<span class="string"><span class="delimiter">&quot;</span><span class="content">marcin</span><span class="delimiter">&quot;</span></span>, <span class="integer">22</span>)).getJson()))
-                                .andExpect(status().isOk())
-                                .andExpect(content().string(<span class="string"><span class="delimiter">&quot;</span><span class="content">THERE YOU GO</span><span class="delimiter">&quot;</span></span>));
-                <span class="comment">//remove::end[]</span>
-        }
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+		//remove::start[]
+		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json.write(new Person("marcin", 22)).getJson()))
+				.andExpect(status().isOk())
+				.andExpect(content().string("THERE YOU GO"));
+		//remove::end[]
+	}
 
-        <span class="annotation">@Test</span> <span class="directive">public</span> <span class="type">void</span> should_reject_a_beer_when_im_too_young() <span class="directive">throws</span> <span class="exception">Exception</span> {
-                <span class="comment">//remove::start[]</span>
-                mockMvc.perform(MockMvcRequestBuilders.post(<span class="string"><span class="delimiter">&quot;</span><span class="content">/beer</span><span class="delimiter">&quot;</span></span>)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(json.write(<span class="keyword">new</span> Person(<span class="string"><span class="delimiter">&quot;</span><span class="content">marcin</span><span class="delimiter">&quot;</span></span>, <span class="integer">17</span>)).getJson()))
-                                .andExpect(status().isOk())
-                                .andExpect(content().string(<span class="string"><span class="delimiter">&quot;</span><span class="content">GET LOST</span><span class="delimiter">&quot;</span></span>));
-                <span class="comment">//remove::end[]</span>
-        }</code></pre>
+	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
+		//remove::start[]
+		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json.write(new Person("marcin", 17)).getJson()))
+				.andExpect(status().isOk())
+				.andExpect(content().string("GET LOST"));
+		//remove::end[]
+	}</code></pre>
 </div>
 </div>
 </div>
@@ -2057,17 +1967,17 @@ system / environment property, or via an <code>application.yml</code></p>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
-        <span class="tag">&lt;groupId&gt;</span>org.springframework.cloud<span class="tag">&lt;/groupId&gt;</span>
-        <span class="tag">&lt;artifactId&gt;</span>spring-cloud-starter-contract-verifier<span class="tag">&lt;/artifactId&gt;</span>
-        <span class="tag">&lt;scope&gt;</span>test<span class="tag">&lt;/scope&gt;</span>
-<span class="tag">&lt;/dependency&gt;</span></code></pre>
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-cloud-starter-contract-verifier&lt;/artifactId&gt;
+	&lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">testCompile(<span class="string"><span class="delimiter">&quot;</span><span class="content">org.springframework.cloud:spring-cloud-starter-contract-verifier</span><span class="delimiter">&quot;</span></span>)</code></pre>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")</code></pre>
 </div>
 </div>
 </div>
@@ -2079,86 +1989,86 @@ system / environment property, or via an <code>application.yml</code></p>
 <div class="listingblock primary">
 <div class="title">Old Enough</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy"><span class="comment">// rest/shouldGrantABeerIfOldEnough.groovy</span>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">// rest/shouldGrantABeerIfOldEnough.groovy
 org.springframework.cloud.contract.spec.Contract.make {
-                description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+		description("""
 Represents a successful scenario of getting a beer
 
 ```
 given:
-        client is old enough
+	client is old enough
 when:
-        he applies for a beer
+	he applies for a beer
 then:
-        we'll grant him the beer
+	we'll grant him the beer
 ```
 
-</span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-        request {
-                method <span class="string"><span class="delimiter">'</span><span class="content">POST</span><span class="delimiter">'</span></span>
-                url <span class="string"><span class="delimiter">'</span><span class="content">/check</span><span class="delimiter">'</span></span>
-                body(
-                                <span class="key">age</span>: <span class="integer">22</span>,
-                                <span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">marcin</span><span class="delimiter">&quot;</span></span>
-                )
-                headers {
-                        contentType(applicationJson())
-                }
-        }
-        response {
-                status <span class="integer">200</span>
-                body(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
-                        {
-                                &quot;status&quot;: &quot;OK&quot;
-                        }
-                        </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-                headers {
-                        contentType(applicationJson())
-                }
-        }
+""")
+	request {
+		method 'POST'
+		url '/check'
+		body(
+				age: 22,
+				name: "marcin"
+		)
+		headers {
+			contentType(applicationJson())
+		}
+	}
+	response {
+		status 200
+		body("""
+			{
+				"status": "OK"
+			}
+			""")
+		headers {
+			contentType(applicationJson())
+		}
+	}
 }</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Too Young</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy"><span class="comment">// rest/shouldRejectABeerIfTooYoung.groovy</span>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">// rest/shouldRejectABeerIfTooYoung.groovy
 org.springframework.cloud.contract.spec.Contract.make {
-                description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+		description("""
 Represents a successful scenario of getting a beer
 
 ```
 given:
-        client is old enough
+	client is old enough
 when:
-        he applies for a beer
+	he applies for a beer
 then:
-        we'll grant him the beer
+	we'll grant him the beer
 ```
 
-</span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-        request {
-                method <span class="string"><span class="delimiter">'</span><span class="content">POST</span><span class="delimiter">'</span></span>
-                url <span class="string"><span class="delimiter">'</span><span class="content">/check</span><span class="delimiter">'</span></span>
-                body(
-                                <span class="key">age</span>: <span class="integer">17</span>,
-                                <span class="key">name</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">marcin</span><span class="delimiter">&quot;</span></span>
-                )
-                headers {
-                        contentType(applicationJson())
-                }
-        }
-        response {
-                status <span class="integer">200</span>
-                body(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
-                        {
-                                &quot;status&quot;: &quot;NOT_OK&quot;
-                        }
-                        </span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-                headers {
-                        contentType(applicationJson())
-                }
-        }
+""")
+	request {
+		method 'POST'
+		url '/check'
+		body(
+				age: 17,
+				name: "marcin"
+		)
+		headers {
+			contentType(applicationJson())
+		}
+	}
+	response {
+		status 200
+		body("""
+			{
+				"status": "NOT_OK"
+			}
+			""")
+		headers {
+			contentType(applicationJson())
+		}
+	}
 }</code></pre>
 </div>
 </div>
@@ -2168,70 +2078,70 @@ then:
 <div class="listingblock primary">
 <div class="title">Positive Verification</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy"><span class="comment">// messaging/shouldSendAcceptedVerification.groovy</span>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">// messaging/shouldSendAcceptedVerification.groovy
 org.springframework.cloud.contract.spec.Contract.make {
-        description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+	description("""
 Sends a positive verification message when person is eligible to get the beer
 
 ```
 given:
-        client is old enough
+	client is old enough
 when:
-        he applies for a beer
+	he applies for a beer
 then:
-        we'll send a message with a positive verification
+	we'll send a message with a positive verification
 ```
 
-</span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-        <span class="comment">// Label by means of which the output message can be triggered</span>
-        label <span class="string"><span class="delimiter">'</span><span class="content">accepted_verification</span><span class="delimiter">'</span></span>
-        <span class="comment">// output message of the contract</span>
-        outputMessage {
-                <span class="comment">// destination to which the output message will be sent</span>
-                sentTo <span class="string"><span class="delimiter">'</span><span class="content">verifications</span><span class="delimiter">'</span></span>
-                <span class="comment">// the body of the output message</span>
-                body(
-            <span class="key">eligible</span>: <span class="predefined-constant">true</span>
-                )
-                headers {
-                        header(<span class="string"><span class="delimiter">&quot;</span><span class="content">contentType</span><span class="delimiter">&quot;</span></span>, applicationJsonUtf8())
-                }
-        }
+""")
+	// Label by means of which the output message can be triggered
+	label 'accepted_verification'
+	// output message of the contract
+	outputMessage {
+		// destination to which the output message will be sent
+		sentTo 'verifications'
+		// the body of the output message
+		body(
+            eligible: true
+		)
+		headers {
+			header("contentType", applicationJsonUtf8())
+		}
+	}
 }</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Negative Verification</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy"><span class="comment">// messaging/shouldSendRejectedVerification.groovy</span>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">// messaging/shouldSendRejectedVerification.groovy
 org.springframework.cloud.contract.spec.Contract.make {
-        description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+	description("""
 Sends a negative verification message when person is not eligible to get the beer
 
 ```
 given:
-        client is too young
+	client is too young
 when:
-        he applies for a beer
+	he applies for a beer
 then:
-        we'll send a message with a negative verification
+	we'll send a message with a negative verification
 ```
 
-</span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-        <span class="comment">// Label by means of which the output message can be triggered</span>
-        label <span class="string"><span class="delimiter">'</span><span class="content">rejected_verification</span><span class="delimiter">'</span></span>
-        <span class="comment">// output message of the contract</span>
-        outputMessage {
-                <span class="comment">// destination to which the output message will be sent</span>
-                sentTo <span class="string"><span class="delimiter">'</span><span class="content">verifications</span><span class="delimiter">'</span></span>
-                <span class="comment">// the body of the output message</span>
-                body(
-            <span class="key">eligible</span>: <span class="predefined-constant">false</span>
-                )
-                headers {
-                        header(<span class="string"><span class="delimiter">&quot;</span><span class="content">contentType</span><span class="delimiter">&quot;</span></span>, applicationJsonUtf8())
-                }
-        }
+""")
+	// Label by means of which the output message can be triggered
+	label 'rejected_verification'
+	// output message of the contract
+	outputMessage {
+		// destination to which the output message will be sent
+		sentTo 'verifications'
+		// the body of the output message
+		body(
+            eligible: false
+		)
+		headers {
+			header("contentType", applicationJsonUtf8())
+		}
+	}
 }</code></pre>
 </div>
 </div>
@@ -2241,29 +2151,29 @@ then:
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;plugin&gt;</span>
-    <span class="tag">&lt;groupId&gt;</span>org.springframework.cloud<span class="tag">&lt;/groupId&gt;</span>
-    <span class="tag">&lt;artifactId&gt;</span>spring-cloud-contract-maven-plugin<span class="tag">&lt;/artifactId&gt;</span>
-    <span class="tag">&lt;version&gt;</span>${spring-cloud-contract.version}<span class="tag">&lt;/version&gt;</span>
-    <span class="tag">&lt;extensions&gt;</span>true<span class="tag">&lt;/extensions&gt;</span>
-<span class="tag">&lt;/plugin&gt;</span></code></pre>
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-contract-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;${spring-cloud-contract.version}&lt;/version&gt;
+    &lt;extensions&gt;true&lt;/extensions&gt;
+&lt;/plugin&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">buildscript {
-        repositories {
-                mavenCentral()
-                mavenLocal()
-                maven { url <span class="string"><span class="delimiter">&quot;</span><span class="content">http://repo.spring.io/snapshot</span><span class="delimiter">&quot;</span></span> }
-                maven { url <span class="string"><span class="delimiter">&quot;</span><span class="content">http://repo.spring.io/milestone</span><span class="delimiter">&quot;</span></span> }
-                maven { url <span class="string"><span class="delimiter">&quot;</span><span class="content">http://repo.spring.io/release</span><span class="delimiter">&quot;</span></span> }
-        }
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">buildscript {
+	repositories {
+		mavenCentral()
+		mavenLocal()
+		maven { url "http://repo.spring.io/snapshot" }
+		maven { url "http://repo.spring.io/milestone" }
+		maven { url "http://repo.spring.io/release" }
+	}
 
-        dependencies {
-                classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">org.springframework.cloud:spring-cloud-contract-gradle-plugin:</span><span class="inline"><span class="inline-delimiter">${</span>verifierVersion<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
-        }
+	dependencies {
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${verifierVersion}"
+	}
 }</code></pre>
 </div>
 </div>
@@ -2272,18 +2182,18 @@ then:
 <h3 id="_missing_consumer_controller_code">Missing consumer controller code</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">                ResponseEntity&lt;Response&gt; response = <span class="local-variable">this</span>.restTemplate.exchange(
-                                RequestEntity
-                                                .post(<span class="predefined-type">URI</span>.create(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:</span><span class="delimiter">&quot;</span></span> + port + <span class="string"><span class="delimiter">&quot;</span><span class="content">/check</span><span class="delimiter">&quot;</span></span>))
-                                                .contentType(MediaType.APPLICATION_JSON)
-                                                .body(person),
-                                Response.class);
-                <span class="keyword">switch</span> (response.getBody().status) {
-                <span class="keyword">case</span> OK:
-                        <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">THERE YOU GO</span><span class="delimiter">&quot;</span></span>;
-                <span class="keyword">default</span>:
-                        <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">GET LOST</span><span class="delimiter">&quot;</span></span>;
-                }</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">		ResponseEntity&lt;Response&gt; response = this.restTemplate.exchange(
+				RequestEntity
+						.post(URI.create("http://localhost:" + port + "/check"))
+						.contentType(MediaType.APPLICATION_JSON)
+						.body(person),
+				Response.class);
+		switch (response.getBody().status) {
+		case OK:
+			return "THERE YOU GO";
+		default:
+			return "GET LOST";
+		}</code></pre>
 </div>
 </div>
 </div>
@@ -2292,17 +2202,17 @@ then:
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
-        <span class="tag">&lt;groupId&gt;</span>org.springframework.cloud<span class="tag">&lt;/groupId&gt;</span>
-        <span class="tag">&lt;artifactId&gt;</span>spring-cloud-starter-contract-stub-runner<span class="tag">&lt;/artifactId&gt;</span>
-        <span class="tag">&lt;scope&gt;</span>test<span class="tag">&lt;/scope&gt;</span>
-<span class="tag">&lt;/dependency&gt;</span></code></pre>
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-cloud-starter-contract-stub-runner&lt;/artifactId&gt;
+	&lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">testCompile(<span class="string"><span class="delimiter">&quot;</span><span class="content">org.springframework.cloud:spring-cloud-starter-contract-stub-runner</span><span class="delimiter">&quot;</span></span>)</code></pre>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")</code></pre>
 </div>
 </div>
 </div>
@@ -2310,7 +2220,7 @@ then:
 <h3 id="_stub_logs">Stub Logs</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">2017-05-11 12:16:51.146  INFO 4693 --- [           main] o.s.c.c.s.StubDownloaderBuilderProvider  : Will download stubs using Aether
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">2017-05-11 12:16:51.146  INFO 4693 --- [           main] o.s.c.c.s.StubDownloaderBuilderProvider  : Will download stubs using Aether
 2017-05-11 12:16:51.148  INFO 4693 --- [           main] o.s.c.c.stubrunner.AetherStubDownloader  : Remote repos not passed but the switch to work offline was set. Stubs will be used from your local Maven repository.
 2017-05-11 12:16:51.291  INFO 4693 --- [           main] o.s.c.c.stubrunner.AetherStubDownloader  : Desired version is [+] - will try to resolve the latest version
 2017-05-11 12:16:51.308  INFO 4693 --- [           main] o.s.c.c.stubrunner.AetherStubDownloader  : Resolved version is [0.0.1-SNAPSHOT]
@@ -2336,15 +2246,15 @@ then:
 <h3 id="_beer_request">Beer Request</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">BeerRequest</span> {
-        <span class="directive">public</span> <span class="predefined-type">String</span> name;
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">class BeerRequest {
+	public String name;
 
-        <span class="directive">public</span> BeerRequest(<span class="predefined-type">String</span> name) {
-                <span class="local-variable">this</span>.name = name;
-        }
+	public BeerRequest(String name) {
+		this.name = name;
+	}
 
-        <span class="directive">public</span> BeerRequest() {
-        }
+	public BeerRequest() {
+	}
 }</code></pre>
 </div>
 </div>
@@ -2353,11 +2263,11 @@ then:
 <h3 id="_missing_listener_code">Missing listener code</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">                <span class="keyword">if</span> (verification.eligible) {
-                        eligibleCounter.incrementAndGet();
-                } <span class="keyword">else</span> {
-                        notEligibleCounter.incrementAndGet();
-                }</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">		if (verification.eligible) {
+			eligibleCounter.incrementAndGet();
+		} else {
+			notEligibleCounter.incrementAndGet();
+		}</code></pre>
 </div>
 </div>
 </div>
@@ -2365,25 +2275,25 @@ then:
 <h3 id="_missing_triggers">Missing triggers</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">        <span class="annotation">@Test</span> <span class="directive">public</span> <span class="type">void</span> should_increase_the_eligible_counter_when_verification_was_accepted() <span class="directive">throws</span> <span class="exception">Exception</span> {
-                <span class="type">int</span> initialCounter = listener.eligibleCounter.get();
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test public void should_increase_the_eligible_counter_when_verification_was_accepted() throws Exception {
+		int initialCounter = listener.eligibleCounter.get();
 
-                <span class="comment">//remove::start[]</span>
-                stubTrigger.trigger(<span class="string"><span class="delimiter">&quot;</span><span class="content">accepted_verification</span><span class="delimiter">&quot;</span></span>);
-                <span class="comment">//remove::end[]</span>
+		//remove::start[]
+		stubTrigger.trigger("accepted_verification");
+		//remove::end[]
 
-                then(listener.eligibleCounter.get()).isGreaterThan(initialCounter);
-        }
+		then(listener.eligibleCounter.get()).isGreaterThan(initialCounter);
+	}
 
-        <span class="annotation">@Test</span> <span class="directive">public</span> <span class="type">void</span> should_increase_the_noteligible_counter_when_verification_was_rejected() <span class="directive">throws</span> <span class="exception">Exception</span> {
-                <span class="type">int</span> initialCounter = listener.notEligibleCounter.get();
+	@Test public void should_increase_the_noteligible_counter_when_verification_was_rejected() throws Exception {
+		int initialCounter = listener.notEligibleCounter.get();
 
-                <span class="comment">//remove::start[]</span>
-                stubTrigger.trigger(<span class="string"><span class="delimiter">&quot;</span><span class="content">rejected_verification</span><span class="delimiter">&quot;</span></span>);
-                <span class="comment">//remove::end[]</span>
+		//remove::start[]
+		stubTrigger.trigger("rejected_verification");
+		//remove::end[]
 
-                then(listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
-        }</code></pre>
+		then(listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
+	}</code></pre>
 </div>
 </div>
 </div>
@@ -2392,80 +2302,80 @@ then:
 <div class="listingblock primary">
 <div class="title">Positive Verification</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy"><span class="comment">// messaging/shouldSendAcceptedVerification.groovy</span>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">// messaging/shouldSendAcceptedVerification.groovy
 org.springframework.cloud.contract.spec.Contract.make {
-        description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+	description("""
 Sends a positive verification message when person is eligible to get the beer
 
 ```
 given:
-        client is old enough
+	client is old enough
 when:
-        he applies for a beer
+	he applies for a beer
 then:
-        we'll send a message with a positive verification
+	we'll send a message with a positive verification
 ```
 
-</span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-        <span class="comment">// Label by means of which the output message can be triggered</span>
-        label <span class="string"><span class="delimiter">'</span><span class="content">accepted_verification</span><span class="delimiter">'</span></span>
-        <span class="comment">// input to the contract</span>
-        input {
-                <span class="comment">// the contract will be triggered by a method</span>
-                triggeredBy(<span class="string"><span class="delimiter">'</span><span class="content">clientIsOldEnough()</span><span class="delimiter">'</span></span>)
-        }
-        <span class="comment">// output message of the contract</span>
-        outputMessage {
-                <span class="comment">// destination to which the output message will be sent</span>
-                sentTo <span class="string"><span class="delimiter">'</span><span class="content">verifications</span><span class="delimiter">'</span></span>
-                <span class="comment">// the body of the output message</span>
-                body(
-            <span class="key">eligible</span>: <span class="predefined-constant">true</span>
-                )
-                headers {
-                        header(<span class="string"><span class="delimiter">&quot;</span><span class="content">contentType</span><span class="delimiter">&quot;</span></span>, applicationJsonUtf8())
-                }
-        }
+""")
+	// Label by means of which the output message can be triggered
+	label 'accepted_verification'
+	// input to the contract
+	input {
+		// the contract will be triggered by a method
+		triggeredBy('clientIsOldEnough()')
+	}
+	// output message of the contract
+	outputMessage {
+		// destination to which the output message will be sent
+		sentTo 'verifications'
+		// the body of the output message
+		body(
+            eligible: true
+		)
+		headers {
+			header("contentType", applicationJsonUtf8())
+		}
+	}
 }</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
 <div class="title">Negative Verification</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy"><span class="comment">// messaging/shouldSendRejectedVerification.groovy</span>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">// messaging/shouldSendRejectedVerification.groovy
 org.springframework.cloud.contract.spec.Contract.make {
-        description(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+	description("""
 Sends a negative verification message when person is not eligible to get the beer
 
 ```
 given:
-        client is too young
+	client is too young
 when:
-        he applies for a beer
+	he applies for a beer
 then:
-        we'll send a message with a negative verification
+	we'll send a message with a negative verification
 ```
 
-</span><span class="delimiter">&quot;&quot;&quot;</span></span>)
-        <span class="comment">// Label by means of which the output message can be triggered</span>
-        label <span class="string"><span class="delimiter">'</span><span class="content">rejected_verification</span><span class="delimiter">'</span></span>
-        <span class="comment">// input to the contract</span>
-        input {
-                <span class="comment">// the contract will be triggered by a method</span>
-                triggeredBy(<span class="string"><span class="delimiter">'</span><span class="content">clientIsTooYoung()</span><span class="delimiter">'</span></span>)
-        }
-        <span class="comment">// output message of the contract</span>
-        outputMessage {
-                <span class="comment">// destination to which the output message will be sent</span>
-                sentTo <span class="string"><span class="delimiter">'</span><span class="content">verifications</span><span class="delimiter">'</span></span>
-                <span class="comment">// the body of the output message</span>
-                body(
-            <span class="key">eligible</span>: <span class="predefined-constant">false</span>
-                )
-                headers {
-                        header(<span class="string"><span class="delimiter">&quot;</span><span class="content">contentType</span><span class="delimiter">&quot;</span></span>, applicationJsonUtf8())
-                }
-        }
+""")
+	// Label by means of which the output message can be triggered
+	label 'rejected_verification'
+	// input to the contract
+	input {
+		// the contract will be triggered by a method
+		triggeredBy('clientIsTooYoung()')
+	}
+	// output message of the contract
+	outputMessage {
+		// destination to which the output message will be sent
+		sentTo 'verifications'
+		// the body of the output message
+		body(
+            eligible: false
+		)
+		headers {
+			header("contentType", applicationJsonUtf8())
+		}
+	}
 }</code></pre>
 </div>
 </div>
@@ -2474,10 +2384,10 @@ then:
 <h3 id="_producercontroller_implementation">ProducerController implementation</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">if</span> (personCheckingService.shouldGetBeer(personToCheck)) {
-    <span class="keyword">return</span> <span class="keyword">new</span> Response(BeerCheckStatus.OK);
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">if (personCheckingService.shouldGetBeer(personToCheck)) {
+    return new Response(BeerCheckStatus.OK);
 }
-<span class="keyword">return</span> <span class="keyword">new</span> Response(BeerCheckStatus.NOT_OK);</code></pre>
+return new Response(BeerCheckStatus.NOT_OK);</code></pre>
 </div>
 </div>
 </div>
@@ -2485,28 +2395,28 @@ then:
 <h3 id="_beerrestbase">BeerRestBase</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@RunWith</span>(MockitoJUnitRunner.class)
-<span class="directive">public</span> <span class="directive">abstract</span> <span class="type">class</span> <span class="class">BeerRestBase</span> {
-        <span class="annotation">@Mock</span> PersonCheckingService personCheckingService;
-        <span class="annotation">@InjectMocks</span> ProducerController producerController;
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(MockitoJUnitRunner.class)
+public abstract class BeerRestBase {
+	@Mock PersonCheckingService personCheckingService;
+	@InjectMocks ProducerController producerController;
 
-        <span class="annotation">@Before</span>
-        <span class="directive">public</span> <span class="type">void</span> setup() {
-                given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(<span class="predefined-constant">true</span>);
-                RestAssuredMockMvc.standaloneSetup(producerController);
-        }
+	@Before
+	public void setup() {
+		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+		RestAssuredMockMvc.standaloneSetup(producerController);
+	}
 
-        <span class="directive">private</span> TypeSafeMatcher&lt;PersonToCheck&gt; oldEnough() {
-                <span class="keyword">return</span> <span class="keyword">new</span> TypeSafeMatcher&lt;PersonToCheck&gt;() {
-                        <span class="annotation">@Override</span> <span class="directive">protected</span> <span class="type">boolean</span> matchesSafely(PersonToCheck personToCheck) {
-                                <span class="keyword">return</span> personToCheck.age &gt;= <span class="integer">20</span>;
-                        }
+	private TypeSafeMatcher&lt;PersonToCheck&gt; oldEnough() {
+		return new TypeSafeMatcher&lt;PersonToCheck&gt;() {
+			@Override protected boolean matchesSafely(PersonToCheck personToCheck) {
+				return personToCheck.age &gt;= 20;
+			}
 
-                        <span class="annotation">@Override</span> <span class="directive">public</span> <span class="type">void</span> describeTo(Description description) {
+			@Override public void describeTo(Description description) {
 
-                        }
-                };
-        }
+			}
+		};
+	}
 }</code></pre>
 </div>
 </div>
@@ -2515,27 +2425,27 @@ then:
 <h3 id="_beermessagingbase">BeerMessagingBase</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@RunWith</span>(SpringRunner.class)
-<span class="annotation">@SpringBootTest</span>(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-<span class="annotation">@AutoConfigureMessageVerifier</span>
-<span class="directive">public</span> <span class="directive">abstract</span> <span class="type">class</span> <span class="class">BeerMessagingBase</span> {
-        <span class="annotation">@Inject</span> MessageVerifier messaging;
-        <span class="annotation">@Autowired</span> PersonCheckingService personCheckingService;
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@AutoConfigureMessageVerifier
+public abstract class BeerMessagingBase {
+	@Inject MessageVerifier messaging;
+	@Autowired PersonCheckingService personCheckingService;
 
-        <span class="annotation">@Before</span>
-        <span class="directive">public</span> <span class="type">void</span> setup() {
-                <span class="comment">// let's clear any remaining messages</span>
-                <span class="comment">// output == destination or channel name</span>
-                <span class="local-variable">this</span>.messaging.receive(<span class="string"><span class="delimiter">&quot;</span><span class="content">output</span><span class="delimiter">&quot;</span></span>, <span class="integer">100</span>, <span class="predefined-type">TimeUnit</span>.MILLISECONDS);
-        }
+	@Before
+	public void setup() {
+		// let's clear any remaining messages
+		// output == destination or channel name
+		this.messaging.receive("output", 100, TimeUnit.MILLISECONDS);
+	}
 
-        <span class="directive">public</span> <span class="type">void</span> clientIsOldEnough() {
-                personCheckingService.shouldGetBeer(<span class="keyword">new</span> PersonToCheck(<span class="integer">25</span>));
-        }
+	public void clientIsOldEnough() {
+		personCheckingService.shouldGetBeer(new PersonToCheck(25));
+	}
 
-        <span class="directive">public</span> <span class="type">void</span> clientIsTooYoung() {
-                personCheckingService.shouldGetBeer(<span class="keyword">new</span> PersonToCheck(<span class="integer">5</span>));
-        }
+	public void clientIsTooYoung() {
+		personCheckingService.shouldGetBeer(new PersonToCheck(5));
+	}
 }</code></pre>
 </div>
 </div>
@@ -2544,9 +2454,9 @@ then:
 <h3 id="_messaging_implementation">Messaging implementation</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">                <span class="type">boolean</span> shouldGetBeer = personToCheck.age &gt;= <span class="integer">20</span>;
-                source.output().send(MessageBuilder.withPayload(<span class="keyword">new</span> Verification(shouldGetBeer)).build());
-                <span class="keyword">return</span> shouldGetBeer;</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">		boolean shouldGetBeer = personToCheck.age &gt;= 20;
+		source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		return shouldGetBeer;</code></pre>
 </div>
 </div>
 </div>
@@ -2561,5 +2471,8 @@ then:
 </div>
 </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
+<script>prettyPrint()</script>
 </body>
 </html>

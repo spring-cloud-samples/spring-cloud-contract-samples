@@ -28,7 +28,6 @@ image::{images_folder}/consumer_flow_1.png[title="Interact with cloned producer 
 ==== IDE setup
 
 - Open in your IDE the `consumer` project (either via Maven or Gradle)
-- Open the `BeerControllerTest` test. Since CDC is like TDD we have 2 tests that describe our beer selling features.
 - We have two objectives for HTTP
   * when a client wants a beer and has
   e.g. name "marcin" and age 22 - the answer that we'll respond with `THERE YOU GO`
@@ -39,7 +38,9 @@ image::{images_folder}/consumer_flow_1.png[title="Interact with cloned producer 
   then we increment the `eligible` counter
   * when a verification message with `eligible` field equal to `false` was sent to the `verifications` channel
   then we increment the `notEligible` counter
-- Let's start with HTTP. Open the `BeerControllerTest` class. We're already providing some basic setup for you (in real TDD
+- Let's start with HTTP.
+- Open the `BeerControllerTest` test. Since CDC is like TDD we have 2 tests that describe our beer selling features.
+and we're already providing some basic setup for you (in real TDD
 example you'd have to code all of that yourself)
 - Technically speaking for both cases we want to use `MockMvc` to send a request to the `/beer` endpoint
 with a JSON pojo containing `name` and `age`. From the controller we want to send a request to

@@ -31,7 +31,7 @@ asciidoctor {
     outputDir = file('docs')
     separateOutputDirs = false
     resources { }
-    attributes 'source-highlighter': 'coderay'
+    attributes 'source-highlighter': 'prettify'
 
 }
 
