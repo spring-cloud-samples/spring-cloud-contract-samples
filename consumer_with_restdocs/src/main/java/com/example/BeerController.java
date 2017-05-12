@@ -1,8 +1,5 @@
 package com.example;
 
-import java.net.MalformedURLException;
-import java.net.URI;
-
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.MalformedURLException;
+import java.net.URI;
 
 /**
  * @author Marcin Grzejszczak
@@ -67,7 +67,7 @@ enum ResponseStatus {
 }
 
 
-
+//remove::start[]
 /*
 
 	@RequestMapping(method = RequestMethod.POST,
@@ -90,3 +90,4 @@ enum ResponseStatus {
 
 
  */
+//remove::end[]

@@ -64,7 +64,7 @@ of CDC is that defining of contract can be done without writing a single line of
 dependencies. You need to add `spring-cloud-starter-contract-verifier` as a test dependency
 (<<_adding_spring_cloud_contract_dependency,Show solution>>)
 - This is a task that you would do once only since when you'll be adding next contracts
-all the dependencies will be there already
+all the dependencies w
 
 ==== Defining first HTTP contract
 
