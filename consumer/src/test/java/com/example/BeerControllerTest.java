@@ -63,6 +63,7 @@ public class BeerControllerTest extends AbstractTest {
 }
 
 
+//remove::start[]
 /*
 
 
@@ -84,4 +85,4 @@ public class BeerControllerTest extends AbstractTest {
 	}
 
  */
-
+//remove::end[]
