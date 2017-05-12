@@ -83,6 +83,9 @@ task removeTextFromFiles() {
             StringBuilder newString = new StringBuilder()
             boolean remove = false
             text.eachLine { String line ->
+                if (line.contains("import org.springframework.cloud.contract")) {
+                  return
+                }
                 if (line.contains("remove::end[]")) {
                     remove = false
                 } else if (line.contains("remove::end[return]")) {
