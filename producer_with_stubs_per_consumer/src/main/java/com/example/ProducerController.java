@@ -24,7 +24,7 @@ public class ProducerController {
 			return new Response(BeerCheckStatus.OK, "foo", "bar");
 		}
 		return new Response(BeerCheckStatus.NOT_OK, "foo", "bar");
-		//remove::end[]
+		//remove::end[return]
 	}
 	
 }
