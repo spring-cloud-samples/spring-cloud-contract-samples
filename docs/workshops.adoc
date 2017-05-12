@@ -29,6 +29,12 @@ with the workshops.
 TIP: Whenever your lost - don't worry. It's enough to check what's there in the `master` branch
 where all of the examples are ready and working.
 
+TIP: The tasks are set in a form of a cookbook. You can pick any task you want -
+you don't have to go through them one by one.
+
+IMPORTANT: You'll also need to have Maven installed. Check out https://maven.apache.org/download.cgi[
+the website on how to download and install Maven]
+
 == Generating the documentation
 
 To generate the whole documentation it's enough to call the Gradle task:
@@ -44,21 +50,36 @@ $ ./gradlew generateDocumentation
 
 //TODO: Add the links / slides
 
-- Introduction to Consumer Driven Contracts
-- Introduction to Spring Cloud Contract
+=== Adib Saikali's introduction to Consumer Driven Contracts
 
-include::scenarios.adoc[]
+++++
+<iframe src="https://docs.google.com/presentation/d/1-_2_Ok-inGA75cr8DwTyeMuhkEGSuaZ4M8FKGV6W5hU/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+++++
+
+{nbsp}
+{nbsp}
+
+video::iyNzYOcuU4I[youtube,start=538,width=640,height=480]
+
+{nbsp}
+{nbsp}
+
+=== Introduction to Spring Cloud Contract
+
+TODO
 
 == Tasks
 
-- link:tutorials/contracts_on_the_producer_side.html[Contracts on the producer side (in pairs)]
+- link:tutorials/contracts_on_the_producer_side.html[Contracts on the producer side]
   * simple DSL examples for HTTP & Messaging
-- Contracts that lay in an external repository (in pairs)
+  * base classes picked by convention
+- link:tutorials/contracts_external.html[Contracts that lay in an external repository]
   * simple DSL examples for HTTP & Messaging
-- Spring Cloud Contract with Rest Docs (in pairs)
+  * base classes picked by mappings
+- Spring Cloud Contract with Rest Docs
   * generating stubs using Rest Docs
   * generating contracts using Rest Docs
-- Contracts on the producer side (single person teams)
+- Extras
   * more sophisticated DSL manipulations (regexs, code execution, referencing request from response)
   * working with stub and test matchers
   * contracts representing scenarios (stateful stubs)
@@ -67,6 +88,7 @@ include::scenarios.adoc[]
   * stubs per consumer feature
   * classpath scanning
   * using JUnit rule
-- Stub Runner Boot
+  * generating documentation from contracts
+- Using stubs with Stub Runner Boot
 
 

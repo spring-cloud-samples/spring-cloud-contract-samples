@@ -1,0 +1,24 @@
+=== Consumer flow 2
+
+image::{images_folder}/consumer_flow_2.png[title="Switch to work online"]
+
+- After merging the PR the producer's stubs reside in some Artifactory / Nexus instance
+- As consumers we no longer want to retrieve the stubs from our local Maven repository -
+we'd like to download them from the remote location
+- To do that (we won't do that for the tutorial but you would do it in your "production"
+code) it's enough to remove the `workOffline` flag and to pass the `repositoryRoot` parameter
++
+[source,java]
+----
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
+@AutoConfigureMockMvc
+@AutoConfigureJsonTesters
+@AutoConfigureStubRunner(repositoryRoot="http://foo.com/bar,
+ids = "com.example:beer-api-producer-with-scenario:+:stubs:8090")
+@DirtiesContext
+public class BeerControllerTest extends AbstractTest {
+}
+----
+  * Another option is to pass the property `stubrunner.repositoryRoot` either as a
+   system / environment property, or via an `application.yml`

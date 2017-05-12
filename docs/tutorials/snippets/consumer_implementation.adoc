@@ -1,0 +1,37 @@
+==== Writing the missing consumer HTTP implementation
+
+- Let's go back to our, consumer's code - let's go back to the `BeerControllerTest` and `BeerController`.
+We know how we would like the API to look like so now we can write the missing implementation in the
+`BeerController`. Let's assume that the producer application will be running at
+ `http://localhost:8090/` (<<_missing_consumer_controller_code,Show solution>>)
+
+==== Turning on Stub Runner in HTTP consumer tests
+
+- Let's run the `BeerControllerTest` again. It will fail since we're trying to send a request to
+a real instance that hasn't been started
+- Now it's time to turn on the magic! Let's add the Spring Cloud Starter Contract Stub Runner test dependency.
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+	<scope>test</scope>
+</dependency>
+----
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
+----
+- In `BeerControllerTest` we can annotate the class with
+`@AutoConfigureStubRunner(workOffline = true, ids = "com.example:{producer_artifact}:+:stubs:8090")`. What that
+will do is:
+  * it will download the stub JARs from Maven local (`workOffline=true`)
+  * it will search for a JAR with coordinates `com.example:{producer_artifact}` with latest version (`+`)
+  and `stubs` classifier. Once it's found the fake HTTP server stub will be started at port `8090`
+- Rerun the test - it should automagically pass!
+ * In the logs you will see information about downloading, unpacking and starting stubs (<<_stub_logs,see the logs>>)
+ * What happened is that we could interact with real API without writing a single line of production code

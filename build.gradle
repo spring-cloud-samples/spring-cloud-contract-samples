@@ -60,8 +60,13 @@ task removeContracts(type: Delete) {
     List<String> folders = producers.collect {
         "${it}/src/test/resources/contracts/"
     }
+    List<String> adocTests = producers.collect {
+        "${it}/src/test/java/com/example/GenerateAdocsFromContractsTests.java"
+    }
     delete folders
+    delete adocTests
     delete 'beer_contracts/src/main/resources/contracts/'
+    delete 'beer_contracts/src/test/java/docs/GenerateAdocsFromContractsTests.java'
 }
 
 task removeTextFromFiles() {

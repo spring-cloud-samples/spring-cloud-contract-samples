@@ -1,0 +1,233 @@
+- You can define the contracts using Groovy DSL. Let's create our first HTTP contract.
+  * Under the `rest` folder create a file `shouldGrantABeerIfOldEnough.groovy`
+  * Call the `Contract.make` method to start defining the contract
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+
+}
+----
+
+  * You can call `description()` method to provide some meaningful description. TIP: You can use the
+   Groovy multiline String `""" """` to have all special characters escaped. Every new line in the String
+   will be converted into a new line character. Example
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+}
+----
+
+  * Now call the `request { }` and `response { }` methods
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+    }
+    response {
+    }
+}
+----
+
+  * Let's assume that we're interested in sending a `POST` method. Call `method POST()` or `method "POST"`.
+  TIP: In Groovy you don't need to provide parentheses (in most cases). You can write either `method POST()`
+  or `method(POST())`. In both cases it's the same syntax
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+    }
+    response {
+    }
+}
+----
+  * Now we need to provide some URL. Let it be `/check`. Let's write `url "/check"`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+    }
+    response {
+    }
+}
+----
+  * Now time to define some body. We'll leverage some of the Groovy power over here so if you're lost
+  you can always check the http://groovy-lang.org/json.html[Groovy JSON documentation]. Let's call the
+  `body()` method with brackets.
+  * In Groovy you can use the map notation in such a way `[key: "value", secondKey: 2]`. In the same way
+  we can describe the body of a JSON. So in order to send a JSON looking like this `{ "age": 22, "name": "marcin" }`
+  we can create a map notation of `[age:22, name:"marcin"]`. The `body` method accepts a map and in Groovy
+  if a method accepts a map then the `[]` brackets can be omited. So you can either write
+  `body([age:22, name:"marcin"])` or `body(age:22, name:"marcin")`. The latter one contains less boilerplate
+  code so let's write that one
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+    }
+    response {
+    }
+}
+----
+  * Now time for the headers... Call the `headers { }` method
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+        headers {
+
+        }
+    }
+    response {
+    }
+}
+----
+  * Inside that method let's define that we want to use the `Content-Type: "application/json` header. Just
+  call `contentType(applicationJson())` methods
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+    }
+}
+----
+  * Congratulations! You defined how you would like the contract for the request to look like! Time for the
+  response
+  * In the `response` block we would like to define that that the status of our response will be 200.
+  Just call `status 200`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+    }
+}
+----
+  * We'd like our response to have some body. As you could have assumed there's a `body` method here too.
+  We'll now use another way of defining bodies (which is the less preferred option in Spring Cloud Contract
+  but still can be useful) - using String
+  * We're assuming that we would like to send back a field called `status` that will return `OK` when the
+  person can get the beer
+  * Call the `body(""" { "status" : "OK" } """)`. That way you're defining how the response body will look like
+  by providing the exact JSON value
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            { "status" : "OK" }
+        """)
+    }
+}
+----
+  * Last thing to add are the response headers. We're doing exactly the same thing as we have done previously
+  for the request. `headers { contentType(applicationJson()) }`.
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            { "status" : "OK" }
+        """)
+        headers {
+            contentType(applicationJson())
+        }
+    }
+}
+----
+  * Congratulations! You have created your first contract!

@@ -8,9 +8,12 @@
 	<includeBaseDirectory>false</includeBaseDirectory>
 	<fileSets>
 		<fileSet>
+			<!-- Directory from which the JAR will be built -->
 			<directory>${project.basedir}/src/main/resources/contracts/</directory>
+			<!-- Inside the JAR we want all the assembled resources to be put under `/` folder -->
 			<outputDirectory>/</outputDirectory>
 			<useDefaultExcludes>true</useDefaultExcludes>
+			<!-- We want to exclude any target directories and maven binaries -->
 			<excludes>
 				<exclude>**/${project.build.directory}/**</exclude>
 				<exclude>**/mvnw</exclude>

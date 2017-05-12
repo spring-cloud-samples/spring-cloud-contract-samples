@@ -25,6 +25,7 @@
 
 	<!-- TO GENERATE THE DOCUMENTATION -->
 	<dependencies>
+		<!-- remove::start[] -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -39,8 +40,8 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
 		</dependency>
+		<!-- remove::end[] -->
 	</dependencies>
-
 
 	<dependencyManagement>
 		<dependencies>
@@ -56,6 +57,7 @@
 
 	<build>
 		<plugins>
+			<!-- remove::start[] -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -75,6 +77,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- remove::end[] -->
 		</plugins>
 	</build>
 

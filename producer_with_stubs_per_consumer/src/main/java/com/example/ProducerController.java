@@ -34,7 +34,6 @@ interface PersonCheckingService {
 }
 
 class PersonToCheck {
-	//remove::start[]
 	public int age;
 
 	public PersonToCheck(int age) {
@@ -43,7 +42,6 @@ class PersonToCheck {
 
 	public PersonToCheck() {
 	}
-	//remove::end[]
 }
 
 class Response {

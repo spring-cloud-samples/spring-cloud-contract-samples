@@ -51,10 +51,13 @@ dependencies {
 
 // remove::start[]
 contracts {
+	// We want to use the JAR with contracts with the following coordinates
 	contractDependency {
 		stringNotation = 'com.example:beer-contracts'
 	}
+	// The JAR with contracts should be taken from Maven local
 	contractsWorkOffline = true
+	// Base package for generated tests
 	basePackageForTests = "com.example"
 	baseClassMappings {
 		baseClassMapping(".*messaging.*", "com.example.BeerMessagingBase")

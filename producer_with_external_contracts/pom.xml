@@ -89,11 +89,14 @@
 							<baseClassFQN>com.example.BeerRestBase</baseClassFQN>
 						</baseClassMapping>
 					</baseClassMappings>
+					<!-- We want to use the JAR with contracts with the following coordinates -->
 					<contractDependency>
 						<groupId>com.example</groupId>
 						<artifactId>beer-contracts</artifactId>
 					</contractDependency>
+					<!-- The JAR with contracts should be taken from Maven local -->
 					<contractsWorkOffline>true</contractsWorkOffline>
+					<!-- Base package for generated tests -->
 					<basePackageForTests>com.example</basePackageForTests>
 				</configuration>
 				<!-- this was added for testing purposes only -->

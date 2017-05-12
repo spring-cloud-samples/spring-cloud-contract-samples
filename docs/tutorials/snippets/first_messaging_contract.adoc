@@ -1,0 +1,104 @@
+- Time to define some contracts for messaging. Create a `shouldSendAcceptedVerification.groovy` file. If you're lost just check out the <<_proposal_of_simple_contracts_by_consumer,solution>>
+  * Call the `org.springframework.cloud.contract.spec.Contract.make { }` method to start defining the contract
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+}
+----
+  * You can call `description()` method to provide some meaningful description. TIP: You can use the
+   Groovy multiline String `""" """` to have all special characters escaped. Every new line in the String
+   will be converted into a new line character
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+}
+----
+  * HTTP communication is synchronous - you send a request and you get a response. With messaging the situation
+  is different - a consumer suddenly might get a message. In the consumer tests the consumer needs a mean to
+  trigger that message. That hook is called a `label` in Spring Cloud Contract. Let's call our label
+  `accepted_verification`. To define it in the contract just call the `label` method like this
+  `label 'accepted_verification'`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+}
+----
+  * Next we define the message that we would like to receive. So from the producer's perspective that's an
+  `outputMessage`. You can call that message in the Groovy DSL `outputMessage { }`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+    outputMessage {
+
+    }
+}
+----
+  * Inside that method we need to define where and what we want to send. Let's start with the first.
+  You can call the `sentTo` method and provide the destination. According to the requirements we want
+  to send the message to the `verifications` channel. Let's define that in the contract
+  by calling `sentTo 'verifications'`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+    outputMessage {
+        sentTo "verifications"
+    }
+}
+----
+  * As for the body we just can call `body(eligible: true)`. That way we'll send a JSON body via messaging
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+    outputMessage {
+        sentTo "verifications"
+        body(eligible: true)
+    }
+}
+----
+  * We can also set headers on the message. Let's call `headers { }` method and inside the closure we can set an
+  explicit header. In case of messaging with Spring Cloud Stream, a header that describes the content
+  type of the payload is called `contentType`. So we need to set it like this
+  `header("contentType", applicationJsonUtf8())`.
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+    outputMessage {
+        sentTo "verifications"
+        body(eligible: true)
+        headers {
+            header("contentType", applicationJsonUtf8())
+        }
+    }
+}
+----
+  * Congratulations! You've created your first messaging contract!

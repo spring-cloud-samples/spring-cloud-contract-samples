@@ -1,0 +1,36 @@
+==== Updating contracts from the PR
+
+- We need to modify the messaging contracts cause they are missing one important piece from the
+producer's perspective - the `input` part
+  * In case of messaging there has to be some trigger that will result in producing an output message
+  * Spring Cloud Contract accepts 3 situations
+    ** Input message produces an output message
+    ** A method execution produces an output message
+    ** Input message doesn't produce any output message
+  * In our situation we'll have a method produce an output. It's enough to pass the `input {}` method
+    and then the `triggeredBy` method. The `triggeredBy` method requires a String with a method execution.
+    So if in the base class we expect to have a method called `triggerSomeMessage()` that would trigger a message
+    for tests, then we would write `input { triggeredBy("triggerSomeMessage()") }` to make this happen. Example:
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+    input {
+        triggeredBy("triggerSomeMessage()")
+    }
+    outputMessage {
+        sentTo "verifications"
+        body(eligible: true)
+        headers {
+            header("contentType", applicationJsonUtf8())
+        }
+    }
+}
+----
+  * For this workshop for the `shouldSendAcceptedVerification.groovy` we want to trigger the `clientIsOldEnough()`
+    method and for `shouldSendRejectedVerification.groovy` we want to trigger the `clientIsTooYoung()` method
+from the base class. (<<_messaging_dsls,Show solution>>)
