@@ -13,7 +13,9 @@ import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+//remove::start[]
 @AutoConfigureMessageVerifier
+//remove::end[]
 public abstract class BeerMessagingBase {
 	//remove::start[]
 	@Inject MessageVerifier messaging;
