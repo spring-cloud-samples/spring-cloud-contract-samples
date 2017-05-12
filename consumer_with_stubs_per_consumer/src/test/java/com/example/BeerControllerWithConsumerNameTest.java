@@ -25,10 +25,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
+//remove::start[]
 @AutoConfigureStubRunner(workOffline = true,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer:+:stubs:8090",
 		stubsPerConsumer = true,
 		consumerName = "foo-consumer")
+//remove::end[]
 @DirtiesContext
 public class BeerControllerWithConsumerNameTest extends AbstractTest {
 
@@ -41,11 +43,13 @@ public class BeerControllerWithConsumerNameTest extends AbstractTest {
 	}
 
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("THERE YOU GO [foo]"));
+		//remove::end[]
 	}
 
 	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {

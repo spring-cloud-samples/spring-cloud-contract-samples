@@ -1,5 +1,7 @@
 package com.example;
 
+import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
+
 import java.util.Random;
 
 import org.hamcrest.Description;
@@ -10,15 +12,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
-
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.argThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public abstract class BeerRestBase {
-
+	//remove::start[]
 	@Mock PersonCheckingService personCheckingService;
 	@Mock StatsService statsService;
 	@InjectMocks ProducerController producerController;
@@ -42,5 +42,5 @@ public abstract class BeerRestBase {
 			}
 		};
 	}
-	
+	//remove::end[]
 }

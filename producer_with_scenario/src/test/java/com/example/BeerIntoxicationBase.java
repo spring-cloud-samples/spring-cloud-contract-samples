@@ -49,6 +49,7 @@ public abstract class BeerIntoxicationBase {
 		private DrunkLevel current = SOBER;
 
 		@Override public Response thereYouGo(Customer personToCheck) {
+			//remove::start[]
 			if ("marcin".equals(personToCheck.name)) {
 				 switch (current) {
 				 case SOBER:
@@ -69,6 +70,7 @@ public abstract class BeerIntoxicationBase {
 			}
 			return new Response(previous, current);
 		}
+		//remove::end[]
 	}
 	
 }

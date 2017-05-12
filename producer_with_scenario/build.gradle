@@ -9,10 +9,12 @@ buildscript {
 
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE"
+		// remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
 		// tag::test_dep_in_plugin[]
 		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
 		// end::test_dep_in_plugin[]
+		// remove::end[]
 	}
 }
 
@@ -29,7 +31,9 @@ repositories {
 
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
+// remove::start[]
 apply plugin: 'spring-cloud-contract'
+// remove::end[]
 apply plugin: 'maven-publish'
 
 dependencyManagement {
@@ -43,16 +47,20 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
-	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
+	// remove::start[]
+	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// tag::test_dep[]
 	testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
 	// end::test_dep[]
+	// remove::end[]
 }
 
+// remove::start[]
 contracts {
 	packageWithBaseClasses = 'com.example'
 }
+// remove::end[]
 
 test {
 	testLogging {

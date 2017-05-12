@@ -102,10 +102,12 @@ The order should be as follows
 - beer-contracts
 - producer
 - producer_with_external_contracts
+- producer_with_stubs_per_consumer
 - consumer
 - consumer_with_discovery
 - producer_with_restdocs
 - consumer_with_restdocs
+- consumer_with_stubs_per_consumer
 
 If the order is different then your apps will blow up most likely due to missing stubs.
 

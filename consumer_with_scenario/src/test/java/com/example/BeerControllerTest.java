@@ -29,7 +29,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
+//remove::start[]
 @AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer-with-scenario:+:stubs:8090")
+//remove::end[]
 @DirtiesContext
 public class BeerControllerTest extends AbstractTest {
 
@@ -48,12 +50,14 @@ public class BeerControllerTest extends AbstractTest {
 	}
 
 	private void sendARequestAndExpectStatuses(DrunkLevel previousStatus, DrunkLevel currentStatus) throws Exception {
+		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/wasted")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(new Person("marcin")).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().json("{\"previousStatus\":\"" + previousStatus.name() +
 						"\",\"currentStatus\":\"" + currentStatus.name() + "\"}"));
+		//remove::end[]
 	}
 }
 

@@ -3,10 +3,10 @@ package contracts.beer.rest
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
-	request {
-		description("""
+	description("""
 Represents a scenario in which a user asks for his drinking stats.
 
+```
 given:
 	any client
 when:
@@ -15,7 +15,10 @@ then:
 	we'll send him back his stats
 and:
 	we'll prepare a personalized text to show the user
+```
+
 """)
+	request {
 		method 'POST'
 		url '/stats'
 		body(

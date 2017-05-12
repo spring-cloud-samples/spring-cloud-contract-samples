@@ -45,6 +45,7 @@ public class ProducerControllerTests {
 	@Test
 	public void should_grant_a_beer_when_person_is_old_enough() throws Exception {
 		PersonToCheck personToCheck = new PersonToCheck(34);
+		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/check")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(personToCheck).getJson()))
@@ -53,10 +54,12 @@ public class ProducerControllerTests {
 						.jsonPath("$[?(@.age >= 20)]")
 						.contentType(MediaType.valueOf("application/json"))
 						.stub("shouldGrantABeerIfOldEnough"));
+		//remove::end[]
 	}
 
 	@Test
 	public void should_reject_a_beer_when_person_is_too_young() throws Exception {
+		//remove::start[]
 		PersonToCheck personToCheck = new PersonToCheck(10);
 		mockMvc.perform(MockMvcRequestBuilders.post("/check")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -66,6 +69,7 @@ public class ProducerControllerTests {
 						.jsonPath("$[?(@.age < 20)]")
 						.contentType(MediaType.valueOf("application/json"))
 						.stub("shouldRejectABeerIfTooYoung"));
+		//end::start[]
 	}
 
 }

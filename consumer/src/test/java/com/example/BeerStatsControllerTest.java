@@ -25,7 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
+//remove::start[]
 @AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8095")
+//remove::end[]
 @DirtiesContext
 public class BeerStatsControllerTest extends AbstractTest {
 
@@ -38,11 +40,13 @@ public class BeerStatsControllerTest extends AbstractTest {
 	}
 
 	@Test public void should_return_a_personalized_text_with_amount_of_beers() throws Exception {
+		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/stats")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(statsJson.write(new StatsRequest("marcin")).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("Dear marcin thanks for your interested in drinking beer. You've drank <5> beers"));
+		//remove::end[]
 	}
 }
 

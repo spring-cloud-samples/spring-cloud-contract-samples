@@ -1,0 +1,1323 @@
+:toc: left
+:toclevels: 8
+:nofooter:
+:root: ../..
+:consumer: {root}/consumer
+:producer: {root}/producer
+:images_folder: ../images
+
+= Contracts on the producer side
+
+In this tutorial we'll keep the contracts together with the producer code
+
+include::../scenarios.adoc[]
+
+== Flow
+
+image::{images_folder}/flow.png[title="Consumer Driven Contract flow"]
+
+== Tutorial
+
+Consumer Driven Contract is like TDD on the layer of architecture. Let's start with writing a test on the
+consumer side.
+
+=== Consumer flow 1
+
+image::{images_folder}/consumer_flow_1.png[title="Interact with cloned producer code"]
+
+==== IDE setup
+
+- Open in your IDE the `consumer` project (either via Maven or Gradle)
+- We have two objectives for HTTP
+  * when a client wants a beer and has
+  e.g. name "marcin" and age 22 - the answer that we'll respond with `THERE YOU GO`
+  * when a client is an underage and wants a beer and has
+  e.g. name "marcin" and age 17 - the answer that we'll respond with `GET LOST`
+- and we have two objectives for messaging
+  * when a verification message with `eligible` field equal to `true` was sent to the `verifications` channel
+  then we increment the `eligible` counter
+  * when a verification message with `eligible` field equal to `false` was sent to the `verifications` channel
+  then we increment the `notEligible` counter
+- Let's start with HTTP.
+- Open the `BeerControllerTest` test. Since CDC is like TDD we have 2 tests that describe our beer selling features.
+and we're already providing some basic setup for you (in real TDD
+example you'd have to code all of that yourself)
+- Technically speaking for both cases we want to use `MockMvc` to send a request to the `/beer` endpoint
+with a JSON pojo containing `name` and `age`. From the controller we want to send a request to
+`http://localhost:8090/` where the producer will be waiting for out requests. Let's write the missing
+tests body. (<<_written_consumer_tests,Show solution>>)
+- The first step in TDD is `red` - let's run the tests and ensure that they are failing (in the controller
+we return `null` instead of any meaningful value)
+- The problem is such that we don't yet know what API we would like to have... This is where we touch
+ the very essence of Consumer Driven Contracts. As consumers we want to drive the change of the API
+ that's why, *as consumers*, we will work on the producer code.
+
+==== Cloning the producer's code
+
+- In this tutorial we will not clone the producer's code, we'll just open it in the IDE
+- There's some production code written on the producer side but you could completely remove it. The idea
+of CDC is that defining of contract can be done without writing a single line of code for the feature.
+
+==== Adding dependencies in the producer's clone
+
+- Since we want the IDE to help us with code completion, let's add the necessary Spring Cloud Contract
+dependencies. You need to add `spring-cloud-starter-contract-verifier` as a test dependency
+(<<_adding_spring_cloud_contract_dependency,Show solution>>)
+- This is a task that you would do once only since when you'll be adding next contracts
+all the dependencies w
+
+==== Defining first HTTP contract
+
+- Time to play with the API! Create a `src/test/resources/contracts/beer/rest` and
+ `src/test/resources/contracts/beer/messaging` folders. (<<_proposal_of_simple_contracts_by_consumer,Show solution>>)
+  * You can define the contracts using Groovy DSL. Let's create our first HTTP contract.
+  * Under the `rest` folder create a file `shouldGrantABeerIfOldEnough.groovy`
+  * Call the `Contract.make` method to start defining the contract
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+
+}
+----
+
+  * You can call `description()` method to provide some meaningful description. TIP: You can use the
+   Groovy multiline String `""" """` to have all special characters escaped. Every new line in the String
+   will be converted into a new line character. Example
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+}
+----
+
+  * Now call the `request { }` and `response { }` methods
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+    }
+    response {
+    }
+}
+----
+
+  * Let's assume that we're interested in sending a `POST` method. Call `method POST()` or `method "POST"`.
+  TIP: In Groovy you don't need to provide parentheses (in most cases). You can write either `method POST()`
+  or `method(POST())`. In both cases it's the same syntax
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+    }
+    response {
+    }
+}
+----
+  * Now we need to provide some URL. Let it be `/check`. Let's write `url "/check"`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+    }
+    response {
+    }
+}
+----
+  * Now time to define some body. We'll leverage some of the Groovy power over here so if you're lost
+  you can always check the http://groovy-lang.org/json.html[Groovy JSON documentation]. Let's call the
+  `body()` method with brackets.
+  * In Groovy you can use the map notation in such a way `[key: "value", secondKey: 2]`. In the same way
+  we can describe the body of a JSON. So in order to send a JSON looking like this `{ "age": 22, "name": "marcin" }`
+  we can create a map notation of `[age:22, name:"marcin"]`. The `body` method accepts a map and in Groovy
+  if a method accepts a map then the `[]` brackets can be omited. So you can either write
+  `body([age:22, name:"marcin"])` or `body(age:22, name:"marcin")`. The latter one contains less boilerplate
+  code so let's write that one
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+    }
+    response {
+    }
+}
+----
+  * Now time for the headers... Call the `headers { }` method
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+        headers {
+
+        }
+    }
+    response {
+    }
+}
+----
+  * Inside that method let's define that we want to use the `Content-Type: "application/json` header. Just
+  call `contentType(applicationJson())` methods
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+    }
+}
+----
+  * Congratulations! You defined how you would like the contract for the request to look like! Time for the
+  response
+  * In the `response` block we would like to define that that the status of our response will be 200.
+  Just call `status 200`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+    }
+}
+----
+  * We'd like our response to have some body. As you could have assumed there's a `body` method here too.
+  We'll now use another way of defining bodies (which is the less preferred option in Spring Cloud Contract
+  but still can be useful) - using String
+  * We're assuming that we would like to send back a field called `status` that will return `OK` when the
+  person can get the beer
+  * Call the `body(""" { "status" : "OK" } """)`. That way you're defining how the response body will look like
+  by providing the exact JSON value
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            { "status" : "OK" }
+        """)
+    }
+}
+----
+  * Last thing to add are the response headers. We're doing exactly the same thing as we have done previously
+  for the request. `headers { contentType(applicationJson()) }`.
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            age: 22, name: "marcin"
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            { "status" : "OK" }
+        """)
+        headers {
+            contentType(applicationJson())
+        }
+    }
+}
+----
+  * Congratulations! You have created your first contract!
+
+==== Defining second HTTP contract
+
+- Time for you to create the second contract. Create a file called `shouldRejectABeerIfTooYoung.groovy`.
+If you're lost just check out the <<_proposal_of_simple_contracts_by_consumer,solution>>
+  * Set the `age` in the request to `17`
+  * Update the response body to return a `status` equal to `NOT_OK`.
+  * Update the description
+
+==== Defining first messaging contract
+
+- Ok we've done the case for HTTP. Time to define some contracts for messaging. Under the `src/test/resources/contracts/beer/messaging`
+create a `shouldSendAcceptedVerification.groovy` file. If you're lost just check out the <<_proposal_of_simple_contracts_by_consumer,solution>>
+  * Call the `org.springframework.cloud.contract.spec.Contract.make { }` method to start defining the contract
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+}
+----
+  * You can call `description()` method to provide some meaningful description. TIP: You can use the
+   Groovy multiline String `""" """` to have all special characters escaped. Every new line in the String
+   will be converted into a new line character
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+}
+----
+  * HTTP communication is synchronous - you send a request and you get a response. With messaging the situation
+  is different - a consumer suddenly might get a message. In the consumer tests the consumer needs a mean to
+  trigger that message. That hook is called a `label` in Spring Cloud Contract. Let's call our label
+  `accepted_verification`. To define it in the contract just call the `label` method like this
+  `label 'accepted_verification'`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+}
+----
+  * Next we define the message that we would like to receive. So from the producer's perspective that's an
+  `outputMessage`. You can call that message in the Groovy DSL `outputMessage { }`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+    outputMessage {
+
+    }
+}
+----
+  * Inside that method we need to define where and what we want to send. Let's start with the first.
+  You can call the `sentTo` method and provide the destination. According to the requirements we want
+  to send the message to the `verifications` channel. Let's define that in the contract
+  by calling `sentTo 'verifications'`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+    outputMessage {
+        sentTo "verifications"
+    }
+}
+----
+  * As for the body we just can call `body(eligible: true)`. That way we'll send a JSON body via messaging
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+    outputMessage {
+        sentTo "verifications"
+        body(eligible: true)
+    }
+}
+----
+  * We can also set headers on the message. Let's call `headers { }` method and inside the closure we can set an
+  explicit header. In case of messaging with Spring Cloud Stream, a header that describes the content
+  type of the payload is called `contentType`. So we need to set it like this
+  `header("contentType", applicationJsonUtf8())`.
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+    outputMessage {
+        sentTo "verifications"
+        body(eligible: true)
+        headers {
+            header("contentType", applicationJsonUtf8())
+        }
+    }
+}
+----
+  * Congratulations! You've created your first messaging contract!
+
+==== Defining second messaging contract
+
+- Time for you to create the second contract. Create a file called `shouldSendRejectedVerification.groovy`.
+If you're lost just check out the <<_proposal_of_simple_contracts_by_consumer,solution>>
+  * Set the `eligible` in the response body to `false`
+  * Update the label to `rejected_verification`
+  * Update the description
+
+==== Setting up the Spring Cloud Contract plugin on the producer side
+
+- Ok, at this moment we've described the API that would be interesting for us, consumers, and most likely
+will suit our needs. We define those contracts cause we want to have some stubs produced for us without
+needing to write a single line of the implementation code. The tool that we need to do this conversion
+is the Spring Cloud Contract plugin. Let's add it to the producer's `pom.xml` / `build.gradle`.
+(<<_adding_spring_cloud_contract_plugin,Show solution>>)
+  * The coordinates of the plugin are: `org.springframework.cloud:spring-cloud-contract-gradle-plugin:${version}`
+  * For this tutorial we're using latest snapshot versions that you can reference via the Maven's
+  `${spring-cloud-contract.version}` property or Gradle's `verifierVersion` one
+  * Once the plugin has been added just call the commands to install the stubs locally
++
+[source,bash,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+$ ./mvnw clean install -DskipTests
+----
++
+[source,bash,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+$ ./gradlew clean build publishToMavenLocal -x test
+----
+  * Now you can check out `target/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT` for Maven or
+  `build/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT` for Gradle. Over there you'll see
+  `contracts` folder where all contracts got copied and the `mappings` folder where you'll find all the
+  generated stubs. By default Spring Cloud Contract uses http://wiremock.org[WireMock] as an implementation
+  of fake HTTP server. Under the `beer/rest` subfolder you'll see all the generated stubs. Notice that
+  we're using JSON Paths to check the contents of the request.
+
+==== Writing the missing consumer HTTP implementation
+
+- Let's go back to our, consumer's code - let's go back to the `BeerControllerTest` and `BeerController`.
+We know how we would like the API to look like so now we can write the missing implementation in the
+`BeerController`. Let's assume that the producer application will be running at
+ `http://localhost:8090/` (<<_missing_consumer_controller_code,Show solution>>)
+
+==== Turning on Stub Runner in HTTP consumer tests
+
+- Let's run the `BeerControllerTest` again. It will fail since we're trying to send a request to
+a real instance that hasn't been started
+- Now it's time to turn on the magic! Let's add the Spring Cloud Starter Contract Stub Runner test dependency.
+(<<_adding_spring_cloud_contract_stub_runner,Show solution>>)
+- In `BeerControllerTest` we can annotate the class with
+`@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8090")`. What that
+will do is:
+  * it will download the stub JARs from Maven local (`workOffline=true`)
+  * it will search for a JAR with coordinates `com.example:beer-api-producer` with latest version (`+`)
+  and `stubs` classifier. Once it's found the fake HTTP server stub will be started at port `8090`
+- Rerun the test - it should automagically pass!
+ * In the logs you will see information about downloading, unpacking and starting stubs (<<_stub_logs,see the logs>>)
+ * What happened is that we could interact with real API without writing a single line of production code
+
+==== Playing with the HTTP contracts
+
+- TDD is about red, green and refactor. We went through the first two. Time to refactor the code.
+ We come to the conclusion that the `name` field is unnecessary. In the `BeerController.java` file let's
+ create a new class called `BeerRequest` that will contain only age field and let's try to send that
+ to our stubbed producer. (<<_beer_request,Show solution>>)
+- Let's run the tests again - what will happen is that the tests will fail. That's because in the contract
+you have explicitly described that you want the `name` to be there. As you can see all the typos will be
+caught during the build time of your project.
+  * The same will happen if you leave the `name` but change the `age` to some other value (e.g. 28).
+  Our stubs at the moment are very strict. We'll try to fix that in a second
+- To fix this you need to go back with your IDE to the producer and modify your HTTP contracts.
+  * Just remove the `name` field from the request body.
+  * Spring Cloud Contract allows you to provide dynamic values for parts of body, urls, headers etc.
+  This is especially useful when working with dates, database ids, UUIDs etc.
+  * Let's open the `shouldGrantABeerIfOldEnough.groovy` and go to the request body `age` element
+  * Instead of `22` write `$(regex('[2-9][0-9]'))`. Now let's analyze what this is.
+    ** In order to tell Spring Cloud Contract that there will be a dynamic value set you have to use either
+    the `$()` or `value()` method. They are equivalent.
+    ** Next we use `regex()` method that converts your `String` into `Pattern`. In this case we assume
+    a 2 digit number greater or equal to `20`
+  * Repeat the same process for the `shouldRejectABeerIfTooYoung.groovy` contract but change the
+  regular expression to `[0-1][0-9]`
+  * Run the building with test skipping and check the output of stubs. You'll see that the generated
+  mappings have changed from equality check in JSON Path to regular expression check
+  * Go back to the consumer code and run the `BeerControlerTest` again. This time it should pass. You can
+  also change the values of age to e.g. `45` for the positive case and `11` for the negative on.
+
+==== Writing the missing consumer messaging implementation
+
+- We've gone through the HTTP scenario and now it's time for the messaging part.
+- Let' start with a test as usual. Let's check out the `BeerVerificationListenerTest` test class
+  * there are 2 test methods with empty bodies
+  * in both cases we need to trigger a message that will get sent to a destination at which our
+  listener class is awaiting messages
+  * we're missing the triggering part - but we'll add it in a second
+- On the consumer side let's check out the `BeerVerificationListener` class.
+  * We're using the Spring Cloud Stream's abstraction of a queue / topic which is called a `channel`.
+  * There are 2 channels that come out od the box with SC-Stream. These are `input` and `output`.
+  Those channels can be found in 2 interfaces - `Sink` and `Source`. `Sink` contains the `input` channel
+  which is used for listening for messages and `Source` contains the `output` channel which
+  is used to send messages. In the listener class you can see that we use the `Sink` one cause we're waiting for
+  a message to be received.
+  * We have to configure the `destination`, so the actual name of a queue / topic on which we will be
+  listening. To do that you have to set in the `src/main/resources/application.yml` the property
+  `spring.cloud.stream.bindings.input.destination: verifications`. That means that the we'll use the
+  `input` channel (so the channel in the `Sink` interface) to listen to messages coming from a
+  destination called `verifications`.
+  * Now that we have configured Spring Cloud Stream let's write the missing feature. If the `eligible` flag
+  in the incoming message is `true` - increase the `eligibleCounter` value. Otherwise increment the
+  other `notEligibleCounter` one. (<<_missing_listener_code,Show solution>>)
+- Now that the implementation is written - let's try to run our `BeerVerificationListenerTest` tests.
+Unfortunately they will fail cause no message has been received - we'll still missing that part
+
+==== Turning on Stub Runner in messaging consumer tests
+
+- Time to use Spring Cloud Contract!
+  * We need to use Spring Cloud Contract Stub Runner so that it downloads the stubs. Just add the
+  `@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer")` to download
+  the latest stubs of `com.example:beer-api-producer`, with classifier `stubs` and if the JAR
+  contains any HTTP stubs then register them at a random port.
+  * Now we need a solution to trigger the message. To do that we need to autowire a `StubTrigger` interface.
+  Just add `@Autowired StubTrigger stubTrigger` field to your test
+  * In the contract on the producer side we've described 2 labels. `accepted_verification` and `rejected_verification`.
+  You can use the `StubTrigger#trigger` method to trigger a message with a given label. For example
+  if you call `stubTrigger.trigger("accepted_verification")` you'll trigger a message that got described
+  with the `accepted_verification` label.
+  * Now add the missing `StubTrigger#tigger` method in the test bodies. (<<_missing_triggers,Show solution>>)
+  * Run the tests and they should pass!
+    * You can change the `destination` name in `src/main/resources/application.yml` to `foo` and rerun the
+    tests - you'll see that they'll start failing. That's because you're listening to messages
+    at destination `foo` whereas the message is sent to `verifications`
+    * You can also play around with the `Verification` payload class. If you change the field name from
+    `eligible` to `foo` an rerun the tests - the tests will fail. If you change the type from `boolean`
+    to `Integer` (and change the production code too) then the tests will fail due to serialization problems
+- Congratulations! As consumers - we've successfully played around with the API of the producer both for
+HTTP and messaging. Now we're filing a PR to their code with the proposal of contract and let's switch to
+the producer side.
+
+=== Producer flow 1
+
+image::{images_folder}/producer_flow_1.png[title="Producer takes over the PR, writes missing impl and merges the PR"]
+
+==== IDE setup
+
+- Open in your IDE the `producer` project (either via Maven or Gradle)
+- We're assuming that we've taken over the PR. Example of how to achieve that in "real life" for a PR
+that got submitted to via a branch called `the_pr` looks like this:
+
+[source,bash]
+----
+git fetch origin
+git checkout -b the_pr origin/the_pr
+git merge master
+----
+
+- The idea of Spring Cloud Contract is about stub and contract validity. Right now we have a set of
+ contracts defined but we haven't tested it against the producer side. Time to change that!
+
+==== Setting up the Spring Cloud Contract plugin
+
+- Spring Cloud Contract can generate tests from your contracts to ensure that your implementation's API
+is compatible with the defined contract. Let's set up the project to start generating tests.
+  * Spring Cloud Contract needs a base class that all of the generated tests will extend. Currently
+  we support 3 different ways of defining a base class (you can read more about this in the
+  Spring Cloud Contract documentation for https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin[Gradle]
+  and https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin_2[Maven])
+    ** a single class for all tests
+    ** convention based naming (takes 2 last package names and appends `Base`. Having a contract
+    `src/test/resources/contracts/foo/bar/shouldDoSth.groovy` would create a test class called
+    `BarTest` that would extend `FooBarBase` class.
+    ** manual mapping (you can state that contracts matching certain regular expression will have to
+    have a base class with fully qualified name equal to X)
+  * In the following example we'll play with convention based naming
+    ** For Maven under the plugin setup you have to set up the plugin configuration
+    `<configuration><packageWithBaseClasses>com.example</packageWithBaseClasses></configuration>`
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<plugin>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+    <version>${spring-cloud-contract.version}</version>
+    <extensions>true</extensions>
+    <configuration>
+        <packageWithBaseClasses>com.example</packageWithBaseClasses>
+    </configuration>
+</plugin>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+contracts {
+    packageWithBaseClasses = 'com.example'
+}
+----
+    ** In both cases passing of that value tells the plugin that a given base class is available under
+    the `com.example` package
+
+==== Updating contracts from the PR
+
+- We need to modify the messaging contracts cause they are missing one important piece from the
+producer's perspective - the `input` part
+  * In case of messaging there has to be some trigger that will result in producing an output message
+  * Spring Cloud Contract accepts 3 situations
+    ** Input message produces an output message
+    ** A method execution produces an output message
+    ** Input message doesn't produce any output message
+  * In our situation we'll have a method produce an output. It's enough to pass the `input {}` method
+    and then the `triggeredBy` method. The `triggeredBy` method requires a String with a method execution.
+    So if in the base class we expect to have a method called `triggerSomeMessage()` that would trigger a message
+    for tests, then we would write `input { triggeredBy("triggerSomeMessage()") }` to make this happen. Example:
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    label "accepted_verification"
+    input {
+        triggeredBy("triggerSomeMessage()")
+    }
+    outputMessage {
+        sentTo "verifications"
+        body(eligible: true)
+        headers {
+            header("contentType", applicationJsonUtf8())
+        }
+    }
+}
+----
+  * For this workshop for the `shouldSendAcceptedVerification.groovy` we want to trigger the `clientIsOldEnough()`
+    method and for `shouldSendRejectedVerification.groovy` we want to trigger the `clientIsTooYoung()` method
+from the base class. (<<_messaging_dsls,Show solution>>)
+
+==== Generating tests from contracts
+
+- Let's generate the tests! Just call:
++
+[source,bash,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+$ ./mvnw clean install
+----
++
+[source,bash,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+$ ./gradlew clean build publishToMavenLocal
+----
+  * Suddenly some tests should start failing. Those tests are the autogenerated tests created
+  by Spring Cloud Contract
+  * The tests lay under `/generated-test-sources/contracts/org/springframework/cloud/contract/verifier/tests/beer`
+    in `target` for Maven or `build` for Gradle
+  * There will be a test for each folder in which you store your contracts. The name of the test class
+    will be the name of that folder
+  * Each of the contracts will be a single test inside that test class
+  * If you check out the generated `RestTest` you'll notice that the dynamic parts of the `request` part
+    of the contract got converted to a concrete value. Any dynamic bits on the `response` side would be
+    converted into matchers.
+- Time to fix the broken tests. We need to do that by providing the missing implementation.
+
+==== Fixing broken HTTP tests
+
+- Let's start with HTTP
+  * First let's write the missing implementation in `ProducerController`. The logic to be written
+    is extremely simple - if the `personCheckingService.shouldGetBeer(...)` returns `true` then we
+    should return `new Response(BeerCheckStatus.OK)`. Otherwise `new Response(BeerCheckStatus.NOT_OK)`.
+    (<<_producerController_implementation,Show solution>>)
+- Let's fix the `BeerRestBase` class now
+  * The idea of CDC is *NOT TO TEST* every single feature. Contract tests are there to see if the API
+    is matched, *NOT* that the feature is working. That's why we shouldn't be accessing databases etc.
+    That means that we will work with mock of the `PersonCheckingService`. (<<_beerrestbase,Show solution>>)
+  * Let's annotate the test class with `@RunWith(MockitoJUnitRunner.class)` to enable Mockito runner.
++
+[source,java]
+----
+@RunWith(MockitoJUnitRunner.class)
+public abstract class BeerRestBase {
+...
+}
+----
+  * We'll want to test the `ProducerController` so we can create a field `@InjectMocks ProducerController
+    producerController`. Mockito will inject any mocks for us via the constructor.
++
+[source,java]
+----
+    @Mock PersonCheckingService personCheckingService;
+    @InjectMocks ProducerController producerController;
+
+    @Before
+    public void setup() {
+        given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+    }
+----
+  * It won't compile cause we don't have the `oldEnough()` method but don't worry. So this line stubs
+ the `shouldGetBeer` method in such a way that if the user is old enough then the method will return
+ true. Let's now add the `oldEnoughMethod()`
++
+[source,java]
+----
+	private TypeSafeMatcher<PersonToCheck> oldEnough() {
+		return new TypeSafeMatcher<PersonToCheck>() {
+			@Override protected boolean matchesSafely(PersonToCheck personToCheck) {
+				return personToCheck.age >= 20;
+			}
+			@Override public void describeTo(Description description) {
+			}
+		};
+	}
+----
+  * We're using the `TypeSafeMatcher` from Hamcrest to create a matcher for `PersonToCheck`. In this case
+if the person to check is older or is 20 then the method `shouldGetBeer` method will return `true`.
+  * Now we need to configure http://rest-assured.io/[RestAssured] that is used by Spring Cloud Contract
+to send requests. In our case we want to profit from MockMvc. In order to set the `ProducerController`
+with RestAssured it's enough to call `RestAssuredMockMvc.standaloneSetup(producerController);`
++
+[source,java]
+----
+@RunWith(MockitoJUnitRunner.class)
+public abstract class BeerRestBase {
+
+    @Mock PersonCheckingService personCheckingService;
+    @InjectMocks ProducerController producerController;
+
+    @Before
+    public void setup() {
+        given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+        RestAssuredMockMvc.standaloneSetup(producerController);
+    }
+
+    private TypeSafeMatcher<PersonToCheck> oldEnough() {
+        return new TypeSafeMatcher<PersonToCheck>() {
+            @Override protected boolean matchesSafely(PersonToCheck personToCheck) {
+                return personToCheck.age >= 20;
+            }
+            @Override public void describeTo(Description description) {
+            }
+        };
+    }
+}
+----
+  * With mocks and RestAssured setup - we're ready to run our HTTP based autogenerated tests
+
+==== Fixing broken messaging tests
+
+- Now let's go to the messaging part.
+- Let's check out the `src/main/resources/application.yml` file whether it contains the proper
+destination set for `spring.cloud.stream.bindings.output.destination`. If not then let's set it
+to `verifications` - this is the queue / topic we'd like to receive the message from
+- We're trying to do TDD so let's move to `BeerMessagingBase` test class. The first thing we need to do is to
+add the `@AutoConfigureMessageVerifier` annotation on the test class. That will configure
+the setup related to messaging and Spring Cloud Contract.
++
+[source,java]
+----
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@AutoConfigureMessageVerifier
+public abstract class BeerMessagingBase {
+...
+}
+----
+- We need to prepare some setup for our tests. To do that we'll need to clear any remaining
+messages that could break our tests. To do that we'll use the Spring Cloud Contract `MessageVerifier`
+abstraction (it allows to send and receive messages from e.g. Spring Cloud Stream, Sprig Integration, Apache Camel.)
++
+[source,java]
+----
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@AutoConfigureMessageVerifier
+public abstract class BeerMessagingBase {
+    @Inject MessageVerifier messaging;
+	@Autowired PersonCheckingService personCheckingService;
+
+	@Before
+	public void setup() {
+		// let's clear any remaining messages
+		// output == destination or channel name
+		this.messaging.receive("output", 100, TimeUnit.MILLISECONDS);
+	}
+
+	public void clientIsOldEnough() {
+    }
+
+    public void clientIsTooYoung() {
+    }
+}
+----
+- In the `clientIsOldEnough()` and `clientIsTooYoung()` we need the logic to trigger a message.
+What triggers a message will be the implementation of the `PersonCheckingService#shouldGetBeer`.
+- For `clientIsOldEnough()` we can use a `PersonToCheck` of age `25` for example and
+`clientIsTooYoung` can have age `5`. (<<_beermessagingbase,Show solution>>)
+- We can run the test which will obviously fail because we have a missing implementation. Let's move
+to `AgeCheckingPersonCheckingService`
+
+==== Writing the missing producer messaging implementation
+
+- We need to check if the person's age is greater or equal to 20 - if that's the case then the
+we need to send the properly generated `Verification` object. In order to send a message you can use the
+following code `source.output().send(MessageBuilder.withPayload(new Verification(true)).build())`.
+In this case we're sending a message to the `output` channel (that is bound to `verifications` destination).
+(<<_messaging_implementation,Show solution>>)
+- Let's run the tests again - they should all pass!
+- Now let's ensure that we can successfully publish artifacts to Maven local
++
+[source,bash,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+$ ./mvnw clean install
+----
++
+[source,bash,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+$ ./gradlew clean build publishToMavenLocal
+----
+- Now you would merge the PR to master and your CI system will build a fat jar and stubs
+- Congratulations - you've completed the producer side of this tutorial
+
+=== Consumer flow 2
+
+image::{images_folder}/consumer_flow_2.png[title="Switch to work online"]
+
+- After merging the PR the producer's stubs reside in some Artifactory / Nexus instance
+- As consumers we no longer want to retrieve the stubs from our local Maven repository -
+we'd like to download them from the remote location
+- To do that (we won't do that for the tutorial but you would do it in your "production"
+code) it's enough to remove the `workOffline` flag and to pass the `repositoryRoot` parameter
++
+[source,java]
+----
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
+@AutoConfigureMockMvc
+@AutoConfigureJsonTesters
+@AutoConfigureStubRunner(repositoryRoot="http://foo.com/bar,
+ids = "com.example:beer-api-producer-with-scenario:+:stubs:8090")
+@DirtiesContext
+public class BeerControllerTest extends AbstractTest {
+}
+----
+  * Another option is to pass the property `stubrunner.repositoryRoot` either as a
+   system / environment property, or via an `application.yml`
+
+== Solutions
+
+=== Written consumer tests
+
+[source,java]
+----
+include::{consumer}/src/test/java/com/example/BeerControllerTest.java[tags=tests]
+----
+
+=== Adding Spring Cloud Contract Dependency
+
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+include::{producer}/pom.xml[tags=verifier_dep]
+----
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+include::{producer}/build.gradle[tags=verifier_dep]
+----
+
+=== Proposal of simple contracts by consumer
+
+*HTTP communication*
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="primary"]
+.Old Enough
+----
+// rest/shouldGrantABeerIfOldEnough.groovy
+org.springframework.cloud.contract.spec.Contract.make {
+		description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+
+""")
+	request {
+		method 'POST'
+		url '/check'
+		body(
+				age: 22,
+				name: "marcin"
+		)
+		headers {
+			contentType(applicationJson())
+		}
+	}
+	response {
+		status 200
+		body("""
+			{
+				"status": "OK"
+			}
+			""")
+		headers {
+			contentType(applicationJson())
+		}
+	}
+}
+----
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Too Young
+----
+// rest/shouldRejectABeerIfTooYoung.groovy
+org.springframework.cloud.contract.spec.Contract.make {
+		description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+
+""")
+	request {
+		method 'POST'
+		url '/check'
+		body(
+				age: 17,
+				name: "marcin"
+		)
+		headers {
+			contentType(applicationJson())
+		}
+	}
+	response {
+		status 200
+		body("""
+			{
+				"status": "NOT_OK"
+			}
+			""")
+		headers {
+			contentType(applicationJson())
+		}
+	}
+}
+----
+
+*Messaging communication*
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="primary"]
+.Positive Verification
+----
+// messaging/shouldSendAcceptedVerification.groovy
+org.springframework.cloud.contract.spec.Contract.make {
+	description("""
+Sends a positive verification message when person is eligible to get the beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll send a message with a positive verification
+```
+
+""")
+	// Label by means of which the output message can be triggered
+	label 'accepted_verification'
+	// output message of the contract
+	outputMessage {
+		// destination to which the output message will be sent
+		sentTo 'verifications'
+		// the body of the output message
+		body(
+            eligible: true
+		)
+		headers {
+			header("contentType", applicationJsonUtf8())
+		}
+	}
+}
+----
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Negative Verification
+----
+// messaging/shouldSendRejectedVerification.groovy
+org.springframework.cloud.contract.spec.Contract.make {
+	description("""
+Sends a negative verification message when person is not eligible to get the beer
+
+```
+given:
+	client is too young
+when:
+	he applies for a beer
+then:
+	we'll send a message with a negative verification
+```
+
+""")
+	// Label by means of which the output message can be triggered
+	label 'rejected_verification'
+	// output message of the contract
+	outputMessage {
+		// destination to which the output message will be sent
+		sentTo 'verifications'
+		// the body of the output message
+		body(
+            eligible: false
+		)
+		headers {
+			header("contentType", applicationJsonUtf8())
+		}
+	}
+}
+----
+
+=== Adding Spring Cloud Contract Plugin
+
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<plugin>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+    <version>${spring-cloud-contract.version}</version>
+    <extensions>true</extensions>
+</plugin>
+----
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+buildscript {
+	repositories {
+		mavenCentral()
+		mavenLocal()
+		maven { url "http://repo.spring.io/snapshot" }
+		maven { url "http://repo.spring.io/milestone" }
+		maven { url "http://repo.spring.io/release" }
+	}
+
+	dependencies {
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${verifierVersion}"
+	}
+}
+----
+
+=== Missing consumer controller code
+
+[source,java]
+----
+include::{consumer}/src/main/java/com/example/BeerController.java[tags=controller]
+----
+
+=== Adding Spring Cloud Contract Stub Runner
+
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+include::{consumer}/pom.xml[tags=stubrunner]
+----
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+include::{consumer}/build.gradle[tags=stubrunner]
+----
+
+=== Stub Logs
+
+[source,bash]
+----
+2017-05-11 12:16:51.146  INFO 4693 --- [           main] o.s.c.c.s.StubDownloaderBuilderProvider  : Will download stubs using Aether
+2017-05-11 12:16:51.148  INFO 4693 --- [           main] o.s.c.c.stubrunner.AetherStubDownloader  : Remote repos not passed but the switch to work offline was set. Stubs will be used from your local Maven repository.
+2017-05-11 12:16:51.291  INFO 4693 --- [           main] o.s.c.c.stubrunner.AetherStubDownloader  : Desired version is [+] - will try to resolve the latest version
+2017-05-11 12:16:51.308  INFO 4693 --- [           main] o.s.c.c.stubrunner.AetherStubDownloader  : Resolved version is [0.0.1-SNAPSHOT]
+2017-05-11 12:16:51.309  INFO 4693 --- [           main] o.s.c.c.stubrunner.AetherStubDownloader  : Resolving artifact [com.example:beer-api-producer:jar:stubs:0.0.1-SNAPSHOT] using remote repositories []
+2017-05-11 12:16:51.317  INFO 4693 --- [           main] o.s.c.c.stubrunner.AetherStubDownloader  : Resolved artifact [com.example:beer-api-producer:jar:stubs:0.0.1-SNAPSHOT] to /home/marcin/.m2/repository/com/example/beer-api-producer/0.0.1-SNAPSHOT/beer-api-producer-0.0.1-SNAPSHOT-stubs.jar
+2017-05-11 12:16:51.322  INFO 4693 --- [           main] o.s.c.c.stubrunner.AetherStubDownloader  : Unpacking stub from JAR [URI: file:/home/marcin/.m2/repository/com/example/beer-api-producer/0.0.1-SNAPSHOT/beer-api-producer-0.0.1-SNAPSHOT-stubs.jar]
+2017-05-11 12:16:51.327  INFO 4693 --- [           main] o.s.c.c.stubrunner.AetherStubDownloader  : Unpacked file to [/tmp/contracts9053257535983128167]
+2017-05-11 12:16:52.608  INFO 4693 --- [           main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@699e0bf0: startup date [Thu May 11 12:16:52 CEST 2017]; root of context hierarchy
+2017-05-11 12:16:52.684  INFO 4693 --- [           main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2017-05-11 12:16:52.837  INFO 4693 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8090 (http)
+2017-05-11 12:16:52.851  INFO 4693 --- [           main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-05-11 12:16:52.853  INFO 4693 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-05-11 12:16:52.975  INFO 4693 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-05-11 12:16:52.975  INFO 4693 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 367 ms
+2017-05-11 12:16:52.996  INFO 4693 --- [ost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'stub' to [/]
+2017-05-11 12:16:53.000  INFO 4693 --- [ost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'admin' to [/__admin/*]
+2017-05-11 12:16:53.135  INFO 4693 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8090 (http)
+2017-05-11 12:16:53.139  INFO 4693 --- [           main] o.s.c.contract.stubrunner.StubServer     : Started stub server for project [com.example:beer-api-producer:0.0.1-SNAPSHOT:stubs] on port 8090
+----
+
+=== Beer Request
+
+[source,java]
+----
+class BeerRequest {
+	public String name;
+
+	public BeerRequest(String name) {
+		this.name = name;
+	}
+
+	public BeerRequest() {
+	}
+}
+----
+
+=== Missing listener code
+
+[source,java]
+----
+include::{consumer}/src/main/java/com/example/BeerVerificationListener.java[tags=listener]
+----
+
+=== Missing triggers
+
+[source,java]
+----
+include::{consumer}/src/test/java/com/example/BeerVerificationListenerTest.java[tags=listener_test]
+----
+
+=== Messaging DSLs
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="primary"]
+.Positive Verification
+----
+// messaging/shouldSendAcceptedVerification.groovy
+org.springframework.cloud.contract.spec.Contract.make {
+	description("""
+Sends a positive verification message when person is eligible to get the beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll send a message with a positive verification
+```
+
+""")
+	// Label by means of which the output message can be triggered
+	label 'accepted_verification'
+	// input to the contract
+	input {
+		// the contract will be triggered by a method
+		triggeredBy('clientIsOldEnough()')
+	}
+	// output message of the contract
+	outputMessage {
+		// destination to which the output message will be sent
+		sentTo 'verifications'
+		// the body of the output message
+		body(
+            eligible: true
+		)
+		headers {
+			header("contentType", applicationJsonUtf8())
+		}
+	}
+}
+----
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Negative Verification
+----
+// messaging/shouldSendRejectedVerification.groovy
+org.springframework.cloud.contract.spec.Contract.make {
+	description("""
+Sends a negative verification message when person is not eligible to get the beer
+
+```
+given:
+	client is too young
+when:
+	he applies for a beer
+then:
+	we'll send a message with a negative verification
+```
+
+""")
+	// Label by means of which the output message can be triggered
+	label 'rejected_verification'
+	// input to the contract
+	input {
+		// the contract will be triggered by a method
+		triggeredBy('clientIsTooYoung()')
+	}
+	// output message of the contract
+	outputMessage {
+		// destination to which the output message will be sent
+		sentTo 'verifications'
+		// the body of the output message
+		body(
+            eligible: false
+		)
+		headers {
+			header("contentType", applicationJsonUtf8())
+		}
+	}
+}
+----
+
+=== ProducerController implementation
+
+[source,java]
+----
+if (personCheckingService.shouldGetBeer(personToCheck)) {
+    return new Response(BeerCheckStatus.OK);
+}
+return new Response(BeerCheckStatus.NOT_OK);
+----
+
+=== BeerRestBase
+
+[source,java]
+----
+@RunWith(MockitoJUnitRunner.class)
+public abstract class BeerRestBase {
+	@Mock PersonCheckingService personCheckingService;
+	@InjectMocks ProducerController producerController;
+
+	@Before
+	public void setup() {
+		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+		RestAssuredMockMvc.standaloneSetup(producerController);
+	}
+
+	private TypeSafeMatcher<PersonToCheck> oldEnough() {
+		return new TypeSafeMatcher<PersonToCheck>() {
+			@Override protected boolean matchesSafely(PersonToCheck personToCheck) {
+				return personToCheck.age >= 20;
+			}
+
+			@Override public void describeTo(Description description) {
+
+			}
+		};
+	}
+}
+----
+
+=== BeerMessagingBase
+
+[source,java]
+----
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@AutoConfigureMessageVerifier
+public abstract class BeerMessagingBase {
+	@Inject MessageVerifier messaging;
+	@Autowired PersonCheckingService personCheckingService;
+
+	@Before
+	public void setup() {
+		// let's clear any remaining messages
+		// output == destination or channel name
+		this.messaging.receive("output", 100, TimeUnit.MILLISECONDS);
+	}
+
+	public void clientIsOldEnough() {
+		personCheckingService.shouldGetBeer(new PersonToCheck(25));
+	}
+
+	public void clientIsTooYoung() {
+		personCheckingService.shouldGetBeer(new PersonToCheck(5));
+	}
+}
+----
+
+=== Messaging implementation
+
+[source,java]
+----
+include::{producer}/src/main/java/com/example/AgeCheckingPersonCheckingService.java[tags=impl]
+----
+
+== Back to the main page
+
+link:../workshops.html[Click here to go back to the main page]

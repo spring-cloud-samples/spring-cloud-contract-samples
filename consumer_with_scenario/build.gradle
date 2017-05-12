@@ -36,8 +36,10 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 
+	// remove::start[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 	testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
+	// remove::end[]
 }
 
 test {

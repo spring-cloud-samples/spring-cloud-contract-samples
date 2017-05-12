@@ -33,7 +33,9 @@ public class ConsumerUtils {
 	 * @author Marcin Grzejszczak
 	 */
 	public static ClientDslProperty oldEnough() {
+		//remove::start[]
 		return new ClientDslProperty(PatternUtils.oldEnough());
+		//remove::end[]
 	}
 
 	/**
@@ -54,6 +56,8 @@ public class ConsumerUtils {
 	 * producer side value will be equal to {@code marcin}
 	 */
 	public static DslProperty anyName() {
+		//remove::start[]
 		return new DslProperty<>(PatternUtils.anyName(), "marcin");
+		//remove::end[]
 	}
 }

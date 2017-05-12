@@ -1,0 +1,11 @@
+:toc: left
+:toclevels: 8
+:nofooter:
+
+= Spring Cloud Contract Samples
+
+The Spring Cloud Contract Samples repo consists of 2 parts.
+
+- https://github.com/spring-cloud-samples/spring-cloud-contract-samples[samples that show usage of Spring Cloud Contract]
+- link:workshops.html[workshops setup and documentation to go through the samples
+by completing a set of tutorials]

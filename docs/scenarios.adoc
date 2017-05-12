@@ -1,0 +1,23 @@
+== Scenarios
+
+We'll be in most cases trying to code the following scenarios:
+
+image::{images_folder}/beer_1.png[title="Positive beer selling via HTTP"]
+
+{nbsp}
+{nbsp}
+
+image::{images_folder}/beer_2.png[title="Negative beer selling via HTTP"]
+
+{nbsp}
+{nbsp}
+
+image::{images_folder}/msg_1.png[title="Positive age verification via messaging"]
+
+{nbsp}
+{nbsp}
+
+image::{images_folder}/msg_2.png[title="Negative age verification via messaging"]
+
+{nbsp}
+{nbsp}
