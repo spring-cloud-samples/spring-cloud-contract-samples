@@ -787,6 +787,33 @@ public abstract class BeerMessagingBase {
 ...
 }
 ----
+- We need to prepare some setup for our tests. To do that we'll need to clear any remaining
+messages that could break our tests. To do that we'll use the Spring Cloud Contract `MessageVerifier`
+abstraction (it allows to send and receive messages from e.g. Spring Cloud Stream, Sprig Integration, Apache Camel.)
++
+[source,java]
+----
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@AutoConfigureMessageVerifier
+public abstract class BeerMessagingBase {
+    @Inject MessageVerifier messaging;
+	@Autowired PersonCheckingService personCheckingService;
+
+	@Before
+	public void setup() {
+		// let's clear any remaining messages
+		// output == destination or channel name
+		this.messaging.receive("output", 100, TimeUnit.MILLISECONDS);
+	}
+
+	public void clientIsOldEnough() {
+    }
+
+    public void clientIsTooYoung() {
+    }
+}
+----
 - In the `clientIsOldEnough()` and `clientIsTooYoung()` we need the logic to trigger a message.
 What triggers a message will be the implementation of the `PersonCheckingService#shouldGetBeer`.
 - For `clientIsOldEnough()` we can use a `PersonToCheck` of age `25` for example and
