@@ -504,7 +504,8 @@ $(addBlockSwitches);
 <li><a href="#_consumer_flow_1">Consumer flow 1</a>
 <ul class="sectlevel3">
 <li><a href="#_ide_setup">IDE setup</a></li>
-<li><a href="#_adding_dependencies">Adding dependencies</a></li>
+<li><a href="#_cloning_the_producer_s_code">Cloning the producer&#8217;s code</a></li>
+<li><a href="#_adding_dependencies_in_the_producer_s_clone">Adding dependencies in the producer&#8217;s clone</a></li>
 <li><a href="#_defining_first_http_contract">Defining first HTTP contract</a></li>
 <li><a href="#_defining_second_http_contract">Defining second HTTP contract</a></li>
 <li><a href="#_defining_first_messaging_contract">Defining first messaging contract</a></li>
@@ -694,8 +695,17 @@ we return <code>null</code> instead of any meaningful value)</p>
 <li>
 <p>The problem is such that we don&#8217;t yet know what API we would like to have&#8230;&#8203; This is where we touch
 the very essence of Consumer Driven Contracts. As consumers we want to drive the change of the API
-that&#8217;s why, <strong>as consumers</strong>, we will work on the producer code. Open the <code>producer</code> project in your
-IDE (we simulate the case where you&#8217;ve cloned the producer code)</p>
+that&#8217;s why, <strong>as consumers</strong>, we will work on the producer code.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_cloning_the_producer_s_code">Cloning the producer&#8217;s code</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>In this tutorial we will not clone the producer&#8217;s code, we&#8217;ll just open it in the IDE</p>
 </li>
 <li>
 <p>There&#8217;s some production code written on the producer side but you could completely remove it. The idea
@@ -705,13 +715,17 @@ of CDC is that defining of contract can be done without writing a single line of
 </div>
 </div>
 <div class="sect3">
-<h4 id="_adding_dependencies">Adding dependencies</h4>
+<h4 id="_adding_dependencies_in_the_producer_s_clone">Adding dependencies in the producer&#8217;s clone</h4>
 <div class="ulist">
 <ul>
 <li>
 <p>Since we want the IDE to help us with code completion, let&#8217;s add the necessary Spring Cloud Contract
 dependencies. You need to add <code>spring-cloud-starter-contract-verifier</code> as a test dependency
 (<a href="#_adding_spring_cloud_contract_dependency">Show solution</a>)</p>
+</li>
+<li>
+<p>This is a task that you would do once only since when you&#8217;ll be adding next contracts
+all the dependencies w</p>
 </li>
 </ul>
 </div>
