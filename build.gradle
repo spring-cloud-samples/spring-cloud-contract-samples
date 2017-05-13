@@ -76,6 +76,7 @@ task removeTextFromFiles() {
         FileTree tree = fileTree(dir: '.', include: ['**/*.java',
                                                      '**/*.xml',
                                                      '**/*.gradle',
+                                                     '**/*.yml',
                                                      '**/*.properties'])
         tree.each { File file ->
             if (file.absolutePath == new File(project.rootDir, "build.gradle").absolutePath) {
