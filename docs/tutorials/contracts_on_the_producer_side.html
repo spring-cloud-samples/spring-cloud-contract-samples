@@ -1327,17 +1327,13 @@ a real instance that hasn&#8217;t been started</p>
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
-</li>
-</ul>
-</div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
+</li>
 <li>
 <p>In <code>BeerControllerTest</code> we can annotate the class with
 <code>@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8090")</code>. What that
