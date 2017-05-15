@@ -1,0 +1,5 @@
+- Let's go back to our, consumer's code - let's go back to the `BeerControllerTest` and `BeerController`.
+We know how we would like the API to look like so now we can write the missing implementation in the
+`BeerController`. Let's assume that the producer application will be running at
+ `http://localhost:8090/`. Now go ahead and try to write the missing implementation
+  of the `BeerController`

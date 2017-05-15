@@ -27,128 +27,7 @@ consumer side.
 
 image::{images_folder}/consumer_flow_1.png[title="Interact with cloned producer code"]
 
-==== IDE setup
-
-include::snippets/consumer_ide_setup.adoc[]
-
-- The problem is such that we don't yet know what API we would like to have... This is where we touch
- the very essence of Consumer Driven Contracts. As consumers we want to drive the change of the API
- that's why, *as consumers*, we will work on the producer code.
-
-==== Cloning the producer's code
-
-- In this tutorial we will not clone the producer's code, we'll just open it in the IDE
-- There's some production code written on the producer side but you could completely remove it. The idea
-of CDC is that defining of contract can be done without writing a single line of code for the feature.
-
-==== Adding dependencies in the producer's clone
-
-- Since we want the IDE to help us with code completion, let's add the necessary Spring Cloud Contract
-dependencies. You need to add `spring-cloud-starter-contract-verifier` as a test dependency
-+
-[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
-.Maven
-----
-<dependency>
-	<groupId>org.springframework.cloud</groupId>
-	<artifactId>spring-cloud-starter-contract-verifier</artifactId>
-	<scope>test</scope>
-</dependency>
-----
-+
-[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
-.Gradle
-----
-testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
-----
-- This is a task that you would do once only since when you'll be adding next contracts
-all the dependencies will already be added
-
-==== Defining first HTTP contract
-
-- Time to play with the API! Create a `src/test/resources/contracts/beer/rest` and
- `src/test/resources/contracts/beer/messaging` folders. (<<_proposal_of_simple_contracts_by_consumer,Show solution>>)
-
- TIP: It's good practice to create also a folder for a consumer. So if your consumer's
- application name is `foo-service` then you could create a
- `src/test/resources/contracts/foo-service/beer/rest` and
-  `src/test/resources/contracts/foo-service/beer/messaging` folders. You'll be able to read
-  more about this in the tutorial related to the `stubs per consumer` feature.
-
-include::snippets/first_http_contract.adoc[]
-
-==== Defining second HTTP contract
-
-- Time for you to create the second contract. Create a file called `shouldRejectABeerIfTooYoung.groovy`.
-If you're lost just check out the <<_proposal_of_simple_contracts_by_consumer,solution>>
-  * Set the `age` in the request to `17`
-  * Update the response body to return a `status` equal to `NOT_OK`.
-  * Update the description
-
-==== Defining first messaging contract
-
-- Ok we've done the case for HTTP. Let's move to the `src/test/resources/contracts/beer/messaging` folder
-
-include::snippets/first_messaging_contract.adoc[]
-* Congratulations! You've created your first messaging contract!
-
-==== Defining second messaging contract
-
-- Time for you to create the second contract. Create a file called `shouldSendRejectedVerification.groovy`.
-If you're lost just check out the <<_proposal_of_simple_contracts_by_consumer,solution>>
-  * Set the `eligible` in the response body to `false`
-  * Update the label to `rejected_verification`
-  * Update the description
-
-==== Setting up the Spring Cloud Contract plugin on the producer side
-
-- Ok, at this moment we've described the API that would be interesting for us, consumers, and most likely
-will suit our needs. We define those contracts cause we want to have some stubs produced for us without
-needing to write a single line of the implementation code. The tool that we need to do this conversion
-is the Spring Cloud Contract plugin. Let's add it to the producer's `pom.xml` / `build.gradle`.
-+
-[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
-.Maven
-----
-<plugin>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-contract-maven-plugin</artifactId>
-    <version>${spring-cloud-contract.version}</version>
-    <extensions>true</extensions>
-</plugin>
-----
-+
-[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
-.Gradle
-----
-buildscript {
-	dependencies {
-		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${verifierVersion}"
-	}
-}
-----
-  * The coordinates of the plugin are: `org.springframework.cloud:spring-cloud-contract-gradle-plugin:${version}`
-  * For this tutorial we're using latest snapshot versions that you can reference via the Maven's
-  `${spring-cloud-contract.version}` property or Gradle's `verifierVersion` one
-  * Once the plugin has been added just call the commands to install the stubs locally
-+
-[source,bash,indent=0,subs="verbatim,attributes",role="primary"]
-.Maven
-----
-$ ./mvnw clean install -DskipTests
-----
-+
-[source,bash,indent=0,subs="verbatim,attributes",role="secondary"]
-.Gradle
-----
-$ ./gradlew clean build publishToMavenLocal -x test
-----
-  * Now you can check out `target/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT` for Maven or
-  `build/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT` for Gradle. Over there you'll see
-  `contracts` folder where all contracts got copied and the `mappings` folder where you'll find all the
-  generated stubs. By default Spring Cloud Contract uses http://wiremock.org[WireMock] as an implementation
-  of fake HTTP server. Under the `beer/rest` subfolder you'll see all the generated stubs. Notice that
-  we're using JSON Paths to check the contents of the request.
+include::snippets/consumer_flow_1.adoc[]
 
 include::snippets/consumer_implementation.adoc[]
 
@@ -157,68 +36,11 @@ include::snippets/consumer_implementation_2.adoc[]
 HTTP and messaging. Now we're filing a PR to their code with the proposal of contract and let's switch to
 the producer side.
 
-
 === Producer flow 1
 
 image::{images_folder}/producer_flow_1.png[title="Producer takes over the PR, writes missing impl and merges the PR"]
 
-==== IDE setup
-
-- Open in your IDE the `producer` project (either via Maven or Gradle)
-- We're assuming that we've taken over the PR. Example of how to achieve that in "real life" for a PR
-that got submitted to via a branch called `the_pr` looks like this:
-
-[source,bash]
-----
-git fetch origin
-git checkout -b the_pr origin/the_pr
-git merge master
-----
-
-- The idea of Spring Cloud Contract is about stub and contract validity. Right now we have a set of
- contracts defined but we haven't tested it against the producer side. Time to change that!
-
-==== Setting up the Spring Cloud Contract plugin
-
-- Spring Cloud Contract can generate tests from your contracts to ensure that your implementation's API
-is compatible with the defined contract. Let's set up the project to start generating tests.
-  * Spring Cloud Contract needs a base class that all of the generated tests will extend. Currently
-  we support 3 different ways of defining a base class (you can read more about this in the
-  Spring Cloud Contract documentation for https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin[Gradle]
-  and https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin_2[Maven])
-    ** a single class for all tests
-    ** convention based naming (takes 2 last package names and appends `Base`. Having a contract
-    `src/test/resources/contracts/foo/bar/shouldDoSth.groovy` would create a test class called
-    `BarTest` that would extend `FooBarBase` class.
-    ** manual mapping (you can state that contracts matching certain regular expression will have to
-    have a base class with fully qualified name equal to X)
-  * In the following example we'll play with convention based naming
-    ** For Maven under the plugin setup you have to set up the plugin configuration
-    `<configuration><packageWithBaseClasses>com.example</packageWithBaseClasses></configuration>`
-+
-[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
-.Maven
-----
-<plugin>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-contract-maven-plugin</artifactId>
-    <version>${spring-cloud-contract.version}</version>
-    <extensions>true</extensions>
-    <configuration>
-        <packageWithBaseClasses>com.example</packageWithBaseClasses>
-    </configuration>
-</plugin>
-----
-+
-[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
-.Gradle
-----
-contracts {
-    packageWithBaseClasses = 'com.example'
-}
-----
-    ** In both cases passing of that value tells the plugin that a given base class is available under
-    the `com.example` package
+include::snippets/producer_flow.adoc[]
 
 ==== Updating contracts from the PR
 

@@ -35,7 +35,9 @@ dependencyManagement {
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
+	// remove::start[]
 	compile("org.springframework.cloud:spring-cloud-starter-eureka")
+	// remove::end[]
 
 	// remove::start[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")

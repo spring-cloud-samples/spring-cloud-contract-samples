@@ -1,0 +1,25 @@
+- TDD is about red, green and refactor. We went through the first two. Time to refactor the code.
+ We come to the conclusion that the `name` field is unnecessary. In the `BeerController.java` file let's
+ create a new class called `BeerRequest` that will contain only age field and let's try to send that
+ to our stubbed producer. (<<_beer_request,Show solution>>)
+- Let's run the tests again - what will happen is that the tests will fail. That's because in the contract
+you have explicitly described that you want the `name` to be there. As you can see all the typos will be
+caught during the build time of your project.
+  * The same will happen if you leave the `name` but change the `age` to some other value (e.g. 28).
+  Our stubs at the moment are very strict. We'll try to fix that in a second
+- To fix this you need to go back with your IDE to the producer and modify your HTTP contracts.
+  * Just remove the `name` field from the request body.
+  * Spring Cloud Contract allows you to provide dynamic values for parts of body, urls, headers etc.
+  This is especially useful when working with dates, database ids, UUIDs etc.
+  * Let's open the `shouldGrantABeerIfOldEnough.groovy` and go to the request body `age` element
+  * Instead of `22` write `$(regex('[2-9][0-9]'))`. Now let's analyze what this is.
+    ** In order to tell Spring Cloud Contract that there will be a dynamic value set you have to use either
+    the `$()` or `value()` method. They are equivalent.
+    ** Next we use `regex()` method that converts your `String` into `Pattern`. In this case we assume
+    a 2 digit number greater or equal to `20`
+  * Repeat the same process for the `shouldRejectABeerIfTooYoung.groovy` contract but change the
+  regular expression to `[0-1][0-9]`
+  * Run the building with test skipping and check the output of stubs. You'll see that the generated
+  mappings have changed from equality check in JSON Path to regular expression check
+  * Go back to the consumer code and run the `BeerControlerTest` again. This time it should pass. You can
+  also change the values of age to e.g. `45` for the positive case and `11` for the negative on.
