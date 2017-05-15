@@ -76,9 +76,11 @@ TODO
 - link:tutorials/contracts_external.html[Contracts that lay in an external repository]
   * simple DSL examples for HTTP & Messaging
   * base classes picked by mappings
-- Spring Cloud Contract with Rest Docs
+- link:tutorials/rest_docs.html[Spring Cloud Contract with Rest Docs]
   * generating stubs using Rest Docs
   * generating contracts using Rest Docs
+  * reading stubs from classpath via Spring Cloud Contract WireMock
+  * reading stubs from classpath via Stub Runner
 - Extras
   * more sophisticated DSL manipulations (regexs, code execution, referencing request from response)
   * working with stub and test matchers
@@ -86,7 +88,6 @@ TODO
   * creating a library with common code shareable between teams
   * stubbing out service discovery
   * stubs per consumer feature
-  * classpath scanning
   * using JUnit rule
   * generating documentation from contracts
 - Using stubs with Stub Runner Boot

@@ -1,0 +1,20 @@
+- We have two objectives for HTTP
+  * when a client wants a beer and has
+  e.g. name "marcin" and age 22 - the answer that we'll respond with `THERE YOU GO`
+  * when a client is an underage and wants a beer and has
+  e.g. name "marcin" and age 17 - the answer that we'll respond with `GET LOST`
+- and we have two objectives for messaging
+  * when a verification message with `eligible` field equal to `true` was sent to the `verifications` channel
+  then we increment the `eligible` counter
+  * when a verification message with `eligible` field equal to `false` was sent to the `verifications` channel
+  then we increment the `notEligible` counter
+- Let's start with HTTP.
+- Open the `BeerControllerTest` test. Since CDC is like TDD we have 2 tests that describe our beer selling features.
+and we're already providing some basic setup for you (in real TDD
+example you'd have to code all of that yourself)
+- Technically speaking for both cases we want to use `MockMvc` to send a request to the `/beer` endpoint
+with a JSON pojo containing `name` and `age`. From the controller we want to send a request to
+`http://localhost:8090/` where the producer will be waiting for out requests. Let's write the missing
+tests body. (<<_written_consumer_tests,Show solution>>)
+- The first step in TDD is `red` - let's run the tests and ensure that they are failing (in the controller
+we return `null` instead of any meaningful value)

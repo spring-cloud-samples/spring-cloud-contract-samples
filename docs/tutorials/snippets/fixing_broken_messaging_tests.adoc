@@ -1,0 +1,74 @@
+==== Fixing broken messaging tests
+
+- Now let's go to the messaging part.
+- Let's check out the `src/main/resources/application.yml` file whether it contains the proper
+destination set for `spring.cloud.stream.bindings.output.destination`. If not then let's set it
+to `verifications` - this is the queue / topic we'd like to receive the message from
+- We're trying to do TDD so let's move to `BeerMessagingBase` test class. The first thing we need to do is to
+add the `@AutoConfigureMessageVerifier` annotation on the test class. That will configure
+the setup related to messaging and Spring Cloud Contract.
++
+[source,java]
+----
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@AutoConfigureMessageVerifier
+public abstract class BeerMessagingBase {
+...
+}
+----
+- We need to prepare some setup for our tests. To do that we'll need to clear any remaining
+messages that could break our tests. To do that we'll use the Spring Cloud Contract `MessageVerifier`
+abstraction (it allows to send and receive messages from e.g. Spring Cloud Stream, Sprig Integration, Apache Camel.)
++
+[source,java]
+----
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@AutoConfigureMessageVerifier
+public abstract class BeerMessagingBase {
+    @Inject MessageVerifier messaging;
+	@Autowired PersonCheckingService personCheckingService;
+
+	@Before
+	public void setup() {
+		// let's clear any remaining messages
+		// output == destination or channel name
+		this.messaging.receive("output", 100, TimeUnit.MILLISECONDS);
+	}
+
+	public void clientIsOldEnough() {
+    }
+
+    public void clientIsTooYoung() {
+    }
+}
+----
+- In the `clientIsOldEnough()` and `clientIsTooYoung()` we need the logic to trigger a message.
+What triggers a message will be the implementation of the `PersonCheckingService#shouldGetBeer`.
+- For `clientIsOldEnough()` we can use a `PersonToCheck` of age `25` for example and
+`clientIsTooYoung` can have age `5`. (<<_beermessagingbase,Show solution>>)
+- We can run the test which will obviously fail because we have a missing implementation. Let's move
+to `AgeCheckingPersonCheckingService`
+
+==== Writing the missing producer messaging implementation
+
+- We need to check if the person's age is greater or equal to 20 - if that's the case then the
+we need to send the properly generated `Verification` object. In order to send a message you can use the
+following code `source.output().send(MessageBuilder.withPayload(new Verification(true)).build())`.
+In this case we're sending a message to the `output` channel (that is bound to `verifications` destination).
+(<<_messaging_implementation,Show solution>>)
+- Let's run the tests again - they should all pass!
+- Now let's ensure that we can successfully publish artifacts to Maven local
++
+[source,bash,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+$ ./mvnw clean install
+----
++
+[source,bash,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+$ ./gradlew clean build publishToMavenLocal
+----

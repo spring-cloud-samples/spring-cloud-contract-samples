@@ -44,8 +44,8 @@ dependencies {
 	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
-	testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
 	// remove::start[]
+	testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	testCompile("org.springframework.cloud:spring-cloud-contract-wiremock")
 	// remove::end[]
@@ -65,6 +65,9 @@ task wrapper(type: Wrapper) {
 	gradleVersion = '3.5'
 }
 
+// remove::start[]
+// tag::stubsjar[]
+// we want to override the default Spring Cloud Contract behaviour and generate JAR in a custom way
 task stubsJar(type: Jar) {
 	classifier = "stubs"
 	into('/') {
@@ -84,14 +87,15 @@ task stubsJar(type: Jar) {
 		from("${project.rootDir}/src/test/resources/contracts")
 	}
 }
-
-// remove::start[]
+// we need the tests to pass to build the stub jar
 stubsJar.dependsOn(test)
+// we want to disable the default Spring Cloud Contract stub jar generation
 verifierStubsJar.enabled = false
 
 artifacts {
 	archives stubsJar
 }
+// end::stubsjar[]
 // remove::end[]
 
 clean.doFirst {

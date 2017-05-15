@@ -1,0 +1,641 @@
+:toc: left
+:toclevels: 8
+:nofooter:
+:root: ../..
+:consumer: {root}/consumer_with_restdocs
+:producer: {root}/producer_with_restdocs
+:images_folder: ../images
+:where_are_contracts: the producer's code
+:producer_artifact: beer-api-producer-restdocs
+
+= Spring Cloud Contract with Rest Docs
+
+In this tutorial we'll combine messaging contracts that lay on the producer side with
+generating stubs with Spring Rest Docs
+
+include::../scenarios.adoc[]
+
+== Flow
+
+image::{images_folder}/rest_docs_flow.png[title="Producer Contract flow"]
+
+== Tutorial
+
+This time it's the producer that defines the contracts and generates stubs. This is typically
+the case where your application has many consumers and it would be very difficult to
+take every consumer's opinion into account.
+
+=== Producer flow 1
+
+image::{images_folder}/rest_docs_producer_flow.png[title="Producer declares contracts and writes Rest Docs tests"]
+
+==== IDE setup for producer
+
+- Open in your IDE the `producer_with_restdocs` project (either via Maven or Gradle)
+- Before we start coding anything let's add the necessary dependencies
+
+==== Adding dependencies to the producer's code
+
+- We'll be using Rest Docs with Spring Cloud Contract to generate HTTP stubs and
+ we'll write the DSL contracts for messaging
+- In order to add Rest Docs just add the following test dependencies
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<dependency>
+    <groupId>org.springframework.restdocs</groupId>
+    <artifactId>spring-restdocs-mockmvc</artifactId>
+    <optional>true</optional>
+</dependency>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
+----
+- In order to profit from Spring Cloud Contract Rest Docs integration you have to add the
+`spring-cloud-contract-wiremock` dependency. That way we'll generate http://wiremock.org[WireMock]
+stubs from our Rest Docs tests.
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-contract-wiremock</artifactId>
+    <scope>test</scope>
+</dependency>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+testCompile("org.springframework.cloud:spring-cloud-contract-wiremock")
+----
+- Since we want the IDE to help us with code completion in writing DSL contracts, let's add the necessary Spring Cloud Contract
+dependencies. You need to add `spring-cloud-starter-contract-verifier` as a test dependency
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-contract-verifier</artifactId>
+	<scope>test</scope>
+</dependency>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+----
+- This is a task that you would do once only since when you'll be adding next contracts
+all the dependencies will already be added
+
+==== Setting up the Spring Cloud Contract plugin & assembly plugin
+
+- We'll profit from both Spring Cloud Contract plugin & the assembly plugin
+  * the first one will be used to generate tests for messaging contracts
+  * the second one to generate the JAR with messaging contracts and HTTP stubs
+- Spring Cloud Contract can generate tests from your contracts to ensure that your implementation's API
+is compatible with the defined contract. Let's set up the project to start generating messaging tests.
+  * Spring Cloud Contract plugin by default creates the JAR with stubs. We'll need to disable that
+  behaviour
+  * Spring Cloud Contract needs a base class that all of the generated tests will extend. Currently
+  we support 3 different ways of defining a base class (you can read more about this in the
+  Spring Cloud Contract documentation for https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin[Gradle]
+  and https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin_2[Maven])
+    ** a single class for all tests
+    ** convention based naming (takes 2 last package names and appends `Base`. Having a contract
+    `src/test/resources/contracts/foo/bar/shouldDoSth.groovy` would create a test class called
+    `BarTest` that would extend `FooBarBase` class.
+    ** manual mapping (you can state that contracts matching certain regular expression will have to
+    have a base class with fully qualified name equal to X)
+  * In the following example we'll play with convention based naming
+    ** For Maven under the plugin setup you have to set up the plugin configuration
+    `<configuration><packageWithBaseClasses>com.example</packageWithBaseClasses></configuration>`
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<properties>
+    <!-- we don't want the spring cloud contract plugin to do a jar for us -->
+    <spring.cloud.contract.verifier.skip>true</spring.cloud.contract.verifier.skip>
+</properties>
+<plugins>
+    <plugin>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+        <version>${spring-cloud-contract.version}</version>
+        <extensions>true</extensions>
+        <configuration>
+            <packageWithBaseClasses>com.example</packageWithBaseClasses>
+        </configuration>
+    </plugin>
+    <!-- we want the assembly plugin to generate the JAR -->
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+            <execution>
+                <id>stub</id>
+                <phase>prepare-package</phase>
+                <goals>
+                    <goal>single</goal>
+                </goals>
+                <inherited>false</inherited>
+                <configuration>
+                    <attach>true</attach>
+                    <descriptor>${basedir}/src/assembly/stub.xml</descriptor>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+</plugins>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+contracts {
+    packageWithBaseClasses = 'com.example'
+}
+task stubsJar(type: Jar) {
+	classifier = "stubs"
+	into('/') {
+		include('**/com/example/model/*.*')
+		from("${project.rootDir}/src/main/java/")
+	}
+	into('/') {
+		include('**/com/example/model/*.*')
+		from("${project.buildDir}/classes/main")
+	}
+	into("META-INF/${project.group}/${project.name}/${project.version}/mappings") {
+		include('**/*.*')
+		from("${project.rootDir}/target/snippets/stubs")
+	}
+	into("META-INF/${project.group}/${project.name}/${project.version}/contracts") {
+		include('**/*.groovy')
+		from("${project.rootDir}/src/test/resources/contracts")
+	}
+}
+// we need the tests to pass to build the stub jar
+stubsJar.dependsOn(test)
+// we want to disable the default Spring Cloud Contract stub jar generation
+verifierStubsJar.enabled = false
+
+artifacts {
+	archives stubsJar
+}
+----
+    ** In both cases passing of that value tells the plugin that a given base class is available under
+    the `com.example` package
+    ** Also it creates a stub jar in a custom way. For Maven it uses the assembly plugin with
+    configuration defined under `src/assembly/stub.xml` and for Gradle via the `stubsJar` task
+    ** The stubs jar will contain
+      *** the classes and sources of the pojo models
+      *** the contracts under `META-INF/${project.group}/${project.name}/${project.version}/contracts`
+      *** the stubs under `META-INF/${project.group}/${project.name}/${project.version}/mappings`
+      *** example for `com.example:beer-producer:0.0.1.BUILD-SNAPSHOT` would be
+      `META-INF/com.example/beer-producer/0.0.1.BUILD-SNAPSHOT/contracts`
+
+==== Writing first Rest Docs test
+
+- Open the `ProducerController` class and see that we've already prepared some basic
+setup for you. Our controller accepts a JSON request with `PersonToCheck` body, and
+will return a JSON response of `Response` type. The logic checking if person is
+eligible to get the beer or not is done via the `PersonCheckingService` interface.
+- We'll be trying to do TDD on the producer side so let's start with a test
+- Open the `ProducerControllerTests` class
+- We'll need to add the Rest Docs support by annotating the class in the following way
++
+[source,java]
+----
+@AutoConfigureRestDocs(outputDir = "target/snippets")
+----
+  * That way any snippets produced by Rest Docs will end up in `target/snippets` folder
+- We'll need to write 2 tests - one for the client who is old enough and one for a client
+that is too young
+- As you can see we'll be setting up the Spring context. That's why we need some fake implementation
+of the `PersonCheckingService` since we don't want to access any databases, send messages etc.
+  * To do that in the `Config` class to the bottom of the test you can register a bean
+  of `PersonCheckingService` type that will return `true` when the `PersonToCheck`'s age
+  is greater or equal to `20`. (<<_rest_docs_producer_test_config,Show solution>>)
+- We'll use MockMvc to send a JSON request to the `/check` endpoint. The body of the
+request will be the prepared `PersonToCheck` object (hint: you can use the prepared
+`JacksonTester` object to send that `json`. In the response for the positive scenario we
+expect the response to contain the `status` field equal to `OK` (hint: `.andExpect(jsonPath("$.status").value("OK")))`
+and for the negative scenario equal to `NOT_OK` (hint: `.andExpect(jsonPath("$.status").value("NOT_OK")))`.
+(<<_rest_docs_producer_tests,Show solution>>)
+- Let's run the tests! Obviously they'll fail cause we haven't written any implementation on the
+producer side. Let's fix that!
+- In the `ProducerController` write the missing implementation. If the `PersonCheckingService`
+returns `true` when the `PersonToCheck` is eligible to get the beer then let's return the
+`Response` with `BeerCheckStatus` equal to `OK`. Otherwise the `BeerCheckStatus` should be
+equal to `NOT_OK`. (<<_producerController_implementation,Show solution>>)
+- Let's rerun the tests and they should now pass. Right now we haven't created any stubs.
+It's time to fix that!
+- Spring Cloud Contract WireMock comes with a handy method called `WireMockRestDocs.verify()`
+that you can pass to the Rest Doc's `andDo()` method. The `WireMockRestDocs.verify()` method allows you
+to:
+  * register the request and the response to store it as stub
+  * assert JSON path's of the request via `jsonPath` method (that's how you can check the dynamic bits of your response)
+  * via `contentType()` method check the content type of the request
+  * via `stub()` method you can save the stored request / response info as a WireMock stub
+  * via `wiremock()` method access WireMock's API to perform further request verification
+- Spring Cloud Contract WireMock also comes with a `SpringCloudContractRestDocs.dslContract()`
+method that allows you to generate a DSL contract from your Rest Docs tests. This can be handy
+when you have a lot of Rest Docs tests and would like to migrate to the DSL ones. If you
+call the `andDo()` method and pass to it the `MockMvcRestDocumentation.document(...,...)`
+like presented below:
++
+[source,java]
+----
+.andDo(MockMvcRestDocumentation
+    .document("shouldRejectABeerIfTooYoung", SpringCloudContractRestDocs.dslContract()));
+----
+  * Then you'll create a `dsl-contract.adoc` file under the `target/snippets/shouldRejectABeerIfTooYoung`
+  folder and `shouldRejectABeerIfTooYoung.groovy` file under `target/snippets/contracts/` folder
++
+IMPORTANT: To make this work you have to first call the `WireMockRestDocs.verify()` method
+and *only after* that the `SpringCloudContractRestDocs.dslContract()` one.
+- Time to add the Spring Cloud Contract Rest Docs support. We'd like to do the following
+(<<__rest_docs_producer_tests_with_contracts,Show solution>>):
+   * for the positive scenario assert that the `age` is greater or equal to `20`
+   (hint: JSON path for this check looks like this `$[?(@.age >= 20)]`)
+   * for the negative scenario assert that the `age` is smaller than to `20`
+   (hint: JSON path for this check looks like this `$[?(@.age < 20)]`)
+   * assert that the request header contains `content-type` equal to `applicaton/json`
+   (hint: you can use this method to pass the `MediaType` - `MediaType.valueOf("application/json")`)
+   * produce the stub and the DSL documentation called `shouldGrantABeerIfOldEnough` for the positive scenario
+   * produce the stub and the DSL documentation called `shouldRejectABeerIfTooYoung` for the negative scenario
+- Congratulations! In your `target/snippets` you should see
+  * `contracts/shouldGrantABeerIfOldEnough.groovy` - with DSL contract for the positive scenario
+  * `contracts/target/snippets/.groovy` - with DSL contract for the negative scenario
+  * `shouldGrantABeerIfOldEnough/` - folder with `adoc` files representing documentation of the
+  positive scenario
+  * `shouldRejectABeerIfTooYoung/` - folder with `adoc` files representing documentation of the
+  negative scenario
+  * `stubs/shouldGrantABeerIfOldEnough.json` - WireMock stub of the positive scenario
+  * `stubs/shouldRejectABeerIfTooYoung.json` - WireMock stub of the negative scenario
+- Now let's define the messaging contracts!
+
+==== Defining first messaging contract
+
+- Ok we've done the case for HTTP. Let's move to the `src/test/resources/contracts/beer/messaging` folder
+
+include::snippets/first_messaging_contract.adoc[]
+
+include::snippets/updating_messaging_contracts_from_pr.adoc[]
+
+==== Defining second messaging contract
+
+- Time for you to create the second contract. Create a file called `shouldSendRejectedVerification.groovy`.
+If you're lost just check out the <<_proposal_of_simple_contracts_by_consumer,solution>>
+  * Set the `eligible` in the response body to `false`
+  * Update the label to `rejected_verification`
+  * Update the description
+
+==== Generating tests from contracts
+
+- Let's generate the tests! Just call:
++
+[source,bash,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+$ ./mvnw clean install
+----
++
+[source,bash,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+$ ./gradlew clean build publishToMavenLocal
+----
+  * Suddenly some tests should start failing. Those tests are the autogenerated tests created
+  by Spring Cloud Contract
+  * The tests lay under `/generated-test-sources/contracts/org/springframework/cloud/contract/verifier/tests/beer`
+    in `target` for Maven or `build` for Gradle
+  * There will be a test for each folder in which you store your contracts. The name of the test class
+    will be the name of that folder
+
+include::snippets/fixing_broken_messaging_tests.adoc[]
+
+==== Checking the generated JAR
+
+- Let's check out what's inside the generated stub JAR
+- Assuming that our configuration is ok - if you run the following command you should see
+a similar output
++
+[source,bash]
+----
+$ unzip -l target/beer-api-producer-restdocs-0.0.1-SNAPSHOT-stubs.jar
+Archive:  beer-api-producer-restdocs-0.0.1-SNAPSHOT-stubs.jar
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+      164  2016-11-10 08:34   com/example/model/PersonToCheck.java
+        0  2017-05-12 13:40   META-INF/com.example/beer-api-producer-restdocs/
+        0  2017-05-12 13:40   META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/mappings/
+      569  2017-05-12 13:40   META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/mappings/shouldRejectABeerIfTooYoung.json
+      157  2016-11-10 08:34   com/example/model/Response.java
+      423  2017-05-12 13:40   com/example/model/PersonToCheck.class
+        0  2017-05-12 13:40   META-INF/
+      414  2017-05-12 13:40   com/example/model/Response.class
+        0  2017-05-12 13:40   com/example/model/
+     1015  2017-05-12 13:40   com/example/model/BeerCheckStatus.class
+       71  2016-11-10 08:34   com/example/model/BeerCheckStatus.java
+        0  2017-05-12 13:40   META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/contracts/
+        0  2017-05-12 13:40   META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/contracts/beer/
+        0  2017-05-12 13:40   META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/contracts/beer/messaging/
+      742  2017-05-12 13:38   META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/contracts/beer/messaging/shouldSendAcceptedVerification.groovy
+        0  2017-05-12 13:40   com/
+      595  2017-05-12 13:40   com/example/model/Verification.class
+      105  2017-05-12 13:40   META-INF/MANIFEST.MF
+      309  2016-11-10 08:34   com/example/model/Verification.java
+        0  2017-05-12 13:40   com/example/
+        0  2017-05-12 13:40   META-INF/com.example/
+        0  2017-05-12 13:40   META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/
+      566  2017-05-12 13:40   META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/mappings/shouldGrantABeerIfOldEnough.json
+      745  2017-05-12 13:38   META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/contracts/beer/messaging/shouldSendRejectedVerification.groovy
+---------                     -------
+     5875                     24 files
+----
+  * Under `com/example/model` we'll have the compiled pojos with sources
+  * Under `META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT` under `contracts` we'll have the
+  messaging contracts and under `mappings` all generated HTTP stubs
+- In a "real life" scenario we would merge our code and a fat jar and a jar with stubs would
+be generated by the CI system. In this tutorial we'll work with our Maven local so we don't have
+to do anything else. Let's move to the consumer side.
+
+=== Consumer flow 2
+
+image::{images_folder}/consumer_flow_2.png[title="Online work with stubs"]
+
+- In this part of the tutorial we'll show different ways of working with stubs
+ * using `@AutConfigureWireMock` annotation to manually pass a list of stubs to register
+ from classpath
+ * using `@AutoConfigureStubRunner` with classpath scanning
++
+IMPORTANT: This feature is available starting with Spring Cloud Contract 1.1.1.RELEASE
+ * using `@AutoConfigureStubRunner` and offline work
+
+==== Adding Spring Cloud Contract
+
+==== Reading HTTP stubs from classpath with Spring Cloud Contract WireMock
+
+- Let's open the consumer code from the `consumer_with_restdocs` directory in your IDE
+- We'll try to do TDD so let's open the `BeerControllerTest` class.
+include::snippets/consumer_requirements.adoc[]
+- Since the producer has already published its stubs, we already know how the API looks like,
+let's then write the missing implementation for the `BeerController`. (<<_missing_consumer_controller_code,Show solution>>)
+- If we run our tests again they will fail due to `Connection Refused` - that's because
+we're trying to send a request to a non-started server.
+- Now it's time to turn on the magic! Let's add the Spring Cloud Starter Contract Stub Runner test dependency.
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+	<scope>test</scope>
+</dependency>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
+----
+
+- Now we'll add the producer stub dependency to our project
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<dependency>
+    <groupId>com.example</groupId>
+    <artifactId>beer-api-producer-restdocs</artifactId>
+    <classifier>stubs</classifier>
+    <version>0.0.1-SNAPSHOT</version>
+    <scope>test</scope>
+    <exclusions>
+        <exclusion>
+            <groupId>*</groupId>
+            <artifactId>*</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+testCompile("com.example:beer-api-producer-restdocs:0.0.1-SNAPSHOT:stubs") {
+    transitive = false
+}
+----
++
+IMPORTANT: Remember not to include any transitive dependencies. We just want to import the
+JAR with the contracts and stubs
+
+- Now we'll annotate the `BeerControllerTest` class with
+`@AutoConfigureWireMock(stubs = "classpath:/META-INF/com.example/beer-api-producer-restdocs/**/*.json", port = 8090)`
+  * We're telling WireMock to start a fake HTTP server at port `8090` and to register all stubs that lay at location
+  `/META-INF/com.example/beer-api-producer-restdocs/**/*.json` on the classpath
+- Let's run our tests again and now they should pass!
+
+==== Reading HTTP stubs from classpath with Spring Cloud Contract Stub Runner
+
+IMPORTANT: This feature is available from 1.1.1.RELEASE version
+
+- We're assuming that you have done the previous task so your consumer project is properly
+setup.
+- Open the `BeerControllerClasspathTest` - we'll use Stub Runner to pick stubs from classpath
+- Now annotate the class with `@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")`
+without passing the `workOffline` flag nor the `repositoryRoot`. Just pass the ids
+- Run the tests and you'll see that the tests pass!
+  * For this example we're by default scanning the following locations:
+    ** `/META-INF/com.example/beer-api-producer-restdocs/**/*.*`
+    ** `/contracts/com.example/beer-api-producer-restdocs/**/*.*`
+    ** `/mappings/com.example/beer-api-producer-restdocs/**/*.*`
+
+==== Writing the missing consumer messaging implementation
+
+include::snippets/consumer_messaging_implementation.adoc[]
+
+==== Reading messaging stubs with Spring Cloud Contract Stub Runner
+
+- since Rest Docs have nothing to do with messaging we'll have to use the standard Stub Runner approach
+
+include::snippets/stub_runner_messaging.adoc[]
+
+==== Reading messaging stubs from classpath with Spring Cloud Contract Stub Runner
+
+IMPORTANT: This feature is available from 1.1.1.RELEASE version
+
+- now that the implementation is written and has been tested in the previous
+step, we can try to read the message stubs from classpath
+- Go to the `BeerVerificationListenerClasspathTest`
+- Now annotate the class with `@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")`
+without passing the `workOffline` flag nor the `repositoryRoot`. Just pass the ids
+- Run the tests and you'll see that the tests pass!
+  * For this example we're by default scanning the following locations:
+    ** `/META-INF/com.example/beer-api-producer-restdocs/**/*.*`
+    ** `/contracts/com.example/beer-api-producer-restdocs/**/*.*`
+    ** `/mappings/com.example/beer-api-producer-restdocs/**/*.*`
+
+== Solutions
+
+include::snippets/solutions.adoc[]
+
+=== Rest Docs Producer Tests Config
+
+[source,java]
+----
+    @Configuration
+    @EnableAutoConfiguration
+    static class Config {
+        @Bean
+        PersonCheckingService personCheckingService() {
+            return personToCheck -> personToCheck.age >= 20;
+        }
+
+        @Bean
+        ProducerController producerController(PersonCheckingService service) {
+            return new ProducerController(service);
+        }
+    }
+----
+
+=== Rest Docs Producer Tests
+
+[source,java]
+----
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProducerControllerTests.Config.class)
+@AutoConfigureRestDocs(outputDir = "target/snippets")
+@AutoConfigureMockMvc
+@AutoConfigureJsonTesters
+@DirtiesContext
+public class ProducerControllerTests {
+
+	@Autowired private MockMvc mockMvc;
+
+	private JacksonTester<PersonToCheck> json;
+
+	@Before
+	public void setup() {
+		ObjectMapper objectMappper = new ObjectMapper();
+		// Possibly configure the mapper
+		JacksonTester.initFields(this, objectMappper);
+	}
+
+	@Test
+	public void should_grant_a_beer_when_person_is_old_enough() throws Exception {
+		PersonToCheck personToCheck = new PersonToCheck(34);
+		mockMvc.perform(MockMvcRequestBuilders.post("/check")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json.write(personToCheck).getJson()))
+				.andExpect(jsonPath("$.status").value("OK"));
+	}
+
+	@Test
+	public void should_reject_a_beer_when_person_is_too_young() throws Exception {
+		PersonToCheck personToCheck = new PersonToCheck(10);
+		mockMvc.perform(MockMvcRequestBuilders.post("/check")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json.write(personToCheck).getJson()))
+				.andExpect(jsonPath("$.status").value("NOT_OK"));
+	}
+
+	@Configuration
+	@EnableAutoConfiguration
+	static class Config {
+		@Bean
+		PersonCheckingService personCheckingService() {
+			return personToCheck -> personToCheck.age >= 20;
+		}
+
+		@Bean
+		ProducerController producerController(PersonCheckingService service) {
+			return new ProducerController(service);
+		}
+	}
+}
+----
+
+=== Rest Docs Producer Tests with Contracts
+
+[source,java]
+----
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProducerControllerTests.Config.class)
+@AutoConfigureRestDocs(outputDir = "target/snippets")
+@AutoConfigureMockMvc
+@AutoConfigureJsonTesters
+@DirtiesContext
+public class ProducerControllerTests {
+
+	@Autowired private MockMvc mockMvc;
+
+	private JacksonTester<PersonToCheck> json;
+
+	@Before
+	public void setup() {
+		ObjectMapper objectMappper = new ObjectMapper();
+		// Possibly configure the mapper
+		JacksonTester.initFields(this, objectMappper);
+	}
+
+	@Test
+	public void should_grant_a_beer_when_person_is_old_enough() throws Exception {
+		PersonToCheck personToCheck = new PersonToCheck(34);
+		mockMvc.perform(MockMvcRequestBuilders.post("/check")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json.write(personToCheck).getJson()))
+				.andExpect(jsonPath("$.status").value("OK"))
+				.andDo(WireMockRestDocs.verify()
+						.jsonPath("$[?(@.age >= 20)]")
+						.contentType(MediaType.valueOf("application/json"))
+						.stub("shouldGrantABeerIfOldEnough"))
+				.andDo(MockMvcRestDocumentation.document("shouldGrantABeerIfOldEnough",
+						SpringCloudContractRestDocs.dslContract()));
+	}
+
+	@Test
+	public void should_reject_a_beer_when_person_is_too_young() throws Exception {
+		PersonToCheck personToCheck = new PersonToCheck(10);
+		mockMvc.perform(MockMvcRequestBuilders.post("/check")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json.write(personToCheck).getJson()))
+				.andExpect(jsonPath("$.status").value("NOT_OK"))
+				.andDo(WireMockRestDocs.verify()
+						.jsonPath("$[?(@.age < 20)]")
+						.contentType(MediaType.valueOf("application/json"))
+						.stub("shouldRejectABeerIfTooYoung"))
+				.andDo(MockMvcRestDocumentation.document("shouldRejectABeerIfTooYoung",
+						SpringCloudContractRestDocs.dslContract()));
+	}
+
+	@Configuration
+	@EnableAutoConfiguration
+	static class Config {
+		@Bean
+		PersonCheckingService personCheckingService() {
+			return personToCheck -> personToCheck.age >= 20;
+		}
+
+		@Bean
+		ProducerController producerController(PersonCheckingService service) {
+			return new ProducerController(service);
+		}
+	}
+}
+----
+
+== Back to the main page
+
+link:../workshops.html[Click here to go back to the main page]

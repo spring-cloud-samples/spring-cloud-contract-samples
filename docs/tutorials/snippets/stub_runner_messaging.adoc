@@ -1,0 +1,19 @@
+- Time to use Spring Cloud Contract!
+  * We need to use Spring Cloud Contract Stub Runner so that it downloads the stubs. Just add the
+  `@AutoConfigureStubRunner(workOffline = true, ids = "com.example:{producer_artifact}")` to download
+  the latest stubs of `com.example:{producer_artifact}`, with classifier `stubs` and if the JAR
+  contains any HTTP stubs then register them at a random port.
+  * Now we need a solution to trigger the message. To do that we need to autowire a `StubTrigger` interface.
+  Just add `@Autowired StubTrigger stubTrigger` field to your test
+  * In the contract on the producer side we've described 2 labels. `accepted_verification` and `rejected_verification`.
+  You can use the `StubTrigger#trigger` method to trigger a message with a given label. For example
+  if you call `stubTrigger.trigger("accepted_verification")` you'll trigger a message that got described
+  with the `accepted_verification` label.
+  * Now add the missing `StubTrigger#tigger` method in the test bodies. (<<_missing_triggers,Show solution>>)
+  * Run the tests and they should pass!
+    * You can change the `destination` name in `src/main/resources/application.yml` to `foo` and rerun the
+    tests - you'll see that they'll start failing. That's because you're listening to messages
+    at destination `foo` whereas the message is sent to `verifications`
+    * You can also play around with the `Verification` payload class. If you change the field name from
+    `eligible` to `foo` an rerun the tests - the tests will fail. If you change the type from `boolean`
+    to `Integer` (and change the production code too) then the tests will fail due to serialization problems

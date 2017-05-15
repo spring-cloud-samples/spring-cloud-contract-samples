@@ -1,0 +1,23 @@
+- We've gone through the HTTP scenario and now it's time for the messaging part.
+- Let' start with a test as usual. Let's check out the `BeerVerificationListenerTest` test class
+  * there are 2 test methods with empty bodies
+  * in both cases we need to trigger a message that will get sent to a destination at which our
+  listener class is awaiting messages
+  * we're missing the triggering part - but we'll add it in a second
+- On the consumer side let's check out the `BeerVerificationListener` class.
+  * We're using the Spring Cloud Stream's abstraction of a queue / topic which is called a `channel`.
+  * There are 2 channels that come out od the box with SC-Stream. These are `input` and `output`.
+  Those channels can be found in 2 interfaces - `Sink` and `Source`. `Sink` contains the `input` channel
+  which is used for listening for messages and `Source` contains the `output` channel which
+  is used to send messages. In the listener class you can see that we use the `Sink` one cause we're waiting for
+  a message to be received.
+  * We have to configure the `destination`, so the actual name of a queue / topic on which we will be
+  listening. To do that you have to set in the `src/main/resources/application.yml` the property
+  `spring.cloud.stream.bindings.input.destination: verifications`. That means that the we'll use the
+  `input` channel (so the channel in the `Sink` interface) to listen to messages coming from a
+  destination called `verifications`.
+  * Now that we have configured Spring Cloud Stream let's write the missing feature. If the `eligible` flag
+  in the incoming message is `true` - increase the `eligibleCounter` value. Otherwise increment the
+  other `notEligibleCounter` one. (<<_missing_listener_code,Show solution>>)
+- Now that the implementation is written - let's try to run our `BeerVerificationListenerTest` tests.
+Unfortunately they will fail cause no message has been received - we'll still missing that part

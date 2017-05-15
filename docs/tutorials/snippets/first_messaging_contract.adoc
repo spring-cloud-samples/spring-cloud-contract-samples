@@ -101,4 +101,3 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * Congratulations! You've created your first messaging contract!

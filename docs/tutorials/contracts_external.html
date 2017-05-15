@@ -2347,8 +2347,9 @@ code) it&#8217;s enough to remove the <code>workOffline</code> flag and to pass 
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-@AutoConfigureStubRunner(repositoryRoot="http://foo.com/bar,
-ids = "com.example:beer-api-producer-with-scenario:+:stubs:8090")
+@AutoConfigureStubRunner(
+repositoryRoot="http://foo.com/bar,
+ids = "com.example:beer-api-producer-external:+:stubs:8090")
 @DirtiesContext
 public class BeerControllerTest extends AbstractTest {
 }</code></pre>

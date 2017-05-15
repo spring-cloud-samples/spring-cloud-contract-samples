@@ -1,5 +1,3 @@
-==== Updating contracts from the PR
-
 - We need to modify the messaging contracts cause they are missing one important piece from the
 producer's perspective - the `input` part
   * In case of messaging there has to be some trigger that will result in producing an output message

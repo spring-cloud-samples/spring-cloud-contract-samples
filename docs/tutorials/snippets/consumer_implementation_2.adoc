@@ -28,48 +28,8 @@ caught during the build time of your project.
 
 ==== Writing the missing consumer messaging implementation
 
-- We've gone through the HTTP scenario and now it's time for the messaging part.
-- Let' start with a test as usual. Let's check out the `BeerVerificationListenerTest` test class
-  * there are 2 test methods with empty bodies
-  * in both cases we need to trigger a message that will get sent to a destination at which our
-  listener class is awaiting messages
-  * we're missing the triggering part - but we'll add it in a second
-- On the consumer side let's check out the `BeerVerificationListener` class.
-  * We're using the Spring Cloud Stream's abstraction of a queue / topic which is called a `channel`.
-  * There are 2 channels that come out od the box with SC-Stream. These are `input` and `output`.
-  Those channels can be found in 2 interfaces - `Sink` and `Source`. `Sink` contains the `input` channel
-  which is used for listening for messages and `Source` contains the `output` channel which
-  is used to send messages. In the listener class you can see that we use the `Sink` one cause we're waiting for
-  a message to be received.
-  * We have to configure the `destination`, so the actual name of a queue / topic on which we will be
-  listening. To do that you have to set in the `src/main/resources/application.yml` the property
-  `spring.cloud.stream.bindings.input.destination: verifications`. That means that the we'll use the
-  `input` channel (so the channel in the `Sink` interface) to listen to messages coming from a
-  destination called `verifications`.
-  * Now that we have configured Spring Cloud Stream let's write the missing feature. If the `eligible` flag
-  in the incoming message is `true` - increase the `eligibleCounter` value. Otherwise increment the
-  other `notEligibleCounter` one. (<<_missing_listener_code,Show solution>>)
-- Now that the implementation is written - let's try to run our `BeerVerificationListenerTest` tests.
-Unfortunately they will fail cause no message has been received - we'll still missing that part
+include::consumer_messaging_implementation.adoc[]
 
 ==== Turning on Stub Runner in messaging consumer tests
 
-- Time to use Spring Cloud Contract!
-  * We need to use Spring Cloud Contract Stub Runner so that it downloads the stubs. Just add the
-  `@AutoConfigureStubRunner(workOffline = true, ids = "com.example:{producer_artifact}")` to download
-  the latest stubs of `com.example:{producer_artifact}`, with classifier `stubs` and if the JAR
-  contains any HTTP stubs then register them at a random port.
-  * Now we need a solution to trigger the message. To do that we need to autowire a `StubTrigger` interface.
-  Just add `@Autowired StubTrigger stubTrigger` field to your test
-  * In the contract on the producer side we've described 2 labels. `accepted_verification` and `rejected_verification`.
-  You can use the `StubTrigger#trigger` method to trigger a message with a given label. For example
-  if you call `stubTrigger.trigger("accepted_verification")` you'll trigger a message that got described
-  with the `accepted_verification` label.
-  * Now add the missing `StubTrigger#tigger` method in the test bodies. (<<_missing_triggers,Show solution>>)
-  * Run the tests and they should pass!
-    * You can change the `destination` name in `src/main/resources/application.yml` to `foo` and rerun the
-    tests - you'll see that they'll start failing. That's because you're listening to messages
-    at destination `foo` whereas the message is sent to `verifications`
-    * You can also play around with the `Verification` payload class. If you change the field name from
-    `eligible` to `foo` an rerun the tests - the tests will fail. If you change the type from `boolean`
-    to `Integer` (and change the production code too) then the tests will fail due to serialization problems
+include::stub_runner_messaging.adoc[]

@@ -71,12 +71,12 @@
 			<artifactId>spring-cloud-contract-wiremock</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- remove::end[] -->
 		<dependency>
 			<groupId>org.springframework.restdocs</groupId>
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- remove::end[] -->
 	</dependencies>
 
 	<build>
@@ -85,7 +85,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
 
 			<!-- SPRING CLOUD CONTRACT -->
 			<!-- remove::start[] -->
@@ -107,6 +106,7 @@
 				</dependencies>
 			</plugin>
 			<!-- tag::assembly[] -->
+			<!-- we want the assembly plugin to generate the JAR -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -128,7 +128,6 @@
 			<!-- end::assembly[] -->
 			<!-- SPRING CLOUD CONTRACT -->
 			<!-- remove::end[] -->
-
 		</plugins>
 	</build>
 

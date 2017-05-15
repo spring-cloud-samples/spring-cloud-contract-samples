@@ -90,6 +90,7 @@ If you're lost just check out the <<_proposal_of_simple_contracts_by_consumer,so
 - Ok we've done the case for HTTP. Let's move to the `src/test/resources/contracts/beer/messaging` folder
 
 include::snippets/first_messaging_contract.adoc[]
+* Congratulations! You've created your first messaging contract!
 
 ==== Defining second messaging contract
 
@@ -218,6 +219,8 @@ contracts {
 ----
     ** In both cases passing of that value tells the plugin that a given base class is available under
     the `com.example` package
+
+==== Updating contracts from the PR
 
 include::snippets/updating_messaging_contracts_from_pr.adoc[]
 

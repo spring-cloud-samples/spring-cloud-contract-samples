@@ -8,7 +8,7 @@ we'd like to download them from the remote location
 - To do that (we won't do that for the tutorial but you would do it in your "production"
 code) it's enough to remove the `workOffline` flag and to pass the `repositoryRoot` parameter
 +
-[source,java]
+[source,java,subs="verbatim,attributes"]
 ----
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -16,7 +16,7 @@ code) it's enough to remove the `workOffline` flag and to pass the `repositoryRo
 @AutoConfigureJsonTesters
 @AutoConfigureStubRunner(
 repositoryRoot="http://foo.com/bar,
-ids = "com.example:beer-api-producer:+:stubs:8090")
+ids = "com.example:{producer_artifact}:+:stubs:8090")
 @DirtiesContext
 public class BeerControllerTest extends AbstractTest {
 }

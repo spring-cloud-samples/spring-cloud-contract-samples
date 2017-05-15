@@ -96,6 +96,7 @@ If you're lost just check out the <<_proposal_of_simple_contracts_by_consumer,so
 - Ok we've done the case for HTTP. Let's move to the `src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/messaging` folder
 
 include::snippets/first_messaging_contract.adoc[]
+* Congratulations! You've created your first messaging contract!
 
 ==== Defining second messaging contract
 
@@ -302,6 +303,7 @@ contracts {
     `messaging` package name in its path then it will be mapped to a `com.example.BeerMessagingBase`
     base class
 
+==== Updating contracts from the PR
 
 include::snippets/updating_messaging_contracts_from_pr.adoc[]
 +
