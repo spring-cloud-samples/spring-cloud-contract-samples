@@ -59,7 +59,7 @@ $ ./gradlew generateDocumentation
 {nbsp}
 {nbsp}
 
-video::iyNzYOcuU4I[youtube,start=538,width=640,height=480]
+video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
 
 {nbsp}
 {nbsp}
