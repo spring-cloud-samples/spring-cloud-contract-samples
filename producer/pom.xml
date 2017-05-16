@@ -90,6 +90,12 @@
 				<extensions>true</extensions>
 				<configuration>
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
+					<baseClassMappings>
+						<baseClassMapping>
+							<contractPackageRegex>.*intoxication.*</contractPackageRegex>
+							<baseClassFQN>com.example.intoxication.BeerIntoxicationBase</baseClassFQN>
+						</baseClassMapping>
+					</baseClassMappings>
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -111,6 +117,7 @@
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
+				<version>1.5</version>
 				<executions>
 					<execution>
 						<goals>

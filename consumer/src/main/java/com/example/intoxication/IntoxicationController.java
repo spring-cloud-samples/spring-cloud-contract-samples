@@ -1,4 +1,4 @@
-package com.example;
+package com.example.intoxication;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -15,13 +15,13 @@ import org.springframework.web.client.RestTemplate;
  * @author Marcin Grzejszczak
  */
 @RestController
-class BeerController {
+class IntoxicationController {
 
 	private final RestTemplate restTemplate;
 
 	int port = 8090;
 
-	BeerController(RestTemplate restTemplate) {
+	IntoxicationController(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
 	}
 

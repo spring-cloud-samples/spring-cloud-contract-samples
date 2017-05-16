@@ -1,6 +1,7 @@
-package com.example;
+package com.example.intoxication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.junit.Before;
 import org.springframework.boot.test.json.JacksonTester;
 

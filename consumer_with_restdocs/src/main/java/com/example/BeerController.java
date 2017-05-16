@@ -1,5 +1,8 @@
 package com.example;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.MalformedURLException;
-import java.net.URI;
-
 /**
  * @author Marcin Grzejszczak
  */
@@ -19,6 +19,7 @@ import java.net.URI;
 class BeerController {
 
 	private final RestTemplate restTemplate;
+	int port = 8090;
 
 	BeerController(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
@@ -31,7 +32,7 @@ class BeerController {
 		//remove::start[]
 		ResponseEntity<Response> response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:8090/check"))
+						.post(URI.create("http://localhost:" + this.port + "/check"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class);

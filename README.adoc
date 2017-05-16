@@ -40,6 +40,8 @@ communication. From these contracts tests and stubs will be generated.
 The producer in the contract also uses features like usage of common libraries, different
 combination of dynamic properties.
 
+It also uses scenario based contracts. That means that the produced stubs are stateful.
+
 === Producer_with_external_contracts
 
 The producer application that downloads its contracts for both REST and messaging
@@ -49,11 +51,6 @@ communication, from the `Beer-contracts` JAR. From these contracts tests and stu
 
 The producer application that uses both contracts and Spring Cloud Contract WireMock with RESTDocs.
 Contracts are used for messaging but the HTTP stubs are created via REST Docs tests.
-
-=== Producer_with_scenarios
-
-The producer application that uses scenario based contracts. That means that the produced
-stubs are stateful.
 
 === Producer_with_stubs_per_consumer
 
@@ -66,6 +63,9 @@ feature only respective stubs for the given consumer will be used.
 The consumer application is using the stubs of the producer for both
 rest and messaging.
 
+It also contains the consumer side of the stateful scenario case. By calling the same endpoint a couple
+ of times we get different responses due to changing state.
+
 === Consumer_with_discovery
 
 The consumer application is using the stubs of the producer for rest. It sends requests
@@ -76,11 +76,6 @@ via a load balanced rest template. In the tests Spring Cloud Contract stubs out
 
 The consumer application is using the stubs of the producer for both
 rest and messaging. The stubs come from the test compile dependency of the producer.
-
-=== Consumer_with_scenario
-
-The consumer side of the stateful scenario case. By calling the same endpoint a couple
-of times we get different responses due to changing state.
 
 === Consumer_with_stubs_per_consumer
 

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 //remove::start[]
-@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8090")
+// example of usage with fixed port
+//@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8090")
+@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer")
 //remove::end[]
 @DirtiesContext
 public class BeerControllerTest extends AbstractTest {
@@ -34,9 +37,11 @@ public class BeerControllerTest extends AbstractTest {
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
 
+	@Value("${stubrunner.runningstubs.beer-api-producer.port}") int producerPort;
+
 	@Before
 	public void setupPort() {
-		beerController.port = 8090;
+		beerController.port = producerPort;
 	}
 
 	//tag::tests[]

@@ -61,6 +61,9 @@ dependencies {
 // remove::start[]
 contracts {
 	packageWithBaseClasses = 'com.example'
+	baseClassMappings {
+		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
+	}
 }
 // remove::end[]
 

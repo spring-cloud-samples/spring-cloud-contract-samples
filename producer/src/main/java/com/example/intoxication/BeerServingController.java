@@ -1,10 +1,13 @@
-package com.example;
+package com.example.intoxication;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Scenario based controller
+ */
 @RestController
 public class BeerServingController {
 

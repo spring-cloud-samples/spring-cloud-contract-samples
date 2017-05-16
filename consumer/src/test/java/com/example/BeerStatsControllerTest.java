@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 //remove::start[]
-@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8095")
+@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer")
 //remove::end[]
 @DirtiesContext
 public class BeerStatsControllerTest extends AbstractTest {
@@ -34,9 +35,11 @@ public class BeerStatsControllerTest extends AbstractTest {
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerStatsController beerStatsController;
 
+	@Value("${stubrunner.runningstubs.beer-api-producer.port}") int producerPort;
+
 	@Before
 	public void setupPort() {
-		beerStatsController.port = 8095;
+		beerStatsController.port = producerPort;
 	}
 
 	@Test public void should_return_a_personalized_text_with_amount_of_beers() throws Exception {

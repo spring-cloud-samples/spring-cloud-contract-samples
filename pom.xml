@@ -35,12 +35,10 @@
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_external_contracts</module>
 				<module>producer_with_restdocs</module>
-				<module>producer_with_scenario</module>
 				<module>consumer</module>
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
-				<module>consumer_with_scenario</module>
 			</modules>
 		</profile>
 		<profile>
@@ -54,12 +52,10 @@
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_external_contracts</module>
 				<module>producer_with_restdocs</module>
-				<module>producer_with_scenario</module>
 				<module>consumer</module>
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
-				<module>consumer_with_scenario</module>
 			</modules>
 		</profile>
 	</profiles>

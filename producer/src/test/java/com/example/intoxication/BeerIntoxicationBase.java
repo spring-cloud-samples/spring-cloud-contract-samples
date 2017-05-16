@@ -1,4 +1,4 @@
-package com.example;
+package com.example.intoxication;
 
 import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 
@@ -12,11 +12,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.context.WebApplicationContext;
 
-import static com.example.DrunkLevel.DRUNK;
-import static com.example.DrunkLevel.SOBER;
-import static com.example.DrunkLevel.TIPSY;
-import static com.example.DrunkLevel.WASTED;
+import static com.example.intoxication.DrunkLevel.DRUNK;
+import static com.example.intoxication.DrunkLevel.SOBER;
+import static com.example.intoxication.DrunkLevel.TIPSY;
+import static com.example.intoxication.DrunkLevel.WASTED;
 
+/**
+ * Tests for the scenario based stub
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BeerIntoxicationBase.Config.class)
 public abstract class BeerIntoxicationBase {
@@ -32,13 +35,11 @@ public abstract class BeerIntoxicationBase {
 	@EnableAutoConfiguration
 	static class Config {
 
-		@Bean
-		BeerServingController controller() {
+		@Bean BeerServingController controller() {
 			return new BeerServingController(responseProvider());
 		}
 
-		@Bean
-		ResponseProvider responseProvider() {
+		@Bean ResponseProvider responseProvider() {
 			return new MockResponseProvider();
 		}
 	}

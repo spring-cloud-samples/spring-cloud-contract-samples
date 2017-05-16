@@ -1,9 +1,10 @@
-package com.example;
+package com.example.intoxication;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,10 +16,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.example.DrunkLevel.DRUNK;
-import static com.example.DrunkLevel.SOBER;
-import static com.example.DrunkLevel.TIPSY;
-import static com.example.DrunkLevel.WASTED;
+import static com.example.intoxication.DrunkLevel.DRUNK;
+import static com.example.intoxication.DrunkLevel.SOBER;
+import static com.example.intoxication.DrunkLevel.TIPSY;
+import static com.example.intoxication.DrunkLevel.WASTED;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,17 +31,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 //remove::start[]
-@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer-with-scenario:+:stubs:8090")
+@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer")
 //remove::end[]
 @DirtiesContext
-public class BeerControllerTest extends AbstractTest {
+public class IntoxicationControllerTest extends AbstractTest {
 
 	@Autowired MockMvc mockMvc;
-	@Autowired BeerController beerController;
+	@Autowired IntoxicationController intoxicationController;
+
+	@Value("${stubrunner.runningstubs.beer-api-producer.port}") int producerPort;
 
 	@Before
 	public void setupPort() {
-		beerController.port = 8090;
+		intoxicationController.port = producerPort;
 	}
 
 	@Test public void should_eventually_get_completely_wasted() throws Exception {
