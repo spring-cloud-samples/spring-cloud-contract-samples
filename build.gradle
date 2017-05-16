@@ -19,7 +19,7 @@ wrapper {
 }
 
 dependencies {
-    asciidoctor "io.spring.asciidoctor:spring-asciidoctor-extensions:0.1.0.RELEASE"
+    asciidoctor "io.spring.asciidoctor:spring-asciidoctor-extensions:0.1.1.RELEASE"
 }
 
 // Documentation tasks
