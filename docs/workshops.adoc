@@ -75,9 +75,11 @@ video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
 - link:tutorials/contracts_on_the_producer_side.html[Contracts on the producer side]
   * simple DSL examples for HTTP & Messaging
   * base classes picked by convention
+  * generating documentation from contracts
 - link:tutorials/contracts_external.html[Contracts that lay in an external repository]
   * simple DSL examples for HTTP & Messaging
   * base classes picked by mappings
+  * generating documentation from contracts
 - link:tutorials/rest_docs.html[Spring Cloud Contract with Rest Docs]
   * generating stubs using Rest Docs
   * generating contracts using Rest Docs
@@ -91,7 +93,6 @@ video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
   * link:tutorials/stubbing_out_service_discovery.html[stubbing out service discovery]
   * stubs per consumer feature
   * using JUnit rule
-  * generating documentation from contracts
 - Using stubs with Stub Runner Boot
 
 
