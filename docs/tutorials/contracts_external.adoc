@@ -381,17 +381,7 @@ contracts {
 
 include::snippets/consumer_flow_2.adoc[]
 
-=== Generating documentation from contracts
-
-Since we have all contracts for our system in one place we can easily
-create the documentation of the whole API. You can create the following test
-that will generate a `contracts.adoc` file under `target/generated-snippets/` with
-description of contracts and with the contract bodies as such.
-
-[source,java]
-----
-include::{root}/beer_contracts/src/test/java/docs/GenerateAdocsFromContractsTests.java[]
-----
+include::snippets/generating_docs.adoc[]
 
 == Solutions
 

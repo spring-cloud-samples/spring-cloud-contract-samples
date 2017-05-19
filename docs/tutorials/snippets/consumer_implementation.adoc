@@ -5,4 +5,7 @@ include::consumer_http_implementation.adoc[]
 
 ==== Turning on Stub Runner in HTTP consumer tests
 
+- Let's run the `BeerControllerTest` again. It will fail since we're trying to send a request to
+a real instance that hasn't been started
+
 include::stub_runner_http_consumer_tests.adoc[]

@@ -56,10 +56,12 @@ public class BeerControllerTest extends AbstractTest {
 	}
 
 	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
+		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(new Person("marcin", 17)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST [foo]"));
+		//remove::end[]
 	}
 }

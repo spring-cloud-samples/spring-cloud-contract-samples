@@ -1,0 +1,16 @@
+:root: ../../../
+
+=== Generating documentation from contracts
+
+Another feature of Spring Cloud Contract is an option to easily create the documentation
+of the whole API of the producer. You can create the following test that will generate a
+`contracts.adoc` file under `target/generated-snippets/` with description of contracts and
+with the contract bodies as such.
+
+TIP: This test is a poor man's version of the documentation generation. You can customize
+it as you wish - the current version is just to show you an example.
+
+[source,java]
+----
+include::{root}/beer_contracts/src/test/java/docs/GenerateAdocsFromContractsTests.java[]
+----

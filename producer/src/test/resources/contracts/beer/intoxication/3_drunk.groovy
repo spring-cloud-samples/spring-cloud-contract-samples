@@ -3,8 +3,7 @@ package contracts.beer.intoxication
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
-	request {
-		description("""
+	description("""
 Represents last step of getting fully drunk
 
 given:
@@ -14,6 +13,7 @@ when:
 then:
 	you'll be wasted
 """)
+	request {
 		method 'POST'
 		url '/beer'
 		body(

@@ -88,7 +88,7 @@ video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
 - Extras
   * more sophisticated DSL manipulations (regexs, code execution, referencing request from response)
   * working with stub and test matchers
-  * contracts representing scenarios (stateful stubs)
+  * link:tutorials/contracts_representing_scenarios.html[contracts representing scenarios (stateful stubs)]
   * creating a library with common code shareable between teams
   * link:tutorials/stubbing_out_service_discovery.html[stubbing out service discovery]
   * stubs per consumer feature

@@ -1,0 +1,28 @@
+==== Cloning the producer's code
+
+- In this tutorial we will not clone the producer's code, we'll just open it in the IDE
+- There's some production code written on the producer side but you could completely remove it. The idea
+of CDC is that defining of contract can be done without writing a single line of code for the feature.
+
+==== Adding dependencies in the producer's clone
+
+- Since we want the IDE to help us with code completion, let's add the necessary Spring Cloud Contract
+dependencies. You need to add `spring-cloud-starter-contract-verifier` as a test dependency
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-contract-verifier</artifactId>
+	<scope>test</scope>
+</dependency>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+----
+- This is a task that you would do once only since when you'll be adding next contracts
+all the dependencies will already be added

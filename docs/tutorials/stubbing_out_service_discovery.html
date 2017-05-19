@@ -700,10 +700,6 @@ We know how we would like the API to look like so now we can write the missing i
 <div class="ulist">
 <ul>
 <li>
-<p>Let&#8217;s run the <code>BeerControllerTest</code> again. It will fail since we&#8217;re trying to send a request to
-a real instance that hasn&#8217;t been started</p>
-</li>
-<li>
 <p>Now it&#8217;s time to turn on the magic! Let&#8217;s add the Spring Cloud Starter Contract Stub Runner test dependency.</p>
 <div class="listingblock primary">
 <div class="title">Maven</div>
@@ -723,7 +719,7 @@ a real instance that hasn&#8217;t been started</p>
 </div>
 </li>
 <li>
-<p>In <code>BeerControllerTest</code> we can annotate the class with
+<p>We can annotate our test class with
 <code>@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8090")</code>. What that
 will do is:</p>
 <div class="ulist">
@@ -1145,7 +1141,7 @@ code) it&#8217;s enough to remove the <code>workOffline</code> flag and to pass 
 repositoryRoot="http://foo.com/bar,
 ids = "com.example:beer-api-producer:+:stubs:8090")
 @DirtiesContext
-public class BeerControllerTest extends AbstractTest {
+public class YourTestOnTheConsumerSide extends AbstractTest {
 }</code></pre>
 </div>
 </div>

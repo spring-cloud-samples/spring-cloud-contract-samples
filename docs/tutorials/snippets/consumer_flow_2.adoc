@@ -18,7 +18,7 @@ code) it's enough to remove the `workOffline` flag and to pass the `repositoryRo
 repositoryRoot="http://foo.com/bar,
 ids = "com.example:{producer_artifact}:+:stubs:8090")
 @DirtiesContext
-public class BeerControllerTest extends AbstractTest {
+public class YourTestOnTheConsumerSide extends AbstractTest {
 }
 ----
   * Another option is to pass the property `stubrunner.repositoryRoot` either as a

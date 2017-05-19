@@ -1,5 +1,3 @@
-- Let's run the `BeerControllerTest` again. It will fail since we're trying to send a request to
-a real instance that hasn't been started
 - Now it's time to turn on the magic! Let's add the Spring Cloud Starter Contract Stub Runner test dependency.
 +
 [source,xml,indent=0,subs="verbatim,attributes",role="primary"]
@@ -17,7 +15,7 @@ a real instance that hasn't been started
 ----
 testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 ----
-- In `BeerControllerTest` we can annotate the class with
+- We can annotate our test class with
 `@AutoConfigureStubRunner(workOffline = true, ids = "com.example:{producer_artifact}:+:stubs:8090")`. What that
 will do is:
   * it will download the stub JARs from Maven local (`workOffline=true`)

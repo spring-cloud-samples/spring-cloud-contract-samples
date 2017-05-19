@@ -44,6 +44,7 @@ public abstract class BeerIntoxicationBase {
 		}
 	}
 
+	//tag::mock[]
 	static class MockResponseProvider implements ResponseProvider {
 
 		private DrunkLevel previous = SOBER;
@@ -73,5 +74,5 @@ public abstract class BeerIntoxicationBase {
 		}
 		//remove::end[]
 	}
-	
+	//end::mock[]
 }

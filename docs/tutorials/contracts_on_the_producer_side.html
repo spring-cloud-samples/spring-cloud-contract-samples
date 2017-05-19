@@ -1336,7 +1336,7 @@ a real instance that hasn&#8217;t been started</p>
 </div>
 </li>
 <li>
-<p>In <code>BeerControllerTest</code> we can annotate the class with
+<p>We can annotate our test class with
 <code>@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8090")</code>. What that
 will do is:</p>
 <div class="ulist">
@@ -2028,7 +2028,7 @@ code) it&#8217;s enough to remove the <code>workOffline</code> flag and to pass 
 repositoryRoot="http://foo.com/bar,
 ids = "com.example:beer-api-producer:+:stubs:8090")
 @DirtiesContext
-public class BeerControllerTest extends AbstractTest {
+public class YourTestOnTheConsumerSide extends AbstractTest {
 }</code></pre>
 </div>
 </div>
@@ -2047,10 +2047,23 @@ system / environment property, or via an <code>application.yml</code></p>
 <div class="sect2">
 <h3 id="_generating_documentation_from_contracts">Generating documentation from contracts</h3>
 <div class="paragraph">
-<p>Now, we can easily create the documentation of the whole API of the producer.
-You can create the following test that will generate a <code>contracts.adoc</code> file
-under <code>target/generated-snippets/</code> with description of contracts and
+<p>Another feature of Spring Cloud Contract is an option to easily create the documentation
+of the whole API of the producer. You can create the following test that will generate a
+<code>contracts.adoc</code> file under <code>target/generated-snippets/</code> with description of contracts and
 with the contract bodies as such.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+This test is a poor man&#8217;s version of the documentation generation. You can customize
+it as you wish - the current version is just to show you an example.
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">

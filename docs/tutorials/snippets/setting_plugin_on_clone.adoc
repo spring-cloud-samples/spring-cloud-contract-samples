@@ -1,0 +1,49 @@
+==== Setting up the Spring Cloud Contract plugin on the producer side
+
+- Ok, at this moment we've described the API that would be interesting for us, consumers, and most likely
+will suit our needs. We define those contracts cause we want to have some stubs produced for us without
+needing to write a single line of the implementation code. The tool that we need to do this conversion
+is the Spring Cloud Contract plugin. Let's add it to the producer's `pom.xml` / `build.gradle`.
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<plugin>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+    <version>${spring-cloud-contract.version}</version>
+    <extensions>true</extensions>
+</plugin>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+buildscript {
+	dependencies {
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${verifierVersion}"
+	}
+}
+----
+  * The coordinates of the plugin are: `org.springframework.cloud:spring-cloud-contract-gradle-plugin:${version}`
+  * For this tutorial we're using latest snapshot versions that you can reference via the Maven's
+  `${spring-cloud-contract.version}` property or Gradle's `verifierVersion` one
+  * Once the plugin has been added just call the commands to install the stubs locally
++
+[source,bash,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+$ ./mvnw clean install -DskipTests
+----
++
+[source,bash,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+$ ./gradlew clean build publishToMavenLocal -x test
+----
+  * Now you can check out `target/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT` for Maven or
+  `build/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT` for Gradle. Over there you'll see
+  `contracts` folder where all contracts got copied and the `mappings` folder where you'll find all the
+  generated stubs. By default Spring Cloud Contract uses http://wiremock.org[WireMock] as an implementation
+  of fake HTTP server. Under the `beer/rest` subfolder you'll see all the generated stubs. Notice that
+  we're using JSON Paths to check the contents of the request.
