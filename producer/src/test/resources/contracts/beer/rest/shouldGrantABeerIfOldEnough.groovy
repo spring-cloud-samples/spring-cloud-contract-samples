@@ -1,9 +1,8 @@
 package contracts.beer.rest
 
+import com.example.ConsumerUtils
+import com.example.ProducerUtils
 import org.springframework.cloud.contract.spec.Contract
-
-import static com.example.ConsumerUtils.oldEnough
-import static com.example.ProducerUtils.ok
 
 Contract.make {
 	description("""
@@ -23,7 +22,7 @@ then:
 		method 'POST'
 		url '/check'
 		body(
-				age: $(oldEnough())
+				age: $(ConsumerUtils.oldEnough())
 		)
 		headers {
 			contentType(applicationJson())
@@ -33,7 +32,7 @@ then:
 		status 200
 		body("""
 			{
-				"status": "${value(ok())}"
+				"status": "${value(ProducerUtils.ok())}"
 			}
 			""")
 		headers {

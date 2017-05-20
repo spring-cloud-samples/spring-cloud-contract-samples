@@ -52,7 +52,7 @@ task generateDocumentation(dependsOn: ["removeHtml", "asciidoctor"]) {
 }
 
 // Workshop tasks
-task removeContracts(type: Delete) {
+task removeFiles(type: Delete) {
     group = "Workshops"
     description = "Removes all contracts"
     List<String> producers =  ['producer', 'producer_with_scenario',
@@ -117,7 +117,7 @@ task removeTextFromFiles() {
     }
 }
 
-task prepareForWorkshops(dependsOn: ['removeContracts', 'removeTextFromFiles']) {
+task prepareForWorkshops(dependsOn: ['removeFiles', 'removeTextFromFiles']) {
     group = "Workshops"
     description = "Executes all tasks to set initial state for workshops"
 }

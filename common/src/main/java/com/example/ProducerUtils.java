@@ -11,6 +11,7 @@ import org.springframework.cloud.contract.spec.internal.ServerDslProperty;
  *
  * @author Marcin Grzejszczak
  */
+//tag::impl[]
 public class ProducerUtils {
 
 	/**
@@ -27,10 +28,14 @@ public class ProducerUtils {
 	 * }
 	 * </pre>
 	 *
-	 * That way the producer side value of age field will be
-	 * a regular expression and the consumer side will be generated.
+	 * That way it's in the implementation that we decide what value we will pass to the consumer
+	 * and which one to the producer.
 	 */
 	public static ServerDslProperty ok() {
-		return new ServerDslProperty(PatternUtils.ok());
+		// this example is not the best one and
+		// theoretically you could just pass the regex instead of `ServerDslProperty` but
+		// it's just to show some new tricks :)
+		return new ServerDslProperty( PatternUtils.ok(), "OK");
 	}
 }
+//end::impl[]

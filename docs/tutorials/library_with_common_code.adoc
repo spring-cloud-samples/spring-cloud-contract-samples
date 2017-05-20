@@ -1,0 +1,222 @@
+:toc: left
+:toclevels: 8
+:nofooter:
+:root: ../..
+:consumer: {root}/consumer
+:producer: {root}/producer
+:images_folder: ../images
+:where_are_contracts: the producer's code
+:producer_artifact: beer-api-producer
+
+= Library with common code
+
+In this tutorial we'll reuse the code created in the link::contracts_on_the_producer_side.html[contracts on the producer side].
+We'll create a module in which we'll define some utility classes that can be reused in the contracts
+
+Let us assume that there are multiple teams that would like to profit from the age related
+regular expression that we have defined in the contract. Another piece of code that we would like
+to share is the regular expression for response status (it makes little sense from the business
+perspective but it's a tutorial ;) ).
+
+== The common module
+
+- Let's open the `common` project
+- Under `src/main/java/com/example` you'll find 3 classes
+    * `ConsumerUtils` - will contain some utility functions to be used on the `request` side of the
+    contract
+    * `PatternUtils` - will contain functions that can be used anywhere in the contract
+    * `ProducerUtils` - will contain some utility functions to be used on the `response` side of the
+    contract
+- Let's write the missing implementations!
+- Open the `PatternUtils` class
+  * the `tooYoung` method needs to return the `"[0-1][0-9]"` String
+  * the `oldEnough` method needs to return the compiled Pattern of a person whose
+  age is greater or equal to 20. If you don't remember how to do it here is a small
+  hint - `Pattern.compile("[2-9][0-9]")`
+  * the `ok` method makes no business sense but we'll write it anyway ;) Let it
+   return a compiled `Pattern` of `OK`. We just want to play around with the contract right?
+   Just write - `Pattern.compile("OK")`
+- Open the `ConsumerUtils` class
+  * the `oldEnough` method returns `ClientDslProperty`. That's a type that the Spring Cloud Contract
+  internals understand as those that need to be set appropriately for the `request` part of
+   the contract.
++
+TIP: Client == consumer == stub side in the nomenclature of Spring Cloud Contract
+  * The `ClientDslProperty` either takes 2 arguments (or a single that gets copied to two fields)
+    ** first one is the `client` value - the value that will be set to the stub on the request side.
+    Can be a regular expression.
+    ** second is the `server` value - the value that will be set in the request sent in the
+    generated tests. MUST BE a concrete value
+  * Let's create a new instance of `ClientDslProperty` where the `client` side will be
+  the regular expression from `PatternUtils.oldEnough()` and the `server` value will e.g. `40`.
++
+[source,java]
+----
+return new ClientDslProperty(PatternUtils.oldEnough(), 40);
+----
+- Open the `ProducerUtils`
+  * the `ok` method returns `ServerDslProperty`. That's a type that the Spring Cloud Contract
+  internals understand as those that need to be set appropriately for the `response` part of
+   the contract.
++
+TIP: Server == producer == test side in the nomenclature of Spring Cloud Contract
+  * The `ServerDslProperty` either takes 2 arguments (or a single that gets copied to two fields)
+    ** first one is the `server` value - the value that will be set to the generated test
+    on the response side. Can be a regular expression.
+    ** second is the `client` value - the value that will be set in the response sent in the
+    stub. MUST BE a concrete value
+  * Let's create a new instance of `ServerDslProperty` where the `server` side will be
+  the regular expression from `PatternUtils.ok()` and the `server` value will e.g. `OK`.
++
+[source,java]
+----
+return new ServerDslProperty(PatternUtils.ok(), "OK");
+----
+
+IMPORTANT: It is obvious that the examples are not the best from the point of view of
+the business value but hopefully they'll allow you to get the idea of how to use the tool :)
+
+- We have successfully implemented the utility classes.
+- Now we have to build the project and install it locally
++
+[source,bash,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+./mvnw clean install
+----
++
+[source,bash,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+./gradlew clean build publishToMavenLocal
+----
+- Let's now try to use it!
+
+== Using common classes on the producer side
+
+- On the producer side, if we want the utility classes to be visible by the IDE we need to
+add them as a test dependency to our project
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<dependency>
+    <groupId>com.example</groupId>
+    <artifactId>beer-common</artifactId>
+    <version>${project.version}</version>
+    <scope>test</scope>
+</dependency>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
+----
+- Now our IDE should start seeing our functions. Let's modify the contracts to use them!
+- Open the `shouldGrantABeerIfOldEnough.groovy` file and let's modify it (<<_modified_first_http_contract,or copy the solution>>)
+  * make the `age` field in the request body have the value of `$(ConsumerUtils.oldEnough())`
+  * make the `status` field in the response body have the value of `value(ProducerUtils.ok())`.
+  (`value()` is the same as `$()` but you will be doing String interpolation via `${}` so having
+  `${$()}` might seem bizarre so it's better to write `${value()}`
+- Open the `shouldRejectABeerIfTooYoung.groovy` file and let's modify it (<<_modified_second_http_contract,or copy the solution>>)
+  * make the `$.age` JSON path in the `stubMatchers` in the `byRegex` method get checked by
+  `PatternUtils.tooYoung()` String pattern
+- The contracts are updated! But we still need to update the build scripts.
+- Adding the common JAR as a test dependency only helps us in the IDE. We need to make sure
+that the plugins will also see that JAR. Let's add this dependency to the plugin's classpath
+too.
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<plugin>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+    <version>${spring-cloud-contract.version}</version>
+    <extensions>true</extensions>
+    <configuration>
+        <!-- some existing configuration -->
+    </configuration>
+    <dependencies>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>beer-common</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</plugin>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+buildscript {
+	repositories {
+		// some existing repositories
+	}
+
+	dependencies {
+		// some existing plugins
+		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
+	}
+}
+----
+- Now if we run the build the contracts will successfully get converted to
+ tests and JAR with stubs will get installed
++
+[source,bash,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+./mvnw clean install
+----
++
+[source,bash,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+./gradlew clean build publishToMavenLocal
+----
+
+== Using common classes on the consumer side
+
+- Since the contracts get parsed at runtime of tests, we need to add the dependency
+to the common utility JAR as a test dependency
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<dependency>
+    <groupId>com.example</groupId>
+    <artifactId>beer-common</artifactId>
+    <version>${project.version}</version>
+    <scope>test</scope>
+</dependency>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
+----
+- And you're ready to run the tests as usual!
+
+== Solutions
+
+=== Modified first HTTP contract
+
+[source,java]
+----
+include::{producer}/src/test/resources/contracts/beer/rest/shouldGrantABeerIfOldEnough.groovy[]
+----
+
+=== Modified second HTTP contract
+
+[source,java]
+----
+include::{producer}/src/test/resources/contracts/beer/rest/shouldRejectABeerIfTooYoung.groovy[]
+----
+
+== Back to the main page
+
+link:../workshops.html[Click here to go back to the main page]

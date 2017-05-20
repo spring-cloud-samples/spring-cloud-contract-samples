@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Spring Cloud Contract Workshops</title>
+<title>Library with common code</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,19 +493,20 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Spring Cloud Contract Workshops</h1>
+<h1>Library with common code</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_setup">Setup</a></li>
-<li><a href="#_generating_the_documentation">Generating the documentation</a></li>
-<li><a href="#_resources">Resources</a>
+<li><a href="#_the_common_module">The common module</a></li>
+<li><a href="#_using_common_classes_on_the_producer_side">Using common classes on the producer side</a></li>
+<li><a href="#_using_common_classes_on_the_consumer_side">Using common classes on the consumer side</a></li>
+<li><a href="#_solutions">Solutions</a>
 <ul class="sectlevel2">
-<li><a href="#_adib_saikali_s_introduction_to_consumer_driven_contracts">Adib Saikali&#8217;s introduction to Consumer Driven Contracts</a></li>
-<li><a href="#_introduction_to_spring_cloud_contract">Introduction to Spring Cloud Contract</a></li>
+<li><a href="#_modified_first_http_contract">Modified first HTTP contract</a></li>
+<li><a href="#_modified_second_http_contract">Modified second HTTP contract</a></li>
 </ul>
 </li>
-<li><a href="#_tasks">Tasks</a></li>
+<li><a href="#_back_to_the_main_page">Back to the main page</a></li>
 </ul>
 </div>
 </div>
@@ -513,32 +514,122 @@ $(addBlockSwitches);
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This documentation will allow you to go through Spring Cloud Contract Workshops by completing
-a series of tasks that will teach you the basic and more advanced concept behind Consumer Driven Contracts
-and Spring Cloud Contract as such.</p>
+<p>In this tutorial we&#8217;ll reuse the code created in the <a href=":contracts_on_the_producer_side.html">contracts on the producer side</a>.
+We&#8217;ll create a module in which we&#8217;ll define some utility classes that can be reused in the contracts</p>
+</div>
+<div class="paragraph">
+<p>Let us assume that there are multiple teams that would like to profit from the age related
+regular expression that we have defined in the contract. Another piece of code that we would like
+to share is the regular expression for response status (it makes little sense from the business
+perspective but it&#8217;s a tutorial ;) ).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setup">Setup</h2>
+<h2 id="_the_common_module">The common module</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The repository mostly consists of pairs of <code>producer</code> and <code>consumer</code> applications that show
-different use cases of Spring Cloud Contract. The initial state of the repository
-is such that all the examples are working and the tests are passing. In order for you to prepare
-the repository so it has only the basic pieces of code set up execute this Gradle command</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Let&#8217;s open the <code>common</code> project</p>
+</li>
+<li>
+<p>Under <code>src/main/java/com/example</code> you&#8217;ll find 3 classes</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ConsumerUtils</code> - will contain some utility functions to be used on the <code>request</code> side of the
+contract</p>
+</li>
+<li>
+<p><code>PatternUtils</code> - will contain functions that can be used anywhere in the contract</p>
+</li>
+<li>
+<p><code>ProducerUtils</code> - will contain some utility functions to be used on the <code>response</code> side of the
+contract</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>Let&#8217;s write the missing implementations!</p>
+</li>
+<li>
+<p>Open the <code>PatternUtils</code> class</p>
+<div class="ulist">
+<ul>
+<li>
+<p>the <code>tooYoung</code> method needs to return the <code>"[0-1][0-9]"</code> String</p>
+</li>
+<li>
+<p>the <code>oldEnough</code> method needs to return the compiled Pattern of a person whose
+age is greater or equal to 20. If you don&#8217;t remember how to do it here is a small
+hint - <code>Pattern.compile("[2-9][0-9]")</code></p>
+</li>
+<li>
+<p>the <code>ok</code> method makes no business sense but we&#8217;ll write it anyway ;) Let it
+return a compiled <code>Pattern</code> of <code>OK</code>. We just want to play around with the contract right?
+Just write - <code>Pattern.compile("OK")</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Open the <code>ConsumerUtils</code> class</p>
+<div class="ulist">
+<ul>
+<li>
+<p>the <code>oldEnough</code> method returns <code>ClientDslProperty</code>. That&#8217;s a type that the Spring Cloud Contract
+internals understand as those that need to be set appropriately for the <code>request</code> part of
+ the contract.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Client == consumer == stub side in the nomenclature of Spring Cloud Contract
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>The <code>ClientDslProperty</code> either takes 2 arguments (or a single that gets copied to two fields)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>first one is the <code>client</code> value - the value that will be set to the stub on the request side.
+Can be a regular expression.</p>
+</li>
+<li>
+<p>second is the <code>server</code> value - the value that will be set in the request sent in the
+generated tests. MUST BE a concrete value</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Let&#8217;s create a new instance of <code>ClientDslProperty</code> where the <code>client</code> side will be
+the regular expression from <code>PatternUtils.oldEnough()</code> and the <code>server</code> value will e.g. <code>40</code>.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">$ git clone https://github.com/spring-cloud-samples/spring-cloud-contract-samples
-$ cd spring-cloud-contract-samples
-$ ./gradlew prepareForWorkshops</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">return new ClientDslProperty(PatternUtils.oldEnough(), 40);</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>This command will remove most of the code / contracts / project setup so that you can start
-with the workshops.</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>Open the <code>ProducerUtils</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>the <code>ok</code> method returns <code>ServerDslProperty</code>. That&#8217;s a type that the Spring Cloud Contract
+internals understand as those that need to be set appropriately for the <code>response</code> part of
+ the contract.</p>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -546,24 +637,40 @@ with the workshops.</p>
 <div class="title">Tip</div>
 </td>
 <td class="content">
-Whenever your lost - don&#8217;t worry. It&#8217;s enough to check what&#8217;s there in the <code>master</code> branch
-where all of the examples are ready and working.
+Server == producer == test side in the nomenclature of Spring Cloud Contract
 </td>
 </tr>
 </table>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-The tasks are set in a form of a cookbook. You can pick any task you want -
-you don&#8217;t have to go through them one by one.
-</td>
-</tr>
-</table>
+</li>
+<li>
+<p>The <code>ServerDslProperty</code> either takes 2 arguments (or a single that gets copied to two fields)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>first one is the <code>server</code> value - the value that will be set to the generated test
+on the response side. Can be a regular expression.</p>
+</li>
+<li>
+<p>second is the <code>client</code> value - the value that will be set in the response sent in the
+stub. MUST BE a concrete value</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Let&#8217;s create a new instance of <code>ServerDslProperty</code> where the <code>server</code> side will be
+the regular expression from <code>PatternUtils.ok()</code> and the <code>server</code> value will e.g. <code>OK</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">return new ServerDslProperty(PatternUtils.ok(), "OK");</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -572,142 +679,305 @@ you don&#8217;t have to go through them one by one.
 <div class="title">Important</div>
 </td>
 <td class="content">
-You&#8217;ll also need to have Maven installed. Check out <a href="https://maven.apache.org/download.cgi">
-the website on how to download and install Maven</a>
+It is obvious that the examples are not the best from the point of view of
+the business value but hopefully they&#8217;ll allow you to get the idea of how to use the tool :)
 </td>
 </tr>
 </table>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>We have successfully implemented the utility classes.</p>
+</li>
+<li>
+<p>Now we have to build the project and install it locally</p>
+<div class="listingblock primary">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">./mvnw clean install</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">./gradlew clean build publishToMavenLocal</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Let&#8217;s now try to use it!</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_generating_the_documentation">Generating the documentation</h2>
+<h2 id="_using_common_classes_on_the_producer_side">Using common classes on the producer side</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>To generate the whole documentation it&#8217;s enough to call the Gradle task:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>On the producer side, if we want the utility classes to be visible by the IDE we need to
+add them as a test dependency to our project</p>
+<div class="listingblock primary">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;beer-common&lt;/artifactId&gt;
+    &lt;version&gt;${project.version}&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
 </div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("com.example:beer-common:0.0.1-SNAPSHOT")</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now our IDE should start seeing our functions. Let&#8217;s modify the contracts to use them!</p>
+</li>
+<li>
+<p>Open the <code>shouldGrantABeerIfOldEnough.groovy</code> file and let&#8217;s modify it (<a href="#_modified_first_http_contract">or copy the solution</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>make the <code>age</code> field in the request body have the value of <code>$(ConsumerUtils.oldEnough())</code></p>
+</li>
+<li>
+<p>make the <code>status</code> field in the response body have the value of <code>value(ProducerUtils.ok())</code>.
+(<code>value()</code> is the same as <code>$()</code> but you will be doing String interpolation via <code>${}</code> so having
+<code>${$()}</code> might seem bizarre so it&#8217;s better to write <code>${value()}</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Open the <code>shouldRejectABeerIfTooYoung.groovy</code> file and let&#8217;s modify it (<a href="#_modified_second_http_contract">or copy the solution</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>make the <code>$.age</code> JSON path in the <code>stubMatchers</code> in the <code>byRegex</code> method get checked by
+<code>PatternUtils.tooYoung()</code> String pattern</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The contracts are updated! But we still need to update the build scripts.</p>
+</li>
+<li>
+<p>Adding the common JAR as a test dependency only helps us in the IDE. We need to make sure
+that the plugins will also see that JAR. Let&#8217;s add this dependency to the plugin&#8217;s classpath
+too.</p>
+<div class="listingblock primary">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-contract-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;${spring-cloud-contract.version}&lt;/version&gt;
+    &lt;extensions&gt;true&lt;/extensions&gt;
+    &lt;configuration&gt;
+        &lt;!-- some existing configuration --&gt;
+    &lt;/configuration&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.example&lt;/groupId&gt;
+            &lt;artifactId&gt;beer-common&lt;/artifactId&gt;
+            &lt;version&gt;${project.version}&lt;/version&gt;
+            &lt;scope&gt;compile&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">buildscript {
+	repositories {
+		// some existing repositories
+	}
+
+	dependencies {
+		// some existing plugins
+		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
+	}
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now if we run the build the contracts will successfully get converted to
+tests and JAR with stubs will get installed</p>
+<div class="listingblock primary">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">./mvnw clean install</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">./gradlew clean build publishToMavenLocal</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_common_classes_on_the_consumer_side">Using common classes on the consumer side</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Since the contracts get parsed at runtime of tests, we need to add the dependency
+to the common utility JAR as a test dependency</p>
+<div class="listingblock primary">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;beer-common&lt;/artifactId&gt;
+    &lt;version&gt;${project.version}&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("com.example:beer-common:0.0.1-SNAPSHOT")</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>And you&#8217;re ready to run the tests as usual!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solutions">Solutions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_modified_first_http_contract">Modified first HTTP contract</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">$ git clone https://github.com/spring-cloud-samples/spring-cloud-contract-samples
-$ cd spring-cloud-contract-samples
-$ ./gradlew generateDocumentation</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">package contracts.beer.rest
+
+import com.example.ConsumerUtils
+import com.example.ProducerUtils
+import org.springframework.cloud.contract.spec.Contract
+
+Contract.make {
+	description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+
+""")
+	request {
+		method 'POST'
+		url '/check'
+		body(
+				age: $(ConsumerUtils.oldEnough())
+		)
+		headers {
+			contentType(applicationJson())
+		}
+	}
+	response {
+		status 200
+		body("""
+			{
+				"status": "${value(ProducerUtils.ok())}"
+			}
+			""")
+		headers {
+			contentType(applicationJson())
+		}
+	}
+}</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_resources">Resources</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_adib_saikali_s_introduction_to_consumer_driven_contracts">Adib Saikali&#8217;s introduction to Consumer Driven Contracts</h3>
-<iframe src="https://docs.google.com/presentation/d/1-_2_Ok-inGA75cr8DwTyeMuhkEGSuaZ4M8FKGV6W5hU/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-<div class="paragraph">
-<p>&#160;
-&#160;</p>
-</div>
-<div class="videoblock">
+<h3 id="_modified_second_http_contract">Modified second HTTP contract</h3>
+<div class="listingblock">
 <div class="content">
-<iframe width="960" height="569" src="https://www.youtube.com/embed/iyNzYOcuU4I?rel=0&amp;start=538" frameborder="0" allowfullscreen></iframe>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">package contracts.beer.rest
+
+import com.example.PatternUtils
+import org.springframework.cloud.contract.spec.Contract
+
+Contract.make {
+	description("""
+Represents an unsuccessful scenario of getting a beer
+
+```
+given:
+	client is not old enough
+when:
+	he applies for a beer
+then:
+	we'll NOT grant him the beer
+```
+
+""")
+	request {
+		method 'POST'
+		url '/check'
+		body(
+				age: 10
+		)
+		headers {
+			contentType(applicationJson())
+		}
+		stubMatchers {
+			jsonPath('$.age', byRegex(PatternUtils.tooYoung()))
+		}
+	}
+	response {
+		status 200
+		body( """
+	{
+		"status": "NOT_OK"
+	}
+	""")
+		headers {
+			contentType(applicationJson())
+		}
+		testMatchers {
+			jsonPath('$.status', byType())
+		}
+	}
+}</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>&#160;
-&#160;</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_introduction_to_spring_cloud_contract">Introduction to Spring Cloud Contract</h3>
-<iframe src="https://docs.google.com/presentation/d/1fB63Pm4nSItw9nJ9zyhAIw2KAZ4mazZZHHGAW6e0Srg/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_tasks">Tasks</h2>
+<h2 id="_back_to_the_main_page">Back to the main page</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="tutorials/contracts_on_the_producer_side.html">Contracts on the producer side</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>simple DSL examples for HTTP &amp; Messaging</p>
-</li>
-<li>
-<p>base classes picked by convention</p>
-</li>
-<li>
-<p>generating documentation from contracts</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="tutorials/contracts_external.html">Contracts that lay in an external repository</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>simple DSL examples for HTTP &amp; Messaging</p>
-</li>
-<li>
-<p>base classes picked by mappings</p>
-</li>
-<li>
-<p>generating documentation from contracts</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="tutorials/rest_docs.html">Spring Cloud Contract with Rest Docs</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>generating stubs using Rest Docs</p>
-</li>
-<li>
-<p>generating contracts using Rest Docs</p>
-</li>
-<li>
-<p>reading stubs from classpath via Spring Cloud Contract WireMock</p>
-</li>
-<li>
-<p>reading stubs from classpath via Stub Runner</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Extras</p>
-<div class="ulist">
-<ul>
-<li>
-<p>more sophisticated DSL manipulations (regexs, code execution,
-referencing request from response, working with stub and test matchers)</p>
-</li>
-<li>
-<p><a href="tutorials/contracts_representing_scenarios.html">contracts representing scenarios (stateful stubs)</a></p>
-</li>
-<li>
-<p><a href="tutorials/library_with_common_code.html">creating a library with common code
-shareable between teams (requires completion of "Contracts on the producer side")</a></p>
-</li>
-<li>
-<p><a href="tutorials/stubbing_out_service_discovery.html">stubbing out service discovery</a></p>
-</li>
-<li>
-<p><a href="tutorials/stubs_per_consumer.html">stubs per consumer</a></p>
-</li>
-<li>
-<p>using JUnit rule</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Using stubs with Stub Runner Boot</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="../workshops.html">Click here to go back to the main page</a></p>
 </div>
 </div>
 </div>

@@ -1,7 +1,6 @@
 package com.example;
 
 import org.springframework.cloud.contract.spec.internal.ClientDslProperty;
-import org.springframework.cloud.contract.spec.internal.DslProperty;
 
 /**
  * DSL Properties passed to the DSL from the consumer's perspective.
@@ -12,6 +11,7 @@ import org.springframework.cloud.contract.spec.internal.DslProperty;
  *
  * @author Marcin Grzejszczak
  */
+//tag::impl[]
 public class ConsumerUtils {
 	/**
 	 * Consumer side property. By using the {@link ClientDslProperty}
@@ -27,37 +27,19 @@ public class ConsumerUtils {
 	 * }
 	 * </pre>
 	 *
-	 * That way the consumer side value of age field will be
-	 * a regular expression and the producer side will be generated.
+	 * That way it's in the implementation that we decide what value we will pass to the consumer
+	 * and which one to the producer.
 	 *
 	 * @author Marcin Grzejszczak
 	 */
 	public static ClientDslProperty oldEnough() {
 		//remove::start[]
-		return new ClientDslProperty(PatternUtils.oldEnough());
+		// this example is not the best one and
+		// theoretically you could just pass the regex instead of `ServerDslProperty` but
+		// it's just to show some new tricks :)
+		return new ClientDslProperty(PatternUtils.oldEnough(), 40);
 		//remove::end[]
 	}
 
-	/**
-	 * Consumer side property. By using the {@link ClientDslProperty}
-	 * you can omit most of boilerplate code from the perspective
-	 * of dynamic values. Example
-	 *
-	 * <pre>
-	 * {@code
-	 * request {
-	 *     body(
-	 *         [ name: $(ConsumerUtils.anyName())]
-	 *     )
-	 * }
-	 * </pre>
-	 *
-	 * That way the consumer will be a regular expression and the
-	 * producer side value will be equal to {@code marcin}
-	 */
-	public static DslProperty anyName() {
-		//remove::start[]
-		return new DslProperty<>(PatternUtils.anyName(), "marcin");
-		//remove::end[]
-	}
 }
+//end::impl[]

@@ -87,7 +87,8 @@ video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
   * more sophisticated DSL manipulations (regexs, code execution,
   referencing request from response, working with stub and test matchers)
   * link:tutorials/contracts_representing_scenarios.html[contracts representing scenarios (stateful stubs)]
-  * creating a library with common code shareable between teams
+  * link:tutorials/library_with_common_code.html[creating a library with common code
+  shareable between teams (requires completion of "Contracts on the producer side")]
   * link:tutorials/stubbing_out_service_discovery.html[stubbing out service discovery]
   * link:tutorials/stubs_per_consumer.html[stubs per consumer]
   * using JUnit rule
