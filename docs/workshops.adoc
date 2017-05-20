@@ -85,7 +85,8 @@ video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
   * reading stubs from classpath via Stub Runner
 - Extras
   * more sophisticated DSL manipulations (regexs, code execution,
-  referencing request from response, working with stub and test matchers)
+  referencing request from response, working with stub and test matchers, working
+  with random ports)
   * link:tutorials/contracts_representing_scenarios.html[contracts representing scenarios (stateful stubs)]
   * link:tutorials/library_with_common_code.html[creating a library with common code
   shareable between teams (requires completion of "Contracts on the producer side")]
