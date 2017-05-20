@@ -1,0 +1,16 @@
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+	<scope>test</scope>
+</dependency>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
+----

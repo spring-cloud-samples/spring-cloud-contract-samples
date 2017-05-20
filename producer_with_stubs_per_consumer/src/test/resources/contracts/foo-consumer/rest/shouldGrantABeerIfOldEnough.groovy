@@ -10,17 +10,20 @@ Contract.make {
 		description("""
 Represents a successful scenario of getting a beer
 
+```
 given:
 	client is old enough
 when:
 	he applies for a beer
 then:
 	we'll grant him the beer
+```
 """)
 		method 'POST'
 		url '/check'
 		body(
-				age: $(oldEnough())
+				age: $(oldEnough()),
+				name: $(anyAlphaUnicode())
 		)
 		headers {
 			contentType(applicationJson())
@@ -31,7 +34,7 @@ then:
 		body("""
 			{
 				"status": "${value(ok())}",
-				"foo": "foo"
+				"name": "${fromRequest().body('$.name')}"
 			}
 			""")
 		headers {

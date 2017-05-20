@@ -48,8 +48,6 @@ $ ./gradlew generateDocumentation
 
 == Resources
 
-//TODO: Add the links / slides
-
 === Adib Saikali's introduction to Consumer Driven Contracts
 
 ++++
@@ -86,12 +84,12 @@ video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
   * reading stubs from classpath via Spring Cloud Contract WireMock
   * reading stubs from classpath via Stub Runner
 - Extras
-  * more sophisticated DSL manipulations (regexs, code execution, referencing request from response)
-  * working with stub and test matchers
+  * more sophisticated DSL manipulations (regexs, code execution,
+  referencing request from response, working with stub and test matchers)
   * link:tutorials/contracts_representing_scenarios.html[contracts representing scenarios (stateful stubs)]
   * creating a library with common code shareable between teams
   * link:tutorials/stubbing_out_service_discovery.html[stubbing out service discovery]
-  * stubs per consumer feature
+  * link:tutorials/stubs_per_consumer.html[stubs per consumer]
   * using JUnit rule
 - Using stubs with Stub Runner Boot
 

@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Contracts representing scenarios (stateful stubs)</title>
+<title>Contracts on the producer side</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Contracts representing scenarios (stateful stubs)</h1>
+<h1>Contracts on the producer side</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -506,9 +506,12 @@ $(addBlockSwitches);
 <li><a href="#_ide_setup">IDE setup</a></li>
 <li><a href="#_cloning_the_producer_s_code">Cloning the producer&#8217;s code</a></li>
 <li><a href="#_adding_dependencies_in_the_producer_s_clone">Adding dependencies in the producer&#8217;s clone</a></li>
-<li><a href="#_defining_the_stateful_http_contracts">Defining the stateful HTTP contracts</a></li>
+<li><a href="#_defining_first_code_foo_consumer_code_http_contract">Defining first <code>foo-consumer</code> HTTP contract</a></li>
+<li><a href="#_defining_second_code_foo_consumer_code_http_contract">Defining second <code>foo-consumer</code> HTTP contract</a></li>
+<li><a href="#_defining_code_bar_consumer_code_http_contracts">Defining <code>bar-consumer</code> HTTP contracts</a></li>
 <li><a href="#_setting_up_the_spring_cloud_contract_plugin_on_the_producer_side">Setting up the Spring Cloud Contract plugin on the producer side</a></li>
-<li><a href="#_turning_on_stub_runner_in_http_consumer_tests">Turning on Stub Runner in HTTP consumer tests</a></li>
+<li><a href="#_writing_missing_implementation_on_the_consumer_side">Writing missing implementation on the consumer side</a></li>
+<li><a href="#_turning_on_stub_runner_in_consumer_tests">Turning on Stub Runner in consumer tests</a></li>
 </ul>
 </li>
 <li><a href="#_producer_flow_1">Producer flow 1</a>
@@ -538,9 +541,10 @@ $(addBlockSwitches);
 <li><a href="#_beerrestbase">BeerRestBase</a></li>
 <li><a href="#_beermessagingbase">BeerMessagingBase</a></li>
 <li><a href="#_messaging_implementation">Messaging implementation</a></li>
-<li><a href="#_scenario_contracts">Scenario contracts</a></li>
-<li><a href="#_intoxication_controller">Intoxication Controller</a></li>
-<li><a href="#_beerintoxicationbase">BeerIntoxicationBase</a></li>
+<li><a href="#_foo_consumer_contracts">Foo-consumer contracts</a></li>
+<li><a href="#_bar_consumer_contracts">Bar-consumer contracts</a></li>
+<li><a href="#_stubs_per_consumer_beercontroller">Stubs per consumer BeerController</a></li>
+<li><a href="#_producercontroller_for_stubs_per_consumer_implementation">ProducerController for stubs per consumer implementation</a></li>
 </ul>
 </li>
 <li><a href="#_back_to_the_main_page">Back to the main page</a></li>
@@ -551,21 +555,57 @@ $(addBlockSwitches);
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this tutorial we&#8217;ll keep the contracts together with the producer code.
-In the contracts we&#8217;ll describe a stateful scenario where the stub needs
-to have "memory" to know what the previous state was and what the next one
-should be.</p>
+<p>In this tutorial we&#8217;ll keep the contracts together with the producer code. Each consumer will
+define the contracts in a dedicated folder. For the same requests the consumers will
+expect different responses.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_scenarios">Scenarios</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>We&#8217;ll have to write the following features:</p>
+</div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/scenario.png" alt="scenario">
+<img src="../images/scenario_stubs_per_consumer_1.png" alt="scenario stubs per consumer 1">
 </div>
-<div class="title">Figure 1. Stateful scenario. The more you drink the more wasted you get</div>
+<div class="title">Figure 1. Addresses unofficially the person by name for positive beer selling via HTTP</div>
+</div>
+<div class="paragraph">
+<p>&#160;
+&#160;</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/scenario_stubs_per_consumer_2.png" alt="scenario stubs per consumer 2">
+</div>
+<div class="title">Figure 2. Addresses unofficially the person by name for negative beer selling via HTTP</div>
+</div>
+<div class="paragraph">
+<p>&#160;
+&#160;</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/scenario_stubs_per_consumer_3.png" alt="scenario stubs per consumer 3">
+</div>
+<div class="title">Figure 3. Addresses officially the person by surname for positive beer selling via HTTP</div>
+</div>
+<div class="paragraph">
+<p>&#160;
+&#160;</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/scenario_stubs_per_consumer_4.png" alt="scenario stubs per consumer 4">
+</div>
+<div class="title">Figure 4. Addresses officially the person by surname for negative beer selling via HTTP</div>
+</div>
+<div class="paragraph">
+<p>&#160;
+&#160;</p>
 </div>
 </div>
 </div>
@@ -576,7 +616,7 @@ should be.</p>
 <div class="content">
 <img src="../images/flow.png" alt="flow">
 </div>
-<div class="title">Figure 2. Consumer Driven Contract flow</div>
+<div class="title">Figure 5. Consumer Driven Contract flow</div>
 </div>
 </div>
 </div>
@@ -585,7 +625,9 @@ should be.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Consumer Driven Contract is like TDD on the layer of architecture. Let&#8217;s start with writing a test on the
-consumer side.</p>
+consumer side. This time we&#8217;ll simulate in our single code base as if we had
+two separate consumers. Normally both consumers would be having their own
+codebases but for the sake of demo we&#8217;ll try to keep things simple.</p>
 </div>
 <div class="sect2">
 <h3 id="_consumer_flow_1">Consumer flow 1</h3>
@@ -593,84 +635,162 @@ consumer side.</p>
 <div class="content">
 <img src="../images/consumer_flow_1.png" alt="consumer flow 1">
 </div>
-<div class="title">Figure 3. Interact with cloned producer code</div>
+<div class="title">Figure 6. Interact with cloned producer code</div>
 </div>
 <div class="sect3">
 <h4 id="_ide_setup">IDE setup</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>Open in your IDE the <code>consumer</code> project (either via Maven or Gradle)</p>
+<p>Open in your IDE the <code>consumer_with_stubs_per_consumer</code> project (either via Maven or Gradle)</p>
 </li>
 <li>
-<p>In this scenario we&#8217;ll have to just write a test for HTTP communication</p>
+<p>We have the following objectives for HTTP</p>
 <div class="ulist">
 <ul>
 <li>
-<p>the consumer gets asked about the current and previous state of intoxication of a given person</p>
+<p>As a consumer with name <code>foo-service</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>for the client with certain <code>name</code> and <code>age</code> we&#8217;ll ask the producer to verify whether
+the person is eligible to get the beer</p>
 </li>
 <li>
-<p>the more you drink the more intoxicated you get</p>
+<p>we expect to retrieve the <code>status</code> and the <code>name</code> of the client</p>
 </li>
 <li>
-<p>the flow of intoxication looks like this <code>SOBER</code> &#8594; <code>TIPSY</code> &#8594; <code>DRUNK</code> &#8594; <code>WASTED</code></p>
+<p>depending on the <code>status</code> we either accept or decline giving a beer</p>
 </li>
 <li>
-<p>the consumer asks the producer for a beer for a given person
-and in return the information about the state of intoxication is sent back</p>
+<p>since we&#8217;re a friendly service we&#8217;ll address the client by <code>MY DEAR FRIEND</code> statement
+and then use the person&#8217;s <code>name</code></p>
+</li>
+<li>
+<p>if the person (e.g. with name <code>marcin</code>) can get the beer then we say
+<code>THERE YOU GO MY DEAR FRIEND [marcin]</code>.</p>
+</li>
+<li>
+<p>otherwise we say <code>GET LOST MY DEAR FRIEND [marcin]</code></p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>In the standard CDC process we would be doing TDD but here you already
-have some code ready</p>
+<p>As a consumer with name <code>bar-service</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>The test <code>IntoxicationControllerTest</code> contains tests of our feature</p>
+<p>for the client with certain <code>name</code> and <code>age</code> we&#8217;ll ask the producer to verify whether
+the person is eligible to get the beer</p>
 </li>
 <li>
-<p>In the <code>IntoxicationController</code> we&#8217;ll need to call an endpoint on the producer
-side</p>
+<p>we expect to retrieve the <code>status</code> and the <code>surname</code> of the client (for simplicity we will
+receive the provided <code>name</code> as <code>surname</code>)</p>
+</li>
+<li>
+<p>depending on the <code>status</code> we either accept or decline giving a beer</p>
+</li>
+<li>
+<p>since we&#8217;re a very official service we&#8217;ll address the client by <code>MR</code> statement</p>
+</li>
+<li>
+<p>if the person (e.g. with name <code>marcin</code>) can get the beer then we say
+<code>THERE YOU GO MR [marcin]</code>. Where <code>marcin</code> came back from the producer service
+as a <code>surname</code>.</p>
+</li>
+<li>
+<p>otherwise we say <code>GET LOST MR [marcin]</code></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Let&#8217;s first write our missing test</p>
-<div class="ulist">
-<ul>
-<li>
-<p>There&#8217;s already a method <code>sendARequestAndExpectStatuses</code> created for us to
-fill out</p>
+<p>Normally we would be doing TDD but we already have some code ready to speed things up</p>
 </li>
 <li>
-<p>We want to use the <code>MockMvc</code> to send a request to the <code>/wasted</code> endpoint
-with the name <code>marcin</code> in the JSON request body. As a response we expect
-to get the <code>previousStatus</code> and <code>currentStatus</code> of intoxication</p>
+<p>In the <code>BeerController</code> class you can see that the implementation of the method is missing -
+we&#8217;ll get back to that later. For now you can see that we have a <code>/beer</code> endpoint that expects a JSON
+ request body that maps to a <code>Person</code> class</p>
+</li>
+<li>
+<p>Let&#8217;s now open the <code>BeerControllerTest</code> and write the missing test bodies</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">		mockMvc.perform(MockMvcRequestBuilders.post("/wasted")
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+		//remove::start[]
+		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin")).getJson()))
+				.content(json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
-				.andExpect(content().json("{\"previousStatus\":\"" + previousStatus.name() +
-						"\",\"currentStatus\":\"" + currentStatus.name() + "\"}"));</code></pre>
+				.andExpect(content().string("THERE YOU GO MY DEAR FRIEND [marcin]"));
+		//remove::end[]
+	}
+
+	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
+		//remove::start[]
+		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json.write(new Person("marcin", 17)).getJson()))
+				.andExpect(status().isOk())
+				.andExpect(content().string("GET LOST MY DEAR FRIEND [marcin]"));
+		//remove::end[]
+	}</code></pre>
 </div>
-</div>
-</li>
-</ul>
 </div>
 </li>
 <li>
-<p>If we run this test it will obviously fail cause we don&#8217;t have any implementation
-in the <code>IntoxicationController</code>. We would like to write the implementation
-but we don&#8217;t yet know the structure of the request</p>
+<p>We need to name our consumer somehow. The best way will be to provide that value in the
+<code>properties</code> attribute in <code>SpringBootTest</code> annotation (you could pass it also via a file
+e.g. <code>application.yml</code>)</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@SpringBootTest(webEnvironment = WebEnvironment.MOCK,
+		properties = {"spring.application.name=foo-consumer"})</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p>Since we don&#8217;t know how the API should look like, we&#8217;ll clone the producer&#8217;s
-code to play around with their API</p>
+<p>If we run the tests obviously the tests will fail cause we have no implementation</p>
+</li>
+<li>
+<p>Now open the <code>BeerControllerForBarTest</code>. In this test class we&#8217;ll simulate that we are the
+<code>bar-service</code> and not the <code>foo-service</code>. Let&#8217;s start with the missing test implementation</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+		//remove::start[]
+		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json.write(new Person("marcin", 22)).getJson()))
+				.andExpect(status().isOk())
+				.andExpect(content().string("THERE YOU GO MR [marcin]"));
+		//remove::end[]
+	}
+
+	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
+		//remove::start[]
+		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json.write(new Person("marcin", 17)).getJson()))
+				.andExpect(status().isOk())
+				.andExpect(content().string("GET LOST MR [marcin]"));
+		//remove::end[]
+	}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>In this test we will not set the <code>spring.application.name</code> - we will change the name by an
+attribute in an annotation later</p>
+</li>
+<li>
+<p>Now we&#8217;d want to write some implementation but the problem is such that we don&#8217;t yet know what API
+we would like to have&#8230;&#8203; This is where we touch the very essence of Consumer Driven Contracts.
+As consumers we want to drive the change of the API that&#8217;s why, <strong>as consumers</strong>, we will work on the producer code.</p>
 </li>
 </ul>
 </div>
@@ -721,35 +841,22 @@ all the dependencies will already be added</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_defining_the_stateful_http_contracts">Defining the stateful HTTP contracts</h4>
+<h4 id="_defining_first_code_foo_consumer_code_http_contract">Defining first <code>foo-consumer</code> HTTP contract</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>In the producer&#8217;s clone let&#8217;s create a <code>src/test/resources/contracts/beer/intoxication</code>
-folder</p>
+<p>Time to play with the API! Create a <code>src/test/resources/contracts/foo-consumer/rest</code>
+folder.</p>
 </li>
 <li>
-<p>In Spring Cloud Contract you can define steps for a given scenario by naming convention
-of the files</p>
+<p>You can define the contracts using Groovy DSL. Let&#8217;s create our first HTTP contract.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>if your contract file starts with a number and a <code>_</code> character then it&#8217;s assumed to be
-part of scenario</p>
+<p>Under the <code>rest</code> folder create a file <code>shouldGrantABeerIfOldEnough.groovy</code></p>
 </li>
 <li>
-<p>example: <code>1_sober.groovy</code>, <code>2_tipsy.groovy</code>, <code>3_drunk.groovy</code></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Let&#8217;s create those three files and let&#8217;s start writing our first scenario.
-Open the <code>1_sober.groovy</code> file</p>
-<div class="ulist">
-<ul>
-<li>
-<p>We&#8217;ll need to start by calling the <code>org.springframework.cloud.contract.spec.Contract.make</code> method</p>
+<p>Call the <code>Contract.make</code> method to start defining the contract</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
@@ -759,253 +866,377 @@ Open the <code>1_sober.groovy</code> file</p>
 </div>
 </li>
 <li>
-<p>Now let&#8217;s provide a meaningful description via the <code>description</code> method</p>
+<p>You can call <code>description()</code> method to provide some meaningful description.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+You can use the
+Groovy multiline String <code>""" """</code> to have all special characters escaped. Every new line in the String
+will be converted into a new line character. Example
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description("""
-    Represents first step of getting fully drunk
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">Contract.make {
+	request {
+		description("""
+Represents a successful scenario of getting a beer
 
-    given:
-        you didn't drink anything
-    when:
-        you get a beer
-    then:
-        you'll be tipsy
-    """)
-}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Next let&#8217;s define the <code>request</code> part of the contract</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description("""
-    Represents first step of getting fully drunk
-
-    given:
-        you didn't drink anything
-    when:
-        you get a beer
-    then:
-        you'll be tipsy
-    """)
-    request {
-
-    }
-}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Let&#8217;s assume that the we want to send a <code>POST</code> request to to the
-<code>/beer</code> endpoint</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description("""
-    Represents first step of getting fully drunk
-
-    given:
-        you didn't drink anything
-    when:
-        you get a beer
-    then:
-        you'll be tipsy
-    """)
-    request {
-        method POST()
-        url "/beer"
-    }
-}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>The body should contain a <code>name</code> field equal to <code>marcin</code>. We&#8217;ll use the
-Groovy map notation to define it</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description("""
-    Represents first step of getting fully drunk
-
-    given:
-        you didn't drink anything
-    when:
-        you get a beer
-    then:
-        you'll be tipsy
-    """)
-    request {
-        method POST()
-        url "/beer"
-        body(name: "marcin")
-    }
-}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>And the content type should be <code>application/json</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description("""
-    Represents first step of getting fully drunk
-
-    given:
-        you didn't drink anything
-    when:
-        you get a beer
-    then:
-        you'll be tipsy
-    """)
-    request {
-        method POST()
-        url "/beer"
-        body(name: "marcin")
-        headers {
-            contentType(applicationJson())
-        }
-    }
-}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Congratulations! You&#8217;ve managed to successfully define the request side
-of the contract. Let&#8217;s now proceed with the response side</p>
-</li>
-<li>
-<p>Let&#8217;s define the <code>response</code> block</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description("""
-    Represents first step of getting fully drunk
-
-    given:
-        you didn't drink anything
-    when:
-        you get a beer
-    then:
-        you'll be tipsy
-    """)
-    request {
-        method POST()
-        url "/beer"
-        body(name: "marcin")
-        headers {
-            contentType(applicationJson())
-        }
-    }
-    response {
-
-    }
-}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>We want the response to return status <code>200</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description("""
-    Represents first step of getting fully drunk
-
-    given:
-        you didn't drink anything
-    when:
-        you get a beer
-    then:
-        you'll be tipsy
-    """)
-    request {
-        method POST()
-        url "/beer"
-        body(name: "marcin")
-        headers {
-            contentType(applicationJson())
-        }
-    }
-    response {
-        status 200
-    }
-}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>The response body should return the <code>previousStatus</code> equal to
-<code>SOBER</code> and the <code>currentStatus</code> equal to <code>TIPSY</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description("""
-    Represents first step of getting fully drunk
-
-    given:
-        you didn't drink anything
-    when:
-        you get a beer
-    then:
-        you'll be tipsy
-    """)
-    request {
-        method POST()
-        url "/beer"
-        body(name: "marcin")
-        headers {
-            contentType(applicationJson())
-        }
-    }
-    response {
-        status 200
-        body(
-            previousStatus: "SOBER",
-            currentStatus: "TIPSY"
-        )
-    }
-}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Finally, the response headers should contain content type equal to
-<code>application/json</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
-    description("""
-Represents first step of getting fully drunk
-
+```
 given:
-    you didn't drink anything
+	client is old enough
 when:
-    you get a beer
+	he applies for a beer
 then:
-    you'll be tipsy
+	we'll grant him the beer
+```
 """)
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now call the <code>request { }</code> and <code>response { }</code> methods</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
     request {
-        method 'POST'
-        url '/beer'
+    }
+    response {
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Let&#8217;s assume that we&#8217;re interested in sending a <code>POST</code> method. Call <code>method POST()</code> or <code>method "POST"</code>.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+In Groovy you don&#8217;t need to provide parentheses (in most cases). You can write either <code>method POST()</code>
+  or <code>method(POST())</code>. In both cases it&#8217;s the same syntax
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+    }
+    response {
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now we need to provide some URL. Let it be <code>/check</code>. Let&#8217;s write <code>url "/check"</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+    }
+    response {
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now time to define some body. We&#8217;ll leverage some of the Groovy power over here so if you&#8217;re lost
+you can always check the <a href="http://groovy-lang.org/json.html">Groovy JSON documentation</a>. Let&#8217;s call the
+<code>body()</code> method with brackets.</p>
+</li>
+<li>
+<p>In Groovy you can use the map notation in such a way <code>[key: "value", secondKey: 2]</code>. In the same way
+we can describe the body of a JSON. So in order to send a JSON looking like this <code>{ "age": 22, "name": "marcin" }</code>
+we can create a map notation of <code>[age:22, name:"marcin"]</code>. The <code>body</code> method accepts a map and in Groovy
+if a method accepts a map then the <code>[]</code> brackets can be omitted. So you can either write
+<code>body([age:22, name:"marcin"])</code> or <code>body(age:22, name:"marcin")</code>.</p>
+</li>
+<li>
+<p>Let us assume that we already want to be more generic about our contract and we want to verify
+that the age is greater than 20 and that name is any alphaunicode character. We can profit from the
+<code>$()</code> or <code>value()</code> methods that Spring Cloud Contract provides to define dynamic behaviour</p>
+</li>
+<li>
+<p>We&#8217;ll use the <code>$(regex(&#8230;&#8203;))</code> method to define the age and the <code>$(anyAlphaUnicode())</code> for the name</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
         body(
-                name: "marcin"
-        )
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+    }
+    response {
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now time for the headers&#8230;&#8203; Call the <code>headers { }</code> method</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+
+        }
+    }
+    response {
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Inside that method let&#8217;s define that we want to use the <code>Content-Type: "application/json</code> header. Just
+call <code>contentType(applicationJson())</code> methods</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Congratulations! You defined how you would like the contract for the request to look like! Time for the
+response</p>
+</li>
+<li>
+<p>In the <code>response</code> block we would like to define that that the status of our response will be 200.
+Just call <code>status 200</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
         headers {
             contentType(applicationJson())
         }
     }
     response {
         status 200
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>We&#8217;d like our response to have some body. As you could have assumed there&#8217;s a <code>body</code> method here too.
+We&#8217;ll now use another way of defining bodies (which is the less preferred option in Spring Cloud Contract
+but still can be useful) - using String</p>
+</li>
+<li>
+<p>We&#8217;re assuming that we would like to send back a field called <code>status</code> that will return <code>OK</code> when the
+person can get the beer. The <code>foo-consumer</code> is also interested in getting back in the response
+the name from the request.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>To reference the request from response via JSON path you can call the <code>fromRequest()</code> method - (e.g. for referrencing the
+<code>name</code> field from request) - `fromRequest().body('$.name')"</p>
+</li>
+<li>
+<p>In Groovy when doing the multiline string <code>""" """</code> you can call the <code>${}</code> interpolation
+mechanism to call a method from within a String.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Don&#8217;t mix the <code>$()</code> from Spring Cloud Contract with <code>${}</code> interpolation mechanism
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Call the <code>body(""" { "status" : "OK", "name": "${fromRequest().body('$.name')}" } """)</code>.
+That way you&#8217;re defining how the response body will look like by providing the exact JSON value,
+and inside that JSON you also provide dynamic values. In our case for the <code>name</code> response field
+we&#8217;ll provide the value of <code>name</code> from the request</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
         body(
-            previousStatus: "SOBER",
-            currentStatus: "TIPSY"
-        )
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "OK",
+                "name": "${fromRequest().body('$.name')}"
+            }
+        """)
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Last thing to add are the response headers. We&#8217;re doing exactly the same thing as we have done previously
+for the request. <code>headers { contentType(applicationJson()) }</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "OK",
+                "name": "${fromRequest().body('$.name')}"
+            }
+        """)
         headers {
             contentType(applicationJson())
         }
@@ -1015,30 +1246,56 @@ then:
 </div>
 </li>
 <li>
-<p>Congratulations! You have successfully created your first contract!</p>
+<p>Congratulations! You have created your first contract!</p>
 </li>
 </ul>
 </div>
 </li>
-<li>
-<p>Now define 2 next contracts <code>2_tipsy.groovy</code> and <code>3_drunk.groovy</code>. You can
-check out the <a href="#_scenario_contracts">solution</a></p>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_defining_second_code_foo_consumer_code_http_contract">Defining second <code>foo-consumer</code> HTTP contract</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>The first transition will be from <code>TIPSY</code> &#8594; <code>DRUNK</code></p>
+<p>Time for you to create the second contract. Create a file called <code>shouldRejectABeerIfTooYoung.groovy</code>.
+If you&#8217;re lost just check out the <a href="#_foo_consumer_contracts">solution</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Set the <code>age</code> in the request to regular expression <code>[0-1][0-9]</code></p>
 </li>
 <li>
-<p>The last transition will be from <code>DRUNK</code> &#8594; <code>WASTED</code></p>
+<p>Update the response body to return a <code>status</code> equal to <code>NOT_OK</code>.</p>
+</li>
+<li>
+<p>Update the description</p>
 </li>
 </ul>
 </div>
 </li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_defining_code_bar_consumer_code_http_contracts">Defining <code>bar-consumer</code> HTTP contracts</h4>
+<div class="ulist">
+<ul>
 <li>
-<p>We have managed to define all scenarios. Now we would like to generate
-the stubs so that we can reuse them on the consumer side. To that
-we&#8217;ll need to set up the Spring Cloud Contract plugin in the cloned
-repository</p>
+<p>Let&#8217;s now move to the <code>bar-consumer</code>. Let&#8217;s create a <code>src/test/resources/contracts/bar-consumer/rest</code>
+folder.</p>
+</li>
+<li>
+<p>We&#8217;ll create very similar contracts to the <code>foo-consumer</code> one. The only difference is that
+the response will contain a <code>surname</code> field instead of a <code>name</code> field</p>
+</li>
+<li>
+<p>Go ahead and create 2 files <code>shouldGrantABeerIfOldEnough.groovy</code> and <code>shouldRejectABeerIfTooYoung.groovy</code>
+and fill them out! <a href="#_bar_consumer_contracts">Or copy from the solution</a></p>
+</li>
+<li>
+<p>We&#8217;ve written the contracts - time to publish some stubs!</p>
 </li>
 </ul>
 </div>
@@ -1098,78 +1355,67 @@ is the Spring Cloud Contract plugin. Let&#8217;s add it to the producer&#8217;s 
 </div>
 </li>
 <li>
-<p>Now you can check out <code>target/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT</code> for Maven or
-<code>build/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT</code> for Gradle. Over there you&#8217;ll see
+<p>Now you can check out <code>target/stubs/META-INF/com.example/beer-api-producer-with-stubs-per-consumer/0.0.1-SNAPSHOT</code> for Maven or
+<code>build/stubs/META-INF/com.example/beer-api-producer-with-stubs-per-consumer/0.0.1-SNAPSHOT</code> for Gradle. Over there you&#8217;ll see
 <code>contracts</code> folder where all contracts got copied and the <code>mappings</code> folder where you&#8217;ll find all the
 generated stubs. By default Spring Cloud Contract uses <a href="http://wiremock.org">WireMock</a> as an implementation
 of fake HTTP server. Under the <code>rest</code> subfolder you&#8217;ll see all the generated stubs. Notice that
 we&#8217;re using JSON Paths to check the contents of the request.</p>
 </li>
-<li>
-<p>If you check out the <code>1_sober.json</code> intoxication stub you&#8217;ll notice the
-following section</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-json" data-lang="json">"scenarioName" : "Scenario_intoxication",
-"requiredScenarioState" : "Started",
-"newScenarioState" : "Step1"</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>In this section WireMock is told that</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Name of the scenario is <code>Scenario_intoxication</code>. The name comes from the
-folder in which the contracts were placed</p>
-</li>
-<li>
-<p>The required scenario state is <code>Started</code> - that&#8217;s the initial state</p>
-</li>
-<li>
-<p>The next step is <code>Step1</code> - every subsequent step will be called <code>Step</code> with
-appended appropriate number</p>
-</li>
 </ul>
 </div>
-</li>
-<li>
-<p>If you check out the <code>2_tipsy.json</code> you&#8217;ll notice that the required
-values of previous and next states got updated:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-json" data-lang="json">"scenarioName" : "Scenario_intoxication",
-"requiredScenarioState" : "Step1",
-"newScenarioState" : "Step2"</code></pre>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>We have managed to install the stubs locally - it&#8217;s time to move back to our
-consumer test</p>
-</li>
-<li>
-<p>Let&#8217;s open the <code>IntoxicationController</code> class and write the missing implementation.
-You can try yourself or check out the <a href="#_intoxication_controller">solution</a></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_turning_on_stub_runner_in_http_consumer_tests">Turning on Stub Runner in HTTP consumer tests</h4>
+<h4 id="_writing_missing_implementation_on_the_consumer_side">Writing missing implementation on the consumer side</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>After writing the implementation, if we rerun the tests we will get
-a connection refused exception. That&#8217;s because we haven&#8217;t started the HTTP
-server with the stubs</p>
+<p>We know what the API should look like.
+Let&#8217;s go to <code>BeerController</code> and write the missing implementation <a href="#_stubs_per_consumer_beercontroller">or copy from the solution</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>We want to send a POST HTTP method to <code><a href="http://localhost:8090/check" class="bare">http://localhost:8090/check</a></code></p>
 </li>
 <li>
-<p>Now it&#8217;s time to turn on the magic! Let&#8217;s add the Spring Cloud Starter Contract Stub Runner test dependency.</p>
+<p>The JSON body will be the <code>Person</code> that we&#8217;ve received in the controller</p>
+</li>
+<li>
+<p>depending on the status (<code>OK</code> or <code>NOT_OK</code>) we&#8217;ll send back</p>
+<div class="ulist">
+<ul>
+<li>
+<p>for <code>OK</code>: <code>THERE YOU GO ` + the result of the `message(body of the response)</code> method</p>
+</li>
+<li>
+<p>for <code>NOT_OK</code>: <code>GET LOST ` + the result of the `message(body of the response)</code> method</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If we run the <code>BeerControllerTest</code> and <code>BeerControllerForBarTest</code> - they will both fail due
+to connection refused. Let&#8217;s fix that!</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_turning_on_stub_runner_in_consumer_tests">Turning on Stub Runner in consumer tests</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Since we have managed to install the stubs locally and now we&#8217;ve got the missing implementation
+written - let&#8217;s now go back to the consumer tests</p>
+</li>
+<li>
+<p>Let&#8217;s add the Spring Cloud Contract Stub Runner as a dependency</p>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -1188,41 +1434,47 @@ server with the stubs</p>
 </div>
 </li>
 <li>
-<p>We can annotate our test class with
-<code>@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8090")</code>. What that
-will do is:</p>
+<p>Let&#8217;s check out the <code>BeerControllerTest</code> and add the Stub Runner functionality</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@AutoConfigureStubRunner(workOffline = true,
+		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
+		stubsPerConsumer = true)</code></pre>
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>it will download the stub JARs from Maven local (<code>workOffline=true</code>)</p>
-</li>
-<li>
-<p>it will search for a JAR with coordinates <code>com.example:beer-api-producer</code> with latest version (<code>+</code>)
-and <code>stubs</code> classifier. Once it&#8217;s found the fake HTTP server stub will be started at port <code>8090</code></p>
+<p>You can see that we&#8217;ve turned on the <code>stubsPerConsumer</code> flag - that means that the path
+of stubs is scanned and only those that contain the value of <code>spring.application.name</code>
+will get picked</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Rerun the test - it should automagically pass!</p>
-<div class="ulist">
-<ul>
-<li>
-<p>In the logs you will see information about downloading, unpacking and starting stubs (<a href="#_stub_logs">see the logs</a>)</p>
+<p>Now let&#8217;s run the test and it should pass!</p>
 </li>
 <li>
-<p>What happened is that we could interact with real API without writing a single line of production code</p>
+<p>Let&#8217;s try to fix the <code>BeerControllerForBarTest</code>. We don&#8217;t want to set the
+<code>spring.application.name</code> - that&#8217;s why we&#8217;ll set that name on the <code>@AutoConfigureStubRunner</code>
+annotation via the <code>consumerName</code> property (of course we also have to turn on the
+<code>stubsPerConsumer</code> flag)</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@AutoConfigureStubRunner(workOffline = true,
+		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
+		stubsPerConsumer = true,
+		consumerName = "bar-consumer")</code></pre>
+</div>
+</div>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Congratulations! You have successfully created the contracts, defined the
-API that suits your needs and wrote the consumer part of the functionality!
-Now it&#8217;s time to create a PR with the contract proposal and file it to
-the producer side</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Congratulations! As consumers - we&#8217;ve successfully played around with the API of the producer both for
+HTTP and messaging. Now we&#8217;re filing a PR to their code with the proposal of contract and let&#8217;s switch to
+the producer side.</p>
 </div>
 </div>
 </div>
@@ -1232,7 +1484,7 @@ the producer side</p>
 <div class="content">
 <img src="../images/producer_flow_1.png" alt="producer flow 1">
 </div>
-<div class="title">Figure 4. Producer takes over the PR, writes missing impl and merges the PR</div>
+<div class="title">Figure 7. Producer takes over the PR, writes missing impl and merges the PR</div>
 </div>
 <div class="sect3">
 <h4 id="_ide_setup_2">IDE setup</h4>
@@ -1295,12 +1547,7 @@ have a base class with fully qualified name equal to X)</p>
 </div>
 </li>
 <li>
-<p>In the following example we&#8217;ll play with convention based naming</p>
-<div class="ulist">
-<ul>
-<li>
-<p>For Maven under the plugin setup you have to set up the plugin configuration
-<code>&lt;configuration&gt;&lt;packageWithBaseClasses&gt;com.example&lt;/packageWithBaseClasses&gt;&lt;/configuration&gt;</code></p>
+<p>in our situation we&#8217;ll use the mapping approach. Let&#8217;s set the following base classes for our contracts</p>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -1310,60 +1557,10 @@ have a base class with fully qualified name equal to X)</p>
     &lt;version&gt;${spring-cloud-contract.version}&lt;/version&gt;
     &lt;extensions&gt;true&lt;/extensions&gt;
     &lt;configuration&gt;
-        &lt;packageWithBaseClasses&gt;com.example&lt;/packageWithBaseClasses&gt;
-    &lt;/configuration&gt;
-&lt;/plugin&gt;</code></pre>
-</div>
-</div>
-<div class="listingblock secondary">
-<div class="title">Gradle</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">contracts {
-    packageWithBaseClasses = 'com.example'
-}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>In both cases passing of that value tells the plugin that a given base class is available under
-the <code>com.example</code> package</p>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-We were setting the plugin in the following since most likely you&#8217;re
-using the same <code>producer</code> codebase as you have for previous tutorials. That&#8217;s
-why we want the other tests to still pass. If that&#8217;s not the case (if you
-have only just started with this particular tutorial) then you can remove
-the <code>packageWithBaseClasses</code> entry
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>The intoxication base class lays under the <code>intoxication</code> folder. Let&#8217;s
-use the <code>baseClassMappings</code> to set point the plugin to proper base classes</p>
-<div class="listingblock primary">
-<div class="title">Maven</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;plugin&gt;
-    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-cloud-contract-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;${spring-cloud-contract.version}&lt;/version&gt;
-    &lt;extensions&gt;true&lt;/extensions&gt;
-    &lt;configuration&gt;
-        &lt;packageWithBaseClasses&gt;com.example&lt;/packageWithBaseClasses&gt;
         &lt;baseClassMappings&gt;
             &lt;baseClassMapping&gt;
-                &lt;contractPackageRegex&gt;.*intoxication.*&lt;/contractPackageRegex&gt;
-                &lt;baseClassFQN&gt;com.example.intoxication.BeerIntoxicationBase&lt;/baseClassFQN&gt;
+                &lt;contractPackageRegex&gt;.*rest.*&lt;/contractPackageRegex&gt;
+                &lt;baseClassFQN&gt;com.example.BeerRestBase&lt;/baseClassFQN&gt;
             &lt;/baseClassMapping&gt;
         &lt;/baseClassMappings&gt;
     &lt;/configuration&gt;
@@ -1374,9 +1571,8 @@ use the <code>baseClassMappings</code> to set point the plugin to proper base cl
 <div class="title">Gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">contracts {
-	packageWithBaseClasses = 'com.example'
 	baseClassMappings {
-		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
+		baseClassMapping(".*rest.*", "com.example.BeerRestBase")
 	}
 }</code></pre>
 </div>
@@ -1424,9 +1620,9 @@ will be the name of that folder</p>
 <p>Each of the contracts will be a single test inside that test class</p>
 </li>
 <li>
-<p>If you check out the generated <code>IntoxicationTest</code> you&#8217;ll notice that it got
-annotated with <code>@FixMethodOrder(MethodSorters.NAME_ASCENDING)</code> in order to ensure
-that the tests are executed sequentially</p>
+<p>If you check out the generated tests you&#8217;ll notice that the dynamic parts of the <code>request</code> part
+of the contract got converted to a concrete value. Any dynamic bits on the <code>response</code> side would be
+converted into matchers.</p>
 </li>
 </ul>
 </div>
@@ -1446,78 +1642,134 @@ that the tests are executed sequentially</p>
 <div class="ulist">
 <ul>
 <li>
-<p>First let&#8217;s write the missing implementation in <code>BeerServingController</code>. The logic to be written
-is extremely simple - the <code>responseProvider.thereYouGo(&#8230;&#8203;)</code> returns the <code>Response</code>. So
-the implementation is basically a one liner</p>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">return this.responseProvider.thereYouGo(customer);</code></pre>
-</div>
-</div>
+<p>First let&#8217;s write the missing implementation in <code>ProducerController</code>. The logic to be written
+is extremely simple - if the <code>personCheckingService.shouldGetBeer(&#8230;&#8203;)</code> returns <code>true</code> then we
+should return <code>new Response(BeerCheckStatus.OK, personToCheck.name)</code>.
+Otherwise <code>new Response(BeerCheckStatus.NOT_OK, personToCheck.name)</code>.
+(<a href="#_producerController_for_stubs_per_consumer_implementation">Show solution</a>)</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Let&#8217;s fix the <code>BeerIntoxicationBase</code> class now</p>
+<p>Let&#8217;s fix the <code>BeerRestBase</code> class now</p>
 <div class="ulist">
 <ul>
 <li>
 <p>The idea of CDC is <strong>NOT TO TEST</strong> every single feature. Contract tests are there to see if the API
 is matched, <strong>NOT</strong> that the feature is working. That&#8217;s why we shouldn&#8217;t be accessing databases etc.
-That means that we will work with a fake instance of the <code>ResponseProvider</code>.</p>
+That means that we will work with mock of the <code>PersonCheckingService</code>. (<a href="#_beerrestbase">Show solution</a>)</p>
 </li>
 <li>
-<p>Let&#8217;s start with writing the missing implementation of the <code>MockResponseProvider</code>
-(<a href="#_beerintoxicationbase">Show solution</a>).
-You&#8217;ll need to:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>ensure that the <code>name</code> is equal to <code>marcin</code></p>
-</li>
-<li>
-<p>depending on the <code>current</code> state you&#8217;ll need to set the <code>previous</code> and
-<code>current</code> one and create the <code>Response</code></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>We&#8217;ll need to maintain state between the tests. If you try to store the state
-in a field in a base class then you&#8217;ll loose it between test executions cause
- JUnit is reinitializing all the fields. We can fix that by setting up
- a small Spring Context that will be reused. That&#8217;s why you can see that the test
- is annotated with</p>
+<p>Let&#8217;s annotate the test class with <code>@RunWith(MockitoJUnitRunner.class)</code> to enable Mockito runner.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@SpringBootTest(classes = BeerIntoxicationBase.Config.class)</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(MockitoJUnitRunner.class)
+public abstract class BeerRestBase {
+...
+}</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>We want RestAssured and MockMvc to reuse the web context that we have in our
-test - that&#8217;s why we need to set it up using the following notation</p>
+<p>We&#8217;ll want to test the <code>ProducerController</code> so we can create a field <code>@InjectMocks ProducerController
+producerController</code>. Mockito will inject any mocks for us via the constructor.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Autowired WebApplicationContext webApplicationContext;
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Mock PersonCheckingService personCheckingService;
+    @InjectMocks ProducerController producerController;
 
     @Before
     public void setup() {
-        RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
+        given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
     }</code></pre>
 </div>
 </div>
 </li>
+<li>
+<p>It won&#8217;t compile cause we don&#8217;t have the <code>oldEnough()</code> method but don&#8217;t worry. So this line stubs
+the <code>shouldGetBeer</code> method in such a way that if the user is old enough then the method will return
+true. Let&#8217;s now add the <code>oldEnoughMethod()</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	private TypeSafeMatcher&lt;PersonToCheck&gt; oldEnough() {
+		return new TypeSafeMatcher&lt;PersonToCheck&gt;() {
+			@Override protected boolean matchesSafely(PersonToCheck personToCheck) {
+				return personToCheck.age &gt;= 20;
+			}
+			@Override public void describeTo(Description description) {
+			}
+		};
+	}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>We&#8217;re using the <code>TypeSafeMatcher</code> from Hamcrest to create a matcher for <code>PersonToCheck</code>. In this case
+if the person to check is older or is 20 then the method <code>shouldGetBeer</code> method will return <code>true</code>.</p>
+</li>
+<li>
+<p>Now we need to configure <a href="http://rest-assured.io/">RestAssured</a> that is used by Spring Cloud Contract
+to send requests. In our case we want to profit from MockMvc. In order to set the <code>ProducerController</code>
+with RestAssured it&#8217;s enough to call <code>RestAssuredMockMvc.standaloneSetup(producerController);</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(MockitoJUnitRunner.class)
+public abstract class BeerRestBase {
+
+    @Mock PersonCheckingService personCheckingService;
+    @InjectMocks ProducerController producerController;
+
+    @Before
+    public void setup() {
+        given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+        RestAssuredMockMvc.standaloneSetup(producerController);
+    }
+
+    private TypeSafeMatcher&lt;PersonToCheck&gt; oldEnough() {
+        return new TypeSafeMatcher&lt;PersonToCheck&gt;() {
+            @Override protected boolean matchesSafely(PersonToCheck personToCheck) {
+                return personToCheck.age &gt;= 20;
+            }
+            @Override public void describeTo(Description description) {
+            }
+        };
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>With mocks and RestAssured setup - we&#8217;re ready to run our HTTP based autogenerated tests</p>
+</li>
 </ul>
 </div>
 </li>
 <li>
-<p>Now try re-running the build to regenerate the tests and the tests should pass</p>
-</li>
-<li>
 <p>Now you would merge the PR to master and your CI system would build a fat jar and stubs</p>
 </li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+The stubs per consumer is a very powerful feature. On the producer side, if you want to
+remove a field from the response you can actually very quickly verify if it&#8217;s used. Try removing
+the <code>surname</code> field from the <code>Response</code> class and you&#8217;ll see that the generated <code>RestTest</code> in the
+<code>bar-consumer</code> subfolder is failing. That means that the <code>bar-consumer</code> requires that field and
+you can&#8217;t remove it safely. On the other hand in production both consumers will receive
+more fields than they define in the contract thus if they don&#8217;t configure their serializers
+properly (to ignore unknown fields) then their tests will pass but they&#8217;re integration will fail!
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Congratulations - you&#8217;ve completed the producer side of this tutorial</p>
 </li>
@@ -1531,7 +1783,7 @@ test - that&#8217;s why we need to set it up using the following notation</p>
 <div class="content">
 <img src="../images/consumer_flow_2.png" alt="consumer flow 2">
 </div>
-<div class="title">Figure 5. Switch to work online</div>
+<div class="title">Figure 8. Switch to work online</div>
 </div>
 <div class="ulist">
 <ul>
@@ -1553,7 +1805,7 @@ code) it&#8217;s enough to remove the <code>workOffline</code> flag and to pass 
 @AutoConfigureJsonTesters
 @AutoConfigureStubRunner(
 repositoryRoot="http://foo.com/bar,
-ids = "com.example:beer-api-producer:+:stubs:8090")
+ids = "com.example:beer-api-producer-with-stubs-per-consumer:+:stubs:8090")
 @DirtiesContext
 public class YourTestOnTheConsumerSide extends AbstractTest {
 }</code></pre>
@@ -2185,249 +2437,206 @@ public abstract class BeerMessagingBase {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_scenario_contracts">Scenario contracts</h3>
+<h3 id="_foo_consumer_contracts">Foo-consumer contracts</h3>
 <div class="listingblock primary">
-<div class="title">Tipsy</div>
+<div class="title">Successful</div>
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">package contracts.beer.intoxication
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
 
-import org.springframework.cloud.contract.spec.Contract
-
-Contract.make {
-	description("""
-Represents second step of getting fully drunk
-
+```
 given:
-	you were tipsy
+	client is old enough
 when:
-	you get a beer
+	he applies for a beer
 then:
-	you'll be drunk
-""")
-	request {
-		method 'POST'
-		url '/beer'
-		body(
-				name: "marcin"
-		)
-		headers {
-			contentType(applicationJson())
-		}
-	}
-	response {
-		status 200
-		body(
-				previousStatus: "TIPSY",
-				currentStatus: "DRUNK"
-		)
-		headers {
-			contentType(applicationJson())
-		}
-	}
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "OK",
+                "name": "${fromRequest().body('$.name')}"
+            }
+        """)
+        headers {
+            contentType(applicationJson())
+        }
+    }
 }</code></pre>
 </div>
 </div>
 <div class="listingblock secondary">
-<div class="title">Drunk</div>
+<div class="title">Unsuccessful</div>
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">package contracts.beer.intoxication
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents an unsuccessful scenario of getting a beer
 
-import org.springframework.cloud.contract.spec.Contract
-
-Contract.make {
-	description("""
-Represents last step of getting fully drunk
-
+```
 given:
-	you were drunk
+	client is too young
 when:
-	you get a beer
+	he applies for a beer
 then:
-	you'll be wasted
-""")
-	request {
-		method 'POST'
-		url '/beer'
-		body(
-				name: "marcin"
-		)
-		headers {
-			contentType(applicationJson())
-		}
-	}
-	response {
-		status 200
-		body(
-				previousStatus: "DRUNK",
-				currentStatus: "WASTED"
-		)
-		headers {
-			contentType(applicationJson())
-		}
-	}
+	we'll NOT grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[0-1][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "NOT_OK",
+                "name": "${fromRequest().body('$.name')}"
+            }
+        """)
+        headers {
+            contentType(applicationJson())
+        }
+    }
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_intoxication_controller">Intoxication Controller</h3>
+<h3 id="_bar_consumer_contracts">Bar-consumer contracts</h3>
+<div class="listingblock primary">
+<div class="title">Successful</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "OK",
+                "surname": "${fromRequest().body('$.name')}"
+            }
+        """)
+        headers {
+            contentType(applicationJson())
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Unsuccessful</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents an unsuccessful scenario of getting a beer
+
+```
+given:
+	client is too young
+when:
+	he applies for a beer
+then:
+	we'll NOT grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[0-1][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "NOT_OK",
+                "surname": "${fromRequest().body('$.name')}"
+            }
+        """)
+        headers {
+            contentType(applicationJson())
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stubs_per_consumer_beercontroller">Stubs per consumer BeerController</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">package com.example.intoxication;
-
-import java.net.MalformedURLException;
-import java.net.URI;
-
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
-/**
- * @author Marcin Grzejszczak
- */
-@RestController
-class IntoxicationController {
-
-	private final RestTemplate restTemplate;
-
-	int port = 8090;
-
-	IntoxicationController(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
-	}
-
-	@RequestMapping(method = RequestMethod.POST,
-			value = "/wasted",
-			consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response gimmeABeer(@RequestBody Person person) throws MalformedURLException {
-		//remove::start[]
-		return this.restTemplate.exchange(
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">		ResponseEntity&lt;Response&gt; response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/beer"))
+						.post(URI.create("http://localhost:" + port + "/check"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
-				Response.class).getBody();
-		//remove::end[return]
-	}
-}
-
-class Person {
-	public String name;
-
-	public Person(String name) {
-		this.name = name;
-	}
-
-	public Person() {
-	}
-}
-
-class Response {
-	public DrunkLevel previousStatus;
-	public DrunkLevel currentStatus;
-
-	public Response(DrunkLevel previousStatus, DrunkLevel currentStatus) {
-		this.previousStatus = previousStatus;
-		this.currentStatus = currentStatus;
-	}
-
-	public Response() {
-	}
-}
-
-enum DrunkLevel {
-	SOBER, TIPSY, DRUNK, WASTED
-}</code></pre>
+				Response.class);
+		switch (response.getBody().status) {
+		case OK:
+			return "THERE YOU GO " + message(response.getBody());
+		default:
+			return "GET LOST " + message(response.getBody());
+		}</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_beerintoxicationbase">BeerIntoxicationBase</h3>
+<h3 id="_producercontroller_for_stubs_per_consumer_implementation">ProducerController for stubs per consumer implementation</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">package com.example.intoxication;
-
-import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
-
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.context.WebApplicationContext;
-
-import static com.example.intoxication.DrunkLevel.DRUNK;
-import static com.example.intoxication.DrunkLevel.SOBER;
-import static com.example.intoxication.DrunkLevel.TIPSY;
-import static com.example.intoxication.DrunkLevel.WASTED;
-
-/**
- * Tests for the scenario based stub
- */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = BeerIntoxicationBase.Config.class)
-public abstract class BeerIntoxicationBase {
-
-	@Autowired WebApplicationContext webApplicationContext;
-
-	@Before
-	public void setup() {
-		RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
-	}
-
-	@Configuration
-	@EnableAutoConfiguration
-	static class Config {
-
-		@Bean BeerServingController controller() {
-			return new BeerServingController(responseProvider());
-		}
-
-		@Bean ResponseProvider responseProvider() {
-			return new MockResponseProvider();
-		}
-	}
-
-	//tag::mock[]
-	static class MockResponseProvider implements ResponseProvider {
-
-		private DrunkLevel previous = SOBER;
-		private DrunkLevel current = SOBER;
-
-		@Override public Response thereYouGo(Customer personToCheck) {
-			//remove::start[]
-			if ("marcin".equals(personToCheck.name)) {
-				 switch (current) {
-				 case SOBER:
-				 	current = TIPSY;
-				 	previous = SOBER;
-					 break;
-				 case TIPSY:
-					 current = DRUNK;
-					 previous = TIPSY;
-					 break;
-				 case DRUNK:
-					 current = WASTED;
-					 previous = DRUNK;
-					 break;
-				 case WASTED:
-					 throw new UnsupportedOperationException("You can't handle it");
-				 }
-			}
-			return new Response(previous, current);
-		}
-		//remove::end[]
-	}
-	//end::mock[]
-}</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">if (personCheckingService.shouldGetBeer(personToCheck)) {
+    return new Response(BeerCheckStatus.OK, personToCheck.name);
+}
+return new Response(BeerCheckStatus.NOT_OK, personToCheck.name);</code></pre>
 </div>
 </div>
 </div>

@@ -96,14 +96,6 @@
 				<configuration>
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
 				</configuration>
-				<!-- this was added for testing purposes only -->
-				<dependencies>
-					<dependency>
-						<groupId>org.springframework.cloud</groupId>
-						<artifactId>spring-cloud-contract-verifier</artifactId>
-						<version>${spring-cloud-contract.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<!-- tag::assembly[] -->
 			<!-- we want the assembly plugin to generate the JAR -->

@@ -41,9 +41,9 @@ $ ./mvnw clean install -DskipTests
 ----
 $ ./gradlew clean build publishToMavenLocal -x test
 ----
-  * Now you can check out `target/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT` for Maven or
-  `build/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT` for Gradle. Over there you'll see
+  * Now you can check out `target/stubs/META-INF/com.example/{producer_artifact}/0.0.1-SNAPSHOT` for Maven or
+  `build/stubs/META-INF/com.example/{producer_artifact}/0.0.1-SNAPSHOT` for Gradle. Over there you'll see
   `contracts` folder where all contracts got copied and the `mappings` folder where you'll find all the
   generated stubs. By default Spring Cloud Contract uses http://wiremock.org[WireMock] as an implementation
-  of fake HTTP server. Under the `beer/rest` subfolder you'll see all the generated stubs. Notice that
+  of fake HTTP server. Under the `rest` subfolder you'll see all the generated stubs. Notice that
   we're using JSON Paths to check the contents of the request.

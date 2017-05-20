@@ -1,0 +1,14 @@
+==== Setting up the Spring Cloud Contract plugin
+
+- Spring Cloud Contract can generate tests from your contracts to ensure that your implementation's API
+is compatible with the defined contract. Let's set up the project to start generating tests.
+  * Spring Cloud Contract needs a base class that all of the generated tests will extend. Currently
+  we support 3 different ways of defining a base class (you can read more about this in the
+  Spring Cloud Contract documentation for https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin[Gradle]
+  and https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin_2[Maven])
+    ** a single class for all tests
+    ** convention based naming (takes 2 last package names and appends `Base`. Having a contract
+    `src/test/resources/contracts/foo/bar/shouldDoSth.groovy` would create a test class called
+    `BarTest` that would extend `FooBarBase` class.
+    ** manual mapping (you can state that contracts matching certain regular expression will have to
+    have a base class with fully qualified name equal to X)

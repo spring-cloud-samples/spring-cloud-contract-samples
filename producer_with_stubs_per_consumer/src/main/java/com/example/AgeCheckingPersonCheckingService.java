@@ -29,12 +29,12 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 
 	public static class Verification {
 		boolean eligible;
-		String foo, bar;
+		String name, surname;
 
-		public Verification(boolean eligible, String foo, String bar) {
+		public Verification(boolean eligible, String name, String surname) {
 			this.eligible = eligible;
-			this.foo = foo;
-			this.bar = bar;
+			this.name = name;
+			this.surname = surname;
 		}
 
 		public Verification() {
@@ -48,20 +48,20 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 			this.eligible = eligible;
 		}
 
-		public String getFoo() {
-			return foo;
+		public String getName() {
+			return name;
 		}
 
-		public void setFoo(String foo) {
-			this.foo = foo;
+		public void setName(String name) {
+			this.name = name;
 		}
 
-		public String getBar() {
-			return bar;
+		public String getSurname() {
+			return surname;
 		}
 
-		public void setBar(String bar) {
-			this.bar = bar;
+		public void setSurname(String surname) {
+			this.surname = surname;
 		}
 	}
 }

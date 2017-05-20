@@ -23,21 +23,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Marcin Grzejszczak
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 //remove::start[]
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureStubRunner(workOffline = true,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true,
-		consumerName = "foo-consumer")
+		consumerName = "bar-consumer")
 //remove::end[]
 @DirtiesContext
-//@org.junit.Ignore
-public class BeerControllerWithConsumerNameTest extends AbstractTest {
+public class BeerControllerForBarTest extends AbstractTest {
 
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
+
 	@Value("${stubrunner.runningstubs.beer-api-producer-with-stubs-per-consumer.port}") int producerPort;
 
 	@Before
@@ -45,13 +45,14 @@ public class BeerControllerWithConsumerNameTest extends AbstractTest {
 		beerController.port = producerPort;
 	}
 
+	//tag::impl[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
-				.andExpect(content().string("THERE YOU GO MY DEAR FRIEND [marcin]"));
+				.andExpect(content().string("THERE YOU GO MR [marcin]"));
 		//remove::end[]
 	}
 
@@ -61,7 +62,8 @@ public class BeerControllerWithConsumerNameTest extends AbstractTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(new Person("marcin", 17)).getJson()))
 				.andExpect(status().isOk())
-				.andExpect(content().string("GET LOST MY DEAR FRIEND [marcin]"));
+				.andExpect(content().string("GET LOST MR [marcin]"));
 		//remove::end[]
 	}
+	//end::impl[]
 }

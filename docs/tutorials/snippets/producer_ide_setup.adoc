@@ -1,0 +1,15 @@
+==== IDE setup
+
+- Open in your IDE the `producer` project (either via Maven or Gradle)
+- We're assuming that we've taken over the PR. Example of how to achieve that in "real life" for a PR
+that got submitted to via a branch called `the_pr` looks like this:
+
+[source,bash]
+----
+git fetch origin
+git checkout -b the_pr origin/the_pr
+git merge master
+----
+
+- The idea of Spring Cloud Contract is about stub and contract validity. Right now we have a set of
+ contracts defined but we haven't tested it against the producer side. Time to change that!

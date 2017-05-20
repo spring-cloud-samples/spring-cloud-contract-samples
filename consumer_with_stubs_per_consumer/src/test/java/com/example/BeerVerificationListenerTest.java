@@ -24,6 +24,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 		stubsPerConsumer = true)
 //remove::end[]
 @DirtiesContext
+//@org.junit.Ignore
 public class BeerVerificationListenerTest extends AbstractTest {
 
 	//remove::start[]

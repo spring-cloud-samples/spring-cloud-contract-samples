@@ -26,8 +26,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 //remove::start[]
+//tag::foo[]
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK,
 		properties = {"spring.application.name=foo-consumer"})
+//end::foo[]
 @AutoConfigureStubRunner(workOffline = true,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true)
@@ -45,13 +47,14 @@ public class BeerControllerTest extends AbstractTest {
 		beerController.port = producerPort;
 	}
 
+	//tag::impl[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
-				.andExpect(content().string("THERE YOU GO [foo]"));
+				.andExpect(content().string("THERE YOU GO MY DEAR FRIEND [marcin]"));
 		//remove::end[]
 	}
 
@@ -61,7 +64,8 @@ public class BeerControllerTest extends AbstractTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(new Person("marcin", 17)).getJson()))
 				.andExpect(status().isOk())
-				.andExpect(content().string("GET LOST [foo]"));
+				.andExpect(content().string("GET LOST MY DEAR FRIEND [marcin]"));
 		//remove::end[]
 	}
+	//end::impl[]
 }

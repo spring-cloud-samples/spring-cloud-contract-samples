@@ -34,7 +34,7 @@ then:
 		// the body of the output message
 		body([
 				eligible: true,
-				foo: "foo"
+				name: "foo"
 		])
 	}
 }

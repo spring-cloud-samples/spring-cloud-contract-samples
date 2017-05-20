@@ -28,7 +28,7 @@ then:
 		// the body of the output message
 		body([
 				eligible: false,
-				bar: "bar"
+				surname: "bar"
 		])
 	}
 }

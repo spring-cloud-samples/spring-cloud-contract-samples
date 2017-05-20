@@ -99,11 +99,6 @@
 				</configuration>
 				<dependencies>
 					<dependency>
-						<groupId>org.springframework.cloud</groupId>
-						<artifactId>spring-cloud-contract-verifier</artifactId>
-						<version>${spring-cloud-contract.version}</version>
-					</dependency>
-					<dependency>
 						<groupId>com.example</groupId>
 						<artifactId>beer-common</artifactId>
 						<version>${project.version}</version>

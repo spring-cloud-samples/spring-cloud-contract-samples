@@ -1,0 +1,773 @@
+:toc: left
+:toclevels: 8
+:nofooter:
+:root: ../..
+:consumer: {root}/consumer_with_stubs_per_consumer
+:producer: {root}/producer_with_stubs_per_consumer
+:images_folder: ../images
+:where_are_contracts: the producer's code
+:producer_artifact: beer-api-producer-with-stubs-per-consumer
+
+= Contracts on the producer side
+
+In this tutorial we'll keep the contracts together with the producer code. Each consumer will
+define the contracts in a dedicated folder. For the same requests the consumers will
+expect different responses.
+
+== Scenarios
+
+We'll have to write the following features:
+
+image::{images_folder}/scenario_stubs_per_consumer_1.png[title="Addresses unofficially the person by name for positive beer selling via HTTP"]
+
+{nbsp}
+{nbsp}
+
+image::{images_folder}/scenario_stubs_per_consumer_2.png[title="Addresses unofficially the person by name for negative beer selling via HTTP"]
+
+{nbsp}
+{nbsp}
+
+image::{images_folder}/scenario_stubs_per_consumer_3.png[title="Addresses officially the person by surname for positive beer selling via HTTP"]
+
+{nbsp}
+{nbsp}
+
+image::{images_folder}/scenario_stubs_per_consumer_4.png[title="Addresses officially the person by surname for negative beer selling via HTTP"]
+
+{nbsp}
+{nbsp}
+
+== Flow
+
+image::{images_folder}/flow.png[title="Consumer Driven Contract flow"]
+
+== Tutorial
+
+Consumer Driven Contract is like TDD on the layer of architecture. Let's start with writing a test on the
+consumer side. This time we'll simulate in our single code base as if we had
+two separate consumers. Normally both consumers would be having their own
+codebases but for the sake of demo we'll try to keep things simple.
+
+=== Consumer flow 1
+
+image::{images_folder}/consumer_flow_1.png[title="Interact with cloned producer code"]
+
+==== IDE setup
+
+- Open in your IDE the `consumer_with_stubs_per_consumer` project (either via Maven or Gradle)
+- We have the following objectives for HTTP
+    * As a consumer with name `foo-service`
+        ** for the client with certain `name` and `age` we'll ask the producer to verify whether
+         the person is eligible to get the beer
+        ** we expect to retrieve the `status` and the `name` of the client
+        ** depending on the `status` we either accept or decline giving a beer
+        ** since we're a friendly service we'll address the client by `MY DEAR FRIEND` statement
+        and then use the person's `name`
+        ** if the person (e.g. with name `marcin`) can get the beer then we say
+         `THERE YOU GO MY DEAR FRIEND [marcin]`.
+        ** otherwise we say `GET LOST MY DEAR FRIEND [marcin]`
+    * As a consumer with name `bar-service`
+        ** for the client with certain `name` and `age` we'll ask the producer to verify whether
+         the person is eligible to get the beer
+        ** we expect to retrieve the `status` and the `surname` of the client (for simplicity we will
+        receive the provided `name` as `surname`)
+        ** depending on the `status` we either accept or decline giving a beer
+        ** since we're a very official service we'll address the client by `MR` statement
+        ** if the person (e.g. with name `marcin`) can get the beer then we say
+         `THERE YOU GO MR [marcin]`. Where `marcin` came back from the producer service
+         as a `surname`.
+        ** otherwise we say `GET LOST MR [marcin]`
+- Normally we would be doing TDD but we already have some code ready to speed things up
+- In the `BeerController` class you can see that the implementation of the method is missing -
+we'll get back to that later. For now you can see that we have a `/beer` endpoint that expects a JSON
+ request body that maps to a `Person` class
+- Let's now open the `BeerControllerTest` and write the missing test bodies
++
+[source,java]
+----
+include::{root}/consumer_with_stubs_per_consumer/src/test/java/com/example/BeerControllerTest.java[tags=impl]
+----
+- We need to name our consumer somehow. The best way will be to provide that value in the
+`properties` attribute in `SpringBootTest` annotation (you could pass it also via a file
+e.g. `application.yml`)
++
+[source,java]
+----
+include::{root}/consumer_with_stubs_per_consumer/src/test/java/com/example/BeerControllerTest.java[tags=foo]
+----
+- If we run the tests obviously the tests will fail cause we have no implementation
+- Now open the `BeerControllerForBarTest`. In this test class we'll simulate that we are the
+`bar-service` and not the `foo-service`. Let's start with the missing test implementation
++
+[source,java]
+----
+include::{root}/consumer_with_stubs_per_consumer/src/test/java/com/example/BeerControllerForBarTest.java[tags=impl]
+----
+- In this test we will not set the `spring.application.name` - we will change the name by an
+attribute in an annotation later
+- Now we'd want to write some implementation but the problem is such that we don't yet know what API
+we would like to have... This is where we touch the very essence of Consumer Driven Contracts.
+As consumers we want to drive the change of the API that's why, *as consumers*, we will work on the producer code.
+
+include::snippets/setup_cloned_producer.adoc[]
+
+==== Defining first `foo-consumer` HTTP contract
+
+- Time to play with the API! Create a `src/test/resources/contracts/foo-consumer/rest`
+ folder.
+- You can define the contracts using Groovy DSL. Let's create our first HTTP contract.
+  * Under the `rest` folder create a file `shouldGrantABeerIfOldEnough.groovy`
+  * Call the `Contract.make` method to start defining the contract
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+
+}
+----
+
+  * You can call `description()` method to provide some meaningful description.
++
+TIP: You can use the
+Groovy multiline String `""" """` to have all special characters escaped. Every new line in the String
+will be converted into a new line character. Example
++
+[source,groovy]
+----
+Contract.make {
+	request {
+		description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+""")
+}
+----
+
+  * Now call the `request { }` and `response { }` methods
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+    }
+    response {
+    }
+}
+----
+
+  * Let's assume that we're interested in sending a `POST` method. Call `method POST()` or `method "POST"`.
++
+TIP: In Groovy you don't need to provide parentheses (in most cases). You can write either `method POST()`
+  or `method(POST())`. In both cases it's the same syntax
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+    }
+    response {
+    }
+}
+----
+  * Now we need to provide some URL. Let it be `/check`. Let's write `url "/check"`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        some interesting description
+    """)
+    request {
+        method POST()
+        url "/check"
+    }
+    response {
+    }
+}
+----
+  * Now time to define some body. We'll leverage some of the Groovy power over here so if you're lost
+  you can always check the http://groovy-lang.org/json.html[Groovy JSON documentation]. Let's call the
+  `body()` method with brackets.
+  * In Groovy you can use the map notation in such a way `[key: "value", secondKey: 2]`. In the same way
+  we can describe the body of a JSON. So in order to send a JSON looking like this `{ "age": 22, "name": "marcin" }`
+  we can create a map notation of `[age:22, name:"marcin"]`. The `body` method accepts a map and in Groovy
+  if a method accepts a map then the `[]` brackets can be omitted. So you can either write
+  `body([age:22, name:"marcin"])` or `body(age:22, name:"marcin")`.
+  * Let us assume that we already want to be more generic about our contract and we want to verify
+  that the age is greater than 20 and that name is any alphaunicode character. We can profit from the
+  `$()` or `value()` methods that Spring Cloud Contract provides to define dynamic behaviour
+  * We'll use the `$(regex(...))` method to define the age and the `$(anyAlphaUnicode())` for the name
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+    }
+    response {
+    }
+}
+----
+  * Now time for the headers... Call the `headers { }` method
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+
+        }
+    }
+    response {
+    }
+}
+----
+  * Inside that method let's define that we want to use the `Content-Type: "application/json` header. Just
+  call `contentType(applicationJson())` methods
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+    }
+}
+----
+  * Congratulations! You defined how you would like the contract for the request to look like! Time for the
+  response
+  * In the `response` block we would like to define that that the status of our response will be 200.
+  Just call `status 200`
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+    }
+}
+----
+  * We'd like our response to have some body. As you could have assumed there's a `body` method here too.
+  We'll now use another way of defining bodies (which is the less preferred option in Spring Cloud Contract
+  but still can be useful) - using String
+  * We're assuming that we would like to send back a field called `status` that will return `OK` when the
+  person can get the beer. The `foo-consumer` is also interested in getting back in the response
+  the name from the request.
+    ** To reference the request from response via JSON path you can call the `fromRequest()` method - (e.g. for referrencing the
+    `name` field from request) - `fromRequest().body('$.name')"
+    ** In Groovy when doing the multiline string `""" """` you can call the `${}` interpolation
+    mechanism to call a method from within a String.
++
+TIP: Don't mix the `$()` from Spring Cloud Contract with `${}` interpolation mechanism
+  * Call the `body(""" { "status" : "OK", "name": "${fromRequest().body('$.name')}" } """)`.
+  That way you're defining how the response body will look like by providing the exact JSON value,
+  and inside that JSON you also provide dynamic values. In our case for the `name` response field
+  we'll provide the value of `name` from the request
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "OK",
+                "name": "${fromRequest().body('$.name')}"
+            }
+        """)
+    }
+}
+----
+  * Last thing to add are the response headers. We're doing exactly the same thing as we have done previously
+  for the request. `headers { contentType(applicationJson()) }`.
++
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "OK",
+                "name": "${fromRequest().body('$.name')}"
+            }
+        """)
+        headers {
+            contentType(applicationJson())
+        }
+    }
+}
+----
+  * Congratulations! You have created your first contract!
+
+==== Defining second `foo-consumer` HTTP contract
+
+- Time for you to create the second contract. Create a file called `shouldRejectABeerIfTooYoung.groovy`.
+If you're lost just check out the <<_foo_consumer_contracts,solution>>
+  * Set the `age` in the request to regular expression `[0-1][0-9]`
+  * Update the response body to return a `status` equal to `NOT_OK`.
+  * Update the description
+
+==== Defining `bar-consumer` HTTP contracts
+
+- Let's now move to the `bar-consumer`. Let's create a `src/test/resources/contracts/bar-consumer/rest`
+ folder.
+- We'll create very similar contracts to the `foo-consumer` one. The only difference is that
+the response will contain a `surname` field instead of a `name` field
+- Go ahead and create 2 files `shouldGrantABeerIfOldEnough.groovy` and `shouldRejectABeerIfTooYoung.groovy`
+and fill them out! <<_bar_consumer_contracts,Or copy from the solution>>
+- We've written the contracts - time to publish some stubs!
+
+include::snippets/setting_plugin_on_clone.adoc[]
+
+==== Writing missing implementation on the consumer side
+
+- We know what the API should look like.
+Let's go to `BeerController` and write the missing implementation <<_stubs_per_consumer_beercontroller,or copy from the solution>>
+    * We want to send a POST HTTP method to `http://localhost:8090/check`
+    * The JSON body will be the `Person` that we've received in the controller
+    * depending on the status (`OK` or `NOT_OK`) we'll send back
+      ** for `OK`: `THERE YOU GO ` + the result of the `message(body of the response)` method
+      ** for `NOT_OK`: `GET LOST ` + the result of the `message(body of the response)` method
+- If we run the `BeerControllerTest` and `BeerControllerForBarTest` - they will both fail due
+to connection refused. Let's fix that!
+
+==== Turning on Stub Runner in consumer tests
+
+- Since we have managed to install the stubs locally and now we've got the missing implementation
+written - let's now go back to the consumer tests
+- Let's add the Spring Cloud Contract Stub Runner as a dependency
+include::snippets/consumer_stub_runner_dep.adoc[]
+
+- Let's check out the `BeerControllerTest` and add the Stub Runner functionality
++
+[source,java]
+----
+@AutoConfigureStubRunner(workOffline = true,
+		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
+		stubsPerConsumer = true)
+----
+  * You can see that we've turned on the `stubsPerConsumer` flag - that means that the path
+  of stubs is scanned and only those that contain the value of `spring.application.name`
+  will get picked
+- Now let's run the test and it should pass!
+- Let's try to fix the `BeerControllerForBarTest`. We don't want to set the
+`spring.application.name` - that's why we'll set that name on the `@AutoConfigureStubRunner`
+annotation via the `consumerName` property (of course we also have to turn on the
+`stubsPerConsumer` flag)
++
+[source,java]
+----
+@AutoConfigureStubRunner(workOffline = true,
+		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
+		stubsPerConsumer = true,
+		consumerName = "bar-consumer")
+----
+
+Congratulations! As consumers - we've successfully played around with the API of the producer both for
+HTTP and messaging. Now we're filing a PR to their code with the proposal of contract and let's switch to
+the producer side.
+
+=== Producer flow 1
+
+image::{images_folder}/producer_flow_1.png[title="Producer takes over the PR, writes missing impl and merges the PR"]
+
+include::snippets/producer_ide_setup.adoc[]
+
+include::snippets/setting_plugin_on_producer.adoc[]
+    * in our situation we'll use the mapping approach. Let's set the following base classes for our contracts
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<plugin>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+    <version>${spring-cloud-contract.version}</version>
+    <extensions>true</extensions>
+    <configuration>
+        <baseClassMappings>
+            <baseClassMapping>
+                <contractPackageRegex>.*rest.*</contractPackageRegex>
+                <baseClassFQN>com.example.BeerRestBase</baseClassFQN>
+            </baseClassMapping>
+        </baseClassMappings>
+    </configuration>
+</plugin>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+contracts {
+	baseClassMappings {
+		baseClassMapping(".*rest.*", "com.example.BeerRestBase")
+	}
+}
+----
+
+include::snippets/generating_tests_from_contract.adoc[]
+
+==== Fixing broken HTTP tests
+
+- Let's start with HTTP
+  * First let's write the missing implementation in `ProducerController`. The logic to be written
+    is extremely simple - if the `personCheckingService.shouldGetBeer(...)` returns `true` then we
+    should return `new Response(BeerCheckStatus.OK, personToCheck.name)`.
+    Otherwise `new Response(BeerCheckStatus.NOT_OK, personToCheck.name)`.
+    (<<_producerController_for_stubs_per_consumer_implementation,Show solution>>)
+include::snippets/fixing_base_class.adoc[]
+
+- Now you would merge the PR to master and your CI system would build a fat jar and stubs
+
+IMPORTANT: The stubs per consumer is a very powerful feature. On the producer side, if you want to
+remove a field from the response you can actually very quickly verify if it's used. Try removing
+the `surname` field from the `Response` class and you'll see that the generated `RestTest` in the
+`bar-consumer` subfolder is failing. That means that the `bar-consumer` requires that field and
+you can't remove it safely. On the other hand in production both consumers will receive
+more fields than they define in the contract thus if they don't configure their serializers
+properly (to ignore unknown fields) then their tests will pass but they're integration will fail!
+
+- Congratulations - you've completed the producer side of this tutorial
+
+include::snippets/consumer_flow_2.adoc[]
+
+include::snippets/generating_docs.adoc[]
+
+== Solutions
+
+include::snippets/solutions.adoc[]
+
+=== Foo-consumer contracts
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="primary"]
+.Successful
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "OK",
+                "name": "${fromRequest().body('$.name')}"
+            }
+        """)
+        headers {
+            contentType(applicationJson())
+        }
+    }
+}
+----
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Unsuccessful
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents an unsuccessful scenario of getting a beer
+
+```
+given:
+	client is too young
+when:
+	he applies for a beer
+then:
+	we'll NOT grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[0-1][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "NOT_OK",
+                "name": "${fromRequest().body('$.name')}"
+            }
+        """)
+        headers {
+            contentType(applicationJson())
+        }
+    }
+}
+----
+
+=== Bar-consumer contracts
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="primary"]
+.Successful
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "OK",
+                "surname": "${fromRequest().body('$.name')}"
+            }
+        """)
+        headers {
+            contentType(applicationJson())
+        }
+    }
+}
+----
+
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Unsuccessful
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents an unsuccessful scenario of getting a beer
+
+```
+given:
+	client is too young
+when:
+	he applies for a beer
+then:
+	we'll NOT grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[0-1][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "NOT_OK",
+                "surname": "${fromRequest().body('$.name')}"
+            }
+        """)
+        headers {
+            contentType(applicationJson())
+        }
+    }
+}
+----
+
+=== Stubs per consumer BeerController
+
+[source,java]
+----
+include::../../consumer_with_stubs_per_consumer/src/main/java/com/example/BeerController.java[tags=impl]
+----
+
+=== ProducerController for stubs per consumer implementation
+
+[source,java]
+----
+if (personCheckingService.shouldGetBeer(personToCheck)) {
+    return new Response(BeerCheckStatus.OK, personToCheck.name);
+}
+return new Response(BeerCheckStatus.NOT_OK, personToCheck.name);
+----
+
+== Back to the main page
+
+link:../workshops.html[Click here to go back to the main page]

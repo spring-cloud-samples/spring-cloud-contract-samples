@@ -1282,7 +1282,7 @@ is the Spring Cloud Contract plugin. Let&#8217;s add it to the producer&#8217;s 
 <code>build/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT</code> for Gradle. Over there you&#8217;ll see
 <code>contracts</code> folder where all contracts got copied and the <code>mappings</code> folder where you&#8217;ll find all the
 generated stubs. By default Spring Cloud Contract uses <a href="http://wiremock.org">WireMock</a> as an implementation
-of fake HTTP server. Under the <code>beer/rest</code> subfolder you&#8217;ll see all the generated stubs. Notice that
+of fake HTTP server. Under the <code>rest</code> subfolder you&#8217;ll see all the generated stubs. Notice that
 we&#8217;re using JSON Paths to check the contents of the request.</p>
 </li>
 </ul>
@@ -1761,7 +1761,7 @@ will be the name of that folder</p>
 <p>Each of the contracts will be a single test inside that test class</p>
 </li>
 <li>
-<p>If you check out the generated <code>RestTest</code> you&#8217;ll notice that the dynamic parts of the <code>request</code> part
+<p>If you check out the generated tests you&#8217;ll notice that the dynamic parts of the <code>request</code> part
 of the contract got converted to a concrete value. Any dynamic bits on the <code>response</code> side would be
 converted into matchers.</p>
 </li>

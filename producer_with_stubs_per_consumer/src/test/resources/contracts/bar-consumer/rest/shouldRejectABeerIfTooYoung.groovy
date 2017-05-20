@@ -9,17 +9,20 @@ Contract.make {
 		description("""
 Represents a unsuccessful scenario of getting a beer
 
+```
 given:
-client is not old enough
+	client is not old enough
 when:
-he applies for a beer
+	he applies for a beer
 then:
-we'll NOT grant him the beer
+	we'll NOT grant him the beer
+```
 """)
 		method 'POST'
 		url '/check'
 		body(
-				age: 10
+				age: 10,
+				name: $(anyAlphaUnicode())
 		)
 		headers {
 			contentType(applicationJson())
@@ -31,11 +34,11 @@ we'll NOT grant him the beer
 	response {
 		status 200
 		body( """
-	{
-		"status": "NOT_OK",
-		"bar": "bar"
-	}
-	""")
+			{
+				"status": "NOT_OK",
+				"surname": "${fromRequest().body('$.name')}"
+			}
+			""")
 		headers {
 			contentType(applicationJson())
 		}

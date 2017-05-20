@@ -24,6 +24,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 		consumerName = "foo-consumer")
 //remove::end[]
 @DirtiesContext
+//@org.junit.Ignore
 public class BeerVerificationListenerWithConsumerNameTest extends AbstractTest {
 
 	//remove::start[]

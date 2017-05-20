@@ -24,7 +24,7 @@ class BeerVerificationListener {
 	public void listen(Verification verification) {
 		//remove::start[]
 		log.info("Received new verification [" + verification + "]");
-		if (verification.eligible && StringUtils.hasText(verification.foo)) {
+		if (verification.eligible && StringUtils.hasText(verification.name)) {
 			eligibleCounter.incrementAndGet();
 		} else {
 			notEligibleCounter.incrementAndGet();
@@ -34,10 +34,10 @@ class BeerVerificationListener {
 
 	public static class Verification {
 		public boolean eligible;
-		public String foo;
+		public String name;
 
 		@Override public String toString() {
-			return "Verification{" + "eligible=" + eligible + ", foo='" + foo + '\''
+			return "Verification{" + "eligible=" + eligible + ", foo='" + name + '\''
 					+ '}';
 		}
 	}

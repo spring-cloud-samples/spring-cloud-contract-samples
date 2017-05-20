@@ -20,10 +20,12 @@ public class ProducerController {
 			produces="application/json")
 	public Response check(@RequestBody PersonToCheck personToCheck) {
 		//remove::start[]
+		//tag:impl[]
 		if (personCheckingService.shouldGetBeer(personToCheck)) {
-			return new Response(BeerCheckStatus.OK, "foo", "bar");
+			return new Response(BeerCheckStatus.OK, personToCheck.name);
 		}
-		return new Response(BeerCheckStatus.NOT_OK, "foo", "bar");
+		return new Response(BeerCheckStatus.NOT_OK, personToCheck.name);
+		//end:impl[]
 		//remove::end[return]
 	}
 	
@@ -35,6 +37,7 @@ interface PersonCheckingService {
 
 class PersonToCheck {
 	public int age;
+	public String name;
 
 	public PersonToCheck(int age) {
 		this.age = age;
@@ -46,13 +49,14 @@ class PersonToCheck {
 
 class Response {
 	public BeerCheckStatus status;
-	public String foo;
-	public String bar;
-	
-	Response(BeerCheckStatus status, String foo, String bar) {
+	public String name;
+	public String surname;
+
+	// we're setting the name to both fields
+	Response(BeerCheckStatus status, String name) {
 		this.status = status;
-		this.foo = foo;
-		this.bar = bar;
+		this.name = name;
+		this.surname = name;
 	}
 }
 
