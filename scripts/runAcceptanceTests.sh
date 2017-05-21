@@ -34,6 +34,7 @@ function build_gradle() {
 
     build common
     build producer
+    build producer_advanced
     build producer_with_stubs_per_consumer
     build producer_with_external_contracts
     build producer_with_restdocs
@@ -137,4 +138,8 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
+echo "Generating docs"
 ./gradlew generateDocumentation
+
+echo "Running Stub Runner Boot test"
+./scripts/stub_runner_boot.sh

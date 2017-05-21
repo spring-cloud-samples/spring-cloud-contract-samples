@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Spring Cloud Contract Workshops</title>
+<title>Stub Runner Boot</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,19 +493,13 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Spring Cloud Contract Workshops</h1>
+<h1>Stub Runner Boot</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_setup">Setup</a></li>
-<li><a href="#_generating_the_documentation">Generating the documentation</a></li>
-<li><a href="#_resources">Resources</a>
-<ul class="sectlevel2">
-<li><a href="#_adib_saikali_s_introduction_to_consumer_driven_contracts">Adib Saikali&#8217;s introduction to Consumer Driven Contracts</a></li>
-<li><a href="#_introduction_to_spring_cloud_contract">Introduction to Spring Cloud Contract</a></li>
-</ul>
-</li>
-<li><a href="#_tasks">Tasks</a></li>
+<li><a href="#_adding_the_stout_endpoint">Adding the Stout endpoint</a></li>
+<li><a href="#_running_stub_runner_boot">Running Stub Runner Boot</a></li>
+<li><a href="#_back_to_the_main_page">Back to the main page</a></li>
 </ul>
 </div>
 </div>
@@ -513,31 +507,176 @@ $(addBlockSwitches);
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This documentation will allow you to go through Spring Cloud Contract Workshops by completing
-a series of tasks that will teach you the basic and more advanced concept behind Consumer Driven Contracts
-and Spring Cloud Contract as such.</p>
+<p>In this tutorial we&#8217;ll check out the basic functionality of the Stub Runner Boot application.
+Stub Runner Boot is a standalone JAR that you can run to download the latest stubs and have them
+started in fake HTTP servers.</p>
+</div>
+<div class="paragraph">
+<p>We will play only with the HTTP side of the Stub Runner Boot. However the tool is far more powerful.
+There&#8217;s also an option</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>to send messages defined in contracts to real queues</p>
+</li>
+<li>
+<p>to register the stubs in a real discovery service</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setup">Setup</h2>
+<h2 id="_adding_the_stout_endpoint">Adding the Stout endpoint</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The repository mostly consists of pairs of <code>producer</code> and <code>consumer</code> applications that show
-different use cases of Spring Cloud Contract. The initial state of the repository
-is such that all the examples are working and the tests are passing. In order for you to prepare
-the repository so it has only the basic pieces of code set up execute this Gradle command</p>
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Let&#8217;s open the <code>producer_advanced</code> project</p>
+</li>
+<li>
+<p>Let&#8217;s define a new endpoint called <code>/stout</code>. Time to start with a contract (let&#8217;s call it
+<code>shouldReturnStout.groovy</code>)</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">$ git clone https://github.com/spring-cloud-samples/spring-cloud-contract-samples
-$ cd spring-cloud-contract-samples
-$ ./gradlew prepareForWorkshops</code></pre>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">Contract.make {
+	request {
+		method 'GET'
+		url '/stout'
+	}
+	response {
+		status 200
+		body("STOUT")
+		headers {
+			contentType(textPlain())
+		}
+	}
+}</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>This command will remove most of the code / contracts / project setup so that you can start
-with the workshops.</p>
+</li>
+<li>
+<p>Now, let&#8217;s create the <code>StoutController</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RestController
+public class StoutController {
+
+	@GetMapping("/stout")
+	String stout() {
+		return "STOUT";
+	}
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>In the <code>BeerRestBase</code> we need to add another controller to RestAssured</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">RestAssuredMockMvc.standaloneSetup(..., new StoutController(), ...);</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Let&#8217;s install the stubs locally</p>
+<div class="listingblock primary">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">./mvnw clean install</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">./gradlew clean build publishToMavenLocal</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Great! Now let&#8217;s move to a terminal!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_stub_runner_boot">Running Stub Runner Boot</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Stub Runner Boot is a fat JAR that can be configured via a single annotation (we will use
+an already packaged JAR so you don&#8217;t need to follow these steps). It&#8217;s enough to</p>
+<div class="ulist">
+<ul>
+<li>
+<p>add the stub runner starter to the classpath</p>
+<div class="listingblock primary">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-cloud-starter-contract-stub-runner&lt;/artifactId&gt;
+	&lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>annotate your main class with <code>@EnableStubRunnerServer</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@SpringBootApplication
+@EnableStubRunnerServer
+public class StubRunnerBoot {
+
+	public static void main(String[] args) {
+		SpringApplication.run(StubRunnerBoot.class, args);
+	}
+}</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>We&#8217;ll download a prepackaged JAR</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">URL="https://dl.bintray.com/marcingrzejszczak/maven/stub-runner-boot-1.1.0.RELEASE.jar"
+VERSION="1.1.0.RELEASE"
+JAR_NAME="stub-runner-boot-${VERSION}"
+JAR_LOCATION="target/${JAR_NAME}.jar"
+
+mkdir -p target
+repo curl -L "${URL}" -o "${JAR_LOCATION}"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now let&#8217;s run the Stub Runner Boot application. What want to happen is</p>
+<div class="ulist">
+<ul>
+<li>
+<p>we want to work in <code>offline</code> mode</p>
+</li>
+<li>
+<p>we want to download latest stubs of <code>com.example:beer-api-producer-advanced</code> and start it
+on a random port</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">echo "Running stub runner"
+nohup java -jar "${JAR_LOCATION}" --stubrunner.workOffline="true" --stubrunner.ids="com.example:beer-api-producer" 2&gt;&amp;1 &amp;</code></pre>
+</div>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -546,8 +685,50 @@ with the workshops.</p>
 <div class="title">Tip</div>
 </td>
 <td class="content">
-Whenever your lost - don&#8217;t worry. It&#8217;s enough to check what&#8217;s there in the <code>master</code> branch
-where all of the examples are ready and working.
+You can run it without <code>nohup</code> but then you&#8217;d need to start a new terminal window for
+the rest of this tutorial
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you check the <code>nohup.log</code> output file you&#8217;ll see that the app has started
+and it has downloaded the stubs locally. It has started on port <code>8083</code></p>
+</li>
+<li>
+<p>Now let&#8217;s curl a request to the <code>/stubs</code> and try to retrieve the port on which our stub has started.
+Once we have it we&#8217;ll curl the <code>/stout</code> endpoint.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">echo "Show all running stubs"
+curl -s localhost:8083/stubs
+echo "Get the port of stub"
+STUB_PORT=`curl -s localhost:8083/stubs/beer-api-producer-advanced`
+curl "localhost:${STUB_PORT}/stout"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>We should get a <code>STOUT</code> string shown on the terminal</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+There are also the <code>/trigger</code> endpoints available if you want to trigger some messaging
+labels. You can read more about them in the <a href="https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_stub_runner_boot_application">docs</a>.
+For the <a href="http://cloud.spring.io/spring-cloud-pipelines/spring-cloud-pipelines.html">Spring Cloud Pipelines</a>
+project we have a Stub Runner Boot application that uses a real instance of RabbitMQ for messaging
+and register stubs in Eureka. You can check the code over <a href="https://github.com/spring-cloud-samples/github-analytics-stub-runner-boot">here</a>
 </td>
 </tr>
 </table>
@@ -559,8 +740,8 @@ where all of the examples are ready and working.
 <div class="title">Important</div>
 </td>
 <td class="content">
-You&#8217;ll also need to have Maven installed. Check out <a href="https://maven.apache.org/download.cgi">
-the website on how to download and install Maven</a>
+Remember to kill the Stub Runner application. You can write
+<code>pkill -f stub-runner-boot</code>
 </td>
 </tr>
 </table>
@@ -568,137 +749,10 @@ the website on how to download and install Maven</a>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_generating_the_documentation">Generating the documentation</h2>
+<h2 id="_back_to_the_main_page">Back to the main page</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To generate the whole documentation it&#8217;s enough to call the Gradle task:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">$ git clone https://github.com/spring-cloud-samples/spring-cloud-contract-samples
-$ cd spring-cloud-contract-samples
-$ ./gradlew generateDocumentation</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resources">Resources</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_adib_saikali_s_introduction_to_consumer_driven_contracts">Adib Saikali&#8217;s introduction to Consumer Driven Contracts</h3>
-<iframe src="https://docs.google.com/presentation/d/1-_2_Ok-inGA75cr8DwTyeMuhkEGSuaZ4M8FKGV6W5hU/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-<div class="paragraph">
-<p>&#160;
-&#160;</p>
-</div>
-<div class="videoblock">
-<div class="content">
-<iframe width="960" height="569" src="https://www.youtube.com/embed/iyNzYOcuU4I?rel=0&amp;start=538" frameborder="0" allowfullscreen></iframe>
-</div>
-</div>
-<div class="paragraph">
-<p>&#160;
-&#160;</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_introduction_to_spring_cloud_contract">Introduction to Spring Cloud Contract</h3>
-<iframe src="https://docs.google.com/presentation/d/1fB63Pm4nSItw9nJ9zyhAIw2KAZ4mazZZHHGAW6e0Srg/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tasks">Tasks</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="tutorials/contracts_on_the_producer_side.html">Contracts on the producer side</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>simple DSL examples for HTTP &amp; Messaging</p>
-</li>
-<li>
-<p>base classes picked by convention</p>
-</li>
-<li>
-<p>generating documentation from contracts</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="tutorials/contracts_external.html">Contracts that lay in an external repository</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>simple DSL examples for HTTP &amp; Messaging</p>
-</li>
-<li>
-<p>base classes picked by mappings</p>
-</li>
-<li>
-<p>generating documentation from contracts</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="tutorials/rest_docs.html">Spring Cloud Contract with Rest Docs</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>generating stubs using Rest Docs</p>
-</li>
-<li>
-<p>generating contracts using Rest Docs</p>
-</li>
-<li>
-<p>reading stubs from classpath via Spring Cloud Contract WireMock</p>
-</li>
-<li>
-<p>reading stubs from classpath via Stub Runner</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Extras</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="tutorials/stubs_per_consumer.html">stubs per consumer</a></p>
-</li>
-<li>
-<p>Spring Cloud Contract advanced (regexs, code execution,
-referencing request from response, working with stub and test matchers, working
-with random ports (requires completion of "Contracts on the producer side"))</p>
-</li>
-<li>
-<p><a href="tutorials/contracts_representing_scenarios.html">contracts representing scenarios
-(stateful stubs)</a></p>
-</li>
-<li>
-<p><a href="tutorials/library_with_common_code.html">creating a library with common code
-shareable between teams (requires completion of "Contracts on the producer side")</a></p>
-</li>
-<li>
-<p><a href="tutorials/stubbing_out_service_discovery.html">stubbing out service discovery</a></p>
-</li>
-<li>
-<p><a href="tutorials/junit_rule.html">using JUnit Rule
-(requires completion of "stubs per consumer")</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="tutorials/stub_runner_boot.html">Using stubs with Stub Runner Boot
-(requires completion of "Spring Cloud Contract advanced")</a></p>
-</li>
-</ul>
+<p><a href="../workshops.html">Click here to go back to the main page</a></p>
 </div>
 </div>
 </div>

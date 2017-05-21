@@ -1,0 +1,139 @@
+:toc: left
+:toclevels: 8
+:nofooter:
+:root: ../..
+:consumer: {root}/consumer_with_stubs_per_consumer
+:producer: {root}/producer_with_stubs_per_consumer
+:images_folder: ../images
+:where_are_contracts: the producer's code
+:producer_artifact: beer-api-producer-with-stubs-per-consumer
+
+= Stub Runner Boot
+
+In this tutorial we'll check out the basic functionality of the Stub Runner Boot application.
+Stub Runner Boot is a standalone JAR that you can run to download the latest stubs and have them
+started in fake HTTP servers.
+
+We will play only with the HTTP side of the Stub Runner Boot. However the tool is far more powerful.
+There's also an option
+
+  - to send messages defined in contracts to real queues
+  - to register the stubs in a real discovery service
+
+== Adding the Stout endpoint
+
+- Let's open the `producer_advanced` project
+- Let's define a new endpoint called `/stout`. Time to start with a contract (let's call it
+`shouldReturnStout.groovy`)
++
+[source,groovy]
+----
+Contract.make {
+	request {
+		method 'GET'
+		url '/stout'
+	}
+	response {
+		status 200
+		body("STOUT")
+		headers {
+			contentType(textPlain())
+		}
+	}
+}
+----
+- Now, let's create the `StoutController`
++
+[source,java]
+----
+@RestController
+public class StoutController {
+
+	@GetMapping("/stout")
+	String stout() {
+		return "STOUT";
+	}
+}
+----
+- In the `BeerRestBase` we need to add another controller to RestAssured
++
+[source,java]
+----
+RestAssuredMockMvc.standaloneSetup(..., new StoutController(), ...);
+----
+- Let's install the stubs locally
++
+[source,bash,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+./mvnw clean install
+----
++
+[source,bash,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+./gradlew clean build publishToMavenLocal
+----
+- Great! Now let's move to a terminal!
+
+== Running Stub Runner Boot
+
+- Stub Runner Boot is a fat JAR that can be configured via a single annotation (we will use
+an already packaged JAR so you don't need to follow these steps). It's enough to
+    * add the stub runner starter to the classpath
+include::snippets/consumer_stub_runner_dep.adoc[]
+    * annotate your main class with `@EnableStubRunnerServer`
++
+[source,java]
+----
+@SpringBootApplication
+@EnableStubRunnerServer
+public class StubRunnerBoot {
+
+	public static void main(String[] args) {
+		SpringApplication.run(StubRunnerBoot.class, args);
+	}
+}
+----
+- We'll download a prepackaged JAR
++
+[source,bash]
+----
+include::{root}/scripts/stub_runner_boot.sh[tags=download]
+----
++
+- Now let's run the Stub Runner Boot application. What want to happen is
+    * we want to work in `offline` mode
+    * we want to download latest stubs of `com.example:beer-api-producer-advanced` and start it
+    on a random port
++
+[source,bash]
+----
+include::{root}/scripts/stub_runner_boot.sh[tags=run]
+----
++
+TIP: You can run it without `nohup` but then you'd need to start a new terminal window for
+the rest of this tutorial
+- If you check the `nohup.log` output file you'll see that the app has started
+and it has downloaded the stubs locally. It has started on port `8083`
+- Now let's curl a request to the `/stubs` and try to retrieve the port on which our stub has started.
+Once we have it we'll curl the `/stout` endpoint.
++
+[source,bash]
+----
+include::{root}/scripts/stub_runner_boot.sh[tags=test]
+----
+- We should get a `STOUT` string shown on the terminal
+
+TIP: There are also the `/trigger` endpoints available if you want to trigger some messaging
+labels. You can read more about them in the https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_stub_runner_boot_application[docs].
+For the http://cloud.spring.io/spring-cloud-pipelines/spring-cloud-pipelines.html[Spring Cloud Pipelines]
+project we have a Stub Runner Boot application that uses a real instance of RabbitMQ for messaging
+and register stubs in Eureka. You can check the code over https://github.com/spring-cloud-samples/github-analytics-stub-runner-boot[here]
+
+IMPORTANT: Remember to kill the Stub Runner application. You can write
+`pkill -f stub-runner-boot`
+
+== Back to the main page
+
+link:../workshops.html[Click here to go back to the main page]

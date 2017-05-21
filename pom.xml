@@ -32,6 +32,7 @@
 				<module>common</module>
 				<module>beer_contracts</module>
 				<module>producer</module>
+				<module>producer_advanced</module>
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_external_contracts</module>
 				<module>producer_with_restdocs</module>
@@ -49,6 +50,7 @@
 			<modules>
 				<module>beer_contracts</module>
 				<module>producer</module>
+				<module>producer_advanced</module>
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_external_contracts</module>
 				<module>producer_with_restdocs</module>

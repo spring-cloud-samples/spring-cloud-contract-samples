@@ -89,6 +89,14 @@
 						</baseClassMapping>
 					</baseClassMappings>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.example</groupId>
+						<artifactId>beer-common</artifactId>
+						<version>${project.version}</version>
+						<scope>compile</scope>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<!-- end::test_dep_in_plugin[] -->
 			<!-- remove::end[] -->
