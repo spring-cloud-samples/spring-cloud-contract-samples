@@ -1,0 +1,72 @@
+:toc: left
+:toclevels: 8
+:nofooter:
+:root: ../..
+:consumer: {root}/consumer_with_stubs_per_consumer
+:producer: {root}/producer_with_stubs_per_consumer
+:images_folder: ../images
+:where_are_contracts: the producer's code
+:producer_artifact: beer-api-producer-with-stubs-per-consumer
+
+= Using JUnit rule
+
+In this tutorial we'll reuse the code created in the link::stubs_per_consumer.html[stubs per consumer].
+We'll write a test that instead of Stub Runner uses a JUnit rule to download and start stubs.
+Also we will start stubs on random port, retrieve that port and set it on the controller.
+
+IMPORTANT: This can be extremely useful when working with non-spring based applications on the
+consumer side!
+
+== The tests
+
+- Let's open the `consumer_with_stubs_per_consumer` project
+- In that project we have a `BeerControllerWithJUnitForBarTest` - let's open it
+  * the test is ignored - let's remove that line
+  * as you can see the tests looks like `BeerControllerForBarTest` but it doesn't use
+  Stub Runner. If you run the test it will fail
+- Let's add the missing JUnit Rule!
++
+[source,java]
+----
+@Rule public StubRunnerRule rule = new StubRunnerRule()
+----
+- The `StubRunnerRule` is a fluent interface that allows you to set up the Stub Runner
+functionality. In our case we would like to (<<_junit_rule,or copy from solutions>>)
+   * download a stub with group id `com.example` and artifact id `beer-api-producer-with-stubs-per-consumer`
+   * register it at port `8090`
+   * work offline
+   * turn on the stub per consumer feature
+   * define that the consumer's name is `bar-consumer`
+- Now if you run the test it will pass! But let's try to make the test better and randomize the port
+- First, remove the `withPort` line - we want the port to be randomly picked
+- The Rule has a method called `findStubUrl` - we can pass some coordinates to it
+to get the URL of a running stub. If we get the URL, we can get the port and pass it to the
+`BeerController`. Try it out (<<_port_setting,or copy from solutions>>)
+- And that's it! You've successfully used the JUnit rule
+
+TIP: You can check out the https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_stub_runner_junit_rule[documentation]
+for more information and you can also play with the API of the rule.
+
+IMPORTANT: To send messages via the rule you have to provide the `MessageVerifier`
+interface yourself. If you're using Stub Runner, basing on the classpath we
+can set one for you. If you're using a JUnit rule - you have to do that yourself.
+
+== Solutions
+
+=== JUnit Rule
+
+[source,java]
+----
+include::{consumer}/src/test/java/com/example/BeerControllerWithJUnitForBarTest.java[tags=rule]
+----
+
+=== Port setting
+
+[source,java]
+----
+include::{consumer}/src/test/java/com/example/BeerControllerWithJUnitForBarTest.java[tags=setup]
+----
+
+== Back to the main page
+
+link:../workshops.html[Click here to go back to the main page]

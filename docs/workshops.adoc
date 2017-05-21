@@ -29,9 +29,6 @@ with the workshops.
 TIP: Whenever your lost - don't worry. It's enough to check what's there in the `master` branch
 where all of the examples are ready and working.
 
-TIP: The tasks are set in a form of a cookbook. You can pick any task you want -
-you don't have to go through them one by one.
-
 IMPORTANT: You'll also need to have Maven installed. Check out https://maven.apache.org/download.cgi[
 the website on how to download and install Maven]
 
@@ -87,12 +84,14 @@ video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
   * more sophisticated DSL manipulations (regexs, code execution,
   referencing request from response, working with stub and test matchers, working
   with random ports)
-  * link:tutorials/contracts_representing_scenarios.html[contracts representing scenarios (stateful stubs)]
+  * link:tutorials/contracts_representing_scenarios.html[contracts representing scenarios
+  (stateful stubs)]
   * link:tutorials/library_with_common_code.html[creating a library with common code
   shareable between teams (requires completion of "Contracts on the producer side")]
   * link:tutorials/stubbing_out_service_discovery.html[stubbing out service discovery]
   * link:tutorials/stubs_per_consumer.html[stubs per consumer]
-  * using JUnit rule
+  * link:tutorials/junit_rule.html[using JUnit Rule
+  (requires completion of "stubs per consumer")]
 - Using stubs with Stub Runner Boot
 
 

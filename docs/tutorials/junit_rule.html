@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Spring Cloud Contract Workshops</title>
+<title>Using JUnit rule</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,19 +493,18 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Spring Cloud Contract Workshops</h1>
+<h1>Using JUnit rule</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_setup">Setup</a></li>
-<li><a href="#_generating_the_documentation">Generating the documentation</a></li>
-<li><a href="#_resources">Resources</a>
+<li><a href="#_the_tests">The tests</a></li>
+<li><a href="#_solutions">Solutions</a>
 <ul class="sectlevel2">
-<li><a href="#_adib_saikali_s_introduction_to_consumer_driven_contracts">Adib Saikali&#8217;s introduction to Consumer Driven Contracts</a></li>
-<li><a href="#_introduction_to_spring_cloud_contract">Introduction to Spring Cloud Contract</a></li>
+<li><a href="#_junit_rule">JUnit Rule</a></li>
+<li><a href="#_port_setting">Port setting</a></li>
 </ul>
 </li>
-<li><a href="#_tasks">Tasks</a></li>
+<li><a href="#_back_to_the_main_page">Back to the main page</a></li>
 </ul>
 </div>
 </div>
@@ -513,31 +512,93 @@ $(addBlockSwitches);
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This documentation will allow you to go through Spring Cloud Contract Workshops by completing
-a series of tasks that will teach you the basic and more advanced concept behind Consumer Driven Contracts
-and Spring Cloud Contract as such.</p>
+<p>In this tutorial we&#8217;ll reuse the code created in the <a href=":stubs_per_consumer.html">stubs per consumer</a>.
+We&#8217;ll write a test that instead of Stub Runner uses a JUnit rule to download and start stubs.
+Also we will start stubs on random port, retrieve that port and set it on the controller.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+This can be extremely useful when working with non-spring based applications on the
+consumer side!
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setup">Setup</h2>
+<h2 id="_the_tests">The tests</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The repository mostly consists of pairs of <code>producer</code> and <code>consumer</code> applications that show
-different use cases of Spring Cloud Contract. The initial state of the repository
-is such that all the examples are working and the tests are passing. In order for you to prepare
-the repository so it has only the basic pieces of code set up execute this Gradle command</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Let&#8217;s open the <code>consumer_with_stubs_per_consumer</code> project</p>
+</li>
+<li>
+<p>In that project we have a <code>BeerControllerWithJUnitForBarTest</code> - let&#8217;s open it</p>
+<div class="ulist">
+<ul>
+<li>
+<p>the test is ignored - let&#8217;s remove that line</p>
+</li>
+<li>
+<p>as you can see the tests looks like <code>BeerControllerForBarTest</code> but it doesn&#8217;t use
+Stub Runner. If you run the test it will fail</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>Let&#8217;s add the missing JUnit Rule!</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">$ git clone https://github.com/spring-cloud-samples/spring-cloud-contract-samples
-$ cd spring-cloud-contract-samples
-$ ./gradlew prepareForWorkshops</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Rule public StubRunnerRule rule = new StubRunnerRule()</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>This command will remove most of the code / contracts / project setup so that you can start
-with the workshops.</p>
+</li>
+<li>
+<p>The <code>StubRunnerRule</code> is a fluent interface that allows you to set up the Stub Runner
+functionality. In our case we would like to (<a href="#_junit_rule">or copy from solutions</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>download a stub with group id <code>com.example</code> and artifact id <code>beer-api-producer-with-stubs-per-consumer</code></p>
+</li>
+<li>
+<p>register it at port <code>8090</code></p>
+</li>
+<li>
+<p>work offline</p>
+</li>
+<li>
+<p>turn on the stub per consumer feature</p>
+</li>
+<li>
+<p>define that the consumer&#8217;s name is <code>bar-consumer</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Now if you run the test it will pass! But let&#8217;s try to make the test better and randomize the port</p>
+</li>
+<li>
+<p>First, remove the <code>withPort</code> line - we want the port to be randomly picked</p>
+</li>
+<li>
+<p>The Rule has a method called <code>findStubUrl</code> - we can pass some coordinates to it
+to get the URL of a running stub. If we get the URL, we can get the port and pass it to the
+<code>BeerController</code>. Try it out (<a href="#_port_setting">or copy from solutions</a>)</p>
+</li>
+<li>
+<p>And that&#8217;s it! You&#8217;ve successfully used the JUnit rule</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -546,8 +607,8 @@ with the workshops.</p>
 <div class="title">Tip</div>
 </td>
 <td class="content">
-Whenever your lost - don&#8217;t worry. It&#8217;s enough to check what&#8217;s there in the <code>master</code> branch
-where all of the examples are ready and working.
+You can check out the <a href="https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_stub_runner_junit_rule">documentation</a>
+for more information and you can also play with the API of the rule.
 </td>
 </tr>
 </table>
@@ -559,8 +620,9 @@ where all of the examples are ready and working.
 <div class="title">Important</div>
 </td>
 <td class="content">
-You&#8217;ll also need to have Maven installed. Check out <a href="https://maven.apache.org/download.cgi">
-the website on how to download and install Maven</a>
+To send messages via the rule you have to provide the <code>MessageVerifier</code>
+interface yourself. If you&#8217;re using Stub Runner, basing on the classpath we
+can set one for you. If you&#8217;re using a JUnit rule - you have to do that yourself.
 </td>
 </tr>
 </table>
@@ -568,136 +630,38 @@ the website on how to download and install Maven</a>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_generating_the_documentation">Generating the documentation</h2>
+<h2 id="_solutions">Solutions</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>To generate the whole documentation it&#8217;s enough to call the Gradle task:</p>
-</div>
+<div class="sect2">
+<h3 id="_junit_rule">JUnit Rule</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">$ git clone https://github.com/spring-cloud-samples/spring-cloud-contract-samples
-$ cd spring-cloud-contract-samples
-$ ./gradlew generateDocumentation</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Rule public StubRunnerRule rule = new StubRunnerRule()
+			.downloadStub("com.example","beer-api-producer-with-stubs-per-consumer")
+			.workOffline(true)
+			.withStubPerConsumer(true)
+			.withConsumerName("bar-consumer");</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_resources">Resources</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_adib_saikali_s_introduction_to_consumer_driven_contracts">Adib Saikali&#8217;s introduction to Consumer Driven Contracts</h3>
-<iframe src="https://docs.google.com/presentation/d/1-_2_Ok-inGA75cr8DwTyeMuhkEGSuaZ4M8FKGV6W5hU/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-<div class="paragraph">
-<p>&#160;
-&#160;</p>
-</div>
-<div class="videoblock">
+<h3 id="_port_setting">Port setting</h3>
+<div class="listingblock">
 <div class="content">
-<iframe width="960" height="569" src="https://www.youtube.com/embed/iyNzYOcuU4I?rel=0&amp;start=538" frameborder="0" allowfullscreen></iframe>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Before
+	public void setupPort() {
+		beerController.port = rule.findStubUrl("beer-api-producer-with-stubs-per-consumer").getPort();
+	}</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>&#160;
-&#160;</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_introduction_to_spring_cloud_contract">Introduction to Spring Cloud Contract</h3>
-<iframe src="https://docs.google.com/presentation/d/1fB63Pm4nSItw9nJ9zyhAIw2KAZ4mazZZHHGAW6e0Srg/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_tasks">Tasks</h2>
+<h2 id="_back_to_the_main_page">Back to the main page</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="tutorials/contracts_on_the_producer_side.html">Contracts on the producer side</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>simple DSL examples for HTTP &amp; Messaging</p>
-</li>
-<li>
-<p>base classes picked by convention</p>
-</li>
-<li>
-<p>generating documentation from contracts</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="tutorials/contracts_external.html">Contracts that lay in an external repository</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>simple DSL examples for HTTP &amp; Messaging</p>
-</li>
-<li>
-<p>base classes picked by mappings</p>
-</li>
-<li>
-<p>generating documentation from contracts</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="tutorials/rest_docs.html">Spring Cloud Contract with Rest Docs</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>generating stubs using Rest Docs</p>
-</li>
-<li>
-<p>generating contracts using Rest Docs</p>
-</li>
-<li>
-<p>reading stubs from classpath via Spring Cloud Contract WireMock</p>
-</li>
-<li>
-<p>reading stubs from classpath via Stub Runner</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Extras</p>
-<div class="ulist">
-<ul>
-<li>
-<p>more sophisticated DSL manipulations (regexs, code execution,
-referencing request from response, working with stub and test matchers, working
-with random ports)</p>
-</li>
-<li>
-<p><a href="tutorials/contracts_representing_scenarios.html">contracts representing scenarios
-(stateful stubs)</a></p>
-</li>
-<li>
-<p><a href="tutorials/library_with_common_code.html">creating a library with common code
-shareable between teams (requires completion of "Contracts on the producer side")</a></p>
-</li>
-<li>
-<p><a href="tutorials/stubbing_out_service_discovery.html">stubbing out service discovery</a></p>
-</li>
-<li>
-<p><a href="tutorials/stubs_per_consumer.html">stubs per consumer</a></p>
-</li>
-<li>
-<p><a href="tutorials/junit_rule.html">using JUnit Rule
-(requires completion of "stubs per consumer")</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Using stubs with Stub Runner Boot</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="../workshops.html">Click here to go back to the main page</a></p>
 </div>
 </div>
 </div>

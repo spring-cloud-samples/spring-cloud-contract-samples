@@ -27,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 @DirtiesContext
+//@org.junit.Ignore
 public class BeerControllerWithJUnitTest extends AbstractTest {
 
 	@Autowired MockMvc mockMvc;
@@ -36,33 +37,30 @@ public class BeerControllerWithJUnitTest extends AbstractTest {
 	@Rule public StubRunnerRule rule = new StubRunnerRule()
 			.downloadStub("com.example","beer-api-producer")
 			.workOffline(true);
-
+	// end:rule[]
+	//tag::setup[]
 	@Before
 	public void setupPort() {
 		beerController.port = rule.findStubUrl("beer-api-producer").getPort();
 	}
-	// end::rule[]
+	// end::setup[]
 	//remove::end[]
 
 	//tag::tests[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
-		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("THERE YOU GO"));
-		//remove::end[]
 	}
 
 	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
-		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(new Person("marcin", 17)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST"));
-		//remove::end[]
 	}
 	//end::tests[]
 }
