@@ -20,7 +20,7 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-./scripts/runMavenBuilds.sh
+$PWD/scripts/runMavenBuilds.sh
 
 cat <<'EOF'
  .----------------.  .----------------.  .-----------------. .----------------.  .----------------.  .----------------.
@@ -61,7 +61,7 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-./scripts/runGradleBuilds.sh
+$PWD/scripts/runGradleBuilds.sh
 
 cat <<'EOF'
  .----------------.  .----------------.  .----------------.  .----------------.
@@ -81,4 +81,4 @@ echo "Generating docs"
 ./gradlew generateDocumentation
 
 echo "Running Stub Runner Boot test"
-./scripts/stub_runner_boot.sh
+$PWD/scripts/stub_runner_boot.sh
