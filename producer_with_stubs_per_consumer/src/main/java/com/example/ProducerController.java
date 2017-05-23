@@ -50,11 +50,13 @@ class PersonToCheck {
 class Response {
 	public BeerCheckStatus status;
 	public String name;
+	public String surname;
 
 	// we're setting the name to both fields
 	Response(BeerCheckStatus status, String name) {
 		this.status = status;
 		this.name = name;
+		this.surname = name;
 	}
 }
 

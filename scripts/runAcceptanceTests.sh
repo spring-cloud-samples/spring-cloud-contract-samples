@@ -64,15 +64,23 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
+SUCCESS=false
+
 for i in $( seq 1 "${RETRIES}" ); do
     echo "Attempt #$i/${RETRIES}..."
     if build_maven; then
     echo "Tests succeeded!"
+        SUCCESS="true"
         break;
     else
         echo "Fail #$i/${RETRIES}... will try again"
     fi
 done
+
+if [ ${SUCCESS} == "false" ]; then
+    echo "Failed to make the build work"
+    exit 1
+fi
 
 cat <<'EOF'
  .----------------.  .----------------.  .-----------------. .----------------.  .----------------.  .----------------.
@@ -113,16 +121,23 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
+SUCCESS=false
 
 for i in $( seq 1 "${RETRIES}" ); do
     echo "Attempt #$i/${RETRIES}..."
     if build_gradle; then
     echo "Tests succeeded!"
-        exit 0
+        SUCCESS=true
+        break
     else
         echo "Fail #$i/${RETRIES}... will try again"
     fi
 done
+
+if [ ${SUCCESS} == "false" ]; then
+    echo "Failed to make the build work"
+    exit 1
+fi
 
 cat <<'EOF'
  .----------------.  .----------------.  .----------------.  .----------------.
