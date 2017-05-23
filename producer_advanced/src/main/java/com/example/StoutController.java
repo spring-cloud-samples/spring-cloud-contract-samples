@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Marcin Grzejszczak
  */
 @RestController
-public class StoutController {
+class StoutController {
 
 	//remove::start[]
 	@GetMapping("/stout")

@@ -1,0 +1,27 @@
+* In the following example we'll play with convention based naming
+    ** For Maven under the plugin setup you have to set up the plugin configuration
+    `<configuration><packageWithBaseClasses>com.example</packageWithBaseClasses></configuration>`
++
+[source,xml,indent=0,subs="verbatim,attributes",role="primary"]
+.Maven
+----
+<plugin>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+    <version>${spring-cloud-contract.version}</version>
+    <extensions>true</extensions>
+    <configuration>
+        <packageWithBaseClasses>com.example</packageWithBaseClasses>
+    </configuration>
+</plugin>
+----
++
+[source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
+.Gradle
+----
+contracts {
+    packageWithBaseClasses = 'com.example'
+}
+----
+    ** In both cases passing of that value tells the plugin that a given base class is available under
+    the `com.example` package

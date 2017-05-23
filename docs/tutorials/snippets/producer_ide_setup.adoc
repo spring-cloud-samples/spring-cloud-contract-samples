@@ -1,6 +1,8 @@
+:producer_project: producer
+
 ==== IDE setup
 
-- Open in your IDE the `producer` project (either via Maven or Gradle)
+- Open in your IDE the `{producer_project}` project (either via Maven or Gradle)
 - We're assuming that we've taken over the PR. Example of how to achieve that in "real life" for a PR
 that got submitted to via a branch called `the_pr` looks like this:
 

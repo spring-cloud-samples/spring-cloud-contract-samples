@@ -74,7 +74,6 @@
 
 			<!-- remove::start[] -->
 			<!-- SPRING CLOUD CONTRACT -->
-			<!-- tag::test_dep_in_plugin[] -->
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
@@ -82,23 +81,8 @@
 				<extensions>true</extensions>
 				<configuration>
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
-					<baseClassMappings>
-						<baseClassMapping>
-							<contractPackageRegex>.*intoxication.*</contractPackageRegex>
-							<baseClassFQN>com.example.intoxication.BeerIntoxicationBase</baseClassFQN>
-						</baseClassMapping>
-					</baseClassMappings>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.example</groupId>
-						<artifactId>beer-common</artifactId>
-						<version>${project.version}</version>
-						<scope>compile</scope>
-					</dependency>
-				</dependencies>
 			</plugin>
-			<!-- end::test_dep_in_plugin[] -->
 			<!-- remove::end[] -->
 
 			<plugin>

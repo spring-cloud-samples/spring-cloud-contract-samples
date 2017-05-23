@@ -82,17 +82,23 @@ video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
   * reading stubs from classpath via Stub Runner
 - Extras
   * link:tutorials/stubs_per_consumer.html[stubs per consumer]
-  * Spring Cloud Contract advanced (regexs, code execution,
-  referencing request from response, working with stub and test matchers, working
-  with random ports (requires completion of "Contracts on the producer side"))
+  * link:tutorials/spring_cloud_contract_advanced.html[Spring Cloud Contract advanced]
+    ** regexs
+    ** code execution
+    ** referencing request from response
+    ** working with stub and test matchers
+    ** working with random ports
+    ** async
+    ** priority
   * link:tutorials/contracts_representing_scenarios.html[contracts representing scenarios
   (stateful stubs)]
   * link:tutorials/library_with_common_code.html[creating a library with common code
-  shareable between teams (requires completion of "Contracts on the producer side")]
+  shareable between teams]
+    ** *requires completion of "link:tutorials/contracts_on_the_producer_side.html[Contracts on the producer side]"*
   * link:tutorials/stubbing_out_service_discovery.html[stubbing out service discovery]
-  * link:tutorials/junit_rule.html[using JUnit Rule
-  (requires completion of "stubs per consumer")]
-- link:tutorials/stub_runner_boot.html[Using stubs with Stub Runner Boot
-(requires completion of "Spring Cloud Contract advanced")]
+  * link:tutorials/junit_rule.html[using JUnit Rule]
+    ** *requires completion of link:tutorials/stubs_per_consumer.html[stubs per consumer]"*
+- link:tutorials/stub_runner_boot.html[Using stubs with Stub Runner Boot]
+    * *requires completion of "link:tutorials/stubs_per_consumer.html[Spring Cloud Contract advanced]"*
 
 
