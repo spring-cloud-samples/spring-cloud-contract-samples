@@ -81,5 +81,5 @@ EOF
 echo "Generating docs"
 cd ${ROOT} && ./gradlew generateDocumentation
 
-echo "Running Stub Runner Boot test"
-. ${ROOT}/scripts/stub_runner_boot.sh
+#echo "Running Stub Runner Boot test"
+#. ${ROOT}/scripts/stub_runner_boot.sh
