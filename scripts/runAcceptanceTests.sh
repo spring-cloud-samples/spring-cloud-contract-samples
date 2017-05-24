@@ -2,6 +2,8 @@
 
 set -e
 
+ROOT=`pwd`
+
 source common.sh || source scripts/common.sh
 
 clean
@@ -20,7 +22,7 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-$PWD/scripts/runMavenBuilds.sh
+${ROOT}/scripts/runMavenBuilds.sh
 
 cat <<'EOF'
  .----------------.  .----------------.  .-----------------. .----------------.  .----------------.  .----------------.
@@ -61,7 +63,7 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-$PWD/scripts/runGradleBuilds.sh
+${ROOT}/scripts/runGradleBuilds.sh
 
 cat <<'EOF'
  .----------------.  .----------------.  .----------------.  .----------------.
@@ -78,7 +80,7 @@ cat <<'EOF'
 EOF
 
 echo "Generating docs"
-./gradlew generateDocumentation
+cd ${ROOT} && ./gradlew generateDocumentation
 
 echo "Running Stub Runner Boot test"
-$PWD/scripts/stub_runner_boot.sh
+${ROOT}/scripts/stub_runner_boot.sh
