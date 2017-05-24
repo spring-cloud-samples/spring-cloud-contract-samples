@@ -2,7 +2,7 @@
 
 set -e
 
-ROOT=`pwd`
+PWD=`pwd`
 
 source common.sh || source scripts/common.sh
 
@@ -22,7 +22,7 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-${ROOT}/scripts/runMavenBuilds.sh
+${PWD}/scripts/runMavenBuilds.sh
 
 cat <<'EOF'
  .----------------.  .----------------.  .-----------------. .----------------.  .----------------.  .----------------.
@@ -39,12 +39,12 @@ cat <<'EOF'
 EOF
 
 echo -e "\n\nBuilding beer_contracts\n\n"
-cd "${ROOT}/beer_contracts"
+cd "${PWD}/beer_contracts"
 
 echo -e "\n\nBuilding only the subset of contracts\n\n"
-cd "${ROOT}/beer_contracts/src/main/resources/contracts/com/example/beer-api-producer-external/1.0.0"
-cp "${ROOT}/mvnw" .
-cp -r "${ROOT}/.mvn" .
+cd "${PWD}/beer_contracts/src/main/resources/contracts/com/example/beer-api-producer-external/1.0.0"
+cp "${PWD}/mvnw" .
+cp -r "${PWD}/.mvn" .
 ./mvnw clean install -DskipTests -U
 
 clean
@@ -63,7 +63,7 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-${ROOT}/scripts/runGradleBuilds.sh
+${PWD}/scripts/runGradleBuilds.sh
 
 cat <<'EOF'
  .----------------.  .----------------.  .----------------.  .----------------.
@@ -80,7 +80,7 @@ cat <<'EOF'
 EOF
 
 echo "Generating docs"
-cd ${ROOT} && ./gradlew generateDocumentation
+cd ${PWD} && ./gradlew generateDocumentation
 
 echo "Running Stub Runner Boot test"
-${ROOT}/scripts/stub_runner_boot.sh
+${PWD}/scripts/stub_runner_boot.sh
