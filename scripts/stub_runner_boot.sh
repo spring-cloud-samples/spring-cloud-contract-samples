@@ -7,11 +7,11 @@ JAR_NAME="stub-runner-boot-${VERSION}"
 JAR_LOCATION="target/${JAR_NAME}.jar"
 
 mkdir -p target
-repo curl -L "${URL}" -o "${JAR_LOCATION}"
+curl -L "${URL}" -o "${JAR_LOCATION}"
 # end::download[]
 # tag::run[]
 echo "Running stub runner"
-nohup java -jar "${JAR_LOCATION}" --stubrunner.workOffline="true" --stubrunner.ids="com.example:beer-api-producer" 2>&1 &
+nohup java -jar "${JAR_LOCATION}" --stubrunner.workOffline="true" --stubrunner.ids="com.example:beer-api-producer-advanced" 2>&1 &
 # end::run[]
 # poor man's version to wait for the app to start
 sleep 10
