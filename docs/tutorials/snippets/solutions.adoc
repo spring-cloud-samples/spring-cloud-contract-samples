@@ -222,10 +222,10 @@ include::{consumer}/src/main/java/com/example/BeerController.java[tags=controlle
 [source,java]
 ----
 class BeerRequest {
-	public String name;
+	public int age;
 
-	public BeerRequest(String name) {
-		this.name = name;
+	public BeerRequest(int age) {
+		this.age = age;
 	}
 
 	public BeerRequest() {

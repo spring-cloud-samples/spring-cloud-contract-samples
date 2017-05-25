@@ -1971,10 +1971,10 @@ then:
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">class BeerRequest {
-	public String name;
+	public int age;
 
-	public BeerRequest(String name) {
-		this.name = name;
+	public BeerRequest(int age) {
+		this.age = age;
 	}
 
 	public BeerRequest() {
@@ -2422,9 +2422,8 @@ public abstract class BeerIntoxicationBase {
 					 throw new UnsupportedOperationException("You can't handle it");
 				 }
 			}
-			return new Response(previous, current);
+			return new Response(previous, current);//remove::end[return]
 		}
-		//remove::end[]
 	}
 	//end::mock[]
 }</code></pre>
