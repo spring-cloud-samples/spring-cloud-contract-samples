@@ -70,9 +70,8 @@ public abstract class BeerIntoxicationBase {
 					 throw new UnsupportedOperationException("You can't handle it");
 				 }
 			}
-			return new Response(previous, current);
+			return new Response(previous, current);//remove::end[return]
 		}
-		//remove::end[]
 	}
 	//end::mock[]
 }

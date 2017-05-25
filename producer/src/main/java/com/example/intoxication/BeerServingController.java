@@ -24,7 +24,7 @@ public class BeerServingController {
 	public Response check(@RequestBody Customer customer) {
 		//remove::start[]
 		return this.responseProvider.thereYouGo(customer);
-		//remove::end[]
+		//remove::end[return]
 	}
 	
 }
