@@ -22,7 +22,7 @@ public class BeerServingController {
 			consumes="application/json",
 			produces="application/json")
 	public Response check(@RequestBody Customer customer) {
-		return null;
+		return this.responseProvider.thereYouGo(customer);
 	}
 	
 }

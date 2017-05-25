@@ -37,13 +37,14 @@ public class BeerControllerTest extends AbstractTest {
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
 
+	//remove::start[]
 	@Value("${stubrunner.runningstubs.beer-api-producer.port}") int producerPort;
 
 	@Before
 	public void setupPort() {
 		beerController.port = producerPort;
 	}
-
+	//remove::end[]
 	//tag::tests[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		//remove::start[]
