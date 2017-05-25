@@ -44,35 +44,11 @@ public abstract class BeerIntoxicationBase {
 		}
 	}
 
-	//tag::mock[]
 	static class MockResponseProvider implements ResponseProvider {
 
 		private DrunkLevel previous = SOBER;
 		private DrunkLevel current = SOBER;
 
 		@Override public Response thereYouGo(Customer personToCheck) {
-			//remove::start[]
-			if ("marcin".equals(personToCheck.name)) {
-				 switch (current) {
-				 case SOBER:
-				 	current = TIPSY;
-				 	previous = SOBER;
-					 break;
-				 case TIPSY:
-					 current = DRUNK;
-					 previous = TIPSY;
-					 break;
-				 case DRUNK:
-					 current = WASTED;
-					 previous = DRUNK;
-					 break;
-				 case WASTED:
-					 throw new UnsupportedOperationException("You can't handle it");
-				 }
-			}
-			return new Response(previous, current);
-		}
-		//remove::end[]
 	}
-	//end::mock[]
 }
