@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.example</groupId>
+	<groupId>com.example.test</groupId>
 	<artifactId>beer-api-producer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -125,6 +125,14 @@
 
 		</plugins>
 	</build>
+
+	<distributionManagement>
+	    <snapshotRepository>
+	        <id>snapshots</id>
+	        <name>springcloudcontract-snapshots</name>
+	        <url>https://springcloudcontract.jfrog.io/springcloudcontract/libs-snapshot-local</url>
+	    </snapshotRepository>
+	</distributionManagement>
 
 	<dependencyManagement>
 		<dependencies>

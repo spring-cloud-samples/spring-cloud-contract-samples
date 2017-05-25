@@ -2,10 +2,6 @@
 
 include::consumer_ide_setup.adoc[]
 
-- The problem is such that we don't yet know what API we would like to have... This is where we touch
- the very essence of Consumer Driven Contracts. As consumers we want to drive the change of the API
- that's why, *as consumers*, we will work on the producer code.
-
 include::setup_cloned_producer.adoc[]
 
 ==== Defining first HTTP contract

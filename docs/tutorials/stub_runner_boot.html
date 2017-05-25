@@ -658,7 +658,7 @@ JAR_NAME="stub-runner-boot-${VERSION}"
 JAR_LOCATION="target/${JAR_NAME}.jar"
 
 mkdir -p target
-repo curl -L "${URL}" -o "${JAR_LOCATION}"</code></pre>
+curl -L "${URL}" -o "${JAR_LOCATION}"</code></pre>
 </div>
 </div>
 </li>
@@ -675,7 +675,7 @@ on a random port</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">echo "Running stub runner"
-nohup java -jar "${JAR_LOCATION}" --stubrunner.workOffline="true" --stubrunner.ids="com.example:beer-api-producer" 2&gt;&amp;1 &amp;</code></pre>
+nohup java -jar "${JAR_LOCATION}" --stubrunner.workOffline="true" --stubrunner.ids="com.example:beer-api-producer-advanced" 2&gt;&amp;1 &amp;</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">
