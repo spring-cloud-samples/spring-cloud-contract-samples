@@ -39,17 +39,21 @@ public class IntoxicationControllerTest extends AbstractTest {
 	@Autowired MockMvc mockMvc;
 	@Autowired IntoxicationController intoxicationController;
 
+	//remove::start[]
 	@Value("${stubrunner.runningstubs.beer-api-producer.port}") int producerPort;
 
 	@Before
 	public void setupPort() {
 		intoxicationController.port = producerPort;
 	}
+	//remove::end[]
 
 	@Test public void should_eventually_get_completely_wasted() throws Exception {
+		//remove::start[]
 		sendARequestAndExpectStatuses(SOBER, TIPSY);
 		sendARequestAndExpectStatuses(TIPSY, DRUNK);
 		sendARequestAndExpectStatuses(DRUNK, WASTED);
+		//remove::end[]
 	}
 
 	private void sendARequestAndExpectStatuses(DrunkLevel previousStatus, DrunkLevel currentStatus) throws Exception {
