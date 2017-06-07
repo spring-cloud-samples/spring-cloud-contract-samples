@@ -21,6 +21,9 @@ These samples were used in the following presentation. It might help to use the 
 
 - https://goo.gl/qhVmg3[SlideShare] / https://www.youtube.com/watch?v=sAAklvxmPmk[YouTube]
 
+You can also go through the https://spring-cloud-samples.github.io/spring-cloud-contract-samples/workshops.html[Spring Cloud Contract Workshops]
+to learn how to use the tool by example.
+
 == Projects
 
 === Common
@@ -41,6 +44,10 @@ The producer in the contract also uses features like usage of common libraries, 
 combination of dynamic properties.
 
 It also uses scenario based contracts. That means that the produced stubs are stateful.
+
+=== Producer_advanced
+
+Contains more advanced examples of Spring Cloud Contract usage.
 
 === Producer_with_external_contracts
 
@@ -96,6 +103,7 @@ The order should be as follows
 - common
 - beer-contracts
 - producer
+- producer_advanced
 - producer_with_external_contracts
 - producer_with_stubs_per_consumer
 - consumer
