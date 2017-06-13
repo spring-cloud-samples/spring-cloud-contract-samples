@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<dependencies>
@@ -109,29 +109,15 @@
 			<!-- end::test_dep_in_plugin[] -->
 			<!-- remove::end[] -->
 
-			<plugin>
-				<groupId>org.codehaus.gmavenplus</groupId>
-				<artifactId>gmavenplus-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- SPRING CLOUD CONTRACT -->
-
 		</plugins>
 	</build>
 
 	<distributionManagement>
-	    <snapshotRepository>
-	        <id>snapshots</id>
-	        <name>springcloudcontract-snapshots</name>
-	        <url>https://springcloudcontract.jfrog.io/springcloudcontract/libs-snapshot-local</url>
-	    </snapshotRepository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>springcloudcontract-snapshots</name>
+			<url>https://springcloudcontract.jfrog.io/springcloudcontract/libs-snapshot-local</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<dependencyManagement>

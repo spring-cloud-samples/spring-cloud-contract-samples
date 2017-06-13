@@ -85,20 +85,6 @@
 			</plugin>
 			<!-- remove::end[] -->
 
-			<plugin>
-				<groupId>org.codehaus.gmavenplus</groupId>
-				<artifactId>gmavenplus-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- SPRING CLOUD CONTRACT -->
-
 		</plugins>
 	</build>
 
