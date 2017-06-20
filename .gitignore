@@ -20,3 +20,4 @@ build/
 .gradle
 .gradletasknamecache
 nohup.out
+effective.pom
