@@ -53,7 +53,7 @@ dependencies {
 contracts {
 	// We want to use the JAR with contracts with the following coordinates
 	contractDependency {
-		stringNotation = 'com.example:beer-contracts'
+		stringNotation = 'com.example:beer-contracts:'
 	}
 	// The JAR with contracts should be taken from Maven local
 	contractsWorkOffline = true
