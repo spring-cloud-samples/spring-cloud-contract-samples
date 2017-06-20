@@ -52,8 +52,9 @@ dependencies {
 // remove::start[]
 contracts {
 	// We want to use the JAR with contracts with the following coordinates
+	// group id `com.example`, artifact id `beer-contracts`, LATEST version and NO classifier
 	contractDependency {
-		stringNotation = 'com.example:beer-contracts:'
+		stringNotation = 'com.example:beer-contracts:+:'
 	}
 	// The JAR with contracts should be taken from Maven local
 	contractsWorkOffline = true
