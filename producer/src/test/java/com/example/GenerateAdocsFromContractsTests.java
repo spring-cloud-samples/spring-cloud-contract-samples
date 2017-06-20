@@ -16,6 +16,7 @@ import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Collection;
 import java.util.regex.Pattern;
 
 @RunWith(SpringRunner.class)
@@ -81,29 +82,37 @@ public class GenerateAdocsFromContractsTests {
 		}
 	}
 
-	static StringBuilder appendContract(StringBuilder stringBuilder, Path path)
+	static StringBuilder appendContract(final StringBuilder stringBuilder, Path path)
 			throws IOException {
-		Contract contract = ContractVerifierDslConverter.convert(path.toFile());
+		Collection<Contract> contracts = ContractVerifierDslConverter.convertAsCollection(path.toFile());
 		// TODO: Can be parametrized
-		return stringBuilder.append("### ")
-				.append(path.getFileName().toString())
-				.append("\n\n")
-				.append(contract.getDescription())
-				.append("\n\n")
-				.append("#### Contract structure")
-				.append("\n\n")
-				.append("[source,java,indent=0]")
-				.append("\n")
-				.append("----")
-				.append("\n")
-				.append(fileAsString(path))
-				.append("\n")
-				.append("----")
-				.append("\n\n");
+		contracts.forEach(contract -> {
+			stringBuilder.append("### ")
+					.append(path.getFileName().toString())
+					.append("\n\n")
+					.append(contract.getDescription())
+					.append("\n\n")
+					.append("#### Contract structure")
+					.append("\n\n")
+					.append("[source,java,indent=0]")
+					.append("\n")
+					.append("----")
+					.append("\n")
+					.append(fileAsString(path))
+					.append("\n")
+					.append("----")
+					.append("\n\n");
+		});
+		return stringBuilder;
 	}
 
-	static String fileAsString(Path path) throws IOException {
-		byte[] encoded = Files.readAllBytes(path);
-		return new String(encoded, StandardCharsets.UTF_8);
+	static String fileAsString(Path path) {
+		try {
+			byte[] encoded = Files.readAllBytes(path);
+			return new String(encoded, StandardCharsets.UTF_8);
+		}
+		catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
