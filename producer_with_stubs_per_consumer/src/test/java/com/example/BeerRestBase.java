@@ -1,13 +1,13 @@
 package com.example;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import org.hamcrest.Description;
-import org.hamcrest.TypeSafeMatcher;
+
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatcher;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.argThat;
@@ -25,16 +25,8 @@ public abstract class BeerRestBase {
 		RestAssuredMockMvc.standaloneSetup(producerController);
 	}
 
-	private TypeSafeMatcher<PersonToCheck> oldEnough() {
-		return new TypeSafeMatcher<PersonToCheck>() {
-			@Override protected boolean matchesSafely(PersonToCheck personToCheck) {
-				return personToCheck.age >= 20;
-			}
-
-			@Override public void describeTo(Description description) {
-
-			}
-		};
+	private ArgumentMatcher<PersonToCheck> oldEnough() {
+		return argument -> argument.age >= 20;
 	}
 	//remove::end[]
 }
