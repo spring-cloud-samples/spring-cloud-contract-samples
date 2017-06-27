@@ -1,6 +1,6 @@
 package com.example;
 
-import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
 import java.util.Random;
 
