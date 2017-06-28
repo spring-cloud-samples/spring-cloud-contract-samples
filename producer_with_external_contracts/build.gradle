@@ -27,6 +27,7 @@ repositories {
 
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 // remove::start[]
 apply plugin: 'spring-cloud-contract'
 // remove::end[]
