@@ -25,7 +25,7 @@ function build_gradle() {
 
     echo -e "\n\nBuilding the external contracts jar\n\n"
     cd "${ROOT}/beer_contracts"
-    ./mvnw clean install -U
+    #./mvnw clean install -U
 
     build common
     build producer

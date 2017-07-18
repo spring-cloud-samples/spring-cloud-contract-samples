@@ -84,7 +84,7 @@ public class GenerateAdocsFromContractsTests {
 
 	static StringBuilder appendContract(final StringBuilder stringBuilder, Path path)
 			throws IOException {
-		Collection<Contract> contracts = ContractVerifierDslConverter.convertAsCollection(path.toFile());
+		Collection<Contract> contracts = ContractVerifierDslConverter.convertAsCollection(path.getParent().toFile(), path.toFile());
 		// TODO: Can be parametrized
 		contracts.forEach(contract -> {
 			stringBuilder.append("### ")
