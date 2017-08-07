@@ -92,7 +92,7 @@ public class ProducerControllerTests {
 		PersonCheckingService personCheckingService() {
 			return personToCheck -> personToCheck.age >= 20;
 		}
-		//remove:end[]
+		//remove::end[]
 
 		@Bean
 		ProducerController producerController(PersonCheckingService service) {

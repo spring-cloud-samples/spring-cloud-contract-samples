@@ -14,7 +14,7 @@ buildscript {
 		// tag::test_dep_in_plugin[]
 		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
 		// end::test_dep_in_plugin[]
-		// remove:end[]
+		// remove::end[]
 	}
 }
 
