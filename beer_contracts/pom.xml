@@ -70,7 +70,9 @@
 						</goals>
 						<configuration>
 							<attach>true</attach>
-							<descriptor>${basedir}/src/assembly/contracts.xml</descriptor>
+							<descriptors>
+								${project.basedir}/src/assembly/contracts.xml
+							</descriptors>
 							<!-- If you want an explicit classifier remove the following line -->
 							<appendAssemblyId>false</appendAssemblyId>
 						</configuration>
