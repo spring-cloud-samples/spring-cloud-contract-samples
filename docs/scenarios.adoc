@@ -1,6 +1,6 @@
 == Scenarios
 
-We'll be in most cases trying to code the following scenarios:
+In most of the tutorials, you will be asked to code the following scenarios:
 
 image::{images_folder}/beer_1.png[title="Positive beer selling via HTTP"]
 

@@ -8,12 +8,11 @@
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer
 
-= Contracts representing scenarios (stateful stubs)
+= Contracts Representing Scenarios (Stateful Stubs)
 
-In this tutorial we'll keep the contracts together with the producer code.
-In the contracts we'll describe a stateful scenario where the stub needs
-to have "memory" to know what the previous state was and what the next one
-should be.
+In this tutorial. we keep the contracts together with the producer code. In the
+contracts, we describe a stateful scenario where the stub needs to have "memory" to know
+what the previous state was and what the next one should be.
 
 == Scenarios
 
@@ -25,67 +24,70 @@ image::{images_folder}/flow.png[title="Consumer Driven Contract flow"]
 
 == Tutorial
 
-Consumer Driven Contract is like TDD on the layer of architecture. Let's start with writing a test on the
-consumer side.
-
+Using Consumer Driven Contracts is like using TDD at the architecture level. We start by
+writing a test on the consumer side.
 === Consumer flow 1
 
 image::{images_folder}/consumer_flow_1.png[title="Interact with cloned producer code"]
 
 ==== IDE setup
 
-- Open in your IDE the `consumer` project (either via Maven or Gradle)
-- In this scenario we'll have to just write a test for HTTP communication
-  * the consumer gets asked about the current and previous state of intoxication of a given person
-  * the more you drink the more intoxicated you get
-  * the flow of intoxication looks like this `SOBER` -> `TIPSY` -> `DRUNK` -> `WASTED`
-  * the consumer asks the producer for a beer for a given person
-  and in return the information about the state of intoxication is sent back
-- In the standard CDC process we would be doing TDD but here you already
-have some code ready
-  * The test `IntoxicationControllerTest` contains tests of our feature
-  * In the `IntoxicationController` we'll need to call an endpoint on the producer
-  side
-- Let's first write our missing test
-  * There's already a method `sendARequestAndExpectStatuses` created for us to
-  fill out
-  * We want to use the `MockMvc` to send a request to the `/wasted` endpoint
-   with the name `marcin` in the JSON request body. As a response we expect
-   to get the `previousStatus` and `currentStatus` of intoxication
-+
+In your IDE, open the `consumer` project (through either Maven or Gradle).
+
+In this scenario we need to write a test for HTTP communication that meets the following
+criteria:
+
+* The consumer gets asked about the current and previous state of intoxication of a given
+person.
+* The more you drink, the more intoxicated you get.
+* The flow of intoxication states goes `SOBER` -> `TIPSY` -> `DRUNK` -> `WASTED`.
+* The consumer asks the producer for a beer for a given person and, in return the
+information about the state of intoxication is sent back
+
+In the standard CDC process, we would do TDD. However, in this case, you already have
+some code ready. The test `IntoxicationControllerTest` contains tests of our feature.
+In the `IntoxicationController`, we need to call an endpoint on the producer side.
+
+Let's first write our missing test. There's already a method called
+`sendARequestAndExpectStatuses` created for us to fill out. We want to use `MockMvc` to
+send a request to the `/wasted` endpoint with the name `marcin` in the JSON request body.
+As a response, we expect to get the `previousStatus` and `currentStatus` of intoxication.
+
 [source,java]
 ----
 include::{consumer}/src/test/java/com/example/intoxication/IntoxicationControllerTest.java[tags=test]
 ----
-- If we run this test it will obviously fail cause we don't have any implementation
-in the `IntoxicationController`. We would like to write the implementation
-but we don't yet know the structure of the request
-- Since we don't know how the API should look like, we'll clone the producer's
-code to play around with their API
+
+If we run this test, it fails because we did not write an implementation in the
+`IntoxicationController`. We want to write the implementation, but we do not yet know the
+structure of the request. Since we do not yet know how the API should look, we can clone
+the producer's code to experiment with its API.
 
 include::snippets/setup_cloned_producer.adoc[]
 
-==== Defining the stateful HTTP contracts
+==== Defining Stateful HTTP Contracts
 
-- In the producer's clone let's create a `src/test/resources/contracts/beer/intoxication`
-folder
-- In Spring Cloud Contract you can define steps for a given scenario by naming convention
-of the files
-  * if your contract file starts with a number and a `_` character then it's assumed to be
-  part of scenario
-  * example: `1_sober.groovy`, `2_tipsy.groovy`, `3_drunk.groovy`
-- Let's create those three files and let's start writing our first scenario.
-Open the `1_sober.groovy` file
-    * We'll need to start by calling the `org.springframework.cloud.contract.spec.Contract.make` method
-+
+In the clone of the producer's code, let's create a folder called
+`src/test/resources/contracts/beer/intoxication`. In Spring Cloud Contract, you can
+define steps for a given scenario by relying on the naming convention of the files: If
+your contract file starts with a number and a `_` character, it is assumed to be part of
+the scenario. Here are three examples: `1_sober.groovy`, `2_tipsy.groovy`, and
+`3_drunk.groovy`.
+
+Let's create those three files and start writing our first scenario. Open the
+`1_sober.groovy` file. We need to start by calling the
+`org.springframework.cloud.contract.spec.Contract.make` method.
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
 
 }
 ----
-    * Now let's provide a meaningful description via the `description` method
-+
+
+Now let's provide a meaningful description by using the `description` method, as shown in
+the following code:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -101,8 +103,9 @@ org.springframework.cloud.contract.spec.Contract.make {
     """)
 }
 ----
-    * Next let's define the `request` part of the contract
-+
+
+Next we can define the `request` part of the contract, as shown in the following code:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -121,9 +124,10 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-    * Let's assume that the we want to send a `POST` request to to the
-    `/beer` endpoint
-+
+
+Let's assume that we want to send a `POST` request to to the `/beer` endpoint. To do so,
+we might use the following code:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -143,9 +147,10 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-    * The body should contain a `name` field equal to `marcin`. We'll use the
-    Groovy map notation to define it
-+
+
+The body should contain a `name` field equal to `marcin`. We can use the Groovy map
+notation to define it, as shown in the following code:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -166,8 +171,9 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-    * And the content type should be `application/json`
-+
+
+The content type should be `application/json`. The following code shows how to set it:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -191,10 +197,10 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-    * Congratulations! You've managed to successfully define the request side
-    of the contract. Let's now proceed with the response side
-    * Let's define the `response` block
-+
+
+Congratulations! You successfully defined the request side of the contract. Let's now
+proceed with the response side, by defining the `response` block:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -222,8 +228,8 @@ org.springframework.cloud.contract.spec.Contract.make {
 }
 ----
 
-    * We want the response to return status `200`
-+
+We want the response to return status `200`, which we can do with the following code:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -251,9 +257,10 @@ org.springframework.cloud.contract.spec.Contract.make {
 }
 ----
 
-    * The response body should return the `previousStatus` equal to
-    `SOBER` and the `currentStatus` equal to `TIPSY`
-+
+The response body should return a value of `SOBER` in the the `previousStatus` field and
+a value of `TIPSY` in the the `currentStatus` field. The following code shows how we
+might do it:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -284,9 +291,9 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-    * Finally, the response headers should contain content type equal to
-    `application/json`
-+
+Finally, the response headers should contain a content type of `application/json`, as
+shown in the following code:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -323,75 +330,76 @@ then:
 }
 
 ----
-    * Congratulations! You have successfully created your first contract!
-- Now define 2 next contracts `2_tipsy.groovy` and `3_drunk.groovy`. You can
-check out the <<_scenario_contracts,solution>>
-    * The first transition will be from `TIPSY` -> `DRUNK`
-    * The last transition will be from `DRUNK` -> `WASTED`
-- We have managed to define all scenarios. Now we would like to generate
-the stubs so that we can reuse them on the consumer side. To that
-we'll need to set up the Spring Cloud Contract plugin in the cloned
-repository
+
+Congratulations! You have successfully created your first contract!
+
+Now we need to define the next two contracts: `2_tipsy.groovy` and `3_drunk.groovy`. You
+can examine the <<_scenario_contracts,solution>>. The first transition will be from
+`TIPSY` -> `DRUNK`. The last transition will be from `DRUNK` -> `WASTED`.
+
+We have managed to define all the scenarios. Now we would like to generate the stubs so
+that we can reuse them on the consumer side. To that end, we must set up the Spring Cloud
+Contract plugin in the cloned repository, as shown in the following code:
 
 include::snippets/setting_plugin_on_clone.adoc[]
 
-    * If you check out the `1_sober.json` intoxication stub you'll notice the
-    following section
-+
+If you check out the `1_sober.json` intoxication stub, you can see the following section:
+
 [source,json]
 ----
 "scenarioName" : "Scenario_intoxication",
 "requiredScenarioState" : "Started",
 "newScenarioState" : "Step1"
 ----
-    * In this section WireMock is told that
-        ** Name of the scenario is `Scenario_intoxication`. The name comes from the
-        folder in which the contracts were placed
-        ** The required scenario state is `Started` - that's the initial state
-        ** The next step is `Step1` - every subsequent step will be called `Step` with
-        appended appropriate number
-    * If you check out the `2_tipsy.json` you'll notice that the required
-     values of previous and next states got updated:
-+
+
+In this section, WireMock is told that:
+* The name of the scenario is `Scenario_intoxication`. The name comes from the folder in
+which the contracts were placed.
+* The required scenario state is `Started`. That's the initial state.
+* The next step is `Step1`. Every subsequent step will be called `Step` with appropriate
+number appended.
+
+If you check out `2_tipsy.json`, you can see that the required values of the previous and
+next states got updated:
+
 [source,json]
 ----
 "scenarioName" : "Scenario_intoxication",
 "requiredScenarioState" : "Step1",
 "newScenarioState" : "Step2"
 ----
-- We have managed to install the stubs locally - it's time to move back to our
-consumer test
-- Let's open the `IntoxicationController` class and write the missing implementation.
-You can try yourself or check out the <<_intoxication_controller,solution>>
 
-==== Turning on Stub Runner in HTTP consumer tests
+We have managed to install the stubs locally. it's time to move back to our consumer
+test. Let's open the `IntoxicationController` class and write the missing implementation.
+You can try to write it yourself or check out the <<_intoxication_controller,solution>>.
 
-- After writing the implementation, if we rerun the tests we will get
-a connection refused exception. That's because we haven't started the HTTP
-server with the stubs
+==== Turning on Stub Runner in HTTP Consumer Tests
+
+After writing the implementation, if we rerun the tests, we get a connection refused
+exception. That happens because we have yet to start the HTTP server with the stubs, as
+we do in the following snippet:
 
 include::snippets/stub_runner_http_consumer_tests.adoc[]
 
-- Congratulations! You have successfully created the contracts, defined the
-API that suits your needs and wrote the consumer part of the functionality!
-Now it's time to create a PR with the contract proposal and file it to
-the producer side
+Congratulations! You have successfully created the contracts, defined the API that suits
+your needs, and written the consumer part of the functionality! Now it's time to create a
+pull request with the contract proposal and file it to the producer side.
 
-=== Producer flow 1
+=== Producer Flow 1
 
 image::{images_folder}/producer_flow_1.png[title="Producer takes over the PR, writes missing impl and merges the PR"]
 
 include::snippets/producer_flow.adoc[]
-+
-IMPORTANT: We were setting the plugin in the following since most likely you're
-using the same `producer` codebase as you have for previous tutorials. That's
-why we want the other tests to still pass. If that's not the case (if you
-have only just started with this particular tutorial) then you can remove
-the `packageWithBaseClasses` entry
 
-* The intoxication base class lays under the `intoxication` folder. Let's
-use the `baseClassMappings` to set point the plugin to proper base classes
-+
+IMPORTANT: We were setting the plugin in the following since most likely you use the same
+`producer` codebase as you have for previous tutorials. That is why we want the other
+tests to still pass. If that's not the case (if you have only just started with this
+particular tutorial) then you can remove the `packageWithBaseClasses` entry.
+
+* The intoxication base class lays under the `intoxication` folder. Let's use the
+`baseClassMappings` to set point the plugin to proper base classes, as shown in the
+following snippet (for both Maven and Gradle):
+
 [source,xml,indent=0,subs="verbatim,attributes",role="primary"]
 .Maven
 ----
@@ -411,7 +419,7 @@ use the `baseClassMappings` to set point the plugin to proper base classes
     </configuration>
 </plugin>
 ----
-+
+
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
@@ -423,10 +431,10 @@ contracts {
 }
 ----
 
-==== Generating tests from contracts
+==== Generating Tests from Contracts
 
-- Let's generate the tests! Just call:
-+
+Let's generate the tests! To do so, use the following code (for both Maven and Gradle):
+
 [source,bash,indent=0,subs="verbatim,attributes",role="primary"]
 .Maven
 ----
@@ -438,52 +446,55 @@ $ ./mvnw clean install
 ----
 $ ./gradlew clean build publishToMavenLocal
 ----
-  * Suddenly some tests should start failing. Those tests are the autogenerated tests created
-  by Spring Cloud Contract
-  * The tests lay under `/generated-test-sources/contracts/org/springframework/cloud/contract/verifier/tests/beer`
-    in `target` for Maven or `build` for Gradle
-  * There will be a test for each folder in which you store your contracts. The name of the test class
-    will be the name of that folder
-  * Each of the contracts will be a single test inside that test class
-  * If you check out the generated `IntoxicationTest` you'll notice that it got
-  annotated with `@FixMethodOrder(MethodSorters.NAME_ASCENDING)` in order to ensure
-  that the tests are executed sequentially
-- Time to fix the broken tests. We need to do that by providing the missing implementation.
 
-==== Fixing broken HTTP tests
+Consider a situation in which, suddenly, some tests start failing. Those tests are the
+autogenerated tests created by Spring Cloud Contract. The tests can be found under
+`/generated-test-sources/contracts/org/springframework/cloud/contract/verifier/tests/beer`,
+in the `target` directory for Maven and in the `build` directory for Gradle. There is a
+test for each folder in which you store your contracts. The name of the test
+class is the name of that folder. Each of the contracts is a single test inside that test
+class. If you check out the generated `IntoxicationTest`, you can seee that it got
+annotated with `@FixMethodOrder(MethodSorters.NAME_ASCENDING)` in order to ensure
+that the tests are executed sequentially.
 
-- Let's start with HTTP
-  * First let's write the missing implementation in `BeerServingController`. The logic to be written
-    is extremely simple - the `responseProvider.thereYouGo(...)` returns the `Response`. So
-    the implementation is basically a one liner
-+
+Now we can fix the broken tests by providing the missing implementation.
+
+==== Fixing Broken HTTP Tests
+
+Let's start with HTTP. First, let's write the missing implementation in
+`BeerServingController`. The logic to be written is simple: The
+`responseProvider.thereYouGo(...)` returns the `Response`. The implementation is
+basically a one liner, as shown in the following code snippet:
+
 [source,java]
 ----
 return this.responseProvider.thereYouGo(customer);
 ----
-- Let's fix the `BeerIntoxicationBase` class now
-  * The idea of CDC is *NOT TO TEST* every single feature. Contract tests are there to see if the API
-    is matched, *NOT* that the feature is working. That's why we shouldn't be accessing databases etc.
-    That means that we will work with a fake instance of the `ResponseProvider`.
-  * Let's start with writing the missing implementation of the `MockResponseProvider`
-  (<<_beerintoxicationbase,Show solution>>).
-  You'll need to:
-    ** ensure that the `name` is equal to `marcin`
-    ** depending on the `current` state you'll need to set the `previous` and
-    `current` one and create the `Response`
-  * We'll need to maintain state between the tests. If you try to store the state
-  in a field in a base class then you'll loose it between test executions cause
-   JUnit is reinitializing all the fields. We can fix that by setting up
-   a small Spring Context that will be reused. That's why you can see that the test
-   is annotated with
+
+Let's fix the `BeerIntoxicationBase` class now. The idea of CDC is *NOT TO TEST* every
+single feature. Contract tests are there to see if the API is matched, *NOT* to test that
+the feature is working. That's why we shouldn't be accessing databases and taking similar
+actions. That means that we can work with a fake instance of the `ResponseProvider`.
+
+Let's start by writing the missing implementation of the `MockResponseProvider`
+(<<_beerintoxicationbase,Show solution>>). You need to:
+* ensure that the `name` is equal to `marcin`
+* depending on the `current` state you'll need to set the `previous` and
+`current` one and create the `Response`.
+
+We need to maintain state between the tests. If you try to store the state in a field in
+a base class, you lose it between test executions, because JUnit is reinitializing all
+the fields. We can fix that by setting up a small Spring Context to be reused. The
+following example shows what that annotation might look like:
 +
 [source,java]
 ----
 @SpringBootTest(classes = BeerIntoxicationBase.Config.class)
 ----
-  * We want RestAssured and MockMvc to reuse the web context that we have in our
-  test - that's why we need to set it up using the following notation
-+
+
+We want RestAssured and MockMvc to reuse the web context that we have in our test. That's
+why we need to set it up by using the following notation:
+
 [source,java]
 ----
     @Autowired WebApplicationContext webApplicationContext;
@@ -493,9 +504,12 @@ return this.responseProvider.thereYouGo(customer);
         RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
     }
 ----
-- Now try re-running the build to regenerate the tests and the tests should pass
-- Now you would merge the PR to master and your CI system would build a fat jar and stubs
-- Congratulations - you've completed the producer side of this tutorial
+
+Now, when try re-running the build to regenerate the tests, the tests should pass. You
+could now merge the pull request to master, and your CI system would build a fat jar and
+the stubs.
+
+Congratulations! You have completed the producer side of this tutorial!
 
 include::snippets/consumer_flow_2.adoc[]
 
@@ -533,6 +547,6 @@ include::../../consumer/src/main/java/com/example/intoxication/IntoxicationContr
 include::../../producer/src/test/java/com/example/intoxication/BeerIntoxicationBase.java[]
 ----
 
-== Back to the main page
+== Back to the Main Page
 
 link:../workshops.html[Click here to go back to the main page]

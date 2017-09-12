@@ -11,8 +11,8 @@
 
 = Spring Cloud Contract Advanced
 
-In this tutorial we'll keep the contracts together with the producer code and we'll check
-out more advanced concepts behind Spring Cloud Contract.
+In this tutorial, we keep the contracts together with the producer code, and we check
+out the more advanced concepts behind Spring Cloud Contract.
 
 == Scenarios
 
@@ -34,36 +34,39 @@ image::{images_folder}/flow.png[title="Consumer Driven Contract flow"]
 
 == Tutorial
 
-Consumer Driven Contract is like TDD on the layer of architecture. Let's start with writing a test on the
-consumer side.
+Using Consumer Driven Contracts is like using TDD at the architecture level. We start by
+writing a test on the consumer side.
 
-=== Consumer flow 1
+=== Consumer Flow 1
 
 image::{images_folder}/consumer_flow_1.png[title="Interact with cloned producer code"]
 
-IMPORTANT: This tutorial assumes that you've completed the previous tutorials and the consumer
-code has been already set up with appropriate dependencies.
+IMPORTANT: This tutorial assumes that you completed the previous tutorials and that the
+consumer code has already been set up with appropriate dependencies.
 
-- Let's open the `GrumpyBartenderControllerTest`
-- First step will be to write the missing implementation of the tests. Basing on the requirements
-presented above
-+
+Let's open the `GrumpyBartenderControllerTest`. The first step is to write the missing
+implementation of the tests. Basing on the previously shown requirements, the controller
+should resemble the following:
+
 [source,java]
 ----
 include::{consumer}/src/test/java/com/example/GrumpyBartenderControllerTest.java[tags=tests]
 ----
-- If we run the tests - obviously they will fail. Let's now check out the producer's code
-to define the missing contract. Open the `producer_advanced` project
+If we run the tests now, they fail. Let's now check out the producer's code
+to define the missing contract. Open the `producer_advanced` project.
 
-==== Cloned producer
+==== Cloned Producer
 
-- As usual we will not clone the producer's code but that's what we would actually do
-in a real life scenario.
-- Under `src/test/resources/contracts/beer/rest/` create a `shouldNotSellAnyAlcohol.groovy` file
-- Now let's write our contract!
-- You can define the contracts using Groovy DSL. Let's create our first HTTP contract.
-  * Call the `Contract.make` method to start defining the contract
-+
+As usual in these tutorials, we do not clone the producer's code, even though we would do
+so in a real life scenario.
+
+Now let's write our contract! You can define the contracts with Groovy DSL. Let's create
+our first HTTP contract. To do so:
+
+. Under `src/test/resources/contracts/beer/rest/`, create a
+`shouldNotSellAnyAlcohol.groovy` file.
+. Call the `Contract.make` method to start defining the contract, as follows:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -71,10 +74,12 @@ org.springframework.cloud.contract.spec.Contract.make {
 }
 ----
 
-  * You can call `description()` method to provide some meaningful description. TIP: You can use the
-   Groovy multiline String `""" """` to have all special characters escaped. Every new line in the String
-   will be converted into a new line character. Example
-+
+* You can call the `description()` method to provide some meaningful description.
+
+TIP: You can use the Groovy multiline String `""" """` to have all special characters
+escaped. Every new line in the String is converted into a new line character. The
+following code shows an example:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -84,8 +89,8 @@ org.springframework.cloud.contract.spec.Contract.make {
 }
 ----
 
-  * Now call the `request { }` and `response { }` methods
-+
+Now call the `request { }` and `response { }` methods, as shown below:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -99,10 +104,11 @@ org.springframework.cloud.contract.spec.Contract.make {
 }
 ----
 
-  * Let's assume that we're interested in sending a `POST` method. Call `method POST()` or `method "POST"`.
-  TIP: In Groovy you don't need to provide parentheses (in most cases). You can write either `method POST()`
-  or `method(POST())`. In both cases it's the same syntax
-+
+Let's assume that we want to send a `POST` method. Call `method POST()` or `method "POST"`.
+
+TIP: In Groovy, you don't need to provide parentheses (in most cases). You can write
+either `method POST()` or `method(POST())`. In both cases, the effet is the same.
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -116,8 +122,10 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * Now we need to provide some URL. Let it be `/buy`. Let's write `url "/buy"`
-+
+
+Now we need to provide a URL. You can set it to `/buy` by writing `url "/buy"`, as shown
+in the following code:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -132,10 +140,11 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * Now time to define some body. We want to define an `age` and `name` fields.
-  Let's make `name` accept any alpha unicode value. Let's make `age` be a concrete value
-  at this time. We will make it dynamic in the next step
-+
+Now it's time to define the body. We want to define `age` and `name` fields. Let's make
+`name` accept any alpha unicode value. Let's make `age` be a concrete value at this time.
+We will make it dynamic in the next step. The following code sets our initial values for
+both fields:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -154,13 +163,14 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * As you can see we've used the `$()` method where we've
-  used the `anyAlphaUnicode()` function to set a dynamic value.
-  * Lets now try to make the `age` dynamic. In Spring Cloud Contract you can either provide
-  the dynamic values directly in the body (as we have with the `name`) or via `stubMatchers`
-  and `testMatchers` sections. Let's use the first one. We'll define the JSON path for
-  which we want to define a dynamic value.
-+
+As you can see, we used the `$()` method where we've used the `anyAlphaUnicode()`
+function to set a dynamic value.
+
+Now we can make the `age` field be dynamic. In Spring Cloud Contract, you can either
+provide the dynamic values directly in the body (as we have with the `name`) or via
+`stubMatchers` and `testMatchers` sections. Let's use the first one. We define the JSON
+path for which we want to define a dynamic value, as follows:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -182,16 +192,19 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * Inside the `stubMatchers` section we've defined that an element matching a JSON
-  path `$.age` has to match a regular expression of `[2-9][0-9]`. You can check out
-  that there are other methods than `byRegex`. You can read about them in the
-  https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_dynamic_properties_in_matchers_sections[documentation].
-+
-IMPORTANT: If you provide a value via the matchers section then the value for the key for which
-you've added the matching will get *removed* from automatic test assertion generation.
-You'll have to provide those values manually via the matchers section.
-  * Now time for the headers... Call the `headers { }` method
-+
+
+Inside the `stubMatchers` section, we defined that an element matching a JSON path of
+`$.age` has to match a regular expression of `[2-9][0-9]`. You can see that there are
+methods other than `byRegex`. You can read about them in the
+https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_dynamic_properties_in_matchers_sections[documentation].
+
+IMPORTANT: If you provide a value via the matchers section, then the value for the key
+for which you added the matching is *removed* from automatic test assertion generation.
+You have to provide those values manually via the matchers section.
+
+Now we can create the headers by calling the `headers { }` method, as shown in the
+following code:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -217,9 +230,10 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * Inside that method let's define that we want to use the `Content-Type: "application/json"` header. Just
-  call `contentType(applicationJson())` methods
-+
+Inside that method, let's define that we want to use the
+`Content-Type: "application/json"` header. Just call `contentType(applicationJson())`
+methods:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -245,11 +259,13 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * Congratulations! You defined how you would like the contract for the request to look like! Time for the
-  response
-  * In the `response` block we would like to define that that the status of our response will be 200.
-  Just call `status 200`
-+
+
+Congratulations! You defined how you would like the contract for the request to look!
+
+Now we can work on the response. In the `response` block, we want to define that the
+status of our response will be 200. To do so, call `status 200`, as shown in the
+following code:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -276,18 +292,20 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * We'd like our response to have some body. We'll have the `message` and `status` fields.
-  In the `message` we will want to respond with `You're drunk [name from request]. Go home!`
-  For the `status` we will want to always return a `NOT_OK` value and in our tests
-  have a custom assertion.
-  * Let's start with the `message` field. Spring Cloud Contract gives you a method
-  `fromRequest()` that allows you to point in the response that you would like to
-  fetch some values from the request. In our case the value we want to take is inside
-  the request body under `$.name` JSON path. That's why we can set the value of `message` to
-  `"You're drunk [${fromRequest().body('$.name')}]. Go home!",`. Note that we have a `""`
-  Groovy String with a `${}` String interpolation in which we're calling the `fromRequest()`
-  method. Enough of talking - let's write some code!
-+
+
+We want our response to have a body. We want to use the `message` and `status` fields.
+In the `message`, we want to respond with `You're drunk [name from request]. Go home!`
+For the `status`, we want to always return a `NOT_OK` value and have a custom assertion
+in our tests.
+
+Let's start with the `message` field. Spring Cloud Contract gives you a method, called
+`fromRequest()`, that lets you specify in the response that you would like to fetch some
+values from the request. In our case, the value we want in the request is inside the
+request body under the `$.name` JSON path. Consequently, we can set the value of
+`message` to `"You're drunk [${fromRequest().body('$.name')}]. Go home!",`. Note that we
+have a `""` Groovy String with a `${}` String interpolation in which we're calling the
+`fromRequest()` method. The following code shows how all of that works:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -317,27 +335,30 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * Ok we've got the message response that references the request. Time for the second
-  field. Until now we've been always providing a single value for the dynamic parts
-  of the contract. Whenever we have dynamic values on one side (consumer / producer) then
-  on the other we need a concrete value. We can provide that value manually. For the
-  response in the stub we need to provide a concrete value equal to `NOT_OK`.
-  For the generated test we want to have a custom assertion done via the `assertStatus()` method
-  defined in the base class. To achieve that we need to write `$(c("NOT_OK"), p(execute('assertStatus($it)')))`
-  Let's now analyze this syntax.
-    ** `c()` is a shortcut for `consumer()` and `p()` for `producer().
-  Via `$(c(),p())` , in this case, we're providing a concrete value for the consumer and
-  a dynamic one for the producer
-    ** The `$(c("NOT_OK"),...)` means that for the response in the stub, for the fields `status`
-     we want the stub to contain the value `NOT_OK`
-    ** The `$(...,p(execute('assertStatus($it)')))` means that we want on the producer side,
-    in the autogenerated tests, to execute a method defined in the base class. That method's
-    called `assertStatus()`. As a parameter of that method we want to pass the value of
-    an element present in the response JSON. In our case we're providing a dynamic value for
-    the `$.status` field. `assertStatus($it)` will get translated to
-    `assertStatus(read the $.status from the response JSON)`
-  * Enough of talking - let's write the response body
-+
+
+Now we have the message response that references the request. It's time for the second
+field. Until now, we always provided a single value for the dynamic parts of the
+contract. Whenever we have dynamic values on one side (consumer or producer), then we
+must have a concrete value on the other side. In this case, we can provide that value
+manually. For the response in the stub, we need to provide a concrete value equal to
+`NOT_OK`. For the generated test, we want to have a custom assertion done via the
+`assertStatus()` method defined in the base class. To achieve that, we need to write
+`$(c("NOT_OK"), p(execute('assertStatus($it)')))`. Let's now analyze this syntax:
+
+ * `c()` is a shortcut for `consumer()`, and `p()` is short for `producer(). By calling
+ `$(c(),p())`, we provide a concrete value for the consumer and a dynamic one for the
+ producer.
+ * The `$(c("NOT_OK"),...)` means that, for the response in the stub, for the `status`
+ field, we want the stub to contain a value of `NOT_OK`.
+* The `$(...,p(execute('assertStatus($it)')))` means that we want, on the producer side,
+in the autogenerated tests, to run a method defined in the base class. That method is
+called `assertStatus()`. As a parameter of that method, we want to pass the value of
+an element present in the response JSON. In our case, we provide a dynamic value for
+the `$.status` field. `assertStatus($it)` gets translated to `assertStatus(read the
+$.status from the response JSON)`
+
+Now we can write the response body, as shown in the following code:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -368,48 +389,14 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * Now let us assume that actually we want to perform some more complex analysis of
-  the `message` field via a method called `assertMessage()`. There's another way to do that -
-  we can call the `testMatchers` section.
-  * Under `testMatchers` we can define via JSON Path the element we would like
-  to dynamically assert. Let's add this section
-+
-[source,groovy]
-----
-org.springframework.cloud.contract.spec.Contract.make {
-    description("""
-        Represents a grumpy waiter that is too bored to sell any alcohol for anyone.
-    """)
-    request {
-        method POST()
-        url "/check"
-        body(
-            name: $(anyAlphaUnicode()),
-            age: 25
-            )
-        }
-        stubMatchers {
-            jsonPath('$.age', byRegex('[2-9][0-9]'))
-        }
-        headers {
-            contentType(applicationJson())
-        }
-    }
-    response {
-        status 200
-        body(
-            message: "You're drunk [${fromRequest().body('$.name')}]. Go home!",
-            status: $(c("NOT_OK"), p(execute('assertStatus($it)')))
-        )
-        testMatchers {
-            jsonPath('$.message', byCommand('assertMessage($it)'))
-        }
-    }
-}
-----
-  * Last thing to add are the response headers. We're doing exactly the same thing as we have done previously
-  for the request. `headers { contentType(applicationJson()) }`.
-+
+
+Now we may want to perform some more complex analysis of the `message` field through a
+method called `assertMessage()`. There's another way to do that: We can call the
+`testMatchers` section.
+
+Under `testMatchers`, we can define, through a JSON path, the element we want to
+dynamically assert. To do so, we can add the following section:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -440,17 +427,56 @@ org.springframework.cloud.contract.spec.Contract.make {
         testMatchers {
             jsonPath('$.message', byCommand('assertMessage($it)'))
         }
+    }
+}
+----
+
+The last thing to add are the response headers. We do exactly the same thing as we
+previously did for the request, except that we use
+`headers { contentType(applicationJson()) }`, as shown in the following example:
+
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+        Represents a grumpy waiter that is too bored to sell any alcohol for anyone.
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+            name: $(anyAlphaUnicode()),
+            age: 25
+            )
+        }
+        stubMatchers {
+            jsonPath('$.age', byRegex('[2-9][0-9]'))
+        }
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body(
+            message: "You're drunk [${fromRequest().body('$.name')}]. Go home!",
+            status: $(c("NOT_OK"), p(execute('assertStatus($it)')))
+        )
+        testMatchers {
+            jsonPath('$.message', byCommand('assertMessage($it)'))
+        }
         headers {
             contentType(applicationJson())
         }
     }
 }
 ----
-  * We're almost done. We wrote a very generic example that will catch a person with any name.
-  But in the requirements it was written that a `starbuxman` person always has to get the beer.
-  So we will have a specific case of our generic one. That's we will set the `priority` to `100`
-  (the higher the number, the lower the priority is)
-+
+
+We're almost done. We wrote a very generic example that catches a person with any name.
+However, in the requirements, we saw that a `starbuxman` person always has to get the
+beer. Consequently, we need a specific case of our generic pattern. That is why we will
+set the `priority` to `100` (the higher the number, the lower the priority).
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -488,14 +514,18 @@ org.springframework.cloud.contract.spec.Contract.make {
     priority 100
 }
 ----
-  * Congratulations! You have created your first contract! Time to define the Josh's version.
-  * Copy the file and call it `shouldSellAlcoholOnlyToStarbuxman.groovy`.
-    ** Now set the name to `starbuxman`
-    ** Change the priority to `10`
-    ** the `message` should contain `There you go Josh!"
-    ** `status` should be `OK`
-    ** we don't want to do any custom server side assertions
-+
+
+Congratulations! You have created your first contract! Now we can define a version for
+someone named Josh.
+
+. Copy the file and call it `shouldSellAlcoholOnlyToStarbuxman.groovy`.
+. Set the name to `starbuxman`.
+. Set the priority to `10`.
+. Set the `message` to `There you go Josh!`.
+. Set the `status` to `OK`.
+
+NOTE: We do not want to do any custom server-side assertions.
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -530,32 +560,40 @@ org.springframework.cloud.contract.spec.Contract.make {
     priority 10
 }
 ----
-  * Congratulations! You have created all the contracts. Now go ahead and install the stubs
-+
+
+Congratulations! You have created all the contracts. Now we can go ahead and install the
+stubs, as shown in the following code for both Maven and Gradle:
+
 [source,bash,indent=0,subs="verbatim,attributes",role="primary"]
 .Maven
 ----
 ./mvnw clean install -DskipTests
 ----
-+
+
 [source,bash,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
 ./gradlew clean build publishToMavenLocal
 ----
-  * Let's now go back to our consumer tests and open the `GrumpyBartenderControllerTest` class.
-- Time to add Stub Runner as usual. However this time we won't pass
-the port. We want the port to be automatically set.
-+
+
+Now we can go back to our consumer tests and open the `GrumpyBartenderControllerTest`
+class. We want to add Stub Runner as usual. However, this time, we do not pass the port.
+We want the port to be set automatically.
+
 [source,java]
 ----
 include::{root}/consumer/src/test/java/com/example/GrumpyBartenderControllerTest.java[tags=stubrunner]
 ----
-  * How can you retrieve the port value then? There are 2 ways of doing that
-    ** You can autowire the field annotated with
-    `@Value("${stubrunner.runningstubs.artifactid.port}")`. Example for
-    `beer-api-producer-advanced`
-+
+
+How can you retrieve the port value then? There are two ways of doing so:
+
+* Autowire the field annotated with
+`@Value("${stubrunner.runningstubs.artifactid.port}")`.
+* Use the autowired `StubFinder` interface, which includes the `findStub` method.
+
+The following code shows an example of autowiring the field for
+`beer-api-producer-advanced`:
+
 [source,java]
 ----
 @Value("${stubrunner.runningstubs.beer-api-producer-advanced.port}") int stubPort;
@@ -565,9 +603,10 @@ public void setupPort() {
     controller.port = stubPort;
 }
 ----
-    ** You can use the autowired `StubFinder` interface that has the
-    `findStub` method. Example for `beer-api-producer-advanced`
-+
+
+The following code shows an example of using the `StubFinder` interface for
+`beer-api-producer-advanced`:
+
 [source,java]
 ----
 @Autowired StubFinder stubFinder;
@@ -577,14 +616,16 @@ public void setupPort() {
     controller.port = stubFinder.findStubUrl("beer-api-producer-advanced").getPort();
 }
 ----
-  * Let's go with the first option. We want to inject the value of the port
-  of the running stub to the controller.
-- Now if we run the tests then they should pass successfully
-- Congratulations! As consumers - we've successfully played around with the API of the producer both for
-HTTP and messaging. Now we're filing a PR to their code with the proposal of contract and let's switch to
-the producer side.
 
-=== Producer flow 1
+Let's go with the first option (autowiring the field). We want to inject the value of the
+port of the running stub into the controller. Now, when we run the tests, then they
+should pass successfully.
+
+Congratulations! As consumers, we successfully used the API of the producer for both
+HTTP and messaging. Now we can file a pull request (PR) to the producer's code with the
+proposal of the contract. Let's switch to the producer side.
+
+=== Producer Flow 1
 
 image::{images_folder}/producer_flow_1.png[title="Producer takes over the PR, writes missing impl and merges the PR"]
 
@@ -594,39 +635,44 @@ include::snippets/generating_tests_from_contract.adoc[]
 
 ==== Fixing broken HTTP tests
 
-- The generated tests have failed. We need to fix it by providing
+The situation is that the generated tests have failed. We need to fix it by providing
 the missing assert methods in the base class. We also need to
-setup RestAssured. Let's start with the first one
-- Go to `BeerRestBase`
-- Add the missing `assertStatus(String status)` and `assertMessage(String message)`
-methods (<<_missing_assert_methods,or copy from the solution>>)
-    * `assertStatus` should assert that the `status` is equal to `NOT_OK`
-    * `assertMessage` should assert that the `message` contains `Go home!`
-- Also we need to add the missing Rest Assured setup. We just want to
-add the `BuyController` into the list of standalone setup
-+
+set up RestAssured. Let's start with the first one:
+
+. Go to `BeerRestBase`.
+. Add the missing `assertStatus(String status)` and `assertMessage(String message)`
+methods (<<_missing_assert_methods,or copy from the solution>>).
+* `assertStatus` should assert that the `status` is equal to `NOT_OK`.
+* `assertMessage` should assert that the `message` contains `Go home!`
+. Add the missing Rest Assured setup by adding the `BuyController` into the list of
+standalone set up classes, as shown in the following code snippet:
+
 [source,java]
 ----
 RestAssuredMockMvc.standaloneSetup(..., new BuyController(), ...);
 ----
-- This time we will not play with mocking in the base class
-cause we've already done that in the previous tutorials. We'll try to
-make our tests pass as fast as possible.
-+
-IMPORTANT: we want our Controller to use the async servlet functionality,
-that's why we need it to return a `Callable<Response>`
-- That's why we need to write our implementation of the controller (<<_buycontroller,or copy from the solution>>).
-    * POST method to the `/buy` endpoint that produces and consumes JSON
-    * The incoming `Person` name if
-        ** equal to `starbuxman` should return `status` `OK` and `message`
-        `There you go Josh!`
-        ** not equal to `starbuxman` should return `status` `NOT_OK` and `message`
-         (example for name equal `foo`) `You're drunk [foo]. Go home!`
-- Now if you run the build again then your autogenerated tests will... still fail!
-- The reason for that is that we're using the async servlet feature but
-Rest Assured doesn't know about this. To fix this we need to add in the
-response side of our contracts the `async()` method. (<<_grumpy_contracts,Check the solution>>).
-- Now if you run the build again then your tests should pass.
+This time, we are not mocking in the base class, because we already did so in the
+previous tutorials. Instead, we try to make our tests pass as fast as possible.
+
+IMPORTANT: We want our Controller to use the async servlet functionality. That's
+why we need it to return a `Callable<Response>`
+
+To ensure that we return a `Callable<Response>`, we need to write our implementation of
+the controller (<<_buycontroller,or copy from the solution>>) such that it has the
+following characteristics:
+
+* A POST method to the `/buy` endpoint that produces and consumes JSON
+* If the `Person` name is equal to `starbuxman`, return a `status` code of `OK` and a
+`message` of `There you go Josh`.
+* If the `Person` name is not equal to `starbuxman`, return a `status` code of `NOT_OK`
+and a `message` of `You're drunk [name]. Go home!`
+
+
+Now, when you run the build again, your autogenerated tests still fail. The reason for
+the failure is that we used the async servlet feature but Rest Assured does not know
+that. To fix that, we need to add the `async()` method in the response side of our
+contracts. (<<_grumpy_contracts,Check the solution>>). Now, when you run the build again,
+your tests should pass.
 
 == Solutions
 
@@ -662,6 +708,6 @@ include::../../producer_advanced/src/test/resources/contracts/beer/rest/shouldNo
 include::../../producer_advanced/src/test/resources/contracts/beer/rest/shouldSellAlcoholOnlyToStarbuxman.groovy[]
 ----
 
-== Back to the main page
+== Back to the Main Page
 
 link:../workshops.html[Click here to go back to the main page]

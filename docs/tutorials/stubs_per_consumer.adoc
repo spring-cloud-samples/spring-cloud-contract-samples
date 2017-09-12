@@ -8,46 +8,46 @@
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-with-stubs-per-consumer
 
-= Contracts on the producer side
+= Contracts on the Producer Side
 
-In this tutorial we'll keep the contracts together with the producer code. Each consumer will
-define the contracts in a dedicated folder. For the same requests the consumers will
-expect different responses.
+In this tutorial, we keep the contracts together with the producer code. Each consumer
+defines the contracts in a dedicated folder. For the same requests, the consumers expect
+different responses.
 
 == Scenarios
 
-We'll have to write the following features:
+We must write the following features:
 
-image::{images_folder}/scenario_stubs_per_consumer_1.png[title="Addresses unofficially the person by name for positive beer selling via HTTP"]
-
-{nbsp}
-{nbsp}
-
-image::{images_folder}/scenario_stubs_per_consumer_2.png[title="Addresses unofficially the person by name for negative beer selling via HTTP"]
+image::{images_folder}/scenario_stubs_per_consumer_1.png[title="Unofficially addresses the person by name for positive beer selling via HTTP"]
 
 {nbsp}
 {nbsp}
 
-image::{images_folder}/scenario_stubs_per_consumer_3.png[title="Addresses officially the person by surname for positive beer selling via HTTP"]
+image::{images_folder}/scenario_stubs_per_consumer_2.png[title="Unofficially addresses the person by name for negative beer selling via HTTP"]
 
 {nbsp}
 {nbsp}
 
-image::{images_folder}/scenario_stubs_per_consumer_4.png[title="Addresses officially the person by surname for negative beer selling via HTTP"]
+image::{images_folder}/scenario_stubs_per_consumer_3.png[title="Officially addresses the person by surname for positive beer selling via HTTP"]
+
+{nbsp}
+{nbsp}
+
+image::{images_folder}/scenario_stubs_per_consumer_4.png[title="Officially addresses the person by surname for negative beer selling via HTTP"]
 
 {nbsp}
 {nbsp}
 
 == Flow
 
-image::{images_folder}/flow.png[title="Consumer Driven Contract flow"]
+image::{images_folder}/flow.png[title="Consumer Driven Contract Flow"]
 
 == Tutorial
 
-Consumer Driven Contract is like TDD on the layer of architecture. Let's start with writing a test on the
-consumer side. This time we'll simulate in our single code base as if we had
-two separate consumers. Normally both consumers would be having their own
-codebases but for the sake of demo we'll try to keep things simple.
+Consumer Driven Contracts are like TDD in terms of architecture. We start by writing a
+test on the consumer side. This time, we simulate in our single code base as if we had
+two separate consumers. Normally, both consumers would have their own code bases, but,
+for the sake of demonstration, we try to keep things simple.
 
 === Consumer flow 1
 
@@ -55,71 +55,76 @@ image::{images_folder}/consumer_flow_1.png[title="Interact with cloned producer 
 
 ==== IDE setup
 
-- Open in your IDE the `consumer_with_stubs_per_consumer` project (either via Maven or Gradle)
-- We have the following objectives for HTTP
-    * As a consumer with name `foo-service`
-        ** for the client with certain `name` and `age` we'll ask the producer to verify whether
-         the person is eligible to get the beer
-        ** we expect to retrieve the `status` and the `name` of the client
-        ** depending on the `status` we either accept or decline giving a beer
-        ** since we're a friendly service we'll address the client by `MY DEAR FRIEND` statement
-        and then use the person's `name`
-        ** if the person (e.g. with name `marcin`) can get the beer then we say
-         `THERE YOU GO MY DEAR FRIEND [marcin]`.
-        ** otherwise we say `GET LOST MY DEAR FRIEND [marcin]`
-    * As a consumer with name `bar-service`
-        ** for the client with certain `name` and `age` we'll ask the producer to verify whether
-         the person is eligible to get the beer
-        ** we expect to retrieve the `status` and the `surname` of the client (for simplicity we will
-        receive the provided `name` as `surname`)
-        ** depending on the `status` we either accept or decline giving a beer
-        ** since we're a very official service we'll address the client by `MR` statement
-        ** if the person (e.g. with name `marcin`) can get the beer then we say
-         `THERE YOU GO MR [marcin]`. Where `marcin` came back from the producer service
-         as a `surname`.
-        ** otherwise we say `GET LOST MR [marcin]`
-- Normally we would be doing TDD but we already have some code ready to speed things up
-- In the `BeerController` class you can see that the implementation of the method is missing -
-we'll get back to that later. For now you can see that we have a `/beer` endpoint that expects a JSON
- request body that maps to a `Person` class
-- Let's now open the `BeerControllerTest` and write the missing test bodies
-+
+* In your IDE, open the `consumer_with_stubs_per_consumer` project (either via Maven or
+Gradle)
+* We have the following objectives for HTTP:
+** As a consumer with name `foo-service`:
+*** For a client with a certain `name` and `age`, we ask the producer to verify whether
+the person is eligible to get the beer.
+*** We expect to retrieve the `status` and the `name` of the client.
+*** Depending on the `status`, we either accept or decline giving a beer.
+*** Since we have a friendly service, we address the client by `MY DEAR FRIEND` and then
+use the person's `name`.
+*** If the person (for example, with the name, `marcin`) can get the beer then we say
+`THERE YOU GO MY DEAR FRIEND [marcin]`.
+*** Otherwise, we say `GET LOST MY DEAR FRIEND [marcin]`.
+** As a consumer with name `bar-service`:
+*** For the client with a certain `name` and `age`, we ask the producer to verify whether
+the person is eligible to get the beer.
+*** We expect to retrieve the `status` and the `surname` of the client (for simplicity we
+receive the provided `name` as `surname`).
+*** Depending on the `status`, we either accept or decline giving a beer.
+*** Since we have a very official service, we address the client by `MR`.
+*** If the person (for example, with the name, `marcin`) can get the beer, then we say
+`THERE YOU GO MR [marcin]`, Where `marcin` came back from the producer service as a
+`surname`.
+*** Otherwise, we say `GET LOST MR [marcin]`.
+* Normally we would do TDD, but we already have some code ready to speed things up.
+* In the `BeerController` class, you can see that the implementation of the method is
+missing. We return to that later. For now, you can see that we have a `/beer` endpoint
+that expects a JSON request body that maps to a `Person` class.
+* Now open the `BeerControllerTest` and write the missing test bodies.
+
 [source,java]
 ----
 include::{root}/consumer_with_stubs_per_consumer/src/test/java/com/example/BeerControllerTest.java[tags=impl]
 ----
-- We need to name our consumer somehow. The best way will be to provide that value in the
-`properties` attribute in `SpringBootTest` annotation (you could pass it also via a file
-e.g. `application.yml`)
-+
+We need to name our consumer somehow. The best way is to provide that value in the
+`properties` attribute in a `SpringBootTest` annotation, though you also could pass it
+via a file, such as `application.yml`.
+
 [source,java]
 ----
 include::{root}/consumer_with_stubs_per_consumer/src/test/java/com/example/BeerControllerTest.java[tags=foo]
 ----
-- If we run the tests obviously the tests will fail cause we have no implementation
-- Now open the `BeerControllerForBarTest`. In this test class we'll simulate that we are the
-`bar-service` and not the `foo-service`. Let's start with the missing test implementation
-+
+
+If we run the tests, they fail, because we have no implementation.
+Now open `BeerControllerForBarTest`. In this test class, we simulate that we are using
+the `bar-service` and not the `foo-service`. We can start with the missing test
+implementation.
+
 [source,java]
 ----
 include::{root}/consumer_with_stubs_per_consumer/src/test/java/com/example/BeerControllerForBarTest.java[tags=impl]
 ----
-- In this test we will not set the `spring.application.name` - we will change the name by an
-attribute in an annotation later
-- Now we'd want to write some implementation but the problem is such that we don't yet know what API
-we would like to have... This is where we touch the very essence of Consumer Driven Contracts.
-As consumers we want to drive the change of the API that's why, *as consumers*, we will work on the producer code.
+In this test, we do not set the `spring.application.name`. We will change the name with
+an attribute in an annotation later.
+Now we want to write an implementation, but the problem is that we do not yet know what
+API we would like to have. Here, we touch the very essence of Consumer Driven
+Contracts. As consumers, we want to drive the change of the API. That is why, *as
+consumers*, we work on the producer code.
 
 include::snippets/setup_cloned_producer.adoc[]
 
 ==== Defining first `foo-consumer` HTTP contract
 
-- Time to play with the API! Create a `src/test/resources/contracts/foo-consumer/rest`
- folder.
-- You can define the contracts using Groovy DSL. Let's create our first HTTP contract.
-  * Under the `rest` folder create a file `shouldGrantABeerIfOldEnough.groovy`
-  * Call the `Contract.make` method to start defining the contract
-+
+It is time to play with the API Create a `src/test/resources/contracts/foo-consumer/rest`
+folder. You can define the contracts using Groovy DSL. To create your first HTTP
+contract:
+
+. Under the `rest` folder, create a file called `shouldGrantABeerIfOldEnough.groovy`
+. Call the `Contract.make` method to start defining the contract.
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -127,12 +132,12 @@ org.springframework.cloud.contract.spec.Contract.make {
 }
 ----
 
-  * You can call `description()` method to provide some meaningful description.
-+
-TIP: You can use the
-Groovy multiline String `""" """` to have all special characters escaped. Every new line in the String
-will be converted into a new line character. Example
-+
+You can call `description()` method to provide some meaningful description.
+
+TIP: You can use the Groovy multiline String `""" """` to have all special characters
+escaped. Every new line in the String is converted into a new line character, as shown in
+the following example:
+
 [source,groovy]
 ----
 Contract.make {
@@ -152,8 +157,8 @@ then:
 }
 ----
 
-  * Now call the `request { }` and `response { }` methods
-+
+Now call the `request { }` and `response { }` methods, as shown in the following example:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -167,11 +172,12 @@ org.springframework.cloud.contract.spec.Contract.make {
 }
 ----
 
-  * Let's assume that we're interested in sending a `POST` method. Call `method POST()` or `method "POST"`.
-+
-TIP: In Groovy you don't need to provide parentheses (in most cases). You can write either `method POST()`
-  or `method(POST())`. In both cases it's the same syntax
-+
+Let's assume that we want to send a `POST` method. To do so, call `method POST()` or
+`method "POST"`.
+
+TIP: In Groovy, you do not need to provide parentheses (in most cases). You can write
+either `method POST()` or `method(POST())`. The result is the same.
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -185,8 +191,9 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * Now we need to provide some URL. Let it be `/check`. Let's write `url "/check"`
-+
+
+Now we need to provide a URL: `/check`. We can write `url "/check"`.
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -201,19 +208,24 @@ org.springframework.cloud.contract.spec.Contract.make {
     }
 }
 ----
-  * Now time to define some body. We'll leverage some of the Groovy power over here so if you're lost
-  you can always check the http://groovy-lang.org/json.html[Groovy JSON documentation]. Let's call the
-  `body()` method with brackets.
-  * In Groovy you can use the map notation in such a way `[key: "value", secondKey: 2]`. In the same way
-  we can describe the body of a JSON. So in order to send a JSON looking like this `{ "age": 22, "name": "marcin" }`
-  we can create a map notation of `[age:22, name:"marcin"]`. The `body` method accepts a map and in Groovy
-  if a method accepts a map then the `[]` brackets can be omitted. So you can either write
-  `body([age:22, name:"marcin"])` or `body(age:22, name:"marcin")`.
-  * Let us assume that we already want to be more generic about our contract and we want to verify
-  that the age is greater than 20 and that name is any alphaunicode character. We can profit from the
-  `$()` or `value()` methods that Spring Cloud Contract provides to define dynamic behaviour
-  * We'll use the `$(regex(...))` method to define the age and the `$(anyAlphaUnicode())` for the name
-+
+
+* Now we need to define the body. We leverage some of Groovy's power here, so, if you
+get lost you can always check the http://groovy-lang.org/json.html[Groovy JSON
+documentation]. Let's call the `body()` method with brackets.
+// TODO It'd be good to show calling the body with brackets.
+* In Groovy, you can use the map notation this way: `[key: "value", secondKey: 2]`. In
+the same way, we can describe the body with JSON. We want to send JSON such as the
+following `{ "age": 22, "name": "marcin" }`. To do so, we can create a map notation of
+`[age:22, name:"marcin"]`. The `body` method accepts a map. In Groovy, if a method
+accepts a map, then the `[]` brackets can be omitted. So you can write either
+`body([age:22, name:"marcin"])` or `body(age:22, name:"marcin")`.
+* Let's assume that we already want to be more generic about our contract and we want to
+verify that the age is greater than 20 and that name is any alphaunicode character. We
+can use the `$()` or `value()` methods that Spring Cloud Contract provides to define
+dynamic behaviour.
+* We use the `$(regex(...))` method to define the age and the `$(anyAlphaUnicode())` for
+the name.
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -241,8 +253,10 @@ then:
     }
 }
 ----
-  * Now time for the headers... Call the `headers { }` method
-+
+
+Now we can work on the headers, by calling the `headers { }` method, as shown in the
+following example:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -273,44 +287,10 @@ then:
     }
 }
 ----
-  * Inside that method let's define that we want to use the `Content-Type: "application/json` header. Just
-  call `contentType(applicationJson())` methods
-+
-[source,groovy]
-----
-org.springframework.cloud.contract.spec.Contract.make {
-    description("""
-Represents a successful scenario of getting a beer
 
-```
-given:
-	client is old enough
-when:
-	he applies for a beer
-then:
-	we'll grant him the beer
-```
-    """)
-    request {
-        method POST()
-        url "/check"
-        body(
-                age: $(regex("[2-9][0-9]")),
-                name: $(anyAlphaUnicode())
-            )
-        headers {
-            contentType(applicationJson())
-        }
-    }
-    response {
-    }
-}
-----
-  * Congratulations! You defined how you would like the contract for the request to look like! Time for the
-  response
-  * In the `response` block we would like to define that that the status of our response will be 200.
-  Just call `status 200`
-+
+Inside that method, we want to use the `Content-Type: "application/json` header. To do
+so, call `contentType(applicationJson())` methods, as shown in the following example:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -338,26 +318,15 @@ then:
         }
     }
     response {
-        status 200
     }
 }
 ----
-  * We'd like our response to have some body. As you could have assumed there's a `body` method here too.
-  We'll now use another way of defining bodies (which is the less preferred option in Spring Cloud Contract
-  but still can be useful) - using String
-  * We're assuming that we would like to send back a field called `status` that will return `OK` when the
-  person can get the beer. The `foo-consumer` is also interested in getting back in the response
-  the name from the request.
-    ** To reference the request from response via JSON path you can call the `fromRequest()` method - (e.g. for referrencing the
-    `name` field from request) - `fromRequest().body('$.name')"
-    ** In Groovy when doing the multiline string `""" """` you can call the `${}` interpolation
-    mechanism to call a method from within a String.
-+
-TIP: Don't mix the `$()` from Spring Cloud Contract with `${}` interpolation mechanism
-  * Call the `body(""" { "status" : "OK", "name": "${fromRequest().body('$.name')}" } """)`.
-  That way you're defining how the response body will look like by providing the exact JSON value,
-  and inside that JSON you also provide dynamic values. In our case for the `name` response field
-  we'll provide the value of `name` from the request
+
+Congratulations! You defined the contract for the request. Now we can work on the
+response
+
+In the `response` block, we want to define that the status of our response will be 200.
+To do so, call `status 200`, as shown in the following example:
 +
 [source,groovy]
 ----
@@ -387,18 +356,30 @@ then:
     }
     response {
         status 200
-        body("""
-            {
-                "status" : "OK",
-                "name": "${fromRequest().body('$.name')}"
-            }
-        """)
     }
 }
 ----
-  * Last thing to add are the response headers. We're doing exactly the same thing as we have done previously
-  for the request. `headers { contentType(applicationJson()) }`.
-+
+
+* We want our response to have a body. As you might have guessed, there's a `body` method
+here, too. We can now use another way of defining bodies by using String. (That is the
+less preferred option in Spring Cloud Contract, but it can still be useful.)
+* We want to send back a field called `status` that will return `OK` when the person can
+get the beer. The `foo-consumer` is also interested in getting the name in the response
+from the request.
+** To reference the request from the response via the JSON path, you can call the
+`fromRequest()` method. In the following code snippet, we reference the `name` field from
+the request: `fromRequest().body('$.name')".
+** In Groovy, when you use a multiline string (`""" """`), you can call the `${}`
+interpolation mechanism to call a method from within a String.
+
+TIP: Don't confuse the `$()` from Spring Cloud Contract with the `${}` interpolation
+mechanism. Call
+`body(""" { "status" : "OK", "name": "${fromRequest().body('$.name')}" } """)`. That way,
+you can define how the response body looks by providing the exact JSON value, and inside
+that JSON you can also provide dynamic values. In our case, for the `name` response
+field, we provide the value of `name` from the request, as shown in the following
+example:
+
 [source,groovy]
 ----
 org.springframework.cloud.contract.spec.Contract.make {
@@ -433,70 +414,118 @@ then:
                 "name": "${fromRequest().body('$.name')}"
             }
         """)
+    }
+}
+----
+
+The last thing to add is the response headers. We do just about exactly the same thing as
+we did previously for the request, as shown here:
+`headers { contentType(applicationJson()) }`.
+
+[source,groovy]
+----
+org.springframework.cloud.contract.spec.Contract.make {
+    description("""
+Represents a successful scenario of getting a beer
+
+```
+given:
+	client is old enough
+when:
+	he applies for a beer
+then:
+	we'll grant him the beer
+```
+    """)
+    request {
+        method POST()
+        url "/check"
+        body(
+                age: $(regex("[2-9][0-9]")),
+                name: $(anyAlphaUnicode())
+            )
+        headers {
+            contentType(applicationJson())
+        }
+    }
+    response {
+        status 200
+        body("""
+            {
+                "status" : "OK",
+                "name": "${fromRequest().body('$.name')}"
+            }
+        """)
         headers {
             contentType(applicationJson())
         }
     }
 }
 ----
-  * Congratulations! You have created your first contract!
 
-==== Defining second `foo-consumer` HTTP contract
+Congratulations! You have created your first contract!
 
-- Time for you to create the second contract. Create a file called `shouldRejectABeerIfTooYoung.groovy`.
-If you're lost just check out the <<_foo_consumer_contracts,solution>>
-  * Set the `age` in the request to regular expression `[0-1][0-9]`
-  * Update the response body to return a `status` equal to `NOT_OK`.
-  * Update the description
+==== Defining the Second `foo-consumer` HTTP Contract
+
+Now it's time for you to create the second contract. Create a file called
+ `shouldRejectABeerIfTooYoung.groovy`.
+If you get lost, look at the <<_foo_consumer_contracts,solution>>.
+
+. Set the `age` in the request to the following regular expression `[0-1][0-9]`.
+. Update the response body to return a `status` of `NOT_OK`.
+. Update the description.
 
 ==== Defining `bar-consumer` HTTP contracts
 
-- Let's now move to the `bar-consumer`. Let's create a `src/test/resources/contracts/bar-consumer/rest`
- folder.
-- We'll create very similar contracts to the `foo-consumer` one. The only difference is that
-the response will contain a `surname` field instead of a `name` field
-- Go ahead and create 2 files `shouldGrantABeerIfOldEnough.groovy` and `shouldRejectABeerIfTooYoung.groovy`
-and fill them out! <<_bar_consumer_contracts,Or copy from the solution>>
-- We've written the contracts - time to publish some stubs!
+Let's now move to the `bar-consumer`. Create a
+`src/test/resources/contracts/bar-consumer/rest` folder. We will create very similar
+contracts to the `foo-consumer` one. The only difference is that the response contains a
+`surname` field instead of a `name` field. Create 2 files named
+`shouldGrantABeerIfOldEnough.groovy` and `shouldRejectABeerIfTooYoung.groovy` and fill
+them out <<_bar_consumer_contracts,or copy from the solution>>. We have written the
+contracts. It is time to publish some stubs!
 
 include::snippets/setting_plugin_on_clone.adoc[]
 
 ==== Writing missing implementation on the consumer side
 
-- We know what the API should look like.
-Let's go to `BeerController` and write the missing implementation <<_stubs_per_consumer_beercontroller,or copy from the solution>>
-    * We want to send a POST HTTP method to `http://localhost:8090/check`
-    * The JSON body will be the `Person` that we've received in the controller
-    * depending on the status (`OK` or `NOT_OK`) we'll send back
-      ** for `OK`: `THERE YOU GO ` + the result of the `message(body of the response)` method
-      ** for `NOT_OK`: `GET LOST ` + the result of the `message(body of the response)` method
-- If we run the `BeerControllerTest` and `BeerControllerForBarTest` - they will both fail due
-to connection refused. Let's fix that!
+We know what the API should look like. Let's go to `BeerController` and write the
+missing implementation <<_stubs_per_consumer_beercontroller,or copy from the solution>>.
 
-==== Turning on Stub Runner in consumer tests
+* We want to send a POST HTTP method to `http://localhost:8090/check`.
+* The JSON body will contain the `Person` that we received in the controller.
+* Depending on the status (`OK` or `NOT_OK`), we send back:
+** For `OK`: `THERE YOU GO ` + the result of the `message(body of the response)` method.
+** For `NOT_OK`: `GET LOST ` + the result of the `message(body of the response)` method.
 
-- Since we have managed to install the stubs locally and now we've got the missing implementation
-written - let's now go back to the consumer tests
-- Let's add the Spring Cloud Contract Stub Runner as a dependency
+If we run the `BeerControllerTest` and `BeerControllerForBarTest`, they both fail due
+to the connection being refused. Let's fix that.
+
+==== Turning on Stub Runner in Consumer Tests
+
+Since we managed to install the stubs locally and we now have the missing implementation
+written, we can now go back to the consumer tests. Let's add the Spring Cloud Contract
+Stub Runner as a dependency, as shown in the following example:
+
 include::snippets/consumer_stub_runner_dep.adoc[]
 
-- Let's check out the `BeerControllerTest` and add the Stub Runner functionality
-+
+Let's check out the `BeerControllerTest` and add the Stub Runner functionality, as shown
+in the following example:
+
 [source,java]
 ----
 @AutoConfigureStubRunner(workOffline = true,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true)
 ----
-  * You can see that we've turned on the `stubsPerConsumer` flag - that means that the path
-  of stubs is scanned and only those that contain the value of `spring.application.name`
-  will get picked
-- Now let's run the test and it should pass!
-- Let's try to fix the `BeerControllerForBarTest`. We don't want to set the
-`spring.application.name` - that's why we'll set that name on the `@AutoConfigureStubRunner`
-annotation via the `consumerName` property (of course we also have to turn on the
-`stubsPerConsumer` flag)
-+
+
+You can see that we turned on the `stubsPerConsumer` flag. Doing so means that the path
+of stubs is scanned and only those that contain the value of `spring.application.name`
+is picked. Now let's run the test. It should pass. Let's try to fix the
+`BeerControllerForBarTest`. We do not want to set the `spring.application.name`. That's
+why we will set that name on the `@AutoConfigureStubRunner` annotation via the
+`consumerName` property. (Note that we also have to turn on the `stubsPerConsumer` flag.)
+
 [source,java]
 ----
 @AutoConfigureStubRunner(workOffline = true,
@@ -505,9 +534,9 @@ annotation via the `consumerName` property (of course we also have to turn on th
 		consumerName = "bar-consumer")
 ----
 
-Congratulations! As consumers - we've successfully played around with the API of the producer both for
-HTTP and messaging. Now we're filing a PR to their code with the proposal of contract and let's switch to
-the producer side.
+Congratulations! As a consumer, you successfully used the API of the producer for both
+HTTP and messaging. Now we can file a pull request (PR) to their code to propose a
+contract. Let's switch to the producer side.
 
 === Producer flow 1
 
@@ -516,8 +545,10 @@ image::{images_folder}/producer_flow_1.png[title="Producer takes over the PR, wr
 include::snippets/producer_ide_setup.adoc[]
 
 include::snippets/setting_plugin_on_producer.adoc[]
-    * in our situation we'll use the mapping approach. Let's set the following base classes for our contracts
-+
+
+In our situation, we use the mapping approach. Let's set the following base classes for
+our contracts, as shown in the following example:
+
 [source,xml,indent=0,subs="verbatim,attributes",role="primary"]
 .Maven
 ----
@@ -536,7 +567,7 @@ include::snippets/setting_plugin_on_producer.adoc[]
     </configuration>
 </plugin>
 ----
-+
+
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
@@ -551,25 +582,28 @@ include::snippets/generating_tests_from_contract.adoc[]
 
 ==== Fixing broken HTTP tests
 
-- Let's start with HTTP
-  * First let's write the missing implementation in `ProducerController`. The logic to be written
-    is extremely simple - if the `personCheckingService.shouldGetBeer(...)` returns `true` then we
-    should return `new Response(BeerCheckStatus.OK, personToCheck.name)`.
-    Otherwise `new Response(BeerCheckStatus.NOT_OK, personToCheck.name)`.
-    (<<_producerController_for_stubs_per_consumer_implementation,Show solution>>)
+Let's start with HTTP. First, let's write the missing implementation in
+`ProducerController`. The logic to be written is as follows: If the
+`personCheckingService.shouldGetBeer(...)` returns `true`, then we should return
+`new Response(BeerCheckStatus.OK, personToCheck.name)`. Otherwise, we should return
+`new Response(BeerCheckStatus.NOT_OK, personToCheck.name)`.
+(<<_producerController_for_stubs_per_consumer_implementation,Show solution>>).
+
 include::snippets/fixing_base_class.adoc[]
 
-- Now you would merge the PR to master and your CI system would build a fat jar and stubs
+Now you can merge the pull request to `master` and your CI system can build a fat jar and
+the stubs.
 
-IMPORTANT: The stubs per consumer is a very powerful feature. On the producer side, if you want to
-remove a field from the response you can actually very quickly verify if it's used. Try removing
-the `surname` field from the `Response` class and you'll see that the generated `RestTest` in the
-`bar-consumer` subfolder is failing. That means that the `bar-consumer` requires that field and
-you can't remove it safely. On the other hand in production both consumers will receive
-more fields than they define in the contract thus if they don't configure their serializers
-properly (to ignore unknown fields) then their tests will pass but they're integration will fail!
+IMPORTANT: Per consumer stubs is a powerful feature. On the producer side, if you want to
+remove a field from the response, you can quickly verify if gets used. Try removing
+the `surname` field from the `Response` class. You can see that the generated `RestTest`
+in the `bar-consumer` subfolder fails. That means that the `bar-consumer` requires the
+`surname` field and that you can't safely remove it. On the other hand, in production,
+both consumers receive more fields than they define in the contract. Thus, if they do not
+configure their serializers properly (to ignore unknown fields), then their tests pass
+but their integrations fail.
 
-- Congratulations - you've completed the producer side of this tutorial
+Congratulations! You have completed the producer side of this tutorial.
 
 include::snippets/consumer_flow_2.adoc[]
 
@@ -751,7 +785,7 @@ then:
 }
 ----
 
-=== Stubs per consumer BeerController
+=== Stubs Per Consumer BeerController
 
 [source,java]
 ----
@@ -768,6 +802,6 @@ if (personCheckingService.shouldGetBeer(personToCheck)) {
 return new Response(BeerCheckStatus.NOT_OK, personToCheck.name);
 ----
 
-== Back to the main page
+== Back to the Main Page
 
 link:../workshops.html[Click here to go back to the main page]
