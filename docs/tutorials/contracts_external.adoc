@@ -11,7 +11,7 @@
 
 = Contracts in an external repository
 
-In this tutorial we'll keep the contracts in a separate repository.
+In this tutorial, we keep the contracts in a separate repository (a common arrangement).
 
 include::../scenarios.adoc[]
 
@@ -21,15 +21,15 @@ image::{images_folder}/flow.png[title="Consumer Driven Contract flow"]
 
 == Tutorial
 
-Consumer Driven Contract is like TDD on the layer of architecture. Let's start with writing a test on the
-consumer side.
+Using Consumer Driven Contracts is like using TDD at the architecture level. Let's start
+by writing a test on the consumer side.
 
 === Consumer flow 1
 
 image::{images_folder}/external_consumer_flow_1.png[title="Interact with cloned repo with contracts"]
 
-IMPORTANT: For the sake of this tutorial let's assume that our consumer application is called
-`beer-api-consumer`
+IMPORTANT: For the sake of this tutorial, our consumer application is called
+`beer-api-consumer`.
 
 ==== IDE setup
 
@@ -37,15 +37,16 @@ include::snippets/consumer_ide_setup.adoc[]
 
 ==== Cloning the repo with contracts
 
-- In this tutorial we will not clone the repo with contracts, we'll just
-open it in the IDE (the repo is called `beer_contracts`)
+In this tutorial, we will not clone the repo with contracts. We'll open it in the IDE.
+The repository is called `beer_contracts`.
 
 ==== Adding dependencies in the repo with contracts
 
-- Since we want the IDE to help us with code completion, let's add the necessary Spring Cloud Contract
-dependencies to the `pom.xml` under `beer_contracts` repo. You need to
-add `spring-cloud-starter-contract-verifier` as a dependency
-+
+Since we want the IDE to help us with code completion, let's add the necessary Spring
+Cloud Contract dependencies to the `pom.xml` under `beer_contracts` repo. You need to
+add `spring-cloud-starter-contract-verifier` as a dependency, as shown in the following
+example:
+
 [source,xml]
 ----
 <dependency>
@@ -53,112 +54,134 @@ add `spring-cloud-starter-contract-verifier` as a dependency
     <artifactId>spring-cloud-starter-contract-verifier</artifactId>
 </dependency>
 ----
-+
-IMPORTANT: Notice that we're adding the dependency in the `compile` scope. That's because
- we want all of the contracts to be packaged as if they were production code
-- This task will be performed once only. When you'll be adding any subsequent contracts
-you won't be able to add it again.
+
+IMPORTANT: Notice that we add the dependency in the `compile` scope, because we want all
+of the contracts to be packaged as if they were production code. This task is performed
+only once. When you add subsequent contracts, you won't be able to add them again.
 
 ==== Creating the proper folder structure
 
-- In order to use repo with contracts you need to set up the folders so that they follow
-the following convention
-  ** `/slash/separated/group/id/of/producer/producer-artifactid/consumer-name/`
-  ** in this tutorial our producer will have coordinates `com.example:beer-api-producer-external`
-  and our consumer will be called `beer-api-consumer`
-+
+In order to use a repository with contracts, you need to set up the folders so that they
+adhere to the following convention:
+** `/slash/separated/group/id/of/producer/producer-artifactid/consumer-name/`
+In this tutorial, our producer has the following coordinates:
+`com.example:beer-api-producer-external`. Our consumer will be called
+`beer-api-consumer`.
+
+Create the contract directory by running the following commands at the command line:
+
 [source,bash]
 ----
 $ cd beer_contracts
 $ mkdir -p src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/messaging
 $ mkdir -p src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/rest
 ----
-- We have successfully created the proper folder structure. Time to add some contracts
+We have successfully created the proper folder structure. Time to add some contracts
 
 ==== Defining first HTTP contract
 
-- Let' move to the `src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/`
-folder . (<<_proposal_of_simple_contracts_by_consumer,Show solution>>)
+Let's move to the
+`src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/`
+folder. (<<_proposal_of_simple_contracts_by_consumer,Show solution>>).
 
 include::snippets/first_http_contract.adoc[]
 
-==== Defining second HTTP contract
+==== Defining the Second HTTP Contract
 
-- Time for you to create the second contract. Under `src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/rest`
+Now it's time for you to create the second contract. Under
+`src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/rest`,
 create a file called `shouldRejectABeerIfTooYoung.groovy`.
-If you're lost just check out the <<_proposal_of_simple_contracts_by_consumer,solution>>
-  * Set the `age` in the request to `17`
-  * Update the response body to return a `status` equal to `NOT_OK`.
-  * Update the description
+If you get lost, examine the <<_proposal_of_simple_contracts_by_consumer,solution>>. To
+create the second contract:
 
-==== Defining first messaging contract
+. Set the `age` in the request to `17`.
+. Update the response body to return a `status` of `NOT_OK`.
+. Update the description.
 
-- Ok we've done the case for HTTP. Let's move to the `src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/messaging` folder
+==== Defining the First Messaging Contract
+
+We've done the case for HTTP. Let's move to the
+`src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/messaging`
+folder.
 
 include::snippets/first_messaging_contract.adoc[]
-* Congratulations! You've created your first messaging contract!
+
+Congratulations! You have created your first messaging contract!
 
 ==== Defining second messaging contract
 
-- Time for you to create the second contract. Create a file called `shouldSendRejectedVerification.groovy`.
-If you're lost just check out the <<_proposal_of_simple_contracts_by_consumer,solution>>
-  * Set the `eligible` in the response body to `false`
-  * Update the label to `rejected_verification`
-  * Update the description
+Now it's time for you to create the second contract. Create a file called
+`shouldSendRejectedVerification.groovy`.
+If you get lost, examine the <<_proposal_of_simple_contracts_by_consumer,solution>>. To
+define the second message contract;
 
-====  Setting up Spring Cloud Contract in the producer contracts config file inside contracts repo
+. Set the `eligible` property in the response body to `false`.
+. Update the label to `rejected_verification`.
+. Update the description.
 
-- In case of repo with contracts we need a way for the consumer to convert the contracts into stubs
-and install them locally. At the moment the easiest way seems to be usage of Maven or Gradle to do so.
-- In this tutorial we'll use Maven. Below you can see how the `pom.xml` should look like. (you can also
-find it under `beer_contracts/example/pom.xml`).
-+
+====  Setting up Spring Cloud Contract in the Producer Contracts Config File inside the Contracts Repo
+
+For a repository with contracts, we need a way for the consumer to convert the contracts
+into stubs and install them locally. At the moment, the easiest way is to use of Maven or
+Gradle. In this tutorial, we use Maven. You can see how the `pom.xml` should look in
+`beer_contracts/example/pom.xml` and in the following example:
+
 [source,xml]
 ----
 include::{contracts}/example/pom.xml[tags=config]
 </project>
 ----
-  * This configuration file
-    ** sets the jar name to the `beer-api-producer-external` (that's how the producer's called)
-    ** disables test generation (we want only to generate stubs)
-    ** adds the Spring Cloud Contract plugin (as you can see there's no configuration related
-    to base classes)
-    ** `excludeBuildFolders` - pretty descriptive. When generating stubs `target` / `build` folders are generated
-    and we don't want them in the output jar
-    ** `contractsDirectory` - by default Spring Cloud Contract searches under `src/test/resources/contracts` folder
-    but in this case we have the contracts under `/` (from the point of view of the `pom.xml`)
-- Now as consumers we would like to convert the contracts into stubs so that we can play
- with the API. We'll use Maven to achieve that.
-+
-IMPORTANT: You need a standalone version of Maven installed!
+* This configuration file:
+** Sets the jar name to the `beer-api-producer-external` (that's how the producer's
+called).
+** Disables test generation (we want only to generate stubs).
+** Adds the Spring Cloud Contract plugin (as you can see, there is no configuration
+related to base classes).
+** Sets `excludeBuildFolders`, which is pretty descriptive. When generating stubs,
+`target` and `build` folders are generated, and we don't want them in the output jar.
+** Sets `contractsDirectory`. By default, Spring Cloud Contract searches under the
+`src/test/resources/contracts` folder. In this case, we have the contracts under `/`
+(from the point of view of the `pom.xml` file).
+
+Now, as consumers, we want to convert the contracts into stubs so that we can use the
+API. We use Maven to achieve that.
+
+IMPORTANT: You must have a standalone version of Maven installed!
 +
 [source,bash]
 ----
 $ mvn clean install
 ----
-- Now we have successfully installed the stubs locally...
-  * You can check out `target/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT` folder.
-  Over there you'll see `contracts` folder where all contracts got copied and the `mappings` folder where you'll find all the
-  generated stubs. By default Spring Cloud Contract uses http://wiremock.org[WireMock] as an implementation
-  of fake HTTP server. Under the `beer/rest` subfolder you'll see all the generated stubs. Notice that
-  we're using JSON Paths to check the contents of the request.
+Now you have successfully installed the stubs locally.
+
+You can check out the
+`target/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT` folder. In there,
+you see the `contracts` folder, where all contracts were copied, and the `mappings`
+folder, where you can find all the generated stubs. By default, Spring Cloud Contract
+uses  http://wiremock.org[WireMock] as an implementation of fake HTTP server. Under the
+`beer/rest` subfolder, you can see all the generated stubs. Notice that we use JSON Paths
+to check the contents of the request.
 
 include::snippets/consumer_implementation.adoc[]
 
 include::snippets/consumer_implementation_2.adoc[]
-- Congratulations! As consumers - we've successfully played around with the API of the producer both for
-HTTP and messaging. Now we're filing a PR to the repo that stores all contracts.
 
-=== Producer flow 1
+Congratulations! As a consumer, you successfully used the API of the producer for both
+HTTP and messaging. Now you can file a pull request (PR) to the repository that stores
+all contracts.
+
+=== Producer Flow 1
 
 image::{images_folder}/external_producer_flow_1.png[title="Producer takes over the PR filed to the repo with contracts, writes missing impl on the producer side"]
 
 ==== IDE setup
 
-- Open in your IDE the `producer_with_external_contracts` project (either via Maven or Gradle)
-- We're assuming that we've taken over the PR of the `beer_contracts`. Example of how to achieve that in "real life" for a PR
-that got submitted to via a branch called `the_pr` looks like this:
-+
+Open `producer_with_external_contracts` project (either via Maven or Gradle) in your IDE.
+
+This tutorial assumes that you have taken over the PR of the `beer_contracts`. The
+following git commands show an example of how to do so for a PR that got submitted to via
+a branch called `the_pr`:
+
 [source,bash]
 ----
 git fetch origin
@@ -166,16 +189,17 @@ git checkout -b the_pr origin/the_pr
 git merge master
 ----
 
-- The idea of Spring Cloud Contract is about stub and contract validity. Right now we have a set of
- contracts defined but we haven't tested it against the producer side. Time to change that!
+The core idea of Spring Cloud Contract is stub and contract validity. Right now, you have
+a set of contracts defined but haven't tested it against the producer side. It's time to
+change that!
 
-==== Install the contracts locally
+==== Install the Contracts Locally
 
-- In order for the producer to profit from the contracts we need to produce a JAR with all the contracts.
-- To achieve that we'll use the Maven's assembly plugin.
-  * the configuration you can find under `beer_contracts/src/assembly/contracts.xml`
-  * still we need to configure the `beer_contracts/pom.xml` by providing the assembly plugin configuration
-+
+In order for the producer to use the contracts, we need to produce a JAR with all the
+contracts. To achieve that, use Maven's assembly plugin. You can find the configuration
+under `beer_contracts/src/assembly/contracts.xml`. We still need to configure the
+`beer_contracts/pom.xml` by providing the assembly plugin configuration.
+
 [source,xml]
 ----
 <plugin>
@@ -197,13 +221,14 @@ git merge master
   </executions>
 </plugin>
 ----
-  * what this will do is it will create in `target` folder a `beer-contracts` JAR that will
-  contain all contracts and poms from `src/main/resources/contracts`
+The preceding snippet creates a `beer-contracts` JAR (in the `target` folder) that
+contains all contracts and poms from `src/main/resources/contracts`.
 
-==== Setting up the Spring Cloud Contract dependencies on the producer side
+==== Setting up the Spring Cloud Contract Dependencies on the Producer Side
 
-- First let's add the Spring Cloud Contract Verifier dependency to the project
-+
+First, let's add the Spring Cloud Contract Verifier dependency to the project, as shown
+in the following snippet:
+
 [source,xml,indent=0,subs="verbatim,attributes",role="primary"]
 .Maven
 ----
@@ -213,26 +238,30 @@ git merge master
 	<scope>test</scope>
 </dependency>
 ----
-+
+
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
 testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 ----
-- Spring Cloud Contract can generate tests from your contracts to ensure that your implementation's API
-is compatible with the defined contract. Let's set up the project to start generating tests.
-  * Spring Cloud Contract needs a base class that all of the generated tests will extend. Currently
-  we support 3 different ways of defining a base class (you can read more about this in the
-  Spring Cloud Contract documentation for https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin[Gradle]
-  and https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin_2[Maven])
-    ** a single class for all tests
-    ** convention based naming (takes 2 last package names and appends `Base`. Having a contract
-    `src/test/resources/contracts/foo/bar/shouldDoSth.groovy` would create a test class called
-    `BarTest` that would extend `FooBarBase` class.
-    ** manual mapping (you can state that contracts matching certain regular expression will have to
-    have a base class with fully qualified name equal to X)
-  * In the following example we'll play with manual mapping like this:
-+
+Spring Cloud Contract can generate tests from your contracts to ensure that your
+implementation's API is compatible with the defined contract. Let's set up the project to
+start generating tests.
+
+Spring Cloud Contract needs a base class that all of the generated tests will extend.
+Currently, we support three different ways of defining a base class (you can read more
+about this in the Spring Cloud Contract documentation for
+https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin[Gradle]
+and https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin_2[Maven]).
+
+
+* A single class for all tests.
+* Convention-based naming (which takes the last two package names and appends `Base`. For
+example, a contract `src/test/resources/contracts/foo/bar/shouldDoSth.groovy` creates a
+test class called `BarTest` that would extend the `FooBarBase` class.
+* Manual mapping (you can state that contracts matching certain regular expressions must
+have a base class with fully qualified name equal to the value you specify).
+
 [source,xml,indent=0,subs="verbatim,attributes",role="primary"]
 .Maven
 ----
@@ -272,7 +301,7 @@ is compatible with the defined contract. Let's set up the project to start gener
     </dependencies>
 </plugin>
 ----
-+
+
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
@@ -291,41 +320,45 @@ contracts {
 	}
 }
 ----
-    ** In both cases we're defining that we want to download the JAR with contracts
-    with given coordinates (`com.example:beer-contracts`)
-    ** We're not providing the `contractsRepositoryUrl` - so the URL from which we'd like
-    the contracts to be downloaded since we want to work offline. That's why we set the
-    `contractsWorkOffline` flag.
-    ** We've decided that all the generated tests will be generated under `com.example` package
-    instead of the default one
-    ** We've manually set mappings of packages in which contracts are stored to a fully
-    qualified name of the base class. That means that if there's a contract that has a
-    `messaging` package name in its path then it will be mapped to a `com.example.BeerMessagingBase`
-    base class
 
-==== Updating contracts from the PR
+In both cases, we define that we want to download the JAR with contracts with given
+coordinates (`com.example:beer-contracts`).
+
+We do not provide the `contractsRepositoryUrl` (the URL from which we expect the
+contracts to be downloaded), because we want to work offline. That's why we set the
+`contractsWorkOffline` flag.
+
+We decided that all the generated tests should be generated under the `com.example`
+package instead of the default one.
+
+We have manually set mappings of packages in which contracts are stored to a fully
+qualified name of the base class. If there's a contract that has a `messaging` package
+name in its path, it will be mapped to a `com.example.BeerMessagingBase` base class.
+
+==== Updating Contracts from the Pull Request
 
 include::snippets/updating_messaging_contracts_from_pr.adoc[]
-+
+
 IMPORTANT: Remember to rebuild the JAR with contracts in the `beer_contracts` repo. You
-need to produce and install the JAR in your Maven local
+need to produce and install the JAR in your Maven local.
 
 include::snippets/producer_implementation.adoc[]
 
-=== Producer flow 2
+=== Producer Flow 2
 
 image::{images_folder}/external_producer_flow_2.png[title="Once done the producer merges the PR to the repo with contracts. The CI system will produce a JAR with all contracts"]
 
 - Now you would merge the PR from `beer_contracts` repo to master and your CI system would build a fat jar and stubs
 
-=== Producer flow 3
+=== Producer Flow 3
 
 image::{images_folder}/external_producer_flow_3.png[title="Once the PR got merged, the CI built the JAR of the contracts repo then the producer's code can use that JAR in its own building process"]
 
-- After the PR got merged and the `beer-contracts` artifact would get published you need to
-switch off your offline work in the Spring Cloud Contract (we won't be doing this for this tutorial).
-In "real life" situation you would need to update it like this:
-+
+After the pull request gets merged and the `beer-contracts` artifact gets published, you
+need to switch off your offline work in the Spring Cloud Contract (we do not do so for
+this tutorial). In a "real life" situation you would need to update it as shown in the
+following snippet:
+
 [source,xml,indent=0,subs="verbatim,attributes",role="primary"]
 .Maven
 ----
@@ -377,7 +410,7 @@ contracts {
 }
 ----
 
-- Congratulations - you've completed the producer side of this tutorial
+Congratulations! you've completed the producer side of this tutorial!
 
 include::snippets/consumer_flow_2.adoc[]
 
@@ -387,6 +420,6 @@ include::snippets/generating_docs.adoc[]
 
 include::snippets/solutions.adoc[]
 
-== Back to the main page
+== Back to the Main Page
 
 link:../workshops.html[Click here to go back to the main page]

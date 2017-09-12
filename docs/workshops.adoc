@@ -5,16 +5,17 @@
 
 = Spring Cloud Contract Workshops
 
-This documentation will allow you to go through Spring Cloud Contract Workshops by completing
-a series of tasks that will teach you the basic and more advanced concept behind Consumer Driven Contracts
-and Spring Cloud Contract as such.
+This documentation takes you through the Spring Cloud Contract Workshops by asking you to
+complete a series of tasks that teach you both basic and more advanced concepts behind
+Consumer Driven Contracts in general and Spring Cloud Contract in particular.
 
 == Setup
 
-The repository mostly consists of pairs of `producer` and `consumer` applications that show
-different use cases of Spring Cloud Contract. The initial state of the repository
-is such that all the examples are working and the tests are passing. In order for you to prepare
-the repository so it has only the basic pieces of code set up execute this Gradle command
+The repository mostly consists of pairs of `producer` and `consumer` applications that
+show different use cases of Spring Cloud Contract. The initial state of the repository
+is such that all the examples are working and the tests are passing. In order for you to
+prepare the repository so that it has only the basic pieces of code ready for use,
+run the following Gradle command:
 
 [source,groovy]
 ----
@@ -23,18 +24,18 @@ $ cd spring-cloud-contract-samples
 $ ./gradlew prepareForWorkshops
 ----
 
-This command will remove most of the code / contracts / project setup so that you can start
-with the workshops.
+The preceding commands removes most of the code, contracts, and project setup details, so
+that you can start the workshops.
 
-TIP: Whenever your lost - don't worry. It's enough to check what's there in the `master` branch
-where all of the examples are ready and working.
+TIP: Whenever your lost, do not worry. At any time, you can check what the contents in
+the `master` branch where all of the examples are ready and working.
 
-IMPORTANT: You'll also need to have Maven installed. Check out https://maven.apache.org/download.cgi[
-the website on how to download and install Maven]
+IMPORTANT: You must have Maven installed. Check out
+https://maven.apache.org/download.cgi[the website on how to download and install Maven].
 
 == Generating the documentation
 
-To generate the whole documentation it's enough to call the Gradle task:
+To generate the documentation, call the Gradle task, as shown below:
 
 [source,groovy]
 ----
@@ -45,7 +46,13 @@ $ ./gradlew generateDocumentation
 
 == Resources
 
-=== Adib Saikali's introduction to Consumer Driven Contracts
+The following resources may help you learn about Spring Cloud Contracts:
+
+* <<contract-workshop-adib-saikali>>
+* <<contract-workshop-introduction-video>>
+
+[[contract-workshop-adib-saikali]]
+=== Adib Saikali's Introduction to Consumer Driven Contracts
 
 ++++
 <iframe src="https://docs.google.com/presentation/d/1-_2_Ok-inGA75cr8DwTyeMuhkEGSuaZ4M8FKGV6W5hU/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
@@ -59,6 +66,7 @@ video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
 {nbsp}
 {nbsp}
 
+[[contract-workshop-introduction-video]]
 === Introduction to Spring Cloud Contract
 
 ++++
@@ -67,38 +75,36 @@ video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
 
 == Tasks
 
-- link:tutorials/contracts_on_the_producer_side.html[Contracts on the producer side]
-  * simple DSL examples for HTTP & Messaging
-  * base classes picked by convention
-  * generating documentation from contracts
-- link:tutorials/contracts_external.html[Contracts that lay in an external repository]
-  * simple DSL examples for HTTP & Messaging
-  * base classes picked by mappings
-  * generating documentation from contracts
-- link:tutorials/rest_docs.html[Spring Cloud Contract with Rest Docs]
-  * generating stubs using Rest Docs
-  * generating contracts using Rest Docs
-  * reading stubs from classpath via Spring Cloud Contract WireMock
-  * reading stubs from classpath via Stub Runner
-- Extras
-  * link:tutorials/stubs_per_consumer.html[stubs per consumer]
-  * link:tutorials/spring_cloud_contract_advanced.html[Spring Cloud Contract advanced]
-    ** regexs
-    ** code execution
-    ** referencing request from response
-    ** working with stub and test matchers
-    ** working with random ports
-    ** async
-    ** priority
-  * link:tutorials/contracts_representing_scenarios.html[contracts representing scenarios
-  (stateful stubs)]
-  * link:tutorials/library_with_common_code.html[creating a library with common code
-  shareable between teams]
-    ** *requires completion of "link:tutorials/contracts_on_the_producer_side.html[Contracts on the producer side]"*
-  * link:tutorials/stubbing_out_service_discovery.html[stubbing out service discovery]
-  * link:tutorials/junit_rule.html[using JUnit Rule]
-    ** *requires completion of link:tutorials/stubs_per_consumer.html[stubs per consumer]"*
-- link:tutorials/stub_runner_boot.html[Using stubs with Stub Runner Boot]
-    * *requires completion of "link:tutorials/stubs_per_consumer.html[Spring Cloud Contract advanced]"*
-
-
+* link:tutorials/contracts_on_the_producer_side.html[Contracts on the Producer Side]
+** Simple DSL examples for HTTP & Messaging
+** Base classes picked by convention
+** Generating documentation from contracts
+* link:tutorials/contracts_external.html[Contracts in an External Repository]
+** Simple DSL examples for HTTP & Messaging
+** Base classes picked by mappings
+** Generating documentation from contracts
+* link:tutorials/rest_docs.html[Spring Cloud Contract with Rest Docs]
+** Generating stubs using Rest Docs
+** Generating contracts using Rest Docs
+** Reading stubs from classpath via Spring Cloud Contract WireMock
+** Reading stubs from classpath via Stub Runner
+* Extras
+** link:tutorials/stubs_per_consumer.html[Stubs per Consumer]
+** link:tutorials/spring_cloud_contract_advanced.html[Spring Cloud Contract advanced]
+*** Using regular expressions
+*** Code execution
+*** Referencing request from response
+*** Working with stub and test matchers
+*** Working with random ports
+*** Asynchronous communication
+*** Priority
+** link:tutorials/contracts_representing_scenarios.html[Contracts representing scenarios
+(stateful stubs)]
+** link:tutorials/library_with_common_code.html[Creating a library with common code
+shareable between teams]
+*** *Requires completion of "link:tutorials/contracts_on_the_producer_side.html[Contracts on the producer side]"*
+** link:tutorials/stubbing_out_service_discovery.html[Stubbing out service discovery]
+** link:tutorials/junit_rule.html[Using JUnit Rule]
+*** *Requires completion of link:tutorials/stubs_per_consumer.html[stubs per consumer]"*
+* link:tutorials/stub_runner_boot.html[Using stubs with Stub Runner Boot]
+** *Requires completion of "link:tutorials/stubs_per_consumer.html[Spring Cloud Contract advanced]"*
