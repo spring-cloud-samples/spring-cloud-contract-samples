@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Contracts on the producer side</title>
+<title>Contracts on the Producer side</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Contracts on the producer side</h1>
+<h1>Contracts on the Producer side</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -503,16 +503,16 @@ $(addBlockSwitches);
 <ul class="sectlevel2">
 <li><a href="#_consumer_flow_1">Consumer flow 1</a>
 <ul class="sectlevel3">
-<li><a href="#_writing_the_missing_consumer_http_implementation">Writing the missing consumer HTTP implementation</a></li>
-<li><a href="#_turning_on_stub_runner_in_http_consumer_tests">Turning on Stub Runner in HTTP consumer tests</a></li>
-<li><a href="#_playing_with_the_http_contracts">Playing with the HTTP contracts</a></li>
+<li><a href="#_writing_the_missing_consumer_http_implementation">Writing the Missing Consumer HTTP Implementation</a></li>
+<li><a href="#_turning_on_stub_runner_in_http_consumer_tests">Turning on Stub Runner in HTTP Consumer Tests</a></li>
+<li><a href="#_playing_with_the_http_contracts">Playing with the HTTP Contracts</a></li>
 </ul>
 </li>
-<li><a href="#_producer_flow_1">Producer flow 1</a>
+<li><a href="#_producer_flow_1">Producer Flow 1</a>
 <ul class="sectlevel3">
 <li><a href="#_ide_setup">IDE setup</a></li>
 <li><a href="#_setting_up_the_spring_cloud_contract_plugin">Setting up the Spring Cloud Contract plugin</a></li>
-<li><a href="#_updating_contracts_from_the_pr">Updating contracts from the PR</a></li>
+<li><a href="#_updating_contracts_from_the_pr">Updating Contracts from the PR</a></li>
 <li><a href="#_generating_tests_from_contracts">Generating tests from contracts</a></li>
 <li><a href="#_fixing_broken_http_tests">Fixing broken HTTP tests</a></li>
 </ul>
@@ -535,10 +535,10 @@ $(addBlockSwitches);
 <li><a href="#_beerrestbase">BeerRestBase</a></li>
 <li><a href="#_beermessagingbase">BeerMessagingBase</a></li>
 <li><a href="#_messaging_implementation">Messaging implementation</a></li>
-<li><a href="#_missing_consumer_controller_code_with_discovery">Missing consumer controller code with discovery</a></li>
+<li><a href="#_missing_consumer_controller_code_with_discovery">Missing Consumer Controller Code with Discovery</a></li>
 </ul>
 </li>
-<li><a href="#_back_to_the_main_page">Back to the main page</a></li>
+<li><a href="#_back_to_the_main_page">Back to the Main Page</a></li>
 </ul>
 </div>
 </div>
@@ -546,8 +546,8 @@ $(addBlockSwitches);
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this tutorial we&#8217;ll keep the contracts together with the producer code. On
-the consumer side we&#8217;ll be using Service Discovery.</p>
+<p>In this tutorial, we keep the contracts together with the producer code. On the consumer
+side, we be using Service Discovery.</p>
 </div>
 </div>
 </div>
@@ -591,8 +591,8 @@ the consumer side we&#8217;ll be using Service Discovery.</p>
 <h2 id="_tutorial">Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Consumer Driven Contract is like TDD on the layer of architecture. Let&#8217;s start with writing a test on the
-consumer side.</p>
+<p>Using Consumer Driven Contracts is like using TDD at the architecture level. We start by
+writing a test on the consumer side.</p>
 </div>
 <div class="sect2">
 <h3 id="_consumer_flow_1">Consumer flow 1</h3>
@@ -602,16 +602,24 @@ consumer side.</p>
 </div>
 <div class="title">Figure 4. Interact with cloned producer code</div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Let&#8217;s go back to our, consumer&#8217;s code. We&#8217;ll be looking at <code>BeerControllerTest</code> and <code>BeerController</code>.
-We know how we would like the API to look like so now we can write the missing implementation in the
-<code>BeerController</code>.</p>
-</li>
-<li>
-<p>Remember that in order for you to use the load balancing features
-we&#8217;ll need to add the <code>org.springframework.cloud:spring-cloud-starter-eureka</code> dependency!</p>
+<div class="paragraph">
+<p>Let&#8217;s go back to our consumer code. We need to look at <code>BeerControllerTest</code> and
+<code>BeerController</code>. We know how we would like the API to look, so now we can write the
+missing implementation in the <code>BeerController</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Remember that, in order to use the load balancing features, we need to add the
+<code>org.springframework.cloud:spring-cloud-starter-eureka</code> dependency.
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -627,10 +635,10 @@ we&#8217;ll need to add the <code>org.springframework.cloud:spring-cloud-starter
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">compile("org.springframework.cloud:spring-cloud-starter-eureka")</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Also you need to register the <code>RestTemplate</code> bean as <code>@LoadBalanced</code>. Go to
-the <code>ClientApplication</code> class and register the bean as follows</p>
+<div class="paragraph">
+<p>Also, you need to register the <code>RestTemplate</code> bean as <code>@LoadBalanced</code>. Go to
+the <code>ClientApplication</code> class and register the bean as follows:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Bean
@@ -640,23 +648,15 @@ RestTemplate restTemplate() {
 }</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Now let&#8217;s assume that we will be calling the producer application via the
-<code><a href="http://somenameforproducer/check" class="bare">http://somenameforproducer/check</a></code> URL.</p>
-</li>
-<li>
-<p>You&#8217;ll need to provide some properties to tell Stub Runner that the given
-service name (in our case <code>somenameforproducer</code>) should mapped to the running HTTP server
-stub of a given producer. Let&#8217;s set those properties</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Stub Runner requires you to set the <code>stubrunner.idsToServiceIds</code> mapping in which
-the key is the artifact id and the value is the service name in the code</p>
-</li>
-<li>
-<p>define the following property</p>
+<div class="paragraph">
+<p>Now let&#8217;s assume that we call the producer application by using the
+<code><a href="http://somenameforproducer/check" class="bare">http://somenameforproducer/check</a></code> URL. You need to provide some properties to tell Stub
+Runner that the given service name (in our case, <code>somenameforproducer</code>) should be mapped
+to the running HTTP server stub of a given producer. Let&#8217;s set those properties.
+Stub Runner requires you to set the <code>stubrunner.idsToServiceIds</code> mapping in which the key
+is the artifact ID and the value is the service name in the code. You also need to define
+the <code>idsToServiceIds</code> property, as shown in the following code:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-yml" data-lang="yml">stubrunner:
@@ -664,22 +664,14 @@ the key is the artifact id and the value is the service name in the code</p>
     beer-api-producer: somenameforproducer</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>that means that when you call the URL <code><a href="http://somenameforproducer/check" class="bare">http://somenameforproducer/check</a></code> it will
-get redirected to a fake HTTP instance that was started with <code>beer-api-producer</code> stubs JAR</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>We know how the API needs to look like so now go ahead and try to write the missing implementation
-of the <code>BeerController</code></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>When you call the URL <code><a href="http://somenameforproducer/check" class="bare">http://somenameforproducer/check</a></code>, it will get redirected to a
+fake HTTP instance that was started with the <code>beer-api-producer</code> stubs JAR. We know how
+the API needs to look, so we can now go ahead and try to write the missing implementation
+of the <code>BeerController</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="_writing_the_missing_consumer_http_implementation">Writing the missing consumer HTTP implementation</h4>
+<h4 id="_writing_the_missing_consumer_http_implementation">Writing the Missing Consumer HTTP Implementation</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -696,7 +688,7 @@ We know how we would like the API to look like so now we can write the missing i
 </div>
 </div>
 <div class="sect3">
-<h4 id="_turning_on_stub_runner_in_http_consumer_tests">Turning on Stub Runner in HTTP consumer tests</h4>
+<h4 id="_turning_on_stub_runner_in_http_consumer_tests">Turning on Stub Runner in HTTP Consumer Tests</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -751,7 +743,7 @@ and <code>stubs</code> classifier. Once it&#8217;s found the fake HTTP server st
 </div>
 </div>
 <div class="sect3">
-<h4 id="_playing_with_the_http_contracts">Playing with the HTTP contracts</h4>
+<h4 id="_playing_with_the_http_contracts">Playing with the HTTP Contracts</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -817,17 +809,20 @@ also change the values of age to e.g. <code>45</code> for the positive case and 
 </ul>
 </div>
 </li>
-<li>
-<p>Congratulations! As consumers - we&#8217;ve successfully played around with the API of the producer both for
-HTTP and messaging. Now we&#8217;re filing a PR to their code with the proposal of contract and let&#8217;s switch to
-the producer side.</p>
-</li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Congratulations! As a consumer, you have successfully used the API of the producer for
+both HTTP and messaging. Now you can file a pull request (PR) to the producer code with
+the proposal of the contract,</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s switch to the producer side.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_producer_flow_1">Producer flow 1</h3>
+<h3 id="_producer_flow_1">Producer Flow 1</h3>
 <div class="imageblock">
 <div class="content">
 <img src="../images/producer_flow_1.png" alt="producer flow 1">
@@ -938,7 +933,7 @@ the <code>com.example</code> package</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_updating_contracts_from_the_pr">Updating contracts from the PR</h4>
+<h4 id="_updating_contracts_from_the_pr">Updating Contracts from the PR</h4>
 
 </div>
 <div class="sect3">
@@ -1101,13 +1096,14 @@ public abstract class BeerRestBase {
 </ul>
 </div>
 </li>
-<li>
-<p>Now you would merge the PR to master and your CI system would build a fat jar and stubs</p>
-</li>
-<li>
-<p>Congratulations - you&#8217;ve completed the producer side of this tutorial</p>
-</li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Now you could merge the PR to master, and your CI system would build a fat jar and the
+stubs.</p>
+</div>
+<div class="paragraph">
+<p>Congratulations! You&#8217;ve completed the producer side of this tutorial.</p>
 </div>
 </div>
 </div>
@@ -1636,7 +1632,7 @@ public abstract class BeerMessagingBase {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_missing_consumer_controller_code_with_discovery">Missing consumer controller code with discovery</h3>
+<h3 id="_missing_consumer_controller_code_with_discovery">Missing Consumer Controller Code with Discovery</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		ResponseEntity&lt;Response&gt; response = this.restTemplate.exchange(
@@ -1657,7 +1653,7 @@ public abstract class BeerMessagingBase {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_back_to_the_main_page">Back to the main page</h2>
+<h2 id="_back_to_the_main_page">Back to the Main Page</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="../workshops.html">Click here to go back to the main page</a></p>

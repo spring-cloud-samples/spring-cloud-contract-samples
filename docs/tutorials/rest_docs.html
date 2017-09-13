@@ -503,26 +503,26 @@ $(addBlockSwitches);
 <ul class="sectlevel2">
 <li><a href="#_producer_flow_1">Producer flow 1</a>
 <ul class="sectlevel3">
-<li><a href="#_ide_setup_for_producer">IDE setup for producer</a></li>
-<li><a href="#_adding_dependencies_to_the_producer_s_code">Adding dependencies to the producer&#8217;s code</a></li>
-<li><a href="#_setting_up_the_spring_cloud_contract_plugin_assembly_plugin">Setting up the Spring Cloud Contract plugin &amp; assembly plugin</a></li>
-<li><a href="#_writing_first_rest_docs_test">Writing first Rest Docs test</a></li>
-<li><a href="#_defining_first_messaging_contract">Defining first messaging contract</a></li>
-<li><a href="#_defining_second_messaging_contract">Defining second messaging contract</a></li>
-<li><a href="#_generating_tests_from_contracts">Generating tests from contracts</a></li>
+<li><a href="#_ide_setup_for_the_producer_scenario">IDE Setup for the Producer Scenario</a></li>
+<li><a href="#_adding_dependencies_to_the_producer_s_code">Adding Dependencies to the Producer&#8217;s Code</a></li>
+<li><a href="#_setting_up_the_spring_cloud_contract_plugin_assembly_plugin">Setting up the Spring Cloud Contract Plugin &amp; Assembly Plugin</a></li>
+<li><a href="#_writing_your_first_rest_docs_test">Writing Your First Rest Docs Test</a></li>
+<li><a href="#_defining_the_first_messaging_contract">Defining the First Messaging Contract</a></li>
+<li><a href="#_defining_the_second_messaging_contract">Defining the Second Messaging Contract</a></li>
+<li><a href="#_generating_tests_from_contracts">Generating Tests from Contracts</a></li>
 <li><a href="#_fixing_broken_messaging_tests">Fixing broken messaging tests</a></li>
 <li><a href="#_writing_the_missing_producer_messaging_implementation">Writing the missing producer messaging implementation</a></li>
-<li><a href="#_checking_the_generated_jar">Checking the generated JAR</a></li>
+<li><a href="#_checking_the_generated_jar_file">Checking the Generated JAR File</a></li>
 </ul>
 </li>
-<li><a href="#_consumer_flow_2">Consumer flow 2</a>
+<li><a href="#_consumer_flow_2">Consumer Flow 2</a>
 <ul class="sectlevel3">
 <li><a href="#_adding_spring_cloud_contract">Adding Spring Cloud Contract</a></li>
-<li><a href="#_reading_http_stubs_from_classpath_with_spring_cloud_contract_wiremock">Reading HTTP stubs from classpath with Spring Cloud Contract WireMock</a></li>
-<li><a href="#_reading_http_stubs_from_classpath_with_spring_cloud_contract_stub_runner">Reading HTTP stubs from classpath with Spring Cloud Contract Stub Runner</a></li>
-<li><a href="#_writing_the_missing_consumer_messaging_implementation">Writing the missing consumer messaging implementation</a></li>
-<li><a href="#_reading_messaging_stubs_with_spring_cloud_contract_stub_runner">Reading messaging stubs with Spring Cloud Contract Stub Runner</a></li>
-<li><a href="#_reading_messaging_stubs_from_classpath_with_spring_cloud_contract_stub_runner">Reading messaging stubs from classpath with Spring Cloud Contract Stub Runner</a></li>
+<li><a href="#contract-workshop-reading-http-stubs-from-classpath">Reading HTTP Stubs from the Classpath with Spring Cloud Contract WireMock</a></li>
+<li><a href="#contract-workshop-reading-http-stubs-from-classpath-stubrunner">Reading HTTP Stubs from the Classpath with Spring Cloud Contract Stub Runner</a></li>
+<li><a href="#contract-workshop-writing-missing-consumer-messaging">Writing the Missing Consumer Messaging Implementation</a></li>
+<li><a href="#contract-workshop-reading-messaging-stubs-stubrunner">Reading Messaging Stubs with the Spring Cloud Contract Stub Runner</a></li>
+<li><a href="#contract-workshop-reading-messaging-stubs-classpath">Reading Messaging Stubs from the Classpath with Spring Cloud Contract Stub Runner</a></li>
 </ul>
 </li>
 </ul>
@@ -547,7 +547,7 @@ $(addBlockSwitches);
 <li><a href="#_rest_docs_producer_tests_with_contracts">Rest Docs Producer Tests with Contracts</a></li>
 </ul>
 </li>
-<li><a href="#_back_to_the_main_page">Back to the main page</a></li>
+<li><a href="#_back_to_the_main_page">Back to the Main Page</a></li>
 </ul>
 </div>
 </div>
@@ -555,8 +555,8 @@ $(addBlockSwitches);
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this tutorial we&#8217;ll combine messaging contracts that lay on the producer side with
-generating stubs with Spring Rest Docs</p>
+<p>In this tutorial, we&#8217;ll combine messaging contracts from the producer side with
+generating stubs from Spring Rest Docs.</p>
 </div>
 </div>
 </div>
@@ -564,7 +564,7 @@ generating stubs with Spring Rest Docs</p>
 <h2 id="_scenarios">Scenarios</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We&#8217;ll be in most cases trying to code the following scenarios:</p>
+<p>In most of the tutorials, you will be asked to code the following scenarios:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -623,8 +623,8 @@ generating stubs with Spring Rest Docs</p>
 <h2 id="_tutorial">Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This time it&#8217;s the producer that defines the contracts and generates stubs. This is typically
-the case where your application has many consumers and it would be very difficult to
+<p>This time, the producer defines the contracts and generates stubs. This is typically
+the case when your application has many consumers and it would be very difficult to
 take every consumer&#8217;s opinion into account.</p>
 </div>
 <div class="sect2">
@@ -636,28 +636,28 @@ take every consumer&#8217;s opinion into account.</p>
 <div class="title">Figure 6. Producer declares contracts and writes Rest Docs tests</div>
 </div>
 <div class="sect3">
-<h4 id="_ide_setup_for_producer">IDE setup for producer</h4>
-<div class="ulist">
-<ul>
+<h4 id="_ide_setup_for_the_producer_scenario">IDE Setup for the Producer Scenario</h4>
+<div class="paragraph">
+<p>To set up your IDE for this tutorial:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Open in your IDE the <code>producer_with_restdocs</code> project (either via Maven or Gradle)</p>
+<p>In your IDE, open the <code>producer_with_restdocs</code> project (via either Maven or Gradle).</p>
 </li>
 <li>
-<p>Before we start coding anything let&#8217;s add the necessary dependencies</p>
+<p>Add the necessary dependencies, as shown in the next section.</p>
 </li>
-</ul>
+</ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_adding_dependencies_to_the_producer_s_code">Adding dependencies to the producer&#8217;s code</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>We&#8217;ll be using Rest Docs with Spring Cloud Contract to generate HTTP stubs and
-we&#8217;ll write the DSL contracts for messaging</p>
-</li>
-<li>
-<p>In order to add Rest Docs just add the following test dependencies</p>
+<h4 id="_adding_dependencies_to_the_producer_s_code">Adding Dependencies to the Producer&#8217;s Code</h4>
+<div class="paragraph">
+<p>We&#8217;ll use Rest Docs with Spring Cloud Contract to generate HTTP stubs, and
+we&#8217;ll write the DSL contracts for messaging. In order to add Rest Docs, add the following
+test dependencies:</p>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -674,11 +674,11 @@ we&#8217;ll write the DSL contracts for messaging</p>
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>In order to profit from Spring Cloud Contract Rest Docs integration you have to add the
-<code>spring-cloud-contract-wiremock</code> dependency. That way we&#8217;ll generate <a href="http://wiremock.org">WireMock</a>
-stubs from our Rest Docs tests.</p>
+<div class="paragraph">
+<p>In order to use Spring Cloud Contract Rest Docs integration, you have to add the
+<code>spring-cloud-contract-wiremock</code> dependency. That way, we can generate the
+<a href="http://wiremock.org">WireMock</a> stubs from our Rest Docs tests.</p>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -695,10 +695,11 @@ stubs from our Rest Docs tests.</p>
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("org.springframework.cloud:spring-cloud-contract-wiremock")</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Since we want the IDE to help us with code completion in writing DSL contracts, let&#8217;s add the necessary Spring Cloud Contract
-dependencies. You need to add <code>spring-cloud-starter-contract-verifier</code> as a test dependency</p>
+<div class="paragraph">
+<p>To get the IDE to help us with code completion in writing DSL contracts, we can add the
+necessary Spring Cloud Contract dependencies. You need to add
+<code>spring-cloud-starter-contract-verifier</code> as a test dependency</p>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -715,69 +716,56 @@ dependencies. You need to add <code>spring-cloud-starter-contract-verifier</code
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>This is a task that you would do once only since when you&#8217;ll be adding next contracts
-all the dependencies will already be added</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>You need to this task only once, because, when you add contracts, all the dependencies
+are already added.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_setting_up_the_spring_cloud_contract_plugin_assembly_plugin">Setting up the Spring Cloud Contract plugin &amp; assembly plugin</h4>
+<h4 id="_setting_up_the_spring_cloud_contract_plugin_assembly_plugin">Setting up the Spring Cloud Contract Plugin &amp; Assembly Plugin</h4>
+<div class="paragraph">
+<p>We need to use both the Spring Cloud Contract plugin &amp; the assembly plugin. We use the
+Spring Cloud Contract plugin to generate tests for messaging contracts. We use the
+Assembly plugin to generate the JAR that holds the messaging contracts and HTTP stubs.</p>
+</div>
+<div class="paragraph">
+<p>Spring Cloud Contract can generate tests from your contracts to ensure that your
+implementation&#8217;s API is compatible with the defined contract. Let&#8217;s set up the project to
+start generating messaging tests.</p>
+</div>
+<div class="paragraph">
+<p>By default, Spring Cloud Contract plugin creates the  JAR  with stubs. We need to disable
+that behavior.</p>
+</div>
+<div class="paragraph">
+<p>Spring Cloud Contract needs a base class that all of the generated tests extend.
+Currently, we support three different ways of defining a base class (you can read more
+about this in the Spring Cloud Contract documentation for
+<a href="https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin">Gradle</a>
+and
+<a href="https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin_2">Maven</a>):</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>We&#8217;ll profit from both Spring Cloud Contract plugin &amp; the assembly plugin</p>
-<div class="ulist">
-<ul>
-<li>
-<p>the first one will be used to generate tests for messaging contracts</p>
+<p>A single class for all tests.</p>
 </li>
 <li>
-<p>the second one to generate the JAR with messaging contracts and HTTP stubs</p>
+<p>Convention-based naming (which takes the last two package names and appends <code>Base</code>. For
+example, a contract <code>src/test/resources/contracts/foo/bar/shouldDoSth.groovy</code> creates a
+test class called <code>BarTest</code> that would extend the <code>FooBarBase</code> class.</p>
+</li>
+<li>
+<p>Manual mapping (you can state that contracts matching certain regular expressions must
+have a base class with fully qualified name equal to the value you specify).</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Spring Cloud Contract can generate tests from your contracts to ensure that your implementation&#8217;s API
-is compatible with the defined contract. Let&#8217;s set up the project to start generating messaging tests.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Spring Cloud Contract plugin by default creates the JAR with stubs. We&#8217;ll need to disable that
-behaviour</p>
-</li>
-<li>
-<p>Spring Cloud Contract needs a base class that all of the generated tests will extend. Currently
-we support 3 different ways of defining a base class (you can read more about this in the
-Spring Cloud Contract documentation for <a href="https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin">Gradle</a>
-and <a href="https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin_2">Maven</a>)</p>
-<div class="ulist">
-<ul>
-<li>
-<p>a single class for all tests</p>
-</li>
-<li>
-<p>convention based naming (takes 2 last package names and appends <code>Base</code>. Having a contract
-<code>src/test/resources/contracts/foo/bar/shouldDoSth.groovy</code> would create a test class called
-<code>BarTest</code> that would extend <code>FooBarBase</code> class.</p>
-</li>
-<li>
-<p>manual mapping (you can state that contracts matching certain regular expression will have to
-have a base class with fully qualified name equal to X)</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>In the following example we&#8217;ll play with convention based naming</p>
-<div class="ulist">
-<ul>
-<li>
-<p>For Maven under the plugin setup you have to set up the plugin configuration
+<div class="paragraph">
+<p>In the following example, we use convention-based naming. For Maven, under the plugin
+setup, you must set up the plugin configuration as follows:
 <code>&lt;configuration&gt;&lt;packageWithBaseClasses&gt;com.example&lt;/packageWithBaseClasses&gt;&lt;/configuration&gt;</code></p>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -852,155 +840,122 @@ artifacts {
 }</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>In both cases passing of that value tells the plugin that a given base class is available under
-the <code>com.example</code> package</p>
-</li>
-<li>
-<p>Also it creates a stub jar in a custom way. For Maven it uses the assembly plugin with
-configuration defined under <code>src/assembly/stub.xml</code> and for Gradle via the <code>stubsJar</code> task</p>
-</li>
-<li>
-<p>The stubs jar will contain</p>
-<div class="ulist">
-<ul>
-<li>
-<p>the classes and sources of the pojo models</p>
-</li>
-<li>
-<p>the contracts under <code>META-INF/${project.group}/${project.name}/${project.version}/contracts</code></p>
-</li>
-<li>
-<p>the stubs under <code>META-INF/${project.group}/${project.name}/${project.version}/mappings</code></p>
-</li>
-<li>
-<p>example for <code>com.example:beer-producer:0.0.1.BUILD-SNAPSHOT</code> would be
-<code>META-INF/com.example/beer-producer/0.0.1.BUILD-SNAPSHOT/contracts</code></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>In both cases, passing that value tells the plugin that a given base class is available
+under the <code>com.example</code> package. Also, it creates a stub jar in a custom way. For Maven,
+it uses the assembly plugin with the configuration defined under <code>src/assembly/stub.xml</code>.
+For Gradle, it uses the assembly plugin through the <code>stubsJar</code> task. The stubs jar
+contains:
+* The classes and sources of the POJO models.
+* The contracts, under
+<code>META-INF/${project.group}/${project.name}/${project.version}/contracts</code>.
+* The stubs, under
+<code>META-INF/${project.group}/${project.name}/${project.version}/mappings</code>.</p>
 </div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p>An example for <code>com.example:beer-producer:0.0.1.BUILD-SNAPSHOT</code> would be
+<code>META-INF/com.example/beer-producer/0.0.1.BUILD-SNAPSHOT/contracts</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_writing_first_rest_docs_test">Writing first Rest Docs test</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Open the <code>ProducerController</code> class and see that we&#8217;ve already prepared some basic
-setup for you. Our controller accepts a JSON request with <code>PersonToCheck</code> body, and
-will return a JSON response of <code>Response</code> type. The logic checking if person is
-eligible to get the beer or not is done via the <code>PersonCheckingService</code> interface.</p>
-</li>
-<li>
-<p>We&#8217;ll be trying to do TDD on the producer side so let&#8217;s start with a test</p>
-</li>
-<li>
-<p>Open the <code>ProducerControllerTests</code> class</p>
-</li>
-<li>
-<p>We&#8217;ll need to add the Rest Docs support by annotating the class in the following way</p>
+<h4 id="_writing_your_first_rest_docs_test">Writing Your First Rest Docs Test</h4>
+<div class="paragraph">
+<p>Open the <code>ProducerController</code> class. You can see that we already prepared some basic
+setup for you. Our controller accepts a JSON request with a <code>PersonToCheck</code> body and
+returns a JSON response of <code>Response</code> type. The logic that checks whether a person is
+eligible to get beer is done via the <code>PersonCheckingService</code> interface.</p>
+</div>
+<div class="paragraph">
+<p>We want to do TDD on the producer side, so let&#8217;s start with a test. To do so, open the
+<code>ProducerControllerTests</code> class. We need to add the Rest Docs support by annotating the
+class in the following way:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@AutoConfigureRestDocs(outputDir = "target/snippets")</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>That way any snippets produced by Rest Docs will end up in <code>target/snippets</code> folder</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>That way, any snippets produced by Rest Docs end up in the <code>target/snippets</code> folder. We
+need to write two tests - one for the client who is old enough and one for a client
+who is too young.</p>
 </div>
-</li>
-<li>
-<p>We&#8217;ll need to write 2 tests - one for the client who is old enough and one for a client
-that is too young</p>
-</li>
-<li>
-<p>As you can see we&#8217;ll be setting up the Spring context. That&#8217;s why we need some fake implementation
-of the <code>PersonCheckingService</code> since we don&#8217;t want to access any databases, send messages etc.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>To do that in the <code>Config</code> class to the bottom of the test you can register a bean
-of <code>PersonCheckingService</code> type that will return <code>true</code> when the <code>PersonToCheck&#8217;s age
-is greater or equal to `20</code>. (<a href="#_rest_docs_producer_test_config">Show solution</a>)</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>As you can see, we set up the Spring context. Doing so requires a fake
+implementation of the <code>PersonCheckingService</code>, since we don&#8217;t want to access any
+databases, send messages, and so on. To do that in the <code>Config</code> class, at the bottom of
+the test, you can register a bean of <code>PersonCheckingService</code> type that returns <code>true</code>
+when the age of the <code>PersonToCheck</code> is greater than or equal to <code>20</code>.
+(<a href="#_rest_docs_producer_test_config">Show solution</a>)</p>
 </div>
-</li>
-<li>
-<p>We&#8217;ll use MockMvc to send a JSON request to the <code>/check</code> endpoint. The body of the
-request will be the prepared <code>PersonToCheck</code> object (hint: you can use the prepared
-<code>JacksonTester</code> object to send that <code>json</code>. In the response for the positive scenario we
-expect the response to contain the <code>status</code> field equal to <code>OK</code> (hint: <code>.andExpect(jsonPath("$.status").value("OK")))</code>
-and for the negative scenario equal to <code>NOT_OK</code> (hint: <code>.andExpect(jsonPath("$.status").value("NOT_OK")))</code>.
+<div class="paragraph">
+<p>We use MockMvc to send a JSON request to the <code>/check</code> endpoint. The body of the request
+is the prepared <code>PersonToCheck</code> object (hint: you can use the prepared <code>JacksonTester</code>
+object to send that <code>json</code>. In the response, for the positive scenario, we expect the
+response to set the <code>status</code> field equal to <code>OK</code>
+(hint: <code>.andExpect(jsonPath("$.status").value("OK")))</code>
+and set the <code>status</code> field for for the negative scenario equal to <code>NOT_OK</code> (hint:
+<code>.andExpect(jsonPath("$.status").value("NOT_OK")))</code>.
 (<a href="#_rest_docs_producer_tests">Show solution</a>)</p>
-</li>
-<li>
-<p>Let&#8217;s run the tests! Obviously they&#8217;ll fail cause we haven&#8217;t written any implementation on the
-producer side. Let&#8217;s fix that!</p>
-</li>
-<li>
-<p>In the <code>ProducerController</code> write the missing implementation. If the <code>PersonCheckingService</code>
-returns <code>true</code> when the <code>PersonToCheck</code> is eligible to get the beer then let&#8217;s return the
-<code>Response</code> with <code>BeerCheckStatus</code> equal to <code>OK</code>. Otherwise the <code>BeerCheckStatus</code> should be
-equal to <code>NOT_OK</code>. (<a href="#_producerController_implementation">Show solution</a>)</p>
-</li>
-<li>
-<p>Let&#8217;s rerun the tests and they should now pass. Right now we haven&#8217;t created any stubs.
-It&#8217;s time to fix that!</p>
-</li>
-<li>
-<p>Spring Cloud Contract WireMock comes with a handy method called <code>WireMockRestDocs.verify()</code>
-that you can pass to the Rest Doc&#8217;s <code>andDo()</code> method. The <code>WireMockRestDocs.verify()</code> method allows you
-to:</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s run the tests. They fail because we have yet to write any implementation on the
+producer side. Let&#8217;s fix that.</p>
+</div>
+<div class="paragraph">
+<p>In the <code>ProducerController</code> class, write the missing implementation. If the
+<code>PersonCheckingService</code> returns <code>true</code> when the <code>PersonToCheck</code> is eligible to get beer,
+then return the <code>Response</code> with <code>BeerCheckStatus</code> equal to <code>OK</code>. Otherwise, the
+<code>BeerCheckStatus</code> should equal <code>NOT_OK</code>.
+(<a href="#_producerController_implementation">Show solution</a>)</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s rerun the tests. Now they should pass. We have yet to create any stubs. It&#8217;s time
+to fix that.</p>
+</div>
+<div class="paragraph">
+<p>Spring Cloud Contract WireMock comes with a handy method called
+<code>WireMockRestDocs.verify()</code> that you can pass to the Rest Doc&#8217;s <code>andDo()</code> method. The
+<code>WireMockRestDocs.verify()</code> method lets you:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>register the request and the response to store it as stub</p>
+<p>Register the request and the response to store it as stub.</p>
 </li>
 <li>
-<p>assert JSON path&#8217;s of the request via <code>jsonPath</code> method (that&#8217;s how you can check the dynamic bits of your response)</p>
+<p>Assert JSON path&#8217;s of the request via <code>jsonPath</code> method (that&#8217;s how you can check the
+dynamic bits of your response).</p>
 </li>
 <li>
-<p>via <code>contentType()</code> method check the content type of the request</p>
+<p>Check the content type of the request via the <code>contentType()</code> method.</p>
 </li>
 <li>
-<p>via <code>stub()</code> method you can save the stored request / response info as a WireMock stub</p>
+<p>Save the stored request and response information as a WireMock stub via <code>stub()</code>
+method.</p>
 </li>
 <li>
-<p>via <code>wiremock()</code> method access WireMock&#8217;s API to perform further request verification</p>
+<p>Access WireMock&#8217;s API to perform further request verification via the <code>wiremock()</code>
+method.</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Spring Cloud Contract WireMock also comes with a <code>SpringCloudContractRestDocs.dslContract()</code>
-method that allows you to generate a DSL contract from your Rest Docs tests. This can be handy
-when you have a lot of Rest Docs tests and would like to migrate to the DSL ones. If you
-call the <code>andDo()</code> method and pass to it the <code>MockMvcRestDocumentation.document(&#8230;&#8203;,&#8230;&#8203;)</code>
-like presented below:</p>
+<div class="paragraph">
+<p>Spring Cloud Contract WireMock also comes with a
+<code>SpringCloudContractRestDocs.dslContract()</code> method that lets you generate a DSL contract
+from your Rest Docs tests. This can be handy when you have a lot of Rest Docs tests and
+would like to migrate to DSL tests. If you call the <code>andDo()</code> method and pass to it the
+<code>MockMvcRestDocumentation.document(&#8230;&#8203;,&#8230;&#8203;)</code>, you&#8217;ll create a <code>dsl-contract.adoc</code> file
+under the <code>target/snippets/shouldRejectABeerIfTooYoung</code> folder and
+<code>shouldRejectABeerIfTooYoung.groovy</code> file under the <code>target/snippets/contracts/</code> folder.
+The code to do so follows:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">.andDo(MockMvcRestDocumentation
     .document("shouldRejectABeerIfTooYoung", SpringCloudContractRestDocs.dslContract()));</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Then you&#8217;ll create a <code>dsl-contract.adoc</code> file under the <code>target/snippets/shouldRejectABeerIfTooYoung</code>
-folder and <code>shouldRejectABeerIfTooYoung.groovy</code> file under <code>target/snippets/contracts/</code> folder</p>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1008,82 +963,83 @@ folder and <code>shouldRejectABeerIfTooYoung.groovy</code> file under <code>targ
 <div class="title">Important</div>
 </td>
 <td class="content">
-To make this work you have to first call the <code>WireMockRestDocs.verify()</code> method
-and <strong>only after</strong> that the <code>SpringCloudContractRestDocs.dslContract()</code> one.
+To make this work, you must first call the <code>WireMockRestDocs.verify()</code> method
+and <strong>only after</strong> that call the <code>SpringCloudContractRestDocs.dslContract()</code> method.
 </td>
 </tr>
 </table>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>Now you can add the Spring Cloud Contract Rest Docs support, as
+(<a href="#__rest_docs_producer_tests_with_contracts">shown here</a>). To do so:</p>
 </div>
-</li>
-<li>
-<p>Time to add the Spring Cloud Contract Rest Docs support. We&#8217;d like to do the following
-(<a href="#__rest_docs_producer_tests_with_contracts">Show solution</a>):</p>
 <div class="ulist">
 <ul>
 <li>
-<p>for the positive scenario assert that the <code>age</code> is greater or equal to <code>20</code>
-(hint: JSON path for this check looks like this <code>$[?(@.age &gt;= 20)]</code>)</p>
+<p>For the positive scenario, assert that the <code>age</code> is greater or equal to <code>20</code> (hint: the
+JSON path for this check is <code>$[?(@.age &gt;= 20)]</code>).</p>
 </li>
 <li>
-<p>for the negative scenario assert that the <code>age</code> is smaller than to <code>20</code>
-(hint: JSON path for this check looks like this <code>$[?(@.age &lt; 20)]</code>)</p>
+<p>For the negative scenario, assert that the <code>age</code> is less than <code>20</code> (hint: the JSON path
+for this check is <code>$[?(@.age &lt; 20)]</code>)</p>
 </li>
 <li>
-<p>assert that the request header contains <code>content-type</code> equal to <code>applicaton/json</code>
-(hint: you can use this method to pass the <code>MediaType</code> - <code>MediaType.valueOf("application/json")</code>)</p>
+<p>Assert that the request header contains a <code>content-type</code> of <code>applicaton/json</code> (hint:
+you can use the <code>MediaType</code> method: <code>MediaType.valueOf("application/json")</code>).</p>
 </li>
 <li>
-<p>produce the stub and the DSL documentation called <code>shouldGrantABeerIfOldEnough</code> for the positive scenario</p>
+<p>Produce the stub and <code>shouldGrantABeerIfOldEnough</code> the its documentation called for the
+positive scenario.</p>
 </li>
 <li>
-<p>produce the stub and the DSL documentation called <code>shouldRejectABeerIfTooYoung</code> for the negative scenario</p>
+<p>Produce the stub called <code>shouldRejectABeerIfTooYoung</code> and its DSL documentation for the
+negative scenario.</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Congratulations! In your <code>target/snippets</code> you should see</p>
+<div class="paragraph">
+<p>Congratulations! In your <code>target/snippets</code> you should see:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>contracts/shouldGrantABeerIfOldEnough.groovy</code> - with DSL contract for the positive scenario</p>
+<p><code>contracts/shouldGrantABeerIfOldEnough.groovy</code>, which is a file with the DSL contract
+for the positive scenario.</p>
 </li>
 <li>
-<p><code>contracts/target/snippets/.groovy</code> - with DSL contract for the negative scenario</p>
+<p><code>contracts/target/snippets/.groovy</code>, which is a file with the DSL contract for the
+negative scenario.  // TODO Missing file name?</p>
 </li>
 <li>
-<p><code>shouldGrantABeerIfOldEnough/</code> - folder with <code>adoc</code> files representing documentation of the
-positive scenario</p>
+<p><code>shouldGrantABeerIfOldEnough/</code>, which is a folder with <code>adoc</code> files containing
+documentation of the positive scenario.</p>
 </li>
 <li>
-<p><code>shouldRejectABeerIfTooYoung/</code> - folder with <code>adoc</code> files representing documentation of the
-negative scenario</p>
+<p><code>shouldRejectABeerIfTooYoung/</code>, which is a folder with <code>adoc</code> files containing
+documentation of the negative scenario.</p>
 </li>
 <li>
-<p><code>stubs/shouldGrantABeerIfOldEnough.json</code> - WireMock stub of the positive scenario</p>
+<p><code>stubs/shouldGrantABeerIfOldEnough.json</code>, which is a WireMock stub of the positive
+scenario.</p>
 </li>
 <li>
-<p><code>stubs/shouldRejectABeerIfTooYoung.json</code> - WireMock stub of the negative scenario</p>
+<p><code>stubs/shouldRejectABeerIfTooYoung.json</code>, which is a WireMock stub of the negative
+scenario.</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Now let&#8217;s define the messaging contracts!</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Now we xan define the messaging contracts.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_defining_first_messaging_contract">Defining first messaging contract</h4>
+<h4 id="_defining_the_first_messaging_contract">Defining the First Messaging Contract</h4>
+<div class="paragraph">
+<p>We&#8217;ve done the case for HTTP. Now we can move to the
+<code>src/test/resources/contracts/beer/messaging</code> folder.</p>
+</div>
 <div class="ulist">
 <ul>
-<li>
-<p>Ok we&#8217;ve done the case for HTTP. Let&#8217;s move to the <code>src/test/resources/contracts/beer/messaging</code> folder</p>
-</li>
 <li>
 <p>Time to define some contracts for messaging. Create a <code>shouldSendAcceptedVerification.groovy</code> file. If you&#8217;re lost just check out the <a href="#_proposal_of_simple_contracts_by_consumer">solution</a></p>
 <div class="ulist">
@@ -1269,35 +1225,34 @@ from the base class. (<a href="#_messaging_dsls">Show solution</a>)</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_defining_second_messaging_contract">Defining second messaging contract</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Time for you to create the second contract. Create a file called <code>shouldSendRejectedVerification.groovy</code>.
-If you&#8217;re lost just check out the <a href="#_proposal_of_simple_contracts_by_consumer">solution</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Set the <code>eligible</code> in the response body to <code>false</code></p>
-</li>
-<li>
-<p>Update the label to <code>rejected_verification</code></p>
-</li>
-<li>
-<p>Update the description</p>
-</li>
-</ul>
+<h4 id="_defining_the_second_messaging_contract">Defining the Second Messaging Contract</h4>
+<div class="paragraph">
+<p>Now you can create the second contract. Create a file called <code>shouldSendRejectedVerification.groovy</code>.
+If you get lost, check out the <a href="#_proposal_of_simple_contracts_by_consumer">solution</a>. To
+create the contract:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set the <code>eligible</code> property in the response body to <code>false</code>.</p>
 </li>
-</ul>
+<li>
+<p>Update the label to <code>rejected_verification</code>.</p>
+</li>
+<li>
+<p>Update the description.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_generating_tests_from_contracts">Generating tests from contracts</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Let&#8217;s generate the tests! Just call:</p>
+<h4 id="_generating_tests_from_contracts">Generating Tests from Contracts</h4>
+<div class="paragraph">
+<p>Now we can generate the tests. To do so, call:</p>
+</div>
+<div class="paragraph">
+<p>+</p>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -1310,24 +1265,13 @@ If you&#8217;re lost just check out the <a href="#_proposal_of_simple_contracts_
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">$ ./gradlew clean build publishToMavenLocal</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
+<div class="paragraph">
 <p>Suddenly some tests should start failing. Those tests are the autogenerated tests created
-by Spring Cloud Contract</p>
-</li>
-<li>
-<p>The tests lay under <code>/generated-test-sources/contracts/org/springframework/cloud/contract/verifier/tests/beer</code>
-in <code>target</code> for Maven or <code>build</code> for Gradle</p>
-</li>
-<li>
-<p>There will be a test for each folder in which you store your contracts. The name of the test class
-will be the name of that folder</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+by Spring Cloud Contract. The tests are under the
+<code>/generated-test-sources/contracts/org/springframework/cloud/contract/verifier/tests/beer</code>
+directory in the <code>target</code> directory for Maven or the <code>build</code> directory for Gradle.
+There is a test for each folder in which you store your contracts. The name of the test
+class is the name of that folder.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1434,15 +1378,11 @@ In this case we&#8217;re sending a message to the <code>output</code> channel (t
 </div>
 </div>
 <div class="sect3">
-<h4 id="_checking_the_generated_jar">Checking the generated JAR</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Let&#8217;s check out what&#8217;s inside the generated stub JAR</p>
-</li>
-<li>
-<p>Assuming that our configuration is ok - if you run the following command you should see
-a similar output</p>
+<h4 id="_checking_the_generated_jar_file">Checking the Generated JAR File</h4>
+<div class="paragraph">
+<p>Let&#8217;s check out what&#8217;s inside the generated stub JAR. Assuming that our configuration is
+OK, if you run the following command, you should see output that resembles the following:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">$ unzip -l target/beer-api-producer-restdocs-0.0.1-SNAPSHOT-stubs.jar
@@ -1480,44 +1420,53 @@ Archive:  beer-api-producer-restdocs-0.0.1-SNAPSHOT-stubs.jar
 <div class="ulist">
 <ul>
 <li>
-<p>Under <code>com/example/model</code> we&#8217;ll have the compiled pojos with sources</p>
+<p>Under <code>com/example/model</code>, you can see the compiled POJOs with sources.</p>
 </li>
 <li>
-<p>Under <code>META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT</code> under <code>contracts</code> we&#8217;ll have the
-messaging contracts and under <code>mappings</code> all generated HTTP stubs</p>
+<p>Under <code>META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/contracts</code>, you
+can see the messaging contracts.</p>
+</li>
+<li>
+<p>Under <code>META-INF/com.example/beer-api-producer-restdocs/0.0.1-SNAPSHOT/mappings</code>, you
+can see all the generated HTTP stubs.</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>In a "real life" scenario we would merge our code and a fat jar and a jar with stubs would
-be generated by the CI system. In this tutorial we&#8217;ll work with our Maven local so we don&#8217;t have
-to do anything else. Let&#8217;s move to the consumer side.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>In a "real life" scenario, we would merge our code into a fat jar, and a jar with stubs
+would be generated by the CI system. In this tutorial, we work with our Maven local, so
+that we don&#8217;t have to do anything else.</p>
+</div>
+<div class="paragraph">
+<p>Now we can move to the consumer side.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_consumer_flow_2">Consumer flow 2</h3>
+<h3 id="_consumer_flow_2">Consumer Flow 2</h3>
 <div class="imageblock">
 <div class="content">
 <img src="../images/consumer_flow_2.png" alt="consumer flow 2">
 </div>
 <div class="title">Figure 7. Online work with stubs</div>
 </div>
+<div class="paragraph">
+<p>In this part of the tutorial, we show different ways of working with stubs:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>In this part of the tutorial we&#8217;ll show different ways of working with stubs</p>
-<div class="ulist">
-<ul>
-<li>
-<p>using <code>@AutConfigureWireMock</code> annotation to manually pass a list of stubs to register
-from classpath</p>
+<p>Using the <code>@AutoConfigureWireMock</code> annotation to manually pass a list of stubs to
+register from the classpath.</p>
 </li>
 <li>
-<p>using <code>@AutoConfigureStubRunner</code> with classpath scanning</p>
+<p>Using the <code>@AutoConfigureStubRunner</code> annotation with classpath scanning.</p>
+</li>
+<li>
+<p>Using the <code>@AutoConfigureStubRunner</code> annotation for offline work</p>
+</li>
+</ul>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1525,34 +1474,44 @@ from classpath</p>
 <div class="title">Important</div>
 </td>
 <td class="content">
-This feature is available starting with Spring Cloud Contract 1.1.1.RELEASE
+This feature is available as of the Spring Cloud Contract 1.1.1.RELEASE.
 </td>
 </tr>
 </table>
 </div>
-</li>
-<li>
-<p>using <code>@AutoConfigureStubRunner</code> and offline work</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
 <div class="sect3">
 <h4 id="_adding_spring_cloud_contract">Adding Spring Cloud Contract</h4>
-
+<div class="paragraph">
+<p>To add Spring Cloud Contract, we&#8217;ll do each of the following:</p>
 </div>
-<div class="sect3">
-<h4 id="_reading_http_stubs_from_classpath_with_spring_cloud_contract_wiremock">Reading HTTP stubs from classpath with Spring Cloud Contract WireMock</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>Let&#8217;s open the consumer code from the <code>consumer_with_restdocs</code> directory in your IDE</p>
+<p><a href="#contract-workshop-reading-http-stubs-from-classpath-wiremock">[contract-workshop-reading-http-stubs-from-classpath-wiremock]</a></p>
 </li>
 <li>
-<p>We&#8217;ll try to do TDD so let&#8217;s open the <code>BeerControllerTest</code> class.</p>
+<p><a href="#contract-workshop-reading-http-stubs-from-classpath-stubrunner">Reading HTTP Stubs from the Classpath with Spring Cloud Contract Stub Runner</a></p>
 </li>
+<li>
+<p><a href="#contract-workshop-writing-missing-consumer-messaging">Writing the Missing Consumer Messaging Implementation</a></p>
+</li>
+<li>
+<p><a href="#contract-workshop-reading-messaging-stubs-stubrunner">Reading Messaging Stubs with the Spring Cloud Contract Stub Runner</a></p>
+</li>
+<li>
+<p><a href="#contract-workshop-reading-messaging-stubs-classpath">Reading Messaging Stubs from the Classpath with Spring Cloud Contract Stub Runner</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="contract-workshop-reading-http-stubs-from-classpath">Reading HTTP Stubs from the Classpath with Spring Cloud Contract WireMock</h4>
+<div class="paragraph">
+<p>In your IDE, open the consumer code from the <code>consumer_with_restdocs</code> directory. We want
+to do TDD, so let&#8217;s open the <code>BeerControllerTest</code> class.</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>We have two objectives for HTTP</p>
 <div class="ulist">
@@ -1601,16 +1560,21 @@ tests body. (<a href="#_written_consumer_tests">Show solution</a>)</p>
 <p>The first step in TDD is <code>red</code> - let&#8217;s run the tests and ensure that they are failing (in the controller
 we return <code>null</code> instead of any meaningful value)</p>
 </li>
-<li>
-<p>Since the producer has already published its stubs, we already know how the API looks like,
-let&#8217;s then write the missing implementation for the <code>BeerController</code>. (<a href="#_missing_consumer_controller_code">Show solution</a>)</p>
-</li>
-<li>
-<p>If we run our tests again they will fail due to <code>Connection Refused</code> - that&#8217;s because
-we&#8217;re trying to send a request to a non-started server.</p>
-</li>
-<li>
-<p>Now it&#8217;s time to turn on the magic! Let&#8217;s add the Spring Cloud Starter Contract Stub Runner test dependency.</p>
+</ul>
+</div>
+<div class="paragraph">
+<p>Since the producer has already published its stubs, we already know how the API looks.
+Let&#8217;s write the missing implementation for the <code>BeerController</code>.
+(<a href="#_missing_consumer_controller_code">Show solution</a>)</p>
+</div>
+<div class="paragraph">
+<p>If we run our tests again, they fail due to <code>Connection Refused</code>. That&#8217;s because we try
+to send a request to a non-started server.</p>
+</div>
+<div class="paragraph">
+<p>Now you can turn on the magic! To do so, add the Spring Cloud Starter Contract Stub
+Runner test dependency.</p>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -1627,9 +1591,13 @@ we&#8217;re trying to send a request to a non-started server.</p>
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")</code></pre>
 </div>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Now we&#8217;ll add the producer stub dependency to our project</p>
+</li>
+</ul>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -1663,33 +1631,29 @@ we&#8217;re trying to send a request to a non-started server.</p>
 <div class="title">Important</div>
 </td>
 <td class="content">
-Remember not to include any transitive dependencies. We just want to import the
-JAR with the contracts and stubs
+Remember not to include any transitive dependencies. We want to import only
+the JAR that contains the contracts and stubs.
 </td>
 </tr>
 </table>
 </div>
-</li>
-<li>
-<p>Now we&#8217;ll annotate the <code>BeerControllerTest</code> class with
+<div class="paragraph">
+<p>Now we can annotate the <code>BeerControllerTest</code> class with
 <code>@AutoConfigureWireMock(stubs = "classpath:/META-INF/com.example/beer-api-producer-restdocs/<strong>*/</strong>.json", port = 8090)</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>We&#8217;re telling WireMock to start a fake HTTP server at port <code>8090</code> and to register all stubs that lay at location
-<code>/META-INF/com.example/beer-api-producer-restdocs/<strong>*/</strong>.json</code> on the classpath</p>
-</li>
-</ul>
 </div>
-</li>
-<li>
-<p>Let&#8217;s run our tests again and now they should pass!</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>That annotation tells WireMock to start a fake HTTP server at port <code>8090</code> and to register
+all stubs at the following location:</p>
+</div>
+<div class="paragraph">
+<p><code>/META-INF/com.example/beer-api-producer-restdocs/<strong>*/</strong>.json</code> on the classpath</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s run our tests again. Now they should pass!</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_reading_http_stubs_from_classpath_with_spring_cloud_contract_stub_runner">Reading HTTP stubs from classpath with Spring Cloud Contract Stub Runner</h4>
+<h4 id="contract-workshop-reading-http-stubs-from-classpath-stubrunner">Reading HTTP Stubs from the Classpath with Spring Cloud Contract Stub Runner</h4>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1697,52 +1661,43 @@ JAR with the contracts and stubs
 <div class="title">Important</div>
 </td>
 <td class="content">
-This feature is available from 1.1.1.RELEASE version
+This feature is available as of the 1.1.1.RELEASE version.
 </td>
 </tr>
 </table>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>We&#8217;re assuming that you have done the previous task so your consumer project is properly
-setup.</p>
-</li>
-<li>
-<p>Open the <code>BeerControllerClasspathTest</code> - we&#8217;ll use Stub Runner to pick stubs from classpath</p>
-</li>
-<li>
-<p>Now annotate the class with <code>@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")</code>
-without passing the <code>workOffline</code> flag nor the <code>repositoryRoot</code>. Just pass the ids</p>
-</li>
-<li>
-<p>Run the tests and you&#8217;ll see that the tests pass!</p>
-<div class="ulist">
-<ul>
-<li>
-<p>For this example we&#8217;re by default scanning the following locations:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>/META-INF/com.example/beer-api-producer-restdocs/<strong>*/</strong>.*</code></p>
-</li>
-<li>
-<p><code>/contracts/com.example/beer-api-producer-restdocs/<strong>*/</strong>.*</code></p>
-</li>
-<li>
-<p><code>/mappings/com.example/beer-api-producer-restdocs/<strong>*/</strong>.*</code></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>This part assumes that you have done the previous task so that your consumer project is
+properly set up.</p>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>To read the stubs:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the <code>BeerControllerClasspathTest</code>. We use Stub Runner to pick stubs from the
+classpath.</p>
 </li>
-</ul>
+<li>
+<p>Now annotate the class with
+<code>@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")</code> without
+passing the <code>workOffline</code> flag nor the <code>repositoryRoot</code>. Just pass the ID values.</p>
+</li>
+<li>
+<p>Run the tests and you can see them pass!</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For this example, we scan the following locations by default:
+* <code>/META-INF/com.example/beer-api-producer-restdocs/<strong>/<strong>.</strong></code>
+* <code>/contracts/com.example/beer-api-producer-restdocs/</strong>/<strong>.</strong></code>
+* <code>/mappings/com.example/beer-api-producer-restdocs/<strong>*/</strong>.*</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_writing_the_missing_consumer_messaging_implementation">Writing the missing consumer messaging implementation</h4>
+<h4 id="contract-workshop-writing-missing-consumer-messaging">Writing the Missing Consumer Messaging Implementation</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1802,12 +1757,13 @@ Unfortunately they will fail cause no message has been received - we&#8217;ll st
 </div>
 </div>
 <div class="sect3">
-<h4 id="_reading_messaging_stubs_with_spring_cloud_contract_stub_runner">Reading messaging stubs with Spring Cloud Contract Stub Runner</h4>
+<h4 id="contract-workshop-reading-messaging-stubs-stubrunner">Reading Messaging Stubs with the Spring Cloud Contract Stub Runner</h4>
+<div class="paragraph">
+<p>Since Rest Docs have nothing to do with messaging, we must use the standard Stub Runner
+approach:</p>
+</div>
 <div class="ulist">
 <ul>
-<li>
-<p>since Rest Docs have nothing to do with messaging we&#8217;ll have to use the standard Stub Runner approach</p>
-</li>
 <li>
 <p>Time to use Spring Cloud Contract!</p>
 <div class="ulist">
@@ -1851,7 +1807,7 @@ to <code>Integer</code> (and change the production code too) then the tests will
 </div>
 </div>
 <div class="sect3">
-<h4 id="_reading_messaging_stubs_from_classpath_with_spring_cloud_contract_stub_runner">Reading messaging stubs from classpath with Spring Cloud Contract Stub Runner</h4>
+<h4 id="contract-workshop-reading-messaging-stubs-classpath">Reading Messaging Stubs from the Classpath with Spring Cloud Contract Stub Runner</h4>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1859,48 +1815,27 @@ to <code>Integer</code> (and change the production code too) then the tests will
 <div class="title">Important</div>
 </td>
 <td class="content">
-This feature is available from 1.1.1.RELEASE version
+This feature is available as of the 1.1.1.RELEASE version
 </td>
 </tr>
 </table>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>now that the implementation is written and has been tested in the previous
-step, we can try to read the message stubs from classpath</p>
-</li>
-<li>
-<p>Go to the <code>BeerVerificationListenerClasspathTest</code></p>
-</li>
-<li>
-<p>Now annotate the class with <code>@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")</code>
-without passing the <code>workOffline</code> flag nor the <code>repositoryRoot</code>. Just pass the ids</p>
-</li>
-<li>
-<p>Run the tests and you&#8217;ll see that the tests pass!</p>
-<div class="ulist">
-<ul>
-<li>
-<p>For this example we&#8217;re by default scanning the following locations:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>/META-INF/com.example/beer-api-producer-restdocs/<strong>*/</strong>.*</code></p>
-</li>
-<li>
-<p><code>/contracts/com.example/beer-api-producer-restdocs/<strong>*/</strong>.*</code></p>
-</li>
-<li>
-<p><code>/mappings/com.example/beer-api-producer-restdocs/<strong>*/</strong>.*</code></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Now that you have written the implementation and have tested it in the previous section,
+we can try to read the message stubs from classpath. To do so, annotate the
+<code>BeerVerificationListenerClasspathTest</code> class with
+<code>@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")</code>
+without passing the <code>workOffline</code> flag or the <code>repositoryRoot</code> flag. Pass only the <code>id</code>
+values.</p>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>Now you can run the tests and see them tests pass!</p>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>For this example, we scan the following locations by default:
+* <code>/META-INF/com.example/beer-api-producer-restdocs/<strong>/<strong>.</strong></code>
+* <code>/contracts/com.example/beer-api-producer-restdocs/</strong>/<strong>.</strong></code>
+* <code>/mappings/com.example/beer-api-producer-restdocs/<strong>*/</strong>.*</code></p>
 </div>
 </div>
 </div>
@@ -2533,7 +2468,7 @@ public class ProducerControllerTests {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_back_to_the_main_page">Back to the main page</h2>
+<h2 id="_back_to_the_main_page">Back to the Main Page</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="../workshops.html">Click here to go back to the main page</a></p>

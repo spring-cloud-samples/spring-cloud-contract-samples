@@ -501,8 +501,8 @@ $(addBlockSwitches);
 <li><a href="#_generating_the_documentation">Generating the documentation</a></li>
 <li><a href="#_resources">Resources</a>
 <ul class="sectlevel2">
-<li><a href="#_adib_saikali_s_introduction_to_consumer_driven_contracts">Adib Saikali&#8217;s introduction to Consumer Driven Contracts</a></li>
-<li><a href="#_introduction_to_spring_cloud_contract">Introduction to Spring Cloud Contract</a></li>
+<li><a href="#contract-workshop-adib-saikali">Adib Saikali&#8217;s Introduction to Consumer Driven Contracts</a></li>
+<li><a href="#contract-workshop-introduction-video">Introduction to Spring Cloud Contract</a></li>
 </ul>
 </li>
 <li><a href="#_tasks">Tasks</a></li>
@@ -513,9 +513,9 @@ $(addBlockSwitches);
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This documentation will allow you to go through Spring Cloud Contract Workshops by completing
-a series of tasks that will teach you the basic and more advanced concept behind Consumer Driven Contracts
-and Spring Cloud Contract as such.</p>
+<p>This documentation takes you through the Spring Cloud Contract Workshops by asking you to
+complete a series of tasks that teach you both basic and more advanced concepts behind
+Consumer Driven Contracts in general and Spring Cloud Contract in particular.</p>
 </div>
 </div>
 </div>
@@ -523,10 +523,11 @@ and Spring Cloud Contract as such.</p>
 <h2 id="_setup">Setup</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The repository mostly consists of pairs of <code>producer</code> and <code>consumer</code> applications that show
-different use cases of Spring Cloud Contract. The initial state of the repository
-is such that all the examples are working and the tests are passing. In order for you to prepare
-the repository so it has only the basic pieces of code set up execute this Gradle command</p>
+<p>The repository mostly consists of pairs of <code>producer</code> and <code>consumer</code> applications that
+show different use cases of Spring Cloud Contract. The initial state of the repository
+is such that all the examples are working and the tests are passing. In order for you to
+prepare the repository so that it has only the basic pieces of code ready for use,
+run the following Gradle command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -536,8 +537,8 @@ $ ./gradlew prepareForWorkshops</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This command will remove most of the code / contracts / project setup so that you can start
-with the workshops.</p>
+<p>The preceding commands removes most of the code, contracts, and project setup details, so
+that you can start the workshops.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -546,8 +547,8 @@ with the workshops.</p>
 <div class="title">Tip</div>
 </td>
 <td class="content">
-Whenever your lost - don&#8217;t worry. It&#8217;s enough to check what&#8217;s there in the <code>master</code> branch
-where all of the examples are ready and working.
+Whenever your lost, do not worry. At any time, you can check what the contents in
+the <code>master</code> branch where all of the examples are ready and working.
 </td>
 </tr>
 </table>
@@ -559,8 +560,8 @@ where all of the examples are ready and working.
 <div class="title">Important</div>
 </td>
 <td class="content">
-You&#8217;ll also need to have Maven installed. Check out <a href="https://maven.apache.org/download.cgi">
-the website on how to download and install Maven</a>
+You must have Maven installed. Check out
+<a href="https://maven.apache.org/download.cgi">the website on how to download and install Maven</a>.
 </td>
 </tr>
 </table>
@@ -571,7 +572,7 @@ the website on how to download and install Maven</a>
 <h2 id="_generating_the_documentation">Generating the documentation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To generate the whole documentation it&#8217;s enough to call the Gradle task:</p>
+<p>To generate the documentation, call the Gradle task, as shown below:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -585,8 +586,21 @@ $ ./gradlew generateDocumentation</code></pre>
 <div class="sect1">
 <h2 id="_resources">Resources</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The following resources may help you learn about Spring Cloud Contracts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#contract-workshop-adib-saikali">Adib Saikali&#8217;s Introduction to Consumer Driven Contracts</a></p>
+</li>
+<li>
+<p><a href="#contract-workshop-introduction-video">Introduction to Spring Cloud Contract</a></p>
+</li>
+</ul>
+</div>
 <div class="sect2">
-<h3 id="_adib_saikali_s_introduction_to_consumer_driven_contracts">Adib Saikali&#8217;s introduction to Consumer Driven Contracts</h3>
+<h3 id="contract-workshop-adib-saikali">Adib Saikali&#8217;s Introduction to Consumer Driven Contracts</h3>
 <iframe src="https://docs.google.com/presentation/d/1-_2_Ok-inGA75cr8DwTyeMuhkEGSuaZ4M8FKGV6W5hU/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 <div class="paragraph">
 <p>&#160;
@@ -603,7 +617,7 @@ $ ./gradlew generateDocumentation</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_introduction_to_spring_cloud_contract">Introduction to Spring Cloud Contract</h3>
+<h3 id="contract-workshop-introduction-video">Introduction to Spring Cloud Contract</h3>
 <iframe src="https://docs.google.com/presentation/d/1fB63Pm4nSItw9nJ9zyhAIw2KAZ4mazZZHHGAW6e0Srg/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 </div>
 </div>
@@ -614,33 +628,33 @@ $ ./gradlew generateDocumentation</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="tutorials/contracts_on_the_producer_side.html">Contracts on the producer side</a></p>
+<p><a href="tutorials/contracts_on_the_producer_side.html">Contracts on the Producer Side</a></p>
 <div class="ulist">
 <ul>
 <li>
-<p>simple DSL examples for HTTP &amp; Messaging</p>
+<p>Simple DSL examples for HTTP &amp; Messaging</p>
 </li>
 <li>
-<p>base classes picked by convention</p>
+<p>Base classes picked by convention</p>
 </li>
 <li>
-<p>generating documentation from contracts</p>
+<p>Generating documentation from contracts</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><a href="tutorials/contracts_external.html">Contracts that lay in an external repository</a></p>
+<p><a href="tutorials/contracts_external.html">Contracts in an External Repository</a></p>
 <div class="ulist">
 <ul>
 <li>
-<p>simple DSL examples for HTTP &amp; Messaging</p>
+<p>Simple DSL examples for HTTP &amp; Messaging</p>
 </li>
 <li>
-<p>base classes picked by mappings</p>
+<p>Base classes picked by mappings</p>
 </li>
 <li>
-<p>generating documentation from contracts</p>
+<p>Generating documentation from contracts</p>
 </li>
 </ul>
 </div>
@@ -650,16 +664,16 @@ $ ./gradlew generateDocumentation</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>generating stubs using Rest Docs</p>
+<p>Generating stubs using Rest Docs</p>
 </li>
 <li>
-<p>generating contracts using Rest Docs</p>
+<p>Generating contracts using Rest Docs</p>
 </li>
 <li>
-<p>reading stubs from classpath via Spring Cloud Contract WireMock</p>
+<p>Reading stubs from classpath via Spring Cloud Contract WireMock</p>
 </li>
 <li>
-<p>reading stubs from classpath via Stub Runner</p>
+<p>Reading stubs from classpath via Stub Runner</p>
 </li>
 </ul>
 </div>
@@ -669,60 +683,60 @@ $ ./gradlew generateDocumentation</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="tutorials/stubs_per_consumer.html">stubs per consumer</a></p>
+<p><a href="tutorials/stubs_per_consumer.html">Stubs per Consumer</a></p>
 </li>
 <li>
 <p><a href="tutorials/spring_cloud_contract_advanced.html">Spring Cloud Contract advanced</a></p>
 <div class="ulist">
 <ul>
 <li>
-<p>regexs</p>
+<p>Using regular expressions</p>
 </li>
 <li>
-<p>code execution</p>
+<p>Code execution</p>
 </li>
 <li>
-<p>referencing request from response</p>
+<p>Referencing request from response</p>
 </li>
 <li>
-<p>working with stub and test matchers</p>
+<p>Working with stub and test matchers</p>
 </li>
 <li>
-<p>working with random ports</p>
+<p>Working with random ports</p>
 </li>
 <li>
-<p>async</p>
+<p>Asynchronous communication</p>
 </li>
 <li>
-<p>priority</p>
+<p>Priority</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><a href="tutorials/contracts_representing_scenarios.html">contracts representing scenarios
+<p><a href="tutorials/contracts_representing_scenarios.html">Contracts representing scenarios
 (stateful stubs)</a></p>
 </li>
 <li>
-<p><a href="tutorials/library_with_common_code.html">creating a library with common code
+<p><a href="tutorials/library_with_common_code.html">Creating a library with common code
 shareable between teams</a></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>requires completion of "<a href="tutorials/contracts_on_the_producer_side.html">Contracts on the producer side</a>"</strong></p>
+<p><strong>Requires completion of "<a href="tutorials/contracts_on_the_producer_side.html">Contracts on the producer side</a>"</strong></p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><a href="tutorials/stubbing_out_service_discovery.html">stubbing out service discovery</a></p>
+<p><a href="tutorials/stubbing_out_service_discovery.html">Stubbing out service discovery</a></p>
 </li>
 <li>
-<p><a href="tutorials/junit_rule.html">using JUnit Rule</a></p>
+<p><a href="tutorials/junit_rule.html">Using JUnit Rule</a></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>requires completion of <a href="tutorials/stubs_per_consumer.html">stubs per consumer</a>"</strong></p>
+<p><strong>Requires completion of <a href="tutorials/stubs_per_consumer.html">stubs per consumer</a>"</strong></p>
 </li>
 </ul>
 </div>
@@ -735,7 +749,7 @@ shareable between teams</a></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>requires completion of "<a href="tutorials/stubs_per_consumer.html">Spring Cloud Contract advanced</a>"</strong></p>
+<p><strong>Requires completion of "<a href="tutorials/stubs_per_consumer.html">Spring Cloud Contract advanced</a>"</strong></p>
 </li>
 </ul>
 </div>

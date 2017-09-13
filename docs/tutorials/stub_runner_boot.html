@@ -497,9 +497,9 @@ $(addBlockSwitches);
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_adding_the_stout_endpoint">Adding the Stout endpoint</a></li>
+<li><a href="#_adding_the_stout_endpoint">Adding the Stout Endpoint</a></li>
 <li><a href="#_running_stub_runner_boot">Running Stub Runner Boot</a></li>
-<li><a href="#_back_to_the_main_page">Back to the main page</a></li>
+<li><a href="#_back_to_the_main_page">Back to the Main Page</a></li>
 </ul>
 </div>
 </div>
@@ -507,37 +507,33 @@ $(addBlockSwitches);
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this tutorial we&#8217;ll check out the basic functionality of the Stub Runner Boot application.
-Stub Runner Boot is a standalone JAR that you can run to download the latest stubs and have them
-started in fake HTTP servers.</p>
+<p>In this tutorial, we check out the basic functionality of the Stub Runner Boot
+application. Stub Runner Boot is a standalone JAR that you can run to download the latest
+stubs and have them started in fake HTTP servers.</p>
 </div>
 <div class="paragraph">
-<p>We will play only with the HTTP side of the Stub Runner Boot. However the tool is far more powerful.
-There&#8217;s also an option</p>
+<p>We demonstrate only the HTTP side of the Stub Runner Boot. However, the tool is far more
+powerful. There are also options to:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>to send messages defined in contracts to real queues</p>
+<p>End messages defined in contracts to real queues.</p>
 </li>
 <li>
-<p>to register the stubs in a real discovery service</p>
+<p>Register the stubs in a real discovery service.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_adding_the_stout_endpoint">Adding the Stout endpoint</h2>
+<h2 id="_adding_the_stout_endpoint">Adding the Stout Endpoint</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Let&#8217;s open the <code>producer_advanced</code> project</p>
-</li>
-<li>
-<p>Let&#8217;s define a new endpoint called <code>/stout</code>. Time to start with a contract (let&#8217;s call it
-<code>shouldReturnStout.groovy</code>)</p>
+<div class="paragraph">
+<p>Let&#8217;s open the <code>producer_advanced</code> project and define a new endpoint called <code>/stout</code>.
+We can start with a contract. Let&#8217;s call it <code>shouldReturnStout.groovy</code>:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">Contract.make {
@@ -555,9 +551,9 @@ There&#8217;s also an option</p>
 }</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Now, let&#8217;s create the <code>StoutController</code></p>
+<div class="paragraph">
+<p>Now, let&#8217;s create the <code>StoutController</code>, as follows:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RestController
@@ -570,22 +566,26 @@ public class StoutController {
 }</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>In the <code>BeerRestBase</code> we need to add another controller to RestAssured</p>
+<div class="paragraph">
+<p>In <code>BeerRestBase</code>, we need to add another controller to RestAssured, as follows:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">RestAssuredMockMvc.standaloneSetup(..., new StoutController(), ...);</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Let&#8217;s install the stubs locally</p>
+<div class="paragraph">
+<p>Let&#8217;s install the stubs locally, as shown for both Maven and Gradle in the following
+code snippet:</p>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">./mvnw clean install</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>+</p>
 </div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
@@ -593,9 +593,10 @@ public class StoutController {
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">./gradlew clean build publishToMavenLocal</code></pre>
 </div>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
-<p>Great! Now let&#8217;s move to a terminal!</p>
+<p>Great! Now let&#8217;s move to a terminal.</p>
 </li>
 </ul>
 </div>
@@ -604,34 +605,16 @@ public class StoutController {
 <div class="sect1">
 <h2 id="_running_stub_runner_boot">Running Stub Runner Boot</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Stub Runner Boot is a fat JAR that can be configured via a single annotation (we will use
-an already packaged JAR so you don&#8217;t need to follow these steps). It&#8217;s enough to</p>
-<div class="ulist">
-<ul>
-<li>
-<p>add the stub runner starter to the classpath</p>
-<div class="listingblock primary">
-<div class="title">Maven</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
-	&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-	&lt;artifactId&gt;spring-cloud-starter-contract-stub-runner&lt;/artifactId&gt;
-	&lt;scope&gt;test&lt;/scope&gt;
-&lt;/dependency&gt;</code></pre>
+<div class="paragraph">
+<p>Stub Runner Boot is a fat JAR that can be configured via a single annotation. We will use
+an already packaged JAR, so you don&#8217;t need to follow these steps. You can:
+* add the stub runner starter to the classpath, as follows:
+<code>include::snippets/consumer_stub_runner_dep.adoc[]</code>.
+* annotate your main class with <code>@EnableStubRunnerServer</code>.</p>
 </div>
+<div class="paragraph">
+<p>The following class shows an example of such a class:</p>
 </div>
-<div class="listingblock secondary">
-<div class="title">Gradle</div>
-<div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>annotate your main class with <code>@EnableStubRunnerServer</code></p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@SpringBootApplication
@@ -644,12 +627,9 @@ public class StubRunnerBoot {
 }</code></pre>
 </div>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>We can download a prepackaged JAR, as follows:</p>
 </div>
-</li>
-<li>
-<p>We&#8217;ll download a prepackaged JAR</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">URL="https://dl.bintray.com/marcingrzejszczak/maven/stub-runner-boot-1.1.0.RELEASE.jar"
@@ -661,17 +641,12 @@ mkdir -p target
 curl -L "${URL}" -o "${JAR_LOCATION}"</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Now let&#8217;s run the Stub Runner Boot application. What want to happen is</p>
-<div class="ulist">
-<ul>
-<li>
-<p>we want to work in <code>offline</code> mode</p>
-</li>
-<li>
-<p>we want to download latest stubs of <code>com.example:beer-api-producer-advanced</code> and start it
-on a random port</p>
+<div class="paragraph">
+<p>Now let&#8217;s run the Stub Runner Boot application. We want to work in <code>offline</code> mode, and
+we want to download the JAR containing the latest stubs of
+<code>com.example:beer-api-producer-advanced</code> and start it on a random port. The following
+script shows how to do all that:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">echo "Running stub runner"
@@ -685,23 +660,16 @@ nohup java -jar "${JAR_LOCATION}" --stubrunner.workOffline="true" --stubrunner.i
 <div class="title">Tip</div>
 </td>
 <td class="content">
-You can run it without <code>nohup</code> but then you&#8217;d need to start a new terminal window for
-the rest of this tutorial
+You can run the Stub Runner Boot without <code>nohup</code>, but then you have to start a new
+terminal window for the rest of this tutorial. If you check the <code>nohup.log</code> output file,
+you can see that the app has started and it has downloaded the stubs locally. It has
+started on port <code>8083</code>. Now let&#8217;s <code>curl</code> a request to the <code>/stubs</code> and try to retrieve
+the port on which our stub has started. Once we have it, we can <code>curl</code> the <code>/stout</code>
+endpoint.
 </td>
 </tr>
 </table>
 </div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>If you check the <code>nohup.log</code> output file you&#8217;ll see that the app has started
-and it has downloaded the stubs locally. It has started on port <code>8083</code></p>
-</li>
-<li>
-<p>Now let&#8217;s curl a request to the <code>/stubs</code> and try to retrieve the port on which our stub has started.
-Once we have it we&#8217;ll curl the <code>/stout</code> endpoint.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">echo "Show all running stubs"
@@ -711,11 +679,8 @@ STUB_PORT=`curl -s localhost:8083/stubs/beer-api-producer-advanced`
 curl "localhost:${STUB_PORT}/stout"</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>We should get a <code>STOUT</code> string shown on the terminal</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>We should get a <code>STOUT</code> string on the terminal.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -724,11 +689,12 @@ curl "localhost:${STUB_PORT}/stout"</code></pre>
 <div class="title">Tip</div>
 </td>
 <td class="content">
-There are also the <code>/trigger</code> endpoints available if you want to trigger some messaging
+There are also  <code>/trigger</code> endpoints available if you want to trigger some messaging
 labels. You can read more about them in the <a href="https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_stub_runner_boot_application">docs</a>.
-For the <a href="http://cloud.spring.io/spring-cloud-pipelines/spring-cloud-pipelines.html">Spring Cloud Pipelines</a>
-project we have a Stub Runner Boot application that uses a real instance of RabbitMQ for messaging
-and register stubs in Eureka. You can check the code over <a href="https://github.com/spring-cloud-samples/github-analytics-stub-runner-boot">here</a>
+For the <a href="http://cloud.spring.io/spring-cloud-pipelines/spring-cloud-pipelines.html">Spring
+Cloud Pipelines</a> project, we have a Stub Runner Boot application that uses a real
+instance of RabbitMQ for messaging and registers stubs in Eureka. You can check the code
+<a href="https://github.com/spring-cloud-samples/github-analytics-stub-runner-boot">here</a>.
 </td>
 </tr>
 </table>
@@ -740,7 +706,8 @@ and register stubs in Eureka. You can check the code over <a href="https://githu
 <div class="title">Important</div>
 </td>
 <td class="content">
-Remember to kill the Stub Runner application. You can write
+Remember to kill the Stub Runner application. You can do so with the following
+command:
 <code>pkill -f stub-runner-boot</code>
 </td>
 </tr>
@@ -749,7 +716,7 @@ Remember to kill the Stub Runner application. You can write
 </div>
 </div>
 <div class="sect1">
-<h2 id="_back_to_the_main_page">Back to the main page</h2>
+<h2 id="_back_to_the_main_page">Back to the Main Page</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="../workshops.html">Click here to go back to the main page</a></p>

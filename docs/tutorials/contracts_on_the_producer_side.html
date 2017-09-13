@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Contracts on the producer side</title>
+<title>Contracts on the Producer Side</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Contracts on the producer side</h1>
+<h1>Contracts on the Producer Side</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -518,11 +518,11 @@ $(addBlockSwitches);
 <li><a href="#_turning_on_stub_runner_in_messaging_consumer_tests">Turning on Stub Runner in messaging consumer tests</a></li>
 </ul>
 </li>
-<li><a href="#_producer_flow_1">Producer flow 1</a>
+<li><a href="#_producer_flow_1">Producer Flow 1</a>
 <ul class="sectlevel3">
 <li><a href="#_ide_setup_2">IDE setup</a></li>
 <li><a href="#_setting_up_the_spring_cloud_contract_plugin">Setting up the Spring Cloud Contract plugin</a></li>
-<li><a href="#_updating_contracts_from_the_pr">Updating contracts from the PR</a></li>
+<li><a href="#_updating_contracts_from_the_pull_request">Updating Contracts from the Pull Request</a></li>
 <li><a href="#_generating_tests_from_contracts">Generating tests from contracts</a></li>
 <li><a href="#_fixing_broken_http_tests">Fixing broken HTTP tests</a></li>
 <li><a href="#_fixing_broken_messaging_tests">Fixing broken messaging tests</a></li>
@@ -550,7 +550,7 @@ $(addBlockSwitches);
 <li><a href="#_messaging_implementation">Messaging implementation</a></li>
 </ul>
 </li>
-<li><a href="#_back_to_the_main_page">Back to the main page</a></li>
+<li><a href="#_back_to_the_main_page">Back to the Main Page</a></li>
 </ul>
 </div>
 </div>
@@ -558,7 +558,7 @@ $(addBlockSwitches);
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this tutorial we&#8217;ll keep the contracts together with the producer code</p>
+<p>In this tutorial, we will keep the contracts together with the producer code.</p>
 </div>
 </div>
 </div>
@@ -566,7 +566,7 @@ $(addBlockSwitches);
 <h2 id="_scenarios">Scenarios</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We&#8217;ll be in most cases trying to code the following scenarios:</p>
+<p>In most of the tutorials, you will be asked to code the following scenarios:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -625,8 +625,8 @@ $(addBlockSwitches);
 <h2 id="_tutorial">Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Consumer Driven Contract is like TDD on the layer of architecture. Let&#8217;s start with writing a test on the
-consumer side.</p>
+<p>Using Consumer Driven Contracts is like using TDD at the architecture level. We start
+with writing a test on the consumer side.</p>
 </div>
 <div class="sect2">
 <h3 id="_consumer_flow_1">Consumer flow 1</h3>
@@ -1536,21 +1536,21 @@ to <code>Integer</code> (and change the production code too) then the tests will
 </div>
 </li>
 <li>
-<p>Congratulations! As consumers - we&#8217;ve successfully played around with the API of the producer both for
-HTTP and messaging. Now we&#8217;re filing a PR to their code with the proposal of contract and let&#8217;s switch to
-the producer side.</p>
+<p>Congratulations! As a consumer, you have successfully used the API of the producer both
+for HTTP and messaging. Now you can create a pull request (PR) to the consumer code with the
+proposal of contract and switch to the producer side.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_producer_flow_1">Producer flow 1</h3>
+<h3 id="_producer_flow_1">Producer Flow 1</h3>
 <div class="imageblock">
 <div class="content">
 <img src="../images/producer_flow_1.png" alt="producer flow 1">
 </div>
-<div class="title">Figure 7. Producer takes over the PR, writes missing impl and merges the PR</div>
+<div class="title">Figure 7. Producer takes over the PR, writes missing impl, and merges the PR</div>
 </div>
 <div class="sect3">
 <h4 id="_ide_setup_2">IDE setup</h4>
@@ -1656,7 +1656,7 @@ the <code>com.example</code> package</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_updating_contracts_from_the_pr">Updating contracts from the PR</h4>
+<h4 id="_updating_contracts_from_the_pull_request">Updating Contracts from the Pull Request</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1982,12 +1982,10 @@ In this case we&#8217;re sending a message to the <code>output</code> channel (t
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">$ ./gradlew clean build publishToMavenLocal</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Now you would merge the PR to master and your CI system would build a fat jar and stubs</p>
-</li>
-<li>
-<p>Congratulations - you&#8217;ve completed the producer side of this tutorial</p>
+<div class="paragraph">
+<p>Now you can merge the pull request to master and your CI system would build a fat jar and
+the stubs. Congratulations! You have completed the producer side of this tutorial.</p>
+</div>
 </li>
 </ul>
 </div>
@@ -2664,7 +2662,7 @@ public abstract class BeerMessagingBase {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_back_to_the_main_page">Back to the main page</h2>
+<h2 id="_back_to_the_main_page">Back to the Main Page</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="../workshops.html">Click here to go back to the main page</a></p>

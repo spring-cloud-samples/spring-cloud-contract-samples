@@ -508,10 +508,10 @@ $(addBlockSwitches);
 <li><a href="#_adding_dependencies_in_the_repo_with_contracts">Adding dependencies in the repo with contracts</a></li>
 <li><a href="#_creating_the_proper_folder_structure">Creating the proper folder structure</a></li>
 <li><a href="#_defining_first_http_contract">Defining first HTTP contract</a></li>
-<li><a href="#_defining_second_http_contract">Defining second HTTP contract</a></li>
-<li><a href="#_defining_first_messaging_contract">Defining first messaging contract</a></li>
+<li><a href="#_defining_the_second_http_contract">Defining the Second HTTP Contract</a></li>
+<li><a href="#_defining_the_first_messaging_contract">Defining the First Messaging Contract</a></li>
 <li><a href="#_defining_second_messaging_contract">Defining second messaging contract</a></li>
-<li><a href="#_setting_up_spring_cloud_contract_in_the_producer_contracts_config_file_inside_contracts_repo">Setting up Spring Cloud Contract in the producer contracts config file inside contracts repo</a></li>
+<li><a href="#_setting_up_spring_cloud_contract_in_the_producer_contracts_config_file_inside_the_contracts_repo">Setting up Spring Cloud Contract in the Producer Contracts Config File inside the Contracts Repo</a></li>
 <li><a href="#_writing_the_missing_consumer_http_implementation">Writing the missing consumer HTTP implementation</a></li>
 <li><a href="#_turning_on_stub_runner_in_http_consumer_tests">Turning on Stub Runner in HTTP consumer tests</a></li>
 <li><a href="#_playing_with_the_http_contracts">Playing with the HTTP contracts</a></li>
@@ -519,20 +519,20 @@ $(addBlockSwitches);
 <li><a href="#_turning_on_stub_runner_in_messaging_consumer_tests">Turning on Stub Runner in messaging consumer tests</a></li>
 </ul>
 </li>
-<li><a href="#_producer_flow_1">Producer flow 1</a>
+<li><a href="#_producer_flow_1">Producer Flow 1</a>
 <ul class="sectlevel3">
 <li><a href="#_ide_setup_2">IDE setup</a></li>
-<li><a href="#_install_the_contracts_locally">Install the contracts locally</a></li>
-<li><a href="#_setting_up_the_spring_cloud_contract_dependencies_on_the_producer_side">Setting up the Spring Cloud Contract dependencies on the producer side</a></li>
-<li><a href="#_updating_contracts_from_the_pr">Updating contracts from the PR</a></li>
+<li><a href="#_install_the_contracts_locally">Install the Contracts Locally</a></li>
+<li><a href="#_setting_up_the_spring_cloud_contract_dependencies_on_the_producer_side">Setting up the Spring Cloud Contract Dependencies on the Producer Side</a></li>
+<li><a href="#_updating_contracts_from_the_pull_request">Updating Contracts from the Pull Request</a></li>
 <li><a href="#_generating_tests_from_contracts">Generating tests from contracts</a></li>
 <li><a href="#_fixing_broken_http_tests">Fixing broken HTTP tests</a></li>
 <li><a href="#_fixing_broken_messaging_tests">Fixing broken messaging tests</a></li>
 <li><a href="#_writing_the_missing_producer_messaging_implementation">Writing the missing producer messaging implementation</a></li>
 </ul>
 </li>
-<li><a href="#_producer_flow_2">Producer flow 2</a></li>
-<li><a href="#_producer_flow_3">Producer flow 3</a></li>
+<li><a href="#_producer_flow_2">Producer Flow 2</a></li>
+<li><a href="#_producer_flow_3">Producer Flow 3</a></li>
 <li><a href="#_consumer_flow_2">Consumer flow 2</a></li>
 <li><a href="#_generating_documentation_from_contracts">Generating documentation from contracts</a></li>
 </ul>
@@ -554,7 +554,7 @@ $(addBlockSwitches);
 <li><a href="#_messaging_implementation">Messaging implementation</a></li>
 </ul>
 </li>
-<li><a href="#_back_to_the_main_page">Back to the main page</a></li>
+<li><a href="#_back_to_the_main_page">Back to the Main Page</a></li>
 </ul>
 </div>
 </div>
@@ -562,7 +562,7 @@ $(addBlockSwitches);
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this tutorial we&#8217;ll keep the contracts in a separate repository.</p>
+<p>In this tutorial, we keep the contracts in a separate repository (a common arrangement).</p>
 </div>
 </div>
 </div>
@@ -570,7 +570,7 @@ $(addBlockSwitches);
 <h2 id="_scenarios">Scenarios</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We&#8217;ll be in most cases trying to code the following scenarios:</p>
+<p>In most of the tutorials, you will be asked to code the following scenarios:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -629,8 +629,8 @@ $(addBlockSwitches);
 <h2 id="_tutorial">Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Consumer Driven Contract is like TDD on the layer of architecture. Let&#8217;s start with writing a test on the
-consumer side.</p>
+<p>Using Consumer Driven Contracts is like using TDD at the architecture level. Let&#8217;s start
+by writing a test on the consumer side.</p>
 </div>
 <div class="sect2">
 <h3 id="_consumer_flow_1">Consumer flow 1</h3>
@@ -647,8 +647,8 @@ consumer side.</p>
 <div class="title">Important</div>
 </td>
 <td class="content">
-For the sake of this tutorial let&#8217;s assume that our consumer application is called
-<code>beer-api-consumer</code>
+For the sake of this tutorial, our consumer application is called
+<code>beer-api-consumer</code>.
 </td>
 </tr>
 </table>
@@ -718,23 +718,19 @@ that&#8217;s why, <strong>as consumers</strong>, we will work on the repo with c
 </div>
 <div class="sect3">
 <h4 id="_cloning_the_repo_with_contracts">Cloning the repo with contracts</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>In this tutorial we will not clone the repo with contracts, we&#8217;ll just
-open it in the IDE (the repo is called <code>beer_contracts</code>)</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>In this tutorial, we will not clone the repo with contracts. We&#8217;ll open it in the IDE.
+The repository is called <code>beer_contracts</code>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_adding_dependencies_in_the_repo_with_contracts">Adding dependencies in the repo with contracts</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Since we want the IDE to help us with code completion, let&#8217;s add the necessary Spring Cloud Contract
-dependencies to the <code>pom.xml</code> under <code>beer_contracts</code> repo. You need to
-add <code>spring-cloud-starter-contract-verifier</code> as a dependency</p>
+<div class="paragraph">
+<p>Since we want the IDE to help us with code completion, let&#8217;s add the necessary Spring
+Cloud Contract dependencies to the <code>pom.xml</code> under <code>beer_contracts</code> repo. You need to
+add <code>spring-cloud-starter-contract-verifier</code> as a dependency, as shown in the following
+example:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;dependency&gt;
@@ -750,35 +746,27 @@ add <code>spring-cloud-starter-contract-verifier</code> as a dependency</p>
 <div class="title">Important</div>
 </td>
 <td class="content">
-Notice that we&#8217;re adding the dependency in the <code>compile</code> scope. That&#8217;s because
- we want all of the contracts to be packaged as if they were production code
+Notice that we add the dependency in the <code>compile</code> scope, because we want all
+of the contracts to be packaged as if they were production code. This task is performed
+only once. When you add subsequent contracts, you won&#8217;t be able to add them again.
 </td>
 </tr>
 </table>
 </div>
-</li>
-<li>
-<p>This task will be performed once only. When you&#8217;ll be adding any subsequent contracts
-you won&#8217;t be able to add it again.</p>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect3">
 <h4 id="_creating_the_proper_folder_structure">Creating the proper folder structure</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>In order to use repo with contracts you need to set up the folders so that they follow
-the following convention</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>/slash/separated/group/id/of/producer/producer-artifactid/consumer-name/</code></p>
-</li>
-<li>
-<p>in this tutorial our producer will have coordinates <code>com.example:beer-api-producer-external</code>
-and our consumer will be called <code>beer-api-consumer</code></p>
+<div class="paragraph">
+<p>In order to use a repository with contracts, you need to set up the folders so that they
+adhere to the following convention:
+** <code>/slash/separated/group/id/of/producer/producer-artifactid/consumer-name/</code>
+In this tutorial, our producer has the following coordinates:
+<code>com.example:beer-api-producer-external</code>. Our consumer will be called
+<code>beer-api-consumer</code>.</p>
+</div>
+<div class="paragraph">
+<p>Create the contract directory by running the following commands at the command line:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">$ cd beer_contracts
@@ -786,24 +774,19 @@ $ mkdir -p src/main/resources/contracts/com/example/beer-api-producer-external/b
 $ mkdir -p src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/rest</code></pre>
 </div>
 </div>
-</li>
-</ul>
-</div>
-</li>
-<li>
+<div class="paragraph">
 <p>We have successfully created the proper folder structure. Time to add some contracts</p>
-</li>
-</ul>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_defining_first_http_contract">Defining first HTTP contract</h4>
+<div class="paragraph">
+<p>Let&#8217;s move to the
+<code>src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/</code>
+folder. (<a href="#_proposal_of_simple_contracts_by_consumer">Show solution</a>).</p>
+</div>
 <div class="ulist">
 <ul>
-<li>
-<p>Let' move to the <code>src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/</code>
-folder . (<a href="#_proposal_of_simple_contracts_by_consumer">Show solution</a>)</p>
-</li>
 <li>
 <p>You can define the contracts using Groovy DSL. Let&#8217;s create our first HTTP contract.</p>
 <div class="ulist">
@@ -1078,37 +1061,37 @@ for the request. <code>headers { contentType(applicationJson()) }</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_defining_second_http_contract">Defining second HTTP contract</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Time for you to create the second contract. Under <code>src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/rest</code>
+<h4 id="_defining_the_second_http_contract">Defining the Second HTTP Contract</h4>
+<div class="paragraph">
+<p>Now it&#8217;s time for you to create the second contract. Under
+<code>src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/rest</code>,
 create a file called <code>shouldRejectABeerIfTooYoung.groovy</code>.
-If you&#8217;re lost just check out the <a href="#_proposal_of_simple_contracts_by_consumer">solution</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Set the <code>age</code> in the request to <code>17</code></p>
-</li>
-<li>
-<p>Update the response body to return a <code>status</code> equal to <code>NOT_OK</code>.</p>
-</li>
-<li>
-<p>Update the description</p>
-</li>
-</ul>
+If you get lost, examine the <a href="#_proposal_of_simple_contracts_by_consumer">solution</a>. To
+create the second contract:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set the <code>age</code> in the request to <code>17</code>.</p>
 </li>
-</ul>
+<li>
+<p>Update the response body to return a <code>status</code> of <code>NOT_OK</code>.</p>
+</li>
+<li>
+<p>Update the description.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_defining_first_messaging_contract">Defining first messaging contract</h4>
+<h4 id="_defining_the_first_messaging_contract">Defining the First Messaging Contract</h4>
+<div class="paragraph">
+<p>We&#8217;ve done the case for HTTP. Let&#8217;s move to the
+<code>src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/messaging</code>
+folder.</p>
+</div>
 <div class="ulist">
 <ul>
-<li>
-<p>Ok we&#8217;ve done the case for HTTP. Let&#8217;s move to the <code>src/main/resources/contracts/com/example/beer-api-producer-external/beer-api-consumer/messaging</code> folder</p>
-</li>
 <li>
 <p>Time to define some contracts for messaging. Create a <code>shouldSendAcceptedVerification.groovy</code> file. If you&#8217;re lost just check out the <a href="#_proposal_of_simple_contracts_by_consumer">solution</a></p>
 <div class="ulist">
@@ -1229,50 +1212,45 @@ type of the payload is called <code>contentType</code>. So we need to set it lik
 </div>
 </div>
 </li>
-<li>
-<p>Congratulations! You&#8217;ve created your first messaging contract!</p>
-</li>
 </ul>
 </div>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Congratulations! You have created your first messaging contract!</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_defining_second_messaging_contract">Defining second messaging contract</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Time for you to create the second contract. Create a file called <code>shouldSendRejectedVerification.groovy</code>.
-If you&#8217;re lost just check out the <a href="#_proposal_of_simple_contracts_by_consumer">solution</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Set the <code>eligible</code> in the response body to <code>false</code></p>
-</li>
-<li>
-<p>Update the label to <code>rejected_verification</code></p>
-</li>
-<li>
-<p>Update the description</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Now it&#8217;s time for you to create the second contract. Create a file called
+<code>shouldSendRejectedVerification.groovy</code>.
+If you get lost, examine the <a href="#_proposal_of_simple_contracts_by_consumer">solution</a>. To
+define the second message contract;</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set the <code>eligible</code> property in the response body to <code>false</code>.</p>
 </li>
-</ul>
+<li>
+<p>Update the label to <code>rejected_verification</code>.</p>
+</li>
+<li>
+<p>Update the description.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_setting_up_spring_cloud_contract_in_the_producer_contracts_config_file_inside_contracts_repo">Setting up Spring Cloud Contract in the producer contracts config file inside contracts repo</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>In case of repo with contracts we need a way for the consumer to convert the contracts into stubs
-and install them locally. At the moment the easiest way seems to be usage of Maven or Gradle to do so.</p>
-</li>
-<li>
-<p>In this tutorial we&#8217;ll use Maven. Below you can see how the <code>pom.xml</code> should look like. (you can also
-find it under <code>beer_contracts/example/pom.xml</code>).</p>
+<h4 id="_setting_up_spring_cloud_contract_in_the_producer_contracts_config_file_inside_the_contracts_repo">Setting up Spring Cloud Contract in the Producer Contracts Config File inside the Contracts Repo</h4>
+<div class="paragraph">
+<p>For a repository with contracts, we need a way for the consumer to convert the contracts
+into stubs and install them locally. At the moment, the easiest way is to use of Maven or
+Gradle. In this tutorial, we use Maven. You can see how the <code>pom.xml</code> should look in
+<code>beer_contracts/example/pom.xml</code> and in the following example:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1344,36 +1322,38 @@ find it under <code>beer_contracts/example/pom.xml</code>).</p>
 <div class="ulist">
 <ul>
 <li>
-<p>This configuration file</p>
+<p>This configuration file:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>sets the jar name to the <code>beer-api-producer-external</code> (that&#8217;s how the producer&#8217;s called)</p>
+<p>Sets the jar name to the <code>beer-api-producer-external</code> (that&#8217;s how the producer&#8217;s
+called).</p>
 </li>
 <li>
-<p>disables test generation (we want only to generate stubs)</p>
+<p>Disables test generation (we want only to generate stubs).</p>
 </li>
 <li>
-<p>adds the Spring Cloud Contract plugin (as you can see there&#8217;s no configuration related
-to base classes)</p>
+<p>Adds the Spring Cloud Contract plugin (as you can see, there is no configuration
+related to base classes).</p>
 </li>
 <li>
-<p><code>excludeBuildFolders</code> - pretty descriptive. When generating stubs <code>target</code> / <code>build</code> folders are generated
-and we don&#8217;t want them in the output jar</p>
+<p>Sets <code>excludeBuildFolders</code>, which is pretty descriptive. When generating stubs,
+<code>target</code> and <code>build</code> folders are generated, and we don&#8217;t want them in the output jar.</p>
 </li>
 <li>
-<p><code>contractsDirectory</code> - by default Spring Cloud Contract searches under <code>src/test/resources/contracts</code> folder
-but in this case we have the contracts under <code>/</code> (from the point of view of the <code>pom.xml</code>)</p>
+<p>Sets <code>contractsDirectory</code>. By default, Spring Cloud Contract searches under the
+<code>src/test/resources/contracts</code> folder. In this case, we have the contracts under <code>/</code>
+(from the point of view of the <code>pom.xml</code> file).</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Now as consumers we would like to convert the contracts into stubs so that we can play
-with the API. We&#8217;ll use Maven to achieve that.</p>
+<div class="paragraph">
+<p>Now, as consumers, we want to convert the contracts into stubs so that we can use the
+API. We use Maven to achieve that.</p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1381,32 +1361,30 @@ with the API. We&#8217;ll use Maven to achieve that.</p>
 <div class="title">Important</div>
 </td>
 <td class="content">
-You need a standalone version of Maven installed!
+You must have a standalone version of Maven installed!
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>+</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">$ mvn clean install</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Now we have successfully installed the stubs locally&#8230;&#8203;</p>
-<div class="ulist">
-<ul>
-<li>
-<p>You can check out <code>target/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT</code> folder.
-Over there you&#8217;ll see <code>contracts</code> folder where all contracts got copied and the <code>mappings</code> folder where you&#8217;ll find all the
-generated stubs. By default Spring Cloud Contract uses <a href="http://wiremock.org">WireMock</a> as an implementation
-of fake HTTP server. Under the <code>beer/rest</code> subfolder you&#8217;ll see all the generated stubs. Notice that
-we&#8217;re using JSON Paths to check the contents of the request.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Now you have successfully installed the stubs locally.</p>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>You can check out the
+<code>target/stubs/META-INF/com.example/beer-api-producer/0.0.1-SNAPSHOT</code> folder. In there,
+you see the <code>contracts</code> folder, where all contracts were copied, and the <code>mappings</code>
+folder, where you can find all the generated stubs. By default, Spring Cloud Contract
+uses  <a href="http://wiremock.org">WireMock</a> as an implementation of fake HTTP server. Under the
+<code>beer/rest</code> subfolder, you can see all the generated stubs. Notice that we use JSON Paths
+to check the contents of the request.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1658,16 +1636,17 @@ to <code>Integer</code> (and change the production code too) then the tests will
 </ul>
 </div>
 </li>
-<li>
-<p>Congratulations! As consumers - we&#8217;ve successfully played around with the API of the producer both for
-HTTP and messaging. Now we&#8217;re filing a PR to the repo that stores all contracts.</p>
-</li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Congratulations! As a consumer, you successfully used the API of the producer for both
+HTTP and messaging. Now you can file a pull request (PR) to the repository that stores
+all contracts.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_producer_flow_1">Producer flow 1</h3>
+<h3 id="_producer_flow_1">Producer Flow 1</h3>
 <div class="imageblock">
 <div class="content">
 <img src="../images/external_producer_flow_1.png" alt="external producer flow 1">
@@ -1676,14 +1655,14 @@ HTTP and messaging. Now we&#8217;re filing a PR to the repo that stores all cont
 </div>
 <div class="sect3">
 <h4 id="_ide_setup_2">IDE setup</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Open in your IDE the <code>producer_with_external_contracts</code> project (either via Maven or Gradle)</p>
-</li>
-<li>
-<p>We&#8217;re assuming that we&#8217;ve taken over the PR of the <code>beer_contracts</code>. Example of how to achieve that in "real life" for a PR
-that got submitted to via a branch called <code>the_pr</code> looks like this:</p>
+<div class="paragraph">
+<p>Open <code>producer_with_external_contracts</code> project (either via Maven or Gradle) in your IDE.</p>
+</div>
+<div class="paragraph">
+<p>This tutorial assumes that you have taken over the PR of the <code>beer_contracts</code>. The
+following git commands show an example of how to do so for a PR that got submitted to via
+a branch called <code>the_pr</code>:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">git fetch origin
@@ -1691,30 +1670,20 @@ git checkout -b the_pr origin/the_pr
 git merge master</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>The idea of Spring Cloud Contract is about stub and contract validity. Right now we have a set of
-contracts defined but we haven&#8217;t tested it against the producer side. Time to change that!</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>The core idea of Spring Cloud Contract is stub and contract validity. Right now, you have
+a set of contracts defined but haven&#8217;t tested it against the producer side. It&#8217;s time to
+change that!</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_install_the_contracts_locally">Install the contracts locally</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>In order for the producer to profit from the contracts we need to produce a JAR with all the contracts.</p>
-</li>
-<li>
-<p>To achieve that we&#8217;ll use the Maven&#8217;s assembly plugin.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>the configuration you can find under <code>beer_contracts/src/assembly/contracts.xml</code></p>
-</li>
-<li>
-<p>still we need to configure the <code>beer_contracts/pom.xml</code> by providing the assembly plugin configuration</p>
+<h4 id="_install_the_contracts_locally">Install the Contracts Locally</h4>
+<div class="paragraph">
+<p>In order for the producer to use the contracts, we need to produce a JAR with all the
+contracts. To achieve that, use Maven&#8217;s assembly plugin. You can find the configuration
+under <code>beer_contracts/src/assembly/contracts.xml</code>. We still need to configure the
+<code>beer_contracts/pom.xml</code> by providing the assembly plugin configuration.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;plugin&gt;
@@ -1737,23 +1706,17 @@ contracts defined but we haven&#8217;t tested it against the producer side. Time
 &lt;/plugin&gt;</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>what this will do is it will create in <code>target</code> folder a <code>beer-contracts</code> JAR that will
-contain all contracts and poms from <code>src/main/resources/contracts</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p>The preceding snippet creates a <code>beer-contracts</code> JAR (in the <code>target</code> folder) that
+contains all contracts and poms from <code>src/main/resources/contracts</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_setting_up_the_spring_cloud_contract_dependencies_on_the_producer_side">Setting up the Spring Cloud Contract dependencies on the producer side</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>First let&#8217;s add the Spring Cloud Contract Verifier dependency to the project</p>
+<h4 id="_setting_up_the_spring_cloud_contract_dependencies_on_the_producer_side">Setting up the Spring Cloud Contract Dependencies on the Producer Side</h4>
+<div class="paragraph">
+<p>First, let&#8217;s add the Spring Cloud Contract Verifier dependency to the project, as shown
+in the following snippet:</p>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -1770,36 +1733,34 @@ contain all contracts and poms from <code>src/main/resources/contracts</code></p
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Spring Cloud Contract can generate tests from your contracts to ensure that your implementation&#8217;s API
-is compatible with the defined contract. Let&#8217;s set up the project to start generating tests.</p>
+<div class="paragraph">
+<p>Spring Cloud Contract can generate tests from your contracts to ensure that your
+implementation&#8217;s API is compatible with the defined contract. Let&#8217;s set up the project to
+start generating tests.</p>
+</div>
+<div class="paragraph">
+<p>Spring Cloud Contract needs a base class that all of the generated tests will extend.
+Currently, we support three different ways of defining a base class (you can read more
+about this in the Spring Cloud Contract documentation for
+<a href="https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin">Gradle</a>
+and <a href="https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin_2">Maven</a>).</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Spring Cloud Contract needs a base class that all of the generated tests will extend. Currently
-we support 3 different ways of defining a base class (you can read more about this in the
-Spring Cloud Contract documentation for <a href="https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin">Gradle</a>
-and <a href="https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_configure_plugin_2">Maven</a>)</p>
-<div class="ulist">
-<ul>
-<li>
-<p>a single class for all tests</p>
+<p>A single class for all tests.</p>
 </li>
 <li>
-<p>convention based naming (takes 2 last package names and appends <code>Base</code>. Having a contract
-<code>src/test/resources/contracts/foo/bar/shouldDoSth.groovy</code> would create a test class called
-<code>BarTest</code> that would extend <code>FooBarBase</code> class.</p>
+<p>Convention-based naming (which takes the last two package names and appends <code>Base</code>. For
+example, a contract <code>src/test/resources/contracts/foo/bar/shouldDoSth.groovy</code> creates a
+test class called <code>BarTest</code> that would extend the <code>FooBarBase</code> class.</p>
 </li>
 <li>
-<p>manual mapping (you can state that contracts matching certain regular expression will have to
-have a base class with fully qualified name equal to X)</p>
+<p>Manual mapping (you can state that contracts matching certain regular expressions must
+have a base class with fully qualified name equal to the value you specify).</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>In the following example we&#8217;ll play with manual mapping like this:</p>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -1859,38 +1820,27 @@ have a base class with fully qualified name equal to X)</p>
 }</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>In both cases we&#8217;re defining that we want to download the JAR with contracts
-with given coordinates (<code>com.example:beer-contracts</code>)</p>
-</li>
-<li>
-<p>We&#8217;re not providing the <code>contractsRepositoryUrl</code> - so the URL from which we&#8217;d like
-the contracts to be downloaded since we want to work offline. That&#8217;s why we set the
+<div class="paragraph">
+<p>In both cases, we define that we want to download the JAR with contracts with given
+coordinates (<code>com.example:beer-contracts</code>).</p>
+</div>
+<div class="paragraph">
+<p>We do not provide the <code>contractsRepositoryUrl</code> (the URL from which we expect the
+contracts to be downloaded), because we want to work offline. That&#8217;s why we set the
 <code>contractsWorkOffline</code> flag.</p>
-</li>
-<li>
-<p>We&#8217;ve decided that all the generated tests will be generated under <code>com.example</code> package
-instead of the default one</p>
-</li>
-<li>
-<p>We&#8217;ve manually set mappings of packages in which contracts are stored to a fully
-qualified name of the base class. That means that if there&#8217;s a contract that has a
-<code>messaging</code> package name in its path then it will be mapped to a <code>com.example.BeerMessagingBase</code>
-base class</p>
-</li>
-</ul>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>We decided that all the generated tests should be generated under the <code>com.example</code>
+package instead of the default one.</p>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>We have manually set mappings of packages in which contracts are stored to a fully
+qualified name of the base class. If there&#8217;s a contract that has a <code>messaging</code> package
+name in its path, it will be mapped to a <code>com.example.BeerMessagingBase</code> base class.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_updating_contracts_from_the_pr">Updating contracts from the PR</h4>
+<h4 id="_updating_contracts_from_the_pull_request">Updating Contracts from the Pull Request</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1947,6 +1897,12 @@ for tests, then we would write <code>input { triggeredBy("triggerSomeMessage()")
 <p>For this workshop for the <code>shouldSendAcceptedVerification.groovy</code> we want to trigger the <code>clientIsOldEnough()</code>
     method and for <code>shouldSendRejectedVerification.groovy</code> we want to trigger the <code>clientIsTooYoung()</code> method
 from the base class. (<a href="#_messaging_dsls">Show solution</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1955,16 +1911,10 @@ from the base class. (<a href="#_messaging_dsls">Show solution</a>)</p>
 </td>
 <td class="content">
 Remember to rebuild the JAR with contracts in the <code>beer_contracts</code> repo. You
-need to produce and install the JAR in your Maven local
+need to produce and install the JAR in your Maven local.
 </td>
 </tr>
 </table>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
 </div>
 </div>
 <div class="sect3">
@@ -2235,7 +2185,7 @@ In this case we&#8217;re sending a message to the <code>output</code> channel (t
 </div>
 </div>
 <div class="sect2">
-<h3 id="_producer_flow_2">Producer flow 2</h3>
+<h3 id="_producer_flow_2">Producer Flow 2</h3>
 <div class="imageblock">
 <div class="content">
 <img src="../images/external_producer_flow_2.png" alt="external producer flow 2">
@@ -2251,19 +2201,19 @@ In this case we&#8217;re sending a message to the <code>output</code> channel (t
 </div>
 </div>
 <div class="sect2">
-<h3 id="_producer_flow_3">Producer flow 3</h3>
+<h3 id="_producer_flow_3">Producer Flow 3</h3>
 <div class="imageblock">
 <div class="content">
 <img src="../images/external_producer_flow_3.png" alt="external producer flow 3">
 </div>
 <div class="title">Figure 9. Once the PR got merged, the CI built the JAR of the contracts repo then the producer&#8217;s code can use that JAR in its own building process</div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>After the PR got merged and the <code>beer-contracts</code> artifact would get published you need to
-switch off your offline work in the Spring Cloud Contract (we won&#8217;t be doing this for this tutorial).
-In "real life" situation you would need to update it like this:</p>
+<div class="paragraph">
+<p>After the pull request gets merged and the <code>beer-contracts</code> artifact gets published, you
+need to switch off your offline work in the Spring Cloud Contract (we do not do so for
+this tutorial). In a "real life" situation you would need to update it as shown in the
+following snippet:</p>
+</div>
 <div class="listingblock primary">
 <div class="title">Maven</div>
 <div class="content">
@@ -2296,6 +2246,9 @@ In "real life" situation you would need to update it like this:</p>
 &lt;/plugin&gt;</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>+</p>
+</div>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
@@ -2315,11 +2268,8 @@ In "real life" situation you would need to update it like this:</p>
 }</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Congratulations - you&#8217;ve completed the producer side of this tutorial</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Congratulations! you&#8217;ve completed the producer side of this tutorial!</p>
 </div>
 </div>
 <div class="sect2">
@@ -2993,7 +2943,7 @@ public abstract class BeerMessagingBase {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_back_to_the_main_page">Back to the main page</h2>
+<h2 id="_back_to_the_main_page">Back to the Main Page</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="../workshops.html">Click here to go back to the main page</a></p>
