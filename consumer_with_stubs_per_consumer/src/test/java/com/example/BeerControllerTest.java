@@ -29,18 +29,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Marcin Grzejszczak
  */
 @RunWith(SpringRunner.class)
-@AutoConfigureMockMvc
-@AutoConfigureJsonTesters
-@SpringBootTest(webEnvironment = WebEnvironment.MOCK,
+@SpringBootTest(webEnvironment = WebEnvironment.NONE,
 		// NAME IS IMPORTANT
 		properties = {"spring.application.name=foo-consumer"})
 //@AutoConfigureStubRunner(workOffline = true,
 //		ids = "com.example:beer-api-producer-with-stubs-per-consumer:+:stubs:9090",
 //		stubsPerConsumer = true)
 @DirtiesContext
-public class BeerControllerTest extends AbstractTest {
+public class BeerControllerTest {
 
-	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+	@Test
+	public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		// given a client is old enough
 
 		// when a request is sent
@@ -48,8 +47,9 @@ public class BeerControllerTest extends AbstractTest {
 		// then the response should be OK
 	}
 
-	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
-		// given a client is too young
+	@Test
+	public void should_reject_a_beer_when_im_too_young() throws Exception {// given a client is old enough
+		// given a client is too young enough
 
 		// when a request is sent
 
@@ -64,12 +64,8 @@ public class BeerControllerTest extends AbstractTest {
 
 
 
-
-
-
-
-
-//	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+//	@Test
+//	public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 //		// given a client is old enough
 //		RequestEntity<Person> clientIsOldEnough = RequestEntity
 //				.post(URI.create("http://localhost:9090/check"))
@@ -84,7 +80,8 @@ public class BeerControllerTest extends AbstractTest {
 //		BDDAssertions.then(response.getBody().status).isEqualTo(ResponseStatus.OK);
 //	}
 //
-//	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {// given a client is old enough
+//	@Test
+//	public void should_reject_a_beer_when_im_too_young() throws Exception {// given a client is old enough
 //		// given a client is too young enough
 //		RequestEntity<Person> clientIsOldEnough = RequestEntity
 //				.post(URI.create("http://localhost:9090/check"))
@@ -99,23 +96,23 @@ public class BeerControllerTest extends AbstractTest {
 //		BDDAssertions.then(response.getBody().status).isEqualTo(ResponseStatus.NOT_OK);
 //	}
 
-//class Person {
-//	public String name;
-//	public Integer age;
-//
-//	public Person(String name, Integer age) {
-//		this.name = name;
-//		this.age = age;
-//	}
-//
-//	public Person() {
-//	}
-//}
-//
-//class Response {
-//	public ResponseStatus status;
-//}
-//
-//enum ResponseStatus {
-//	OK, NOT_OK
-//}
+class Person {
+	public String name;
+	public Integer age;
+
+	public Person(String name, Integer age) {
+		this.name = name;
+		this.age = age;
+	}
+
+	public Person() {
+	}
+}
+
+class Response {
+	public ResponseStatus status;
+}
+
+enum ResponseStatus {
+	OK, NOT_OK
+}
