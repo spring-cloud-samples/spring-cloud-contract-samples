@@ -1,5 +1,8 @@
 package com.example;
 
+import java.net.URI;
+
+import org.assertj.core.api.BDDAssertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +14,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.client.RestTemplate;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,47 +31,91 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-//remove::start[]
-//tag::foo[]
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK,
+		// NAME IS IMPORTANT
 		properties = {"spring.application.name=foo-consumer"})
-//end::foo[]
-@AutoConfigureStubRunner(workOffline = true,
-		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
-		stubsPerConsumer = true)
-//remove::end[]
+//@AutoConfigureStubRunner(workOffline = true,
+//		ids = "com.example:beer-api-producer-with-stubs-per-consumer:+:stubs:9090",
+//		stubsPerConsumer = true)
 @DirtiesContext
 public class BeerControllerTest extends AbstractTest {
 
-	@Autowired MockMvc mockMvc;
-	@Autowired BeerController beerController;
-
-	@Value("${stubrunner.runningstubs.beer-api-producer-with-stubs-per-consumer.port}") int producerPort;
-
-	@Before
-	public void setupPort() {
-		beerController.port = producerPort;
-	}
-
-	//tag::impl[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
-		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 22)).getJson()))
-				.andExpect(status().isOk())
-				.andExpect(content().string("THERE YOU GO MY DEAR FRIEND [marcin]"));
-		//remove::end[]
+		// given a client is old enough
+
+		// when a request is sent
+
+		// then the response should be OK
 	}
 
 	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
-		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 17)).getJson()))
-				.andExpect(status().isOk())
-				.andExpect(content().string("GET LOST MY DEAR FRIEND [marcin]"));
-		//remove::end[]
+		// given a client is too young
+
+		// when a request is sent
+
+		// then the response should be NOT OK
 	}
-	//end::impl[]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+//		// given a client is old enough
+//		RequestEntity<Person> clientIsOldEnough = RequestEntity
+//				.post(URI.create("http://localhost:9090/check"))
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.body(new Person("marcin", 22));
+//
+//		// when a request is sent
+//		ResponseEntity<Response> response = new RestTemplate().exchange(
+//				clientIsOldEnough, Response.class);
+//
+//		// then the response should be OK
+//		BDDAssertions.then(response.getBody().status).isEqualTo(ResponseStatus.OK);
+//	}
+//
+//	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {// given a client is old enough
+//		// given a client is too young enough
+//		RequestEntity<Person> clientIsOldEnough = RequestEntity
+//				.post(URI.create("http://localhost:9090/check"))
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.body(new Person("marcin", 17));
+//
+//		// when a request is sent
+//		ResponseEntity<Response> response = new RestTemplate().exchange(
+//				clientIsOldEnough, Response.class);
+//
+//		// then the response should be NOT OK
+//		BDDAssertions.then(response.getBody().status).isEqualTo(ResponseStatus.NOT_OK);
+//	}
+
+//class Person {
+//	public String name;
+//	public Integer age;
+//
+//	public Person(String name, Integer age) {
+//		this.name = name;
+//		this.age = age;
+//	}
+//
+//	public Person() {
+//	}
+//}
+//
+//class Response {
+//	public ResponseStatus status;
+//}
+//
+//enum ResponseStatus {
+//	OK, NOT_OK
+//}
