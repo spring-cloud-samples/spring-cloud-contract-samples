@@ -37,7 +37,7 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	// remove::start[]
-	compile("org.springframework.cloud:spring-cloud-starter-eureka")
+	compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 	// remove::end[]
 
 	// remove::start[]
@@ -53,5 +53,5 @@ test {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.5'
+    gradleVersion = '4.3.1'
 }
