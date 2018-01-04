@@ -7,8 +7,9 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-with-stubs-per-consumer
+:version: 2.0.0.BUILD-SNAPSHOT
 
-= Using JUnit rule
+= Using JUnit rule {version}
 
 In this tutorial we'll reuse the code created in the link::stubs_per_consumer.html[stubs per consumer].
 We'll write a test that instead of Stub Runner uses a JUnit rule to download and start stubs.

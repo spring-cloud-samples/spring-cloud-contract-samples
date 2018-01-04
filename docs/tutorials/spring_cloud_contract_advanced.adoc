@@ -8,8 +8,9 @@
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-advanced
 :producer_project: producer_advanced
+:version: 2.0.0.BUILD-SNAPSHOT
 
-= Spring Cloud Contract Advanced
+= Spring Cloud Contract Advanced {version}
 
 In this tutorial, we keep the contracts together with the producer code, and we check
 out the more advanced concepts behind Spring Cloud Contract.

@@ -7,8 +7,9 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer
+:version: 2.0.0.BUILD-SNAPSHOT
 
-= Contracts on the Producer Side
+= Contracts on the Producer Side {version}
 
 In this tutorial, we will keep the contracts together with the producer code.
 

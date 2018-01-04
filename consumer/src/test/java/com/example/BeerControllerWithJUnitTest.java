@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.cloud.contract.stubrunner.junit.StubRunnerRule;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -36,7 +37,7 @@ public class BeerControllerWithJUnitTest extends AbstractTest {
 	// tag::rule[]
 	@Rule public StubRunnerRule rule = new StubRunnerRule()
 			.downloadStub("com.example","beer-api-producer")
-			.workOffline(true);
+			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
 	// end:rule[]
 	//tag::setup[]
 	@Before

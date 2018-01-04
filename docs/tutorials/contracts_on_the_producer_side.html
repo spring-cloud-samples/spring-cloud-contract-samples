@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Contracts on the Producer Side</title>
+<title>Contracts on the Producer Side 2.0.0.BUILD-SNAPSHOT</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Contracts on the Producer Side</h1>
+<h1>Contracts on the Producer Side 2.0.0.BUILD-SNAPSHOT</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -1251,7 +1251,7 @@ is the Spring Cloud Contract plugin. Let&#8217;s add it to the producer&#8217;s 
 <div class="ulist">
 <ul>
 <li>
-<p>The coordinates of the plugin are: <code>org.springframework.cloud:spring-cloud-contract-gradle-plugin:${version}</code></p>
+<p>The coordinates of the plugin are: <code>org.springframework.cloud:spring-cloud-contract-gradle-plugin:$2.0.0.BUILD-SNAPSHOT</code></p>
 </li>
 <li>
 <p>For this tutorial we&#8217;re using latest snapshot versions that you can reference via the Maven&#8217;s
@@ -1332,12 +1332,12 @@ a real instance that hasn&#8217;t been started</p>
 </li>
 <li>
 <p>We can annotate our test class with
-<code>@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8090")</code>. What that
+<code>@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer:+:stubs:8090")</code>. What that
 will do is:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>it will download the stub JARs from Maven local (<code>workOffline=true</code>)</p>
+<p>it will download the stub JARs from Maven local (<code>stubsMode = StubRunnerProperties.StubsMode.LOCAL</code>)</p>
 </li>
 <li>
 <p>it will search for a JAR with coordinates <code>com.example:beer-api-producer</code> with latest version (<code>+</code>)
@@ -1502,7 +1502,7 @@ Unfortunately they will fail cause no message has been received - we&#8217;ll st
 <ul>
 <li>
 <p>We need to use Spring Cloud Contract Stub Runner so that it downloads the stubs. Just add the
-<code>@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer")</code> to download
+<code>@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer")</code> to download
 the latest stubs of <code>com.example:beer-api-producer</code>, with classifier <code>stubs</code> and if the JAR
 contains any HTTP stubs then register them at a random port.</p>
 </li>
@@ -2010,7 +2010,8 @@ we&#8217;d like to download them from the remote location</p>
 </li>
 <li>
 <p>To do that (we won&#8217;t do that for the tutorial but you would do it in your "production"
-code) it&#8217;s enough to remove the <code>workOffline</code> flag and to pass the <code>repositoryRoot</code> parameter</p>
+code) it&#8217;s enough to pass the <code>repositoryRoot</code> parameter and set the
+<code>stubsMode</code> to <code>StubRunnerProperties.StubsMode.REMOTE</code></p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
@@ -2019,7 +2020,9 @@ code) it&#8217;s enough to remove the <code>workOffline</code> flag and to pass 
 @AutoConfigureJsonTesters
 @AutoConfigureStubRunner(
 repositoryRoot="http://foo.com/bar,
-ids = "com.example:beer-api-producer:+:stubs:8090")
+ids = "com.example:beer-api-producer:+:stubs:8090",
+stubsMode = StubRunnerProperties.StubsMode.REMOTE
+)
 @DirtiesContext
 public class YourTestOnTheConsumerSide extends AbstractTest {
 }</code></pre>
@@ -2029,7 +2032,8 @@ public class YourTestOnTheConsumerSide extends AbstractTest {
 <ul>
 <li>
 <p>Another option is to pass the property <code>stubrunner.repositoryRoot</code> either as a
-system / environment property, or via an <code>application.yml</code></p>
+system / environment property, or via an <code>application.yml</code> and <code>stubrunner.stubs-mode</code>
+equal to <code>remote</code></p>
 </li>
 </ul>
 </div>

@@ -95,7 +95,7 @@
 						<artifactId>beer-contracts</artifactId>
 					</contractDependency>
 					<!-- The JAR with contracts should be taken from Maven local -->
-					<contractsWorkOffline>true</contractsWorkOffline>
+					<stubsMode>LOCAL</stubsMode>
 					<!-- Base package for generated tests -->
 					<basePackageForTests>com.example</basePackageForTests>
 				</configuration>

@@ -7,8 +7,9 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-with-stubs-per-consumer
+:version: 2.0.0.BUILD-SNAPSHOT
 
-= Contracts on the Producer Side
+= Contracts on the Producer Side {version}
 
 In this tutorial, we keep the contracts together with the producer code. Each consumer
 defines the contracts in a dedicated folder. For the same requests, the consumers expect
@@ -514,7 +515,7 @@ in the following example:
 
 [source,java]
 ----
-@AutoConfigureStubRunner(workOffline = true,
+@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true)
 ----
@@ -528,7 +529,7 @@ why we will set that name on the `@AutoConfigureStubRunner` annotation via the
 
 [source,java]
 ----
-@AutoConfigureStubRunner(workOffline = true,
+@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true,
 		consumerName = "bar-consumer")

@@ -2,8 +2,9 @@
 :toclevels: 8
 :nofooter:
 :images_folder: images
+:version: 2.0.0.BUILD-SNAPSHOT
 
-= Spring Cloud Contract Workshops
+= Spring Cloud Contract {version} Workshops
 
 This documentation takes you through the Spring Cloud Contract Workshops by asking you to
 complete a series of tasks that teach you both basic and more advanced concepts behind

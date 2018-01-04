@@ -58,7 +58,7 @@ contracts {
 		stringNotation = 'com.example:beer-contracts:+:'
 	}
 	// The JAR with contracts should be taken from Maven local
-	contractsWorkOffline = true
+	stubsMode = "LOCAL"
 	// Base package for generated tests
 	basePackageForTests = "com.example"
 	baseClassMappings {
