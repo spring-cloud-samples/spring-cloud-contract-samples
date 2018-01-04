@@ -7,8 +7,9 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-with-stubs-per-consumer
+:version: 1.2.0.BUILD-SNAPSHOT
 
-= Stub Runner Boot
+= Stub Runner Boot {version}
 
 In this tutorial, we check out the basic functionality of the Stub Runner Boot
 application. Stub Runner Boot is a standalone JAR that you can run to download the latest

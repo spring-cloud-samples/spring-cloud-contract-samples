@@ -7,8 +7,9 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-restdocs
+:version: 1.2.0.BUILD-SNAPSHOT
 
-= Spring Cloud Contract with Rest Docs
+= Spring Cloud Contract with Rest Docs {version}
 
 In this tutorial, we'll combine messaging contracts from the producer side with
 generating stubs from Spring Rest Docs.

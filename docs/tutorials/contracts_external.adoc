@@ -8,8 +8,9 @@
 :images_folder: ../images
 :where_are_contracts: repo with contracts
 :producer_artifact: beer-api-producer-external
+:version: 1.2.0.BUILD-SNAPSHOT
 
-= Contracts in an external repository
+= Contracts in an external repository {version}
 
 In this tutorial, we keep the contracts in a separate repository (a common arrangement).
 
