@@ -1,0 +1,24 @@
+description: |
+  Represents first step of getting fully drunk
+  ```
+  given:
+     you didn't drink anything
+  when:
+     you get a beer
+  then:
+     you'll be tipsy
+   ```
+request:
+  method: POST
+  url: /beer
+  body:
+    name: marcin
+  headers:
+    Content-Type: application/json
+response:
+  status: 200
+  body:
+    previousStatus: SOBER
+    currentStatus: TIPSY
+  headers:
+    Content-Type: application/json;charset=UTF-8

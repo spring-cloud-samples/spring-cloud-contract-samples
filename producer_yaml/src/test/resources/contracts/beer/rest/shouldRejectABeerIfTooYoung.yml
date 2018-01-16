@@ -1,0 +1,35 @@
+description: |
+  Represents an unsuccessful scenario of getting a beer
+
+  ```
+  given:
+      client is not old enough
+  when:
+      he applies for a beer
+  then:
+      we'll NOT grant him the beer
+  ```
+request:
+  method: POST
+  url: /check
+  body:
+    age: 10
+  headers:
+    Content-Type: application/json
+  matchers:
+    body:
+      - path: "$.age"
+        type: by_regex
+        value: "[0-1][0-9]"
+response:
+  status: 200
+  body: |
+    {
+      "status": "NOT_OK"
+    }
+  headers:
+    Content-Type: application/json;charset=UTF-8
+  matchers:
+    body:
+      - path: $.status
+        type: by_type
