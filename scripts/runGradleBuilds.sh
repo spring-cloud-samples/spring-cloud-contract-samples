@@ -29,6 +29,7 @@ function build_gradle() {
 
     build common
     build producer
+    build producer_yaml
     build producer_advanced
     build producer_with_stubs_per_consumer
     build producer_with_external_contracts
