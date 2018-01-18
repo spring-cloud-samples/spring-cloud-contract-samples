@@ -55,7 +55,7 @@ task generateDocumentation(dependsOn: ["removeHtml", "asciidoctor"]) {
 task removeFiles(type: Delete) {
     group = "Workshops"
     description = "Removes all contracts"
-    List<String> producers =  ['producer', 'producer_with_scenario',
+    List<String> producers =  ['producer', 'producer_yaml', 'producer_with_scenario',
                                'producer_with_restdocs', 'producer_with_stubs_per_consumer']
     List<String> folders = producers.collect {
         "${it}/src/test/resources/contracts/"

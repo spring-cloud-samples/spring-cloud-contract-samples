@@ -45,6 +45,10 @@ combination of dynamic properties.
 
 It also uses scenario based contracts. That means that the produced stubs are stateful.
 
+=== Producer_yaml
+
+The same as `Producer` but uses YAML
+
 === Producer_advanced
 
 Contains more advanced examples of Spring Cloud Contract usage.
