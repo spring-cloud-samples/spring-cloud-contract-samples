@@ -6,3 +6,6 @@ spring:
         destination: verifications
         # remove::end[]
 server.port: ${PORT:8080}
+logging:
+  level:
+    org.springframework.cloud: debug
