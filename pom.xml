@@ -6,7 +6,7 @@
     <groupId>com.example</groupId>
     <artifactId>spring-cloud-contract-samples</artifactId>
     <packaging>pom</packaging>
-	<version>0.0.1-BUILD-SNAPSHOT</version>
+    <version>0.0.1-BUILD-SNAPSHOT</version>
 
     <name>Spring Cloud Contract Samples</name>
     <description>Spring Cloud Contract Samples</description>
@@ -32,6 +32,7 @@
 				<module>common</module>
 				<module>beer_contracts</module>
 				<module>producer</module>
+				<module>producer_yaml</module>
 				<module>producer_advanced</module>
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_external_contracts</module>
@@ -50,6 +51,7 @@
 			<modules>
 				<module>beer_contracts</module>
 				<module>producer</module>
+				<module>producer_yaml</module>
 				<module>producer_advanced</module>
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_external_contracts</module>

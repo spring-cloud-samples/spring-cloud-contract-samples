@@ -1,0 +1,31 @@
+description: |
+  Represents a successful scenario of getting a beer
+
+  ```
+  given:
+      client is old enough
+  when:
+      he applies for a beer
+  then:
+      we'll grant him the beer
+  ```
+request:
+  method: POST
+  url: /check
+  body:
+    age: 20
+  headers:
+    Content-Type: application/json
+  matchers:
+    body:
+      - path: "$.age"
+        type: by_regex
+        value: "[2-9][0-9]"
+response:
+  status: 200
+  body: |
+    {
+      "status": "OK"
+    }
+  headers:
+    Content-Type: application/json;charset=UTF-8

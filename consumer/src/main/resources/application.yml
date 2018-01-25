@@ -4,3 +4,6 @@ spring:
   cloud.stream.bindings.input.destination: verifications
   # remove::end[]
 server.port: ${PORT:8081}
+logging:
+  level:
+    org.springframework.cloud: debug
