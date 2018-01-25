@@ -6,4 +6,4 @@ spring:
 server.port: ${PORT:8081}
 logging:
   level:
-    org.springframework.web.client: debug
+    org.springframework.cloud: debug
