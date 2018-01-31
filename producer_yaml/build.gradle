@@ -28,6 +28,7 @@ repositories {
 
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 // remove::start[]
 apply plugin: 'spring-cloud-contract'
 // remove::end[]
@@ -71,5 +72,5 @@ test {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.5'
+    gradleVersion = '4.3.1'
 }
