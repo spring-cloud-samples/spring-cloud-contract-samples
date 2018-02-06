@@ -48,7 +48,7 @@ Example for Maven
     <artifactId>spring-cloud-contract-maven-plugin</artifactId>
     <configuration>
         <!-- url not required for working locally -->
-        <contractsWorkOffline>true<contractsWorkOffline>
+        <contractsWorkOffline>true</contractsWorkOffline>
         <contractDependency>
             <groupId>com.example</groupId>
             <artifactId>beer-contracts</artifactId>
