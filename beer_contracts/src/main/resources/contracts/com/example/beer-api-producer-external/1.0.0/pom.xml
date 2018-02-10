@@ -22,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud-contract.version>2.0.0.BUILD-SNAPSHOT</spring-cloud-contract.version>
-		<spring-cloud-dependencies.version>Finchley.BUILD-SNAPSHOT</spring-cloud-dependencies.version>
+		<spring-cloud-dependencies.version>Finchley.M6</spring-cloud-dependencies.version>
 		<!-- We don't want to run tests -->
 		<skipTests>true</skipTests>
 		<!-- We don't want to add build folders to the generated jar -->
