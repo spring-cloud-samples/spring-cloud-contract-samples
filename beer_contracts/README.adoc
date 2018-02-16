@@ -48,7 +48,7 @@ Example for Maven
     <artifactId>spring-cloud-contract-maven-plugin</artifactId>
     <configuration>
         <!-- url not required for working locally -->
-        <stubsMode>LOCAL</stubsMode>
+        <contractsMode>LOCAL</contractsMode>
         <contractDependency>
             <groupId>com.example</groupId>
             <artifactId>beer-contracts</artifactId>
@@ -62,7 +62,7 @@ and for Gradle:
 [source,groovy]
 ----
 contracts {
-    stubsMode = "LOCAL"
+    contractsMode = "LOCAL"
     contractDependency {
         stringNotation = "com.example:beer-contracts"
     }

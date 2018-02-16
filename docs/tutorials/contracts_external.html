@@ -1786,7 +1786,7 @@ have a base class with fully qualified name equal to the value you specify).</p>
             &lt;artifactId&gt;beer-contracts&lt;/artifactId&gt;
         &lt;/contractDependency&gt;
         &lt;!-- The JAR with contracts should be taken from Maven local --&gt;
-        &lt;stubsMode&gt;LOCAL&lt;/stubsMode&gt;
+        &lt;contractsMode&gt;LOCAL&lt;/contractsMode&gt;
         &lt;!-- Base package for generated tests --&gt;
         &lt;basePackageForTests&gt;com.example&lt;/basePackageForTests&gt;
     &lt;/configuration&gt;
@@ -1810,7 +1810,7 @@ have a base class with fully qualified name equal to the value you specify).</p>
 		stringNotation = 'com.example:beer-contracts'
 	}
 	// The JAR with contracts should be taken from Maven local
-	stubsMode = "LOCAL"
+	contractsMode = "LOCAL"
 	// Base package for generated tests
 	basePackageForTests = "com.example"
 	baseClassMappings {
