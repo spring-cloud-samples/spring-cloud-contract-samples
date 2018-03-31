@@ -5,10 +5,11 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-ROOT=`pwd`
+export ROOT=`pwd`
 
 function clean() {
     rm -rf ~/.m2/repository/com/example/
+    rm -rf "${ROOT}"/target/
     rm -rf ~/.gradle/caches/modules-2/files-2.1/com.example/
 }
 

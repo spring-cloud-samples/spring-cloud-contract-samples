@@ -1,0 +1,3 @@
+= Repo with contracts and stubs
+
+This folder simulates an empty git repository.
