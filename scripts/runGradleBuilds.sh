@@ -30,18 +30,21 @@ function build_gradle() {
 
     echo -e "\n\nCopying git repo to contract_git/target/git\n\n"
     mkdir -p "${ROOT}/target/contract_git"
-    cp -r "${ROOT}/contract_git/" "${ROOT}/target/"
+    cp -r "${ROOT}/contract_git" "${ROOT}/target/"
     mv "${ROOT}/target/contract_git/git" "${ROOT}/target/contract_git/.git"
 
     build common
     build producer
+    build consumer_pact
     build producer_with_git
     build producer_yaml
     build producer_advanced
+    build producer_pact
     build producer_with_stubs_per_consumer
     build producer_with_external_contracts
     build producer_with_restdocs
     build consumer
+    build consumer_pact_stubrunner
     build consumer_with_stubs_per_consumer
     build consumer_with_restdocs
     build consumer_with_discovery

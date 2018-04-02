@@ -4,27 +4,19 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>beer-api-producer-external</artifactId>
+	<artifactId>beer-api-producer-pact</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Producer With External Contracts</name>
+	<name>Producer Pact</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		<spring-cloud.version>Finchley.BUILD-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>2.0.0.BUILD-SNAPSHOT</spring-cloud-contract.version>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -53,15 +45,20 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- spring cloud contract test dependencies -->
-		<!-- remove::start[] -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- remove::end[] -->
 	</dependencies>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Finchley.BUILD-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>2.0.0.BUILD-SNAPSHOT</spring-cloud-contract.version>
+	</properties>
 
 	<build>
 		<plugins>
@@ -78,31 +75,19 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<baseClassMappings>
-						<baseClassMapping>
-							<contractPackageRegex>.*messaging.*</contractPackageRegex>
-							<baseClassFQN>com.example.BeerMessagingBase</baseClassFQN>
-						</baseClassMapping>
-						<baseClassMapping>
-							<contractPackageRegex>.*rest.*</contractPackageRegex>
-							<baseClassFQN>com.example.BeerRestBase</baseClassFQN>
-						</baseClassMapping>
-					</baseClassMappings>
-					<!-- We want to use the JAR with contracts with the following coordinates -->
+					<contractsRepositoryUrl>pact://http://localhost:8085</contractsRepositoryUrl>
 					<contractDependency>
-						<groupId>com.example</groupId>
-						<artifactId>beer-contracts</artifactId>
+						<groupId>${project.groupId}</groupId>
+						<artifactId>${project.artifactId}</artifactId>
+						<version>+</version>
 					</contractDependency>
-					<!-- The JAR with contracts should be taken from Maven local -->
-					<contractsMode>LOCAL</contractsMode>
-					<!-- Base package for generated tests -->
-					<basePackageForTests>com.example</basePackageForTests>
+					<contractsMode>REMOTE</contractsMode>
+					<baseClassForTests>com.example.BeerRestBase</baseClassForTests>
 				</configuration>
-				<!-- this was added for testing purposes only -->
 				<dependencies>
 					<dependency>
 						<groupId>org.springframework.cloud</groupId>
-						<artifactId>spring-cloud-contract-verifier</artifactId>
+						<artifactId>spring-cloud-contract-pact</artifactId>
 						<version>${spring-cloud-contract.version}</version>
 					</dependency>
 				</dependencies>
@@ -110,8 +95,25 @@
 			<!-- SPRING CLOUD CONTRACT -->
 			<!-- remove::end[] -->
 
+			<plugin>
+				<groupId>au.com.dius</groupId>
+				<artifactId>pact-jvm-provider-maven_2.12</artifactId>
+				<version>3.5.11</version>
+				<configuration>
+					<pactBrokerUrl>http://localhost:8085</pactBrokerUrl>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>springcloudcontract-snapshots</name>
+			<url>https://springcloudcontract.jfrog.io/springcloudcontract/libs-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<dependencyManagement>
 		<dependencies>

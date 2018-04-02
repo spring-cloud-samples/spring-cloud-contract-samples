@@ -7,10 +7,12 @@ set -o pipefail
 
 export ROOT=`pwd`
 
-function clean() {
-    rm -rf ~/.m2/repository/com/example/
-    rm -rf "${ROOT}"/target/
-    rm -rf ~/.gradle/caches/modules-2/files-2.1/com.example/
+source "${ROOT}"/scripts/clean.sh
+
+function startDockerCompose() {
+    pushd "${ROOT}"/docker
+    docker-compose up -d
+    popd
 }
 
 clean
@@ -29,6 +31,7 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
+startDockerCompose
 . ${ROOT}/scripts/runMavenBuilds.sh
 
 cat <<'EOF'
@@ -69,6 +72,7 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
+startDockerCompose
 . ${ROOT}/scripts/runGradleBuilds.sh
 
 cat <<'EOF'
@@ -88,5 +92,4 @@ EOF
 echo "Generating docs"
 cd ${ROOT} && ./gradlew generateDocumentation
 
-#echo "Running Stub Runner Boot test"
-#. ${ROOT}/scripts/stub_runner_boot.sh
+clearDocker

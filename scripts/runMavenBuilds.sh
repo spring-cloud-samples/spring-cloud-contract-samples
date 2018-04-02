@@ -17,7 +17,7 @@ function build_maven() {
     clean
     echo -e "\n\nCopying git repo to /target/contract_git\n\n"
     mkdir -p "${ROOT}/target/contract_git"
-    cp -r "${ROOT}/contract_git/" "${ROOT}/target/"
+    cp -R "${ROOT}/contract_git" "${ROOT}/target/"
     mv "${ROOT}/target/contract_git/git" "${ROOT}/target/contract_git/.git"
 
     echo -e "\n\nInstalling common\n\n"
