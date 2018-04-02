@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: springcloud/pipeline-base
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms512m -Xmx768m"
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx512m -Xmx768m -XX:+HeapDumpOnOutOfMemoryError" -Dorg.gradle.daemon=false'
+      TERM: dumb
+    branches:
+      ignore:
+        - gh-pages # list of branches to ignore
+    resource_class: large
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: "Adding daemon entries for Gradle"
+          command: touch ~/.gradle/gradle.properties && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
+      - run:
+      - run:
+          name: "Running build"
+          command: ./scripts/runAcceptanceTests.sh
+notify:
+  webhooks:
+    # A list of hook hashes, containing the url field
+    # gitter hook
+    - url: https://webhooks.gitter.im/e/ece0ece9a76a5af2aa91
