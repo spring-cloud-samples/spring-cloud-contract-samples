@@ -1,11 +1,9 @@
-version: '3'
+version: '2'
 
 services:
 
   postgres:
     image: postgres
-    healthcheck:
-      test: psql postgres --command "select 1" -U postgres
     ports:
       - "5432:5432"
     environment:
