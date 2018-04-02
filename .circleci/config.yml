@@ -15,9 +15,6 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
-          name: "Adding daemon entries for Gradle"
-          command: touch ~/.gradle/gradle.properties && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
-      - run:
           name: "Running build"
           command: ./scripts/runAcceptanceTests.sh
 notify:
