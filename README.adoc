@@ -13,7 +13,7 @@ This repository shows examples of
 - storing contracts on the producer side
 - storing contracts in a common repo
 - passing stubs via Rest docs
-- integration with Pact and Paker
+- integration with Pact and Pact Broker
 
 Both for REST and Messaging. Built with Maven and Gradle.
 Also some additional Spring Cloud Contract plugin configuration is present.
