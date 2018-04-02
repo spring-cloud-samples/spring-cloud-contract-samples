@@ -33,8 +33,10 @@
 				<module>common</module>
 				<module>beer_contracts</module>
 				<module>producer</module>
+				<module>consumer_pact</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
+				<module>producer_pact</module>
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_git</module>
 				<module>producer_with_external_contracts</module>
@@ -53,8 +55,10 @@
 			<modules>
 				<module>beer_contracts</module>
 				<module>producer</module>
+				<module>consumer_pact</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
+				<module>producer_pact</module>
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_git</module>
 				<module>producer_with_external_contracts</module>
