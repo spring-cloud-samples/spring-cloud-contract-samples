@@ -23,12 +23,12 @@ services:
       PACT_BROKER_DATABASE_HOST: postgres
       PACT_BROKER_DATABASE_NAME: postgres
 
-  nginx:
-    image: nginx:alpine
-    links:
-      - broker_app:broker
-    volumes:
-    - ./ssl/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    - ./ssl:/etc/nginx/ssl
-    ports:
-    - "8443:443"
+#  nginx:
+#    image: nginx:alpine
+#    links:
+#      - broker_app:broker
+#    volumes:
+#    - ./ssl/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+#    - ./ssl:/etc/nginx/ssl
+#    ports:
+#    - "8443:443"
