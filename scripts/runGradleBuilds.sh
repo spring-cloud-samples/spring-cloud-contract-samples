@@ -35,13 +35,16 @@ function build_gradle() {
 
     build common
     build producer
+    build consumer_pact
     build producer_with_git
     build producer_yaml
     build producer_advanced
+    build producer_pact
     build producer_with_stubs_per_consumer
     build producer_with_external_contracts
     build producer_with_restdocs
     build consumer
+    build consumer_pact_stubrunner
     build consumer_with_stubs_per_consumer
     build consumer_with_restdocs
     build consumer_with_discovery

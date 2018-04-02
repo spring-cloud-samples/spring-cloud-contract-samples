@@ -5,14 +5,15 @@ image:https://circleci.com/gh/spring-cloud-samples/spring-cloud-contract-samples
 This repository contains the consumer and the producer applications to use with Spring Cloud Contract
 project.
 
-It contains 2 important branches. `master` where we test against the latest versions of
-Spring Cloud Contract, and `1.0.x` where we test against `1.0.x` versions of Spring Cloud Contract.
+It contains several important branches. `master` where we test against the latest versions of
+Spring Cloud Contract, and `x.x.x` where we test against `x.x.x` version of Spring Cloud Contract.
 
 This repository shows examples of
 
 - storing contracts on the producer side
 - storing contracts in a common repo
 - passing stubs via Rest docs
+- integration with Pact and Paker
 
 Both for REST and Messaging. Built with Maven and Gradle.
 Also some additional Spring Cloud Contract plugin configuration is present.
@@ -92,6 +93,28 @@ rest and messaging. The stubs come from the test compile dependency of the produ
 
 The consumer application that has the stub of the HTTP server get fed with stubs that
 lay under proper folder in the reused JAR.
+
+=== Docker
+
+Contains docker setup for Pact Broker
+
+=== Consumer_pact
+
+Since http://pact.io/[Pact] works around the idea of consumer contract,
+the contract definitions (the Pact files), are defined and set up on the consumer side.
+Then the Pact files get uploaded to the Pact Broker
+
+=== Producer_pact
+
+This project connects to the Pact Broker to retrieve the
+list of Pact files. From the files tests and WireMock stubs are generated.
+
+=== Consumer_pact_stubrunner
+
+If one wants to do producer contracts with Pact Broker, one
+can upload the pacts from a consumer (which actually can be the producer)
+and then all the other consumers, can use Spring Cloud Contract Stub Runner
+to run stubs of the producer.
 
 == How to build it?
 

@@ -11,6 +11,16 @@ function clean() {
     rm -rf ~/.m2/repository/com/example/
     rm -rf "${ROOT}"/target/
     rm -rf ~/.gradle/caches/modules-2/files-2.1/com.example/
+    pushd docker
+    yes | docker-compose kill || echo "Failed to kill docker compose"
+    yes | docker-compose rm -v || echo "Failed to remove docker compose volumes"
+    popd
+}
+
+function startDockerCompose() {
+    pushd docker
+    docker-compose up -d
+    popd
 }
 
 clean
@@ -29,6 +39,7 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
+startDockerCompose
 . ${ROOT}/scripts/runMavenBuilds.sh
 
 cat <<'EOF'
@@ -69,6 +80,7 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
+startDockerCompose
 . ${ROOT}/scripts/runGradleBuilds.sh
 
 cat <<'EOF'
@@ -88,5 +100,4 @@ EOF
 echo "Generating docs"
 cd ${ROOT} && ./gradlew generateDocumentation
 
-#echo "Running Stub Runner Boot test"
-#. ${ROOT}/scripts/stub_runner_boot.sh
+clean
