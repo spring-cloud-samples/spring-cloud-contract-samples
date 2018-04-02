@@ -7,12 +7,7 @@ set -o pipefail
 
 export ROOT=`pwd`
 
-function clean() {
-    rm -rf ~/.m2/repository/com/example/
-    rm -rf "${ROOT}"/target/
-    rm -rf ~/.gradle/caches/modules-2/files-2.1/com.example/
-    clearDocker
-}
+source "${ROOT}"/scripts/clean.sh
 
 function startDockerCompose() {
     pushd "${ROOT}"/docker
@@ -20,14 +15,6 @@ function startDockerCompose() {
     popd
 }
 
-function clearDocker() {
-    pushd "${ROOT}"/docker
-    yes | docker-compose kill || echo "Failed to kill docker compose"
-    yes | docker-compose rm -v || echo "Failed to remove docker compose volumes"
-    popd
-}
-
-}
 clean
 
 cat <<'EOF'
