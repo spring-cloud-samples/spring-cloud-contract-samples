@@ -18,7 +18,6 @@ jobs:
           name: "Adding daemon entries for Gradle"
           command: touch ~/.gradle/gradle.properties && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
       - run:
-      - run:
           name: "Running build"
           command: ./scripts/runAcceptanceTests.sh
 notify:
