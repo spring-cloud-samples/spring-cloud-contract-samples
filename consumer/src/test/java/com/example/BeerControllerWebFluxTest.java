@@ -1,6 +1,5 @@
 package com.example;
 
-import org.assertj.core.api.BDDAssertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.cloud.contract.stubrunner.StubFinder;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
@@ -19,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -30,55 +28,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 //remove::start[]
-// example of usage with fixed port
-//tag::stubrunner[]
-@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer-advanced")
-//end::stubrunner[]
+@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer-webflux")
 //remove::end[]
 @DirtiesContext
-public class GrumpyBartenderControllerTest extends AbstractTest {
+public class BeerControllerWebFluxTest extends AbstractTest {
 
 	@Autowired MockMvc mockMvc;
-	@Autowired GrumpyBartenderController controller;
-	//remove::start[]
-	@Autowired StubFinder stubFinder;
+	@Autowired BeerController beerController;
 
-	//tag::valueport[]
-	@StubRunnerPort("beer-api-producer-advanced") int producerPort;
-	//end::valueport[]
+	//remove::start[]
+	@StubRunnerPort("beer-api-producer-webflux") int producerPort;
+
 	@Before
 	public void setupPort() {
-		// either one or the other option
-		//tag::portfinder[]
-		int portFromStubFinder = stubFinder.findStubUrl("beer-api-producer-advanced").getPort();
-		//end::portfinder[]
-		int port2 = producerPort;
-		BDDAssertions.then(portFromStubFinder).isEqualTo(port2);
-		controller.port = portFromStubFinder;
+		beerController.port = producerPort;
 	}
 	//remove::end[]
-
-	//tag::tests[]
-	@Test public void should_fail_to_sell_beer() throws Exception {
+	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/grumpy")
+		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.whatTheBartenderSaid").value("You're drunk [marcin]. Go home!"))
-				.andExpect(jsonPath("$.whatDoWeDo").value("Go to another bar"));
+				.andExpect(content().string("THERE YOU GO"));
 		//remove::end[]
 	}
 
-	@Test public void should_sell_beer_to_Josh() throws Exception {
+	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/grumpy")
+		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("starbuxman", 22)).getJson()))
+				.content(json.write(new Person("marcin", 17)).getJson()))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.whatTheBartenderSaid").value("There you go Josh!"))
-				.andExpect(jsonPath("$.whatDoWeDo").value("Enjoy!"));
+				.andExpect(content().string("GET LOST"));
 		//remove::end[]
 	}
-	//end::tests[]
 }

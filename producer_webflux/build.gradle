@@ -1,0 +1,80 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		mavenLocal()
+		maven { url "http://repo.spring.io/snapshot" }
+		maven { url "http://repo.spring.io/milestone" }
+		maven { url "http://repo.spring.io/release" }
+	}
+
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE"
+		// remove::start[]
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
+		// tag::test_dep_in_plugin[]
+		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
+		// end::test_dep_in_plugin[]
+		// remove::end[]
+	}
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	maven { url "http://repo.spring.io/snapshot" }
+	maven { url "http://repo.spring.io/milestone" }
+	maven { url "http://repo.spring.io/release" }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+// remove::start[]
+apply plugin: 'spring-cloud-contract'
+// remove::end[]
+apply plugin: 'maven-publish'
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:$BOM_VERSION"
+	}
+}
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-webflux")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
+
+	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
+	// remove::start[]
+	// tag::verifier_dep[]
+	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	// end::verifier_dep[]
+	// tag::test_dep[]
+	testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
+	// end::test_dep[]
+	// remove::end[]
+}
+
+// remove::start[]
+contracts {
+	testMode = "EXPLICIT"
+	packageWithBaseClasses = 'com.example'
+	baseClassMappings {
+		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
+	}
+}
+// remove::end[]
+
+test {
+	testLogging {
+		exceptionFormat = 'full'
+	}
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.3.1'
+}

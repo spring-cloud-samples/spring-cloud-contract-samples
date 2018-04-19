@@ -35,6 +35,7 @@ function build_gradle() {
 
     build common
     build producer
+    build producer_webflux
     build consumer_pact
     build producer_with_git
     build producer_yaml
