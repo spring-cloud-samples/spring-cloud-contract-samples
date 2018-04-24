@@ -63,10 +63,13 @@ task removeFiles(type: Delete) {
     }
     List<String> adocTests = producers.collect {
         "${it}/src/test/java/com/example/GenerateAdocsFromContractsTests.java"
+    }
+    List<String> graphsTests = producers.collect {
         "${it}/src/test/java/com/example/GenerateGraphFromContractsTests.java"
     }
     delete folders
     delete adocTests
+    delete graphsTests
     delete 'beer_contracts/src/main/resources/contracts/'
     delete 'beer_contracts/src/test/java/docs/GenerateAdocsFromContractsTests.java'
     delete 'beer_contracts/src/test/java/docs/GenerateGraphFromContractsTests.java'
