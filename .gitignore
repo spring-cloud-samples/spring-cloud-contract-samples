@@ -21,4 +21,4 @@ build/
 .gradletasknamecache
 nohup.out
 effective.pom
-test_reports/
+test-results/
