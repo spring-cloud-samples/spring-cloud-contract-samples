@@ -10,7 +10,9 @@ import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureM
 //remove::end[]
 import org.springframework.test.context.junit4.SpringRunner;
 
+//remove::start[]
 import javax.inject.Inject;
+//remove::end[]
 import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
