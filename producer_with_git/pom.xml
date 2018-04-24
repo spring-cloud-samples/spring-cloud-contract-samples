@@ -70,6 +70,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
+			<!-- remove::start[] -->
 			<!-- SPRING CLOUD CONTRACT -->
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
@@ -117,6 +118,7 @@
 				</executions>
 			</plugin>
 			<!-- SPRING CLOUD CONTRACT -->
+			<!-- remove::end[] -->
 
 		</plugins>
 	</build>

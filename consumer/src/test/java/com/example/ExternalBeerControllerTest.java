@@ -8,9 +8,11 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+//remove::start[]
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
+//remove::end[]
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -37,11 +39,15 @@ public class ExternalBeerControllerTest extends AbstractTest {
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
 
+	//remove::start[]
 	@StubRunnerPort("beer-api-producer-external") int producerPort;
+	//remove::end[]
 
 	@Before
 	public void setupPort() {
+		//remove::start[]
 		beerController.port = producerPort;
+		//remove::end[]
 	}
 
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
@@ -87,4 +93,3 @@ public class ExternalBeerControllerTest extends AbstractTest {
 	}
 
  */
-

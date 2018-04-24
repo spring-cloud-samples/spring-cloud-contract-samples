@@ -7,11 +7,7 @@ buildscript {
 		maven { url "http://repo.spring.io/release" }
 	}
 	dependencies {
-<<<<<<< HEAD
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.1.RELEASE"
-=======
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.12.RELEASE"
->>>>>>> master
 		// remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
 		// remove::end[]
