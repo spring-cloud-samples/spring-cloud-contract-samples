@@ -38,7 +38,7 @@ echo "Generating docs"
 cd ${ROOT} && ./gradlew generateDocumentation
 
 echo "Copying test results"
-cd ${ROOT} && mkdir test-results -p
+cd ${ROOT} && mkdir test-results/junit -p
 find . -type f -regex ".*/target/.*-reports/.*" -exec cp {} test-results/junit/ \;
 find . -type f -regex ".*/build/test-results/.*" -exec cp {} test-results/junit/ \;
 
