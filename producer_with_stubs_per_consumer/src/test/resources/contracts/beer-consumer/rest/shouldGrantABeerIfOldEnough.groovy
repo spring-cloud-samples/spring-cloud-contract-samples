@@ -1,5 +1,3 @@
-package contracts.beer.rest
-
 import org.springframework.cloud.contract.spec.Contract
 
 import static com.example.ConsumerUtils.oldEnough
@@ -22,8 +20,8 @@ then:
 		method 'POST'
 		url '/check'
 		body(
-				age: $(oldEnough()),
-				name: $(anyAlphaUnicode())
+				age: $(regex("[2-9][0-9]")),
+				name: "marcin"
 		)
 		headers {
 			contentType(applicationJson())
@@ -31,12 +29,7 @@ then:
 	}
 	response {
 		status 200
-		body("""
-			{
-				"status": "${value(ok())}",
-				"name": "${fromRequest().body('$.name')}"
-			}
-			""")
+		body(""" { "status": "OK" } """)
 		headers {
 			contentType(applicationJson())
 		}
