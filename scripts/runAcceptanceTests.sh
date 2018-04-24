@@ -61,9 +61,5 @@ startDockerCompose
 clearDocker
 
 startDockerCompose
-. ${ROOT}/scripts/runManual.sh
-clearDocker
-
-startDockerCompose
 . ${ROOT}/scripts/runGradleBuilds.sh
 clearDocker
