@@ -55,9 +55,12 @@ task generateDocumentation(dependsOn: ["removeHtml", "asciidoctor"]) {
 task removeFiles(type: Delete) {
     group = "Workshops"
     description = "Removes all contracts"
-    List<String> producers =  ['producer', 'producer_yaml', 'producer_pact',
-                               'producer_with_git', 'producer_with_scenario',
-                               'producer_with_restdocs', 'producer_with_stubs_per_consumer']
+    List<String> producers =  project.rootDir.list(new FilenameFilter() {
+        @Override
+        public boolean accept(File current, String name) {
+          return new File(current, name).isDirectory() && name.startsWith("producer")
+        }
+      })
     List<String> folders = producers.collect {
         "${it}/src/test/resources/contracts/"
     }

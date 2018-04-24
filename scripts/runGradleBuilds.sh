@@ -7,6 +7,7 @@ set -o pipefail
 
 ROOT=${ROOT:-`pwd`}
 BUILD_COMMON="${BUILD_COMMON:-true}"
+SKIP_TESTS="${SKIP_TESTS:-false}"
 
 function clean() {
     rm -rf ~/.m2/repository/com/example/
@@ -17,7 +18,11 @@ function build() {
     local folder="${1}"
     echo -e "\n\nBuilding ${folder}\n\n"
     cd "${ROOT}/${folder}"
-    ./gradlew clean build publishToMavenLocal
+    if [[ "${SKIP_TESTS}" == "true" ]]; then
+        ./gradlew clean build publishToMavenLocal -x test
+    else
+        ./gradlew clean build publishToMavenLocal
+    fi
     cd "${ROOT}"
 }
 

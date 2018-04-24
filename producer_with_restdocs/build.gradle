@@ -51,9 +51,11 @@ dependencies {
 	// remove::end[]
 }
 
+// remove::start[]
 contracts {
 	packageWithBaseClasses = 'com.example'
 }
+// remove::end[]
 
 test {
 	testLogging {

@@ -1,6 +1,8 @@
 package com.example;
 
+//remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+//remove::end[]
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;

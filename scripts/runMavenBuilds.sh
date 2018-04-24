@@ -7,6 +7,7 @@ set -o pipefail
 
 ROOT=${ROOT:-`pwd`}
 BUILD_COMMON="${BUILD_COMMON:-true}"
+SKIP_TESTS="${SKIP_TESTS:-false}"
 
 function clean() {
     rm -rf ~/.m2/repository/com/example/
@@ -22,7 +23,11 @@ function build_maven() {
     cd ${ROOT}
 
     echo -e "\n\nBuilding everything\n\n"
-    ./mvnw clean install -Ptest -U
+    if [[ "${SKIP_TESTS}" == "true" ]]; then
+        ./mvnw clean install -Ptest -U -DskipTests
+    else
+        ./mvnw clean install -Ptest -U
+    fi
 }
 
 cat <<'EOF'
