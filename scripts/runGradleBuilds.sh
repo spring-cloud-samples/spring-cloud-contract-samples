@@ -5,7 +5,8 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-export ROOT=${ROOT:-`pwd`}
+ROOT=${ROOT:-`pwd`}
+BUILD_COMMON="${BUILD_COMMON:-true}"
 
 function clean() {
     rm -rf ~/.m2/repository/com/example/
@@ -24,7 +25,6 @@ function build() {
 function build_gradle() {
     clean
 
-    echo -e "\n\nCopying git repo to /target/contract_git\n\n"
     cd "${ROOT}/beer_contracts"
     ./mvnw clean install -U
 
@@ -33,7 +33,9 @@ function build_gradle() {
     cp -r "${ROOT}/contract_git" "${ROOT}/target/"
     mv "${ROOT}/target/contract_git/git" "${ROOT}/target/contract_git/.git"
 
-    build common
+    if [[ "${BUILD_COMMON}" == "true" ]]; then
+        build common
+    fi
     build producer
     build producer_webflux
     build consumer_pact

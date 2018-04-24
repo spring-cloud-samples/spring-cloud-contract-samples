@@ -5,7 +5,8 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-export ROOT=${ROOT:-`pwd`}
+ROOT=${ROOT:-`pwd`}
+BUILD_COMMON="${BUILD_COMMON:-true}"
 
 function clean() {
     rm -rf ~/.m2/repository/com/example/
@@ -20,9 +21,11 @@ function build_maven() {
     cp -R "${ROOT}/contract_git" "${ROOT}/target/"
     mv "${ROOT}/target/contract_git/git" "${ROOT}/target/contract_git/.git"
 
-    echo -e "\n\nInstalling common\n\n"
-    cd ${ROOT}/common
-    ./mvnw clean install -U
+    if [[ "${BUILD_COMMON}" == "true" ]]; then
+        echo -e "\n\nInstalling common\n\n"
+        cd ${ROOT}/common
+        ./mvnw clean install -U
+    fi
     cd ${ROOT}
 
     echo -e "\n\nBuilding everything\n\n"
