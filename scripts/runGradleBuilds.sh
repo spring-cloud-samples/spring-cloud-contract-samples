@@ -6,6 +6,7 @@ set -o nounset
 set -o pipefail
 
 ROOT=${ROOT:-`pwd`}
+BUILD_COMMON="${BUILD_COMMON:-true}"
 
 function clean() {
     rm -rf ~/.m2/repository/com/example/
@@ -27,7 +28,9 @@ function build_gradle() {
     cd "${ROOT}/beer_contracts"
     ./mvnw clean install -U
 
-    build common
+    if [[ "${BUILD_COMMON}" == "true" ]]; then
+        build common
+    fi
     build producer
     build producer_yaml
     build producer_advanced

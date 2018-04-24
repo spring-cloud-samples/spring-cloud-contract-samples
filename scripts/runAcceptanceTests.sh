@@ -41,6 +41,7 @@ echo "Preparing for docs"
 cd ${ROOT} && ./gradlew prepareForWorkshops
 
 echo "Building the whole project again after preparing for docs"
+export BUILD_COMMON=false
 
 . ${ROOT}/scripts/runMavenBuilds.sh
 

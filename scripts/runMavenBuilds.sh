@@ -6,6 +6,7 @@ set -o nounset
 set -o pipefail
 
 ROOT=${ROOT:-`pwd`}
+BUILD_COMMON="${BUILD_COMMON:-true}"
 
 function clean() {
     rm -rf ~/.m2/repository/com/example/
@@ -13,9 +14,11 @@ function clean() {
 }
 
 function build_maven() {
-    echo -e "\n\nInstalling common\n\n"
-    cd ${ROOT}/common
-    ./mvnw clean install -U
+    if [[ "${BUILD_COMMON}" == "true" ]]; then
+        echo -e "\n\nInstalling common\n\n"
+        cd ${ROOT}/common
+        ./mvnw clean install -U
+    fi
     cd ${ROOT}
 
     echo -e "\n\nBuilding everything\n\n"
