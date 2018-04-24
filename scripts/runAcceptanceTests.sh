@@ -46,6 +46,4 @@ export SKIP_TESTS=true
 
 . ${ROOT}/scripts/runMavenBuilds.sh
 
-. ${ROOT}/scripts/runManual.sh
-
 . ${ROOT}/scripts/runGradleBuilds.sh
