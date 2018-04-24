@@ -1,8 +1,5 @@
 import org.springframework.cloud.contract.spec.Contract
 
-import static com.example.ConsumerUtils.oldEnough
-import static com.example.ProducerUtils.ok
-
 Contract.make {
 	request {
 		description("""
@@ -20,8 +17,7 @@ then:
 		method 'POST'
 		url '/check'
 		body(
-				age: $(regex("[2-9][0-9]")),
-				name: "marcin"
+				age: $(regex("[2-9][0-9]"))
 		)
 		headers {
 			contentType(applicationJson())
