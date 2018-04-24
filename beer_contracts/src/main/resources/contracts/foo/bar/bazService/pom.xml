@@ -13,15 +13,24 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
+<<<<<<< HEAD
 		<version>2.0.1.RELEASE</version>
+=======
+		<version>1.5.12.RELEASE</version>
+>>>>>>> master
 		<relativePath />
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+<<<<<<< HEAD
 		<spring-cloud-contract.version>2.0.0.BUILD-SNAPSHOT</spring-cloud-contract.version>
 		<spring-cloud-dependencies.version>Finchley.BUILD-SNAPSHOT</spring-cloud-dependencies.version>
+=======
+		<spring-cloud-contract.version>1.2.5.BUILD-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud-dependencies.version>Edgware.BUILD-SNAPSHOT</spring-cloud-dependencies.version>
+>>>>>>> master
 		<skipTests>true</skipTests>
 	</properties>
 

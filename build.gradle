@@ -55,9 +55,18 @@ task generateDocumentation(dependsOn: ["removeHtml", "asciidoctor"]) {
 task removeFiles(type: Delete) {
     group = "Workshops"
     description = "Removes all contracts"
+<<<<<<< HEAD
     List<String> producers =  ['producer', 'producer_yaml', 'producer_pact',
                                'producer_with_git', 'producer_with_scenario',
                                'producer_with_restdocs', 'producer_with_stubs_per_consumer']
+=======
+    List<String> producers =  project.rootDir.list(new FilenameFilter() {
+        @Override
+        public boolean accept(File current, String name) {
+          return new File(current, name).isDirectory() && name.startsWith("producer")
+        }
+      })
+>>>>>>> master
     List<String> folders = producers.collect {
         "${it}/src/test/resources/contracts/"
     }
@@ -65,8 +74,12 @@ task removeFiles(type: Delete) {
         "${it}/src/test/java/com/example/GenerateAdocsFromContractsTests.java"
         "${it}/src/test/java/com/example/GenerateGraphFromContractsTests.java"
     }
+    List<String> graphsTests = producers.collect {
+        "${it}/src/test/java/com/example/GenerateGraphFromContractsTests.java"
+    }
     delete folders
     delete adocTests
+    delete graphsTests
     delete 'beer_contracts/src/main/resources/contracts/'
     delete 'beer_contracts/src/test/java/docs/GenerateAdocsFromContractsTests.java'
     delete 'beer_contracts/src/test/java/docs/GenerateGraphFromContractsTests.java'

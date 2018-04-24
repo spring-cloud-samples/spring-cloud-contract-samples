@@ -52,6 +52,7 @@ cd ${ROOT} && ./gradlew prepareForWorkshops
 
 echo "Building the whole project again after preparing for docs"
 export BUILD_COMMON=false
+export SKIP_TESTS=true
 
 clean
 

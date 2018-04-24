@@ -1,6 +1,8 @@
 package com.example.intoxication;
 
+//remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+//remove::end[]
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -28,7 +30,9 @@ public abstract class BeerIntoxicationBase {
 
 	@Before
 	public void setup() {
+		//remove::start[]
 		RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
+		//remove::end[]
 	}
 
 	@Configuration
@@ -70,7 +74,8 @@ public abstract class BeerIntoxicationBase {
 					 throw new UnsupportedOperationException("You can't handle it");
 				 }
 			}
-			return new Response(previous, current);//remove::end[return]
+			//remove::end[]
+			return new Response(previous, current);
 		}
 	}
 	//end::mock[]

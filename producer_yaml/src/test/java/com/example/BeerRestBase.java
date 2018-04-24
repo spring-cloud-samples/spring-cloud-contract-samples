@@ -1,8 +1,11 @@
 package com.example;
 
+//remove::start[]
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+//remove::end[]
+
 import java.util.Random;
 
-import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatcher;
