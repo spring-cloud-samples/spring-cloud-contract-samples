@@ -1,0 +1,6 @@
+{
+  "host": {
+    "before": "http://localhost:8080",
+    "after": ""
+  }
+}
