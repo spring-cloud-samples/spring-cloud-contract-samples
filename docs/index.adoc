@@ -1,9 +1,9 @@
 :toc: left
 :toclevels: 8
 :nofooter:
-:version: 1.2.0.BUILD-SNAPSHOT
+:version: 2.0.0.BUILD-SNAPSHOT
 
-= Spring Cloud Contract {version} Samples
+= Spring Cloud Contract Samples {version}
 
 The Spring Cloud Contract Samples repo consists of 2 parts.
 

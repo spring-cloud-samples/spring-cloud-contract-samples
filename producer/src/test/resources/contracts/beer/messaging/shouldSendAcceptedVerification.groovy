@@ -36,7 +36,7 @@ then:
 			eligible: true
 		)
 		headers {
-			header("contentType", applicationJsonUtf8())
+			messagingContentType(applicationJson())
 		}
 	}
 }

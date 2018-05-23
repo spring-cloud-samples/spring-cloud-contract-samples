@@ -5,20 +5,30 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-ROOT=`pwd`
+export ROOT=`pwd`
 
-function clean() {
-    rm -rf ~/.m2/repository/com/example/
-    rm -rf ~/.gradle/caches/modules-2/files-2.1/com.example/
+source "${ROOT}"/scripts/clean.sh
+
+function startDockerCompose() {
+    pushd "${ROOT}"/docker
+    docker-compose pull
+    docker-compose up -d
+    popd
 }
 
 clean
 
+startDockerCompose
 . ${ROOT}/scripts/runMavenBuilds.sh
+clearDocker
 
+startDockerCompose
 . ${ROOT}/scripts/runManual.sh
+clearDocker
 
+startDockerCompose
 . ${ROOT}/scripts/runGradleBuilds.sh
+clearDocker
 
 cat <<'EOF'
  .----------------.  .----------------.  .----------------.  .----------------.
@@ -40,10 +50,16 @@ cd ${ROOT} && ./gradlew generateDocumentation
 echo "Preparing for docs"
 cd ${ROOT} && ./gradlew prepareForWorkshops
 
-echo "Compiling the whole project again after preparing for docs"
+echo "Building the whole project again after preparing for docs"
 export BUILD_COMMON=false
 export SKIP_TESTS=true
 
-. ${ROOT}/scripts/runMavenBuilds.sh
+clean
 
+startDockerCompose
+. ${ROOT}/scripts/runMavenBuilds.sh
+clearDocker
+
+startDockerCompose
 . ${ROOT}/scripts/runGradleBuilds.sh
+clearDocker

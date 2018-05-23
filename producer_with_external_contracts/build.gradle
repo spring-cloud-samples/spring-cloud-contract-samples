@@ -7,7 +7,7 @@ buildscript {
 		maven { url "http://repo.spring.io/release" }
 	}
 	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.12.RELEASE"
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.1.RELEASE"
 		// remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
 		// remove::end[]
@@ -27,6 +27,7 @@ repositories {
 
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 // remove::start[]
 apply plugin: 'spring-cloud-contract'
 // remove::end[]
@@ -57,7 +58,7 @@ contracts {
 		stringNotation = 'com.example:beer-contracts:+:'
 	}
 	// The JAR with contracts should be taken from Maven local
-	contractsWorkOffline = true
+	contractsMode = "LOCAL"
 	// Base package for generated tests
 	basePackageForTests = "com.example"
 	baseClassMappings {
@@ -74,5 +75,5 @@ test {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '3.5'
+	gradleVersion = '4.3.1'
 }

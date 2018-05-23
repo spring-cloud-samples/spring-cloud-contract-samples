@@ -7,7 +7,7 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-restdocs
-:version: 1.2.0.BUILD-SNAPSHOT
+:version: 2.0.0.BUILD-SNAPSHOT
 
 = Spring Cloud Contract with Rest Docs {version}
 
@@ -535,8 +535,7 @@ To read the stubs:
 . Open the `BeerControllerClasspathTest`. We use Stub Runner to pick stubs from the
 classpath.
 . Now annotate the class with
-`@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")` without
-passing the `workOffline` flag nor the `repositoryRoot`. Just pass the ID values.
+`@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090", stubsMode = StubRunnerProperties.StubsMode.CLASSPATH)`
 . Run the tests and you can see them pass!
 
 For this example, we scan the following locations by default:
@@ -565,9 +564,7 @@ IMPORTANT: This feature is available as of the 1.1.1.RELEASE version
 Now that you have written the implementation and have tested it in the previous section,
 we can try to read the message stubs from classpath. To do so, annotate the
 `BeerVerificationListenerClasspathTest` class with
-`@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")`
-without passing the `workOffline` flag or the `repositoryRoot` flag. Pass only the `id`
-values.
+`@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090", stubsMode = StubRunnerProperties.StubsMode.LOCAL)`
 
 Now you can run the tests and see them tests pass!
 

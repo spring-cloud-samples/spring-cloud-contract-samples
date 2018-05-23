@@ -17,4 +17,4 @@ outputMessage:
     body:
       eligible: true
     headers:
-        contentType: application/json;charset=UTF-8
+        contentType: application/json

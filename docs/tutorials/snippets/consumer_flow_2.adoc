@@ -6,7 +6,8 @@ image::{images_folder}/consumer_flow_2.png[title="Switch to work online"]
 - As consumers we no longer want to retrieve the stubs from our local Maven repository -
 we'd like to download them from the remote location
 - To do that (we won't do that for the tutorial but you would do it in your "production"
-code) it's enough to remove the `workOffline` flag and to pass the `repositoryRoot` parameter
+code) it's enough to pass the `repositoryRoot` parameter and set the
+`stubsMode` to `StubRunnerProperties.StubsMode.REMOTE`
 +
 [source,java,subs="verbatim,attributes"]
 ----
@@ -16,10 +17,13 @@ code) it's enough to remove the `workOffline` flag and to pass the `repositoryRo
 @AutoConfigureJsonTesters
 @AutoConfigureStubRunner(
 repositoryRoot="http://foo.com/bar,
-ids = "com.example:{producer_artifact}:+:stubs:8090")
+ids = "com.example:{producer_artifact}:+:stubs:8090",
+stubsMode = StubRunnerProperties.StubsMode.REMOTE
+)
 @DirtiesContext
 public class YourTestOnTheConsumerSide extends AbstractTest {
 }
 ----
   * Another option is to pass the property `stubrunner.repositoryRoot` either as a
-   system / environment property, or via an `application.yml`
+   system / environment property, or via an `application.yml` and `stubrunner.stubs-mode`
+   equal to `remote`

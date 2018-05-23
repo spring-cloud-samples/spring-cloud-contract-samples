@@ -7,7 +7,7 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-with-stubs-per-consumer
-:version: 1.2.0.BUILD-SNAPSHOT
+:version: 2.0.0.BUILD-SNAPSHOT
 
 = Contracts on the Producer Side {version}
 
@@ -515,7 +515,7 @@ in the following example:
 
 [source,java]
 ----
-@AutoConfigureStubRunner(workOffline = true,
+@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true)
 ----
@@ -529,7 +529,7 @@ why we will set that name on the `@AutoConfigureStubRunner` annotation via the
 
 [source,java]
 ----
-@AutoConfigureStubRunner(workOffline = true,
+@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true,
 		consumerName = "bar-consumer")

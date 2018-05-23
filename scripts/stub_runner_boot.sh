@@ -11,7 +11,7 @@ curl -L "${URL}" -o "${JAR_LOCATION}"
 # end::download[]
 # tag::run[]
 echo "Running stub runner"
-nohup java -jar "${JAR_LOCATION}" --stubrunner.workOffline="true" --stubrunner.ids="com.example:beer-api-producer-advanced" 2>&1 &
+nohup java -jar "${JAR_LOCATION}" --stubrunner.stubs-mode="local" --stubrunner.ids="com.example:beer-api-producer-advanced" 2>&1 &
 # end::run[]
 # poor man's version to wait for the app to start
 sleep 10

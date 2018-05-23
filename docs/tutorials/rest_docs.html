@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Spring Cloud Contract with Rest Docs 1.2.0.BUILD-SNAPSHOT</title>
+<title>Spring Cloud Contract with Rest Docs 2.0.0.BUILD-SNAPSHOT</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Spring Cloud Contract with Rest Docs 1.2.0.BUILD-SNAPSHOT</h1>
+<h1>Spring Cloud Contract with Rest Docs 2.0.0.BUILD-SNAPSHOT</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -1681,8 +1681,7 @@ classpath.</p>
 </li>
 <li>
 <p>Now annotate the class with
-<code>@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")</code> without
-passing the <code>workOffline</code> flag nor the <code>repositoryRoot</code>. Just pass the ID values.</p>
+<code>@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090", stubsMode = StubRunnerProperties.StubsMode.CLASSPATH)</code></p>
 </li>
 <li>
 <p>Run the tests and you can see them pass!</p>
@@ -1770,7 +1769,7 @@ approach:</p>
 <ul>
 <li>
 <p>We need to use Spring Cloud Contract Stub Runner so that it downloads the stubs. Just add the
-<code>@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer-restdocs")</code> to download
+<code>@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer-restdocs")</code> to download
 the latest stubs of <code>com.example:beer-api-producer-restdocs</code>, with classifier <code>stubs</code> and if the JAR
 contains any HTTP stubs then register them at a random port.</p>
 </li>
@@ -1824,9 +1823,7 @@ This feature is available as of the 1.1.1.RELEASE version
 <p>Now that you have written the implementation and have tested it in the previous section,
 we can try to read the message stubs from classpath. To do so, annotate the
 <code>BeerVerificationListenerClasspathTest</code> class with
-<code>@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")</code>
-without passing the <code>workOffline</code> flag or the <code>repositoryRoot</code> flag. Pass only the <code>id</code>
-values.</p>
+<code>@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090", stubsMode = StubRunnerProperties.StubsMode.LOCAL)</code></p>
 </div>
 <div class="paragraph">
 <p>Now you can run the tests and see them tests pass!</p>

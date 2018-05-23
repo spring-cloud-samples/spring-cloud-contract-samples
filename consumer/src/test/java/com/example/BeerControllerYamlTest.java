@@ -4,12 +4,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -29,7 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //remove::start[]
 // example of usage with fixed port
 //@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer:+:stubs:8090")
-@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer-yaml")
+@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL,
+		ids = "com.example:beer-api-producer-yaml")
 //remove::end[]
 @DirtiesContext
 //@org.junit.Ignore
@@ -39,7 +41,7 @@ public class BeerControllerYamlTest extends AbstractTest {
 	@Autowired BeerController beerController;
 
 	//remove::start[]
-	@Value("${stubrunner.runningstubs.beer-api-producer-yaml.port}") int producerPort;
+	@StubRunnerPort("beer-api-producer-yaml") int producerPort;
 
 	@Before
 	public void setupPort() {

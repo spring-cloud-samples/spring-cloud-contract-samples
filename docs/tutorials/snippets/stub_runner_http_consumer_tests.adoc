@@ -1,9 +1,9 @@
 - Now it's time to turn on the magic! Let's add the Spring Cloud Starter Contract Stub Runner test dependency.
 include::consumer_stub_runner_dep.adoc[]
 - We can annotate our test class with
-`@AutoConfigureStubRunner(workOffline = true, ids = "com.example:{producer_artifact}:+:stubs:8090")`. What that
+`@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:{producer_artifact}:+:stubs:8090")`. What that
 will do is:
-  * it will download the stub JARs from Maven local (`workOffline=true`)
+  * it will download the stub JARs from Maven local (`stubsMode = StubRunnerProperties.StubsMode.LOCAL`)
   * it will search for a JAR with coordinates `com.example:{producer_artifact}` with latest version (`+`)
   and `stubs` classifier. Once it's found the fake HTTP server stub will be started at port `8090`
 - Rerun the test - it should automagically pass!

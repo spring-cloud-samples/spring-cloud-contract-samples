@@ -8,7 +8,7 @@
 :images_folder: ../images
 :where_are_contracts: repo with contracts
 :producer_artifact: beer-api-producer-external
-:version: 1.2.0.BUILD-SNAPSHOT
+:version: 2.0.0.BUILD-SNAPSHOT
 
 = Contracts in an external repository {version}
 
@@ -288,7 +288,7 @@ have a base class with fully qualified name equal to the value you specify).
             <artifactId>beer-contracts</artifactId>
         </contractDependency>
         <!-- The JAR with contracts should be taken from Maven local -->
-        <contractsWorkOffline>true</contractsWorkOffline>
+        <contractsMode>LOCAL</contractsMode>
         <!-- Base package for generated tests -->
         <basePackageForTests>com.example</basePackageForTests>
     </configuration>
@@ -312,7 +312,7 @@ contracts {
 		stringNotation = 'com.example:beer-contracts'
 	}
 	// The JAR with contracts should be taken from Maven local
-	contractsWorkOffline = true
+	contractsMode = "LOCAL"
 	// Base package for generated tests
 	basePackageForTests = "com.example"
 	baseClassMappings {

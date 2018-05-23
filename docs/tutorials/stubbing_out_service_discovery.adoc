@@ -7,7 +7,7 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer
-:version: 1.2.0.BUILD-SNAPSHOT
+:version: 2.0.0.BUILD-SNAPSHOT
 
 = Contracts on the Producer side {version}
 
@@ -44,21 +44,21 @@ Let's go back to our consumer code. We need to look at `BeerControllerTest` and
 missing implementation in the `BeerController`.
 
 TIP: Remember that, in order to use the load balancing features, we need to add the
-`org.springframework.cloud:spring-cloud-starter-eureka` dependency.
+`org.springframework.cloud:spring-cloud-starter-netflix-eureka-client` dependency.
 
 [source,xml,indent=0,subs="verbatim,attributes",role="primary"]
 .Maven
 ----
 <dependency>
     <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-eureka</artifactId>
+    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 </dependency>
 ----
 
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-compile("org.springframework.cloud:spring-cloud-starter-eureka")
+compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 ----
 Also, you need to register the `RestTemplate` bean as `@LoadBalanced`. Go to
 the `ClientApplication` class and register the bean as follows:

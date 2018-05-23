@@ -5,13 +5,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.cloud.contract.stubrunner.StubFinder;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -31,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //remove::start[]
 // example of usage with fixed port
 //tag::stubrunner[]
-@AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer-advanced")
+@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer-advanced")
 //end::stubrunner[]
 //remove::end[]
 @DirtiesContext
@@ -43,7 +44,7 @@ public class GrumpyBartenderControllerTest extends AbstractTest {
 	@Autowired StubFinder stubFinder;
 
 	//tag::valueport[]
-	@Value("${stubrunner.runningstubs.beer-api-producer-advanced.port}") int producerPort;
+	@StubRunnerPort("beer-api-producer-advanced") int producerPort;
 	//end::valueport[]
 	@Before
 	public void setupPort() {

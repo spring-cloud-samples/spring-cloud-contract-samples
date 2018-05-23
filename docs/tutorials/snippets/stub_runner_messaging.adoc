@@ -1,6 +1,6 @@
 - Time to use Spring Cloud Contract!
   * We need to use Spring Cloud Contract Stub Runner so that it downloads the stubs. Just add the
-  `@AutoConfigureStubRunner(workOffline = true, ids = "com.example:{producer_artifact}")` to download
+  `@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:{producer_artifact}")` to download
   the latest stubs of `com.example:{producer_artifact}`, with classifier `stubs` and if the JAR
   contains any HTTP stubs then register them at a random port.
   * Now we need a solution to trigger the message. To do that we need to autowire a `StubTrigger` interface.
