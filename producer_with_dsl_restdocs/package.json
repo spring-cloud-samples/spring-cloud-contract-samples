@@ -1,0 +1,12 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "ng": "ng"
+  },
+  "private": true,
+  "dependencies": {
+    "restdocs-to-postman": "2.0.1"
+  }
+}

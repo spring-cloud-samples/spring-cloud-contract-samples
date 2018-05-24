@@ -106,25 +106,32 @@
 			<!-- end::test_dep_in_plugin[] -->
 			<!-- remove::end[] -->
 			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.6</version>
+				<configuration>
+					<nodeVersion>v8.8.1</nodeVersion>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install-npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>npm-install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.6.0</version>
 				<executions>
-					<execution>
-						<id>install_restdocs_to_postman</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<executable>npm</executable>
-							<arguments>
-								<argument>install</argument>
-								<argument>-g</argument>
-								<argument>restdocs-to-postman</argument>
-							</arguments>
-						</configuration>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
 					<execution>
 						<id>generate_swagger</id>
 						<phase>test</phase>
