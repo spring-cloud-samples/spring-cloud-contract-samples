@@ -13,7 +13,7 @@ export TEST_ROOT="$( pwd )/src/test"
 export SWAGYMNIA_BIN="${TEST_ROOT}/bash/${uname}/swaggymnia"
 
 echo "Generate postman from restdocs"
-restdocs-to-postman -i target/generated-snippets -e insomnia -f secondLastFolder -r "${TEST_ROOT}"/swagger/replacements.json -o target/insomnia-collection.json
+node_modules/restdocs-to-postman/bin/cli -i target/generated-snippets -e insomnia -f secondLastFolder -r "${TEST_ROOT}"/swagger/replacements.json -o target/insomnia-collection.json
 
 echo "Generate swagger from postman"
 pushd target

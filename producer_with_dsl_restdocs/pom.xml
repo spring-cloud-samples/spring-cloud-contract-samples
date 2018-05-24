@@ -119,12 +119,6 @@
 							<goal>install-node-and-npm</goal>
 						</goals>
 					</execution>
-					<execution>
-						<id>npm-install</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-					</execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -132,6 +126,20 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.6.0</version>
 				<executions>
+					<execution>
+						<id>npm-install-restdocs-to-postman</id>
+						<phase>generate-test-sources</phase>
+						<configuration>
+							<executable>./npm</executable>
+							<arguments>
+								<argument>install</argument>
+								<argument>restdocs-to-postman</argument>
+							</arguments>
+						</configuration>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
 					<execution>
 						<id>generate_swagger</id>
 						<phase>test</phase>
