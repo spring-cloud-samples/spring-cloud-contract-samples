@@ -117,6 +117,7 @@
 							<executable>npm</executable>
 							<arguments>
 								<argument>install</argument>
+								<argument>-g</argument>
 								<argument>restdocs-to-postman</argument>
 							</arguments>
 						</configuration>
