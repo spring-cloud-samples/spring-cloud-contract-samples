@@ -49,9 +49,9 @@ dependencies {
 	// remove::start[]
 	// tag::verifier_dep[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
-	testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
 	// end::verifier_dep[]
 	// remove::end[]
+	testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
 }
 
 // remove::start[]

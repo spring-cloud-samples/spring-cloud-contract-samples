@@ -53,13 +53,13 @@
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- end::verifier_dep[] -->
+		<!-- remove::end[] -->
 		<dependency>
 			<groupId>org.springframework.restdocs</groupId>
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- end::verifier_dep[] -->
-		<!-- remove::end[] -->
 	</dependencies>
 
 	<properties>
