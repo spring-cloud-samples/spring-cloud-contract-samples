@@ -14,14 +14,18 @@ import org.mockito.ArgumentMatcher;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+//remove::start[]
 import org.springframework.restdocs.JUnitRestDocumentation;
+//remove::end[]
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.argThat;
+//remove::start[]
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+//remove::end[]
 
 @RunWith(MockitoJUnitRunner.class)
 public abstract class BeerRestBase {
