@@ -9,6 +9,7 @@ jobs:
     branches:
       ignore:
         - gh-pages # list of branches to ignore
+    resource_class: large
     steps:
       - run:
           name: Install Docker Compose
@@ -17,6 +18,6 @@ jobs:
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - checkout
-      - run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASS
-          ./scripts/runAcceptanceTests.sh
+      - run:
+          name: "Running build"
+          command: ./scripts/runAcceptanceTests.sh
