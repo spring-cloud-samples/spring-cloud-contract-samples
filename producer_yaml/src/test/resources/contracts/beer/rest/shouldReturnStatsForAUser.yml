@@ -1,0 +1,37 @@
+description: |
+  Represents a scenario in which a user asks for his drinking stats.
+
+  ```
+  given:
+      any client
+  when:
+      he asks for stats
+  then:
+      we'll send him back his stats
+  and:
+      we'll prepare a personalized text to show the user
+  ```
+request:
+  method: POST
+  url: /stats
+  body:
+    name: foo
+  headers:
+    Content-Type: application/json
+  matchers:
+    body:
+      - path: "$.name"
+        type: by_regex
+        value: "[\\p{L}]*"
+response:
+  status: 200
+  body:
+    text: Dear {{{jsonpath this '$.name'}}} thanks for your interested in drinking beer
+    quantity: 5
+  headers:
+    Content-Type: application/json;charset=UTF-8
+  matchers:
+    body:
+      - path: $.quantity
+        type: by_regex
+        value: -?(\d*\.\d+|\d+)

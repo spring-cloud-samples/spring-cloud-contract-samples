@@ -1,5 +1,8 @@
 package com.example;
 
+//remove::start[]
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+//remove::end[]
 
 import java.util.Random;
 
@@ -16,4 +19,21 @@ import static org.mockito.Matchers.argThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public abstract class BeerRestBase {
+	//remove::start[]
+	@Mock PersonCheckingService personCheckingService;
+	@Mock StatsService statsService;
+	@InjectMocks ProducerController producerController;
+	@InjectMocks StatsController statsController;
+
+	@Before
+	public void setup() {
+		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+		given(statsService.findBottlesByName(anyString())).willReturn(new Random().nextInt());
+		RestAssuredMockMvc.standaloneSetup(producerController, statsController);
+	}
+
+	private ArgumentMatcher<PersonToCheck> oldEnough() {
+		return argument -> argument.age >= 20;
+	}
+	//remove::end[]
 }

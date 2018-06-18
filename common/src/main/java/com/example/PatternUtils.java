@@ -21,20 +21,28 @@ import java.util.regex.Pattern;
  *
  * @author Marcin Grzejszczak
  */
+//tag::impl[]
 public class PatternUtils {
 
 	public static String tooYoung() {
-		return null;
+		//remove::start[]
+		return "[0-1][0-9]";
+		//remove::end[return]
 	}
 
 	public static Pattern oldEnough() {
-		return null;
+		//remove::start[]
+		return Pattern.compile("[2-9][0-9]");
+		//remove::end[return]
 	}
 
 	/**
 	 * Makes little sense but it's just an example ;)
 	 */
 	public static Pattern ok() {
-		return null;
+		//remove::start[]
+		return Pattern.compile("OK");
+		//remove::end[return]
 	}
 }
+//end::impl[]

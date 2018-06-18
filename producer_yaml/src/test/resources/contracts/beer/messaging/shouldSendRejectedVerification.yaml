@@ -1,0 +1,20 @@
+description: |
+  Sends a negative verification message when person is not eligible to get the beer
+
+  ```
+  given:
+      client is too young
+  when:
+      he applies for a beer
+  then:
+      we'll send a message with a negative verification
+  ```
+label: rejected_verification
+input:
+    triggeredBy: clientIsTooYoung()
+outputMessage:
+    sentTo: verifications
+    body:
+      eligible: false
+    headers:
+        contentType: application/json

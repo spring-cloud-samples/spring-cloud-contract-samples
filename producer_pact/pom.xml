@@ -68,6 +68,32 @@
 			</plugin>
 
 			<!-- SPRING CLOUD CONTRACT -->
+			<!-- remove::start[] -->
+			<plugin>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<version>${spring-cloud-contract.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<contractsRepositoryUrl>pact://http://localhost:8085</contractsRepositoryUrl>
+					<contractDependency>
+						<groupId>${project.groupId}</groupId>
+						<artifactId>${project.artifactId}</artifactId>
+						<version>+</version>
+					</contractDependency>
+					<contractsMode>REMOTE</contractsMode>
+					<baseClassForTests>com.example.BeerRestBase</baseClassForTests>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.cloud</groupId>
+						<artifactId>spring-cloud-contract-pact</artifactId>
+						<version>${spring-cloud-contract.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<!-- SPRING CLOUD CONTRACT -->
+			<!-- remove::end[] -->
 
 			<plugin>
 				<groupId>au.com.dius</groupId>

@@ -1,0 +1,20 @@
+description: |
+  Sends a positive verification message when person is eligible to get the beer
+
+  ```
+  given:
+      client is old enough
+  when:
+      he applies for a beer
+  then:
+      we'll send a message with a positive verification
+  ```
+label: accepted_verification
+input:
+    triggeredBy: clientIsOldEnough()
+outputMessage:
+    sentTo: verifications
+    body:
+      eligible: true
+    headers:
+        contentType: application/json
