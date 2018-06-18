@@ -1,6 +1,5 @@
 package com.example;
 
-import org.springframework.cloud.contract.spec.internal.ClientDslProperty;
 
 /**
  * DSL Properties passed to the DSL from the consumer's perspective.
@@ -11,7 +10,6 @@ import org.springframework.cloud.contract.spec.internal.ClientDslProperty;
  *
  * @author Marcin Grzejszczak
  */
-//tag::impl[]
 public class ConsumerUtils {
 	/**
 	 * Consumer side property. By using the {@link ClientDslProperty}
@@ -33,13 +31,7 @@ public class ConsumerUtils {
 	 * @author Marcin Grzejszczak
 	 */
 	public static ClientDslProperty oldEnough() {
-		//remove::start[]
-		// this example is not the best one and
-		// theoretically you could just pass the regex instead of `ServerDslProperty` but
-		// it's just to show some new tricks :)
-		return new ClientDslProperty(PatternUtils.oldEnough(), 40);
-		//remove::end[return]
+		return null;
 	}
 
 }
-//end::impl[]

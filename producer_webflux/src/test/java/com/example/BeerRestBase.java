@@ -1,9 +1,6 @@
 
 package com.example;
 
-// remove::start[]
-import io.restassured.RestAssured;
-// remove::end[]
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -23,9 +20,6 @@ public abstract class BeerRestBase {
 
 	@Before
 	public void setup() {
-		// remove::start[]
-		RestAssured.baseURI = "http://localhost:" + port;
-		// remove::end[]
 	}
 
 	@Configuration

@@ -30,22 +30,7 @@ class BeerController {
 			value = "/beer",
 			consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String gimmeABeer(@RequestBody Person person) throws MalformedURLException {
-		//remove::start[]
-		//tag::impl[]
-		ResponseEntity<Response> response = this.restTemplate.exchange(
-				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/check"))
-						.contentType(MediaType.APPLICATION_JSON)
-						.body(person),
-				Response.class);
-		switch (response.getBody().status) {
-		case OK:
-			return "THERE YOU GO " + message(response.getBody());
-		default:
-			return "GET LOST " + message(response.getBody());
-		}
-		//end::impl[]
-		//remove::end[return]
+		return null;
 	}
 
 	String message(Response response) {

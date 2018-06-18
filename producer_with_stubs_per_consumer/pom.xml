@@ -53,22 +53,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- remove::start[] -->
-		<!-- spring cloud contract test dependencies -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- tag::test_dep[] -->
-		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>beer-common</artifactId>
-			<version>${project.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- end::test_dep[] -->
-		<!-- remove::end[] -->
 	</dependencies>
 
 	<build>
@@ -78,38 +62,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- remove::start[] -->
-			<!-- SPRING CLOUD CONTRACT -->
-			<!-- tag::test_dep_in_plugin[] -->
-			<plugin>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
-				<version>${spring-cloud-contract.version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<baseClassMappings>
-						<baseClassMapping>
-							<contractPackageRegex>.*messaging.*</contractPackageRegex>
-							<baseClassFQN>com.example.BeerMessagingBase</baseClassFQN>
-						</baseClassMapping>
-						<baseClassMapping>
-							<contractPackageRegex>.*rest.*</contractPackageRegex>
-							<baseClassFQN>com.example.BeerRestBase</baseClassFQN>
-						</baseClassMapping>
-					</baseClassMappings>
-					<packageWithBaseClasses>com.example</packageWithBaseClasses>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.example</groupId>
-						<artifactId>beer-common</artifactId>
-						<version>${project.version}</version>
-						<scope>compile</scope>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<!-- end::test_dep_in_plugin[] -->
-			<!-- remove::end[] -->
 
 		</plugins>
 	</build>

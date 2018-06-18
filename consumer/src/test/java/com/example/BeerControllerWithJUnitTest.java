@@ -9,8 +9,6 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.cloud.contract.stubrunner.junit.StubRunnerRule;
-import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -28,26 +26,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 @DirtiesContext
-//@org.junit.Ignore
+@org.junit.Ignore
 public class BeerControllerWithJUnitTest extends AbstractTest {
 
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
-	//remove::start[]
-	// tag::rule[]
-	@Rule public StubRunnerRule rule = new StubRunnerRule()
-			.downloadStub("com.example","beer-api-producer")
-			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
-	// end:rule[]
-	//tag::setup[]
-	@Before
-	public void setupPort() {
-		beerController.port = rule.findStubUrl("beer-api-producer").getPort();
-	}
-	// end::setup[]
-	//remove::end[]
 
-	//tag::tests[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -63,5 +47,4 @@ public class BeerControllerWithJUnitTest extends AbstractTest {
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST"));
 	}
-	//end::tests[]
 }

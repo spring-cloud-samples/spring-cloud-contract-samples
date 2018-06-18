@@ -25,22 +25,7 @@ public class GrumpyBartenderController {
 
 	@PostMapping(value = "/grumpy", produces = MediaType.APPLICATION_JSON_VALUE)
 	GrumpyResponse grumpy(@RequestBody GrumpyPerson person) {
-		//remove::start[]
-		//tag::controller[]
-		ResponseEntity<GrumpyBartenderResponse> response = this.restTemplate.exchange(
-				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/buy"))
-						.contentType(MediaType.APPLICATION_JSON)
-						.body(person),
-				GrumpyBartenderResponse.class);
-		switch (response.getBody().status) {
-		case OK:
-			return new GrumpyResponse(response.getBody().message, "Enjoy!");
-		default:
-			return new GrumpyResponse(response.getBody().message, "Go to another bar");
-		}
-		//end::controller[]
-		//remove::end[return]
+		return null;
 	}
 }
 

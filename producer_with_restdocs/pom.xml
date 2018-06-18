@@ -24,12 +24,6 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Finchley.BUILD-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>2.0.0.BUILD-SNAPSHOT</spring-cloud-contract.version>
-		<!-- remove::start[] -->
-		<!-- tag::skip_jar[] -->
-		<!-- we don't want the verifier to do a jar for us -->
-		<spring.cloud.contract.verifier.skip>true</spring.cloud.contract.verifier.skip>
-		<!-- end::skip_jar[] -->
-		<!-- remove::end[] -->
 	</properties>
 
 	<dependencies>
@@ -60,23 +54,6 @@
 		</dependency>
 
 		<!-- spring cloud contract test dependencies -->
-		<!-- remove::start[] -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-contract-wiremock</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.restdocs</groupId>
-			<artifactId>spring-restdocs-mockmvc</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<!-- remove::end[] -->
 	</dependencies>
 
 	<build>
@@ -87,41 +64,6 @@
 			</plugin>
 
 			<!-- SPRING CLOUD CONTRACT -->
-			<!-- remove::start[] -->
-			<plugin>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
-				<version>${spring-cloud-contract.version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<packageWithBaseClasses>com.example</packageWithBaseClasses>
-				</configuration>
-			</plugin>
-			<!-- tag::assembly[] -->
-			<!-- we want the assembly plugin to generate the JAR -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>stub</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<inherited>false</inherited>
-						<configuration>
-							<attach>true</attach>
-							<descriptors>
-								${basedir}/src/assembly/stub.xml
-							</descriptors>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- end::assembly[] -->
-			<!-- SPRING CLOUD CONTRACT -->
-			<!-- remove::end[] -->
 		</plugins>
 	</build>
 

@@ -13,19 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class BuyController {
 
-	//remove::start[]
-	//tag::impl[]
-	@PostMapping(value = "/buy",
-			consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	Callable<Response> buy(@RequestBody Person person) {
-		if ("starbuxman".equalsIgnoreCase(person.name)) {
-			return () -> new Response(Status.OK, "There you go Josh!");
-		}
-		return () ->new Response(Status.NOT_OK, "You're drunk [" + person.name + "]. Go home!");
-	}
-	//end::impl[]
-	//remove::end[]
 }
 
 class Person {

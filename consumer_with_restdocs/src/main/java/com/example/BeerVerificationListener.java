@@ -21,14 +21,6 @@ class BeerVerificationListener {
 
 	@StreamListener(Sink.INPUT)
 	public void listen(Verification verification) {
-		//remove::start[]
-		log.info("Received new verification");
-		if (verification.eligible) {
-			eligibleCounter.incrementAndGet();
-		} else {
-			notEligibleCounter.incrementAndGet();
-		}
-		//remove::end[]
 	}
 
 	public static class Verification {

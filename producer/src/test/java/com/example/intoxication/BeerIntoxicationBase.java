@@ -1,8 +1,5 @@
 package com.example.intoxication;
 
-//remove::start[]
-import io.restassured.module.mockmvc.RestAssuredMockMvc;
-//remove::end[]
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -30,9 +27,6 @@ public abstract class BeerIntoxicationBase {
 
 	@Before
 	public void setup() {
-		//remove::start[]
-		RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
-		//remove::end[]
 	}
 
 	@Configuration
@@ -48,35 +42,13 @@ public abstract class BeerIntoxicationBase {
 		}
 	}
 
-	//tag::mock[]
 	static class MockResponseProvider implements ResponseProvider {
 
 		private DrunkLevel previous = SOBER;
 		private DrunkLevel current = SOBER;
 
 		@Override public Response thereYouGo(Customer personToCheck) {
-			//remove::start[]
-			if ("marcin".equals(personToCheck.name)) {
-				 switch (current) {
-				 case SOBER:
-				 	current = TIPSY;
-				 	previous = SOBER;
-					 break;
-				 case TIPSY:
-					 current = DRUNK;
-					 previous = TIPSY;
-					 break;
-				 case DRUNK:
-					 current = WASTED;
-					 previous = DRUNK;
-					 break;
-				 case WASTED:
-					 throw new UnsupportedOperationException("You can't handle it");
-				 }
-			}
-			//remove::end[]
 			return new Response(previous, current);
 		}
 	}
-	//end::mock[]
 }

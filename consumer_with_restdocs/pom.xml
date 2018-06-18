@@ -41,28 +41,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- remove::start[] -->
-		<!-- STUB DEPENDENCY -->
-		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>beer-api-producer-restdocs</artifactId>
-			<classifier>stubs</classifier>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>*</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- remove::end[] -->
 
 		<!-- Stream dependencies -->
 		<dependency>

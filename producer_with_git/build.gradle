@@ -8,9 +8,6 @@ buildscript {
 	}
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.1.RELEASE"
-		// remove::start[]
-		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
-		// remove::end[]
 	}
 }
 
@@ -28,9 +25,6 @@ repositories {
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-// remove::start[]
-apply plugin: 'spring-cloud-contract'
-// remove::end[]
 apply plugin: 'maven-publish'
 
 dependencyManagement {
@@ -45,42 +39,8 @@ dependencies {
 	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
-	// remove::start[]
-	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
-	// remove::end[]
 }
 
-// remove::start[]
-contracts {
-	// We want to pick contracts from a Git repository
-	contractDependency {
-		stringNotation = "${project.group}:${project.name}:${project.version}"
-	}
-	/*
-	We reuse the contract dependency section to set up the path
-	to the folder that contains the contract definitions. In our case the
-	path will be /groupId/artifactId/version/contracts
-	 */
-	contractRepository {
-		repositoryUrl = "git://file://${System.getenv("ROOT")}/target/contract_git/"
-	}
-	// The mode can't be classpath
-	contractsMode = "LOCAL"
-	// Base package for generated tests
-	basePackageForTests = "com.example"
-	baseClassMappings {
-		baseClassMapping(".*messaging.*", "com.example.BeerMessagingBase")
-		baseClassMapping(".*rest.*", "com.example.BeerRestBase")
-	}
-}
-
-/*
-In this scenario we want to publish stubs to SCM whenever
-the `publish` task is executed
-*/
-publish.dependsOn("publishStubsToScm")
-publishToMavenLocal.dependsOn("publishStubsToScm")
-// remove::end[]
 
 test {
 	testLogging {

@@ -46,23 +46,6 @@
 		</dependency>
 
 		<!-- spring cloud contract test dependencies -->
-		<!-- remove::start[] -->
-		<!-- tag::verifier_dep[] -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- end::verifier_dep[] -->
-		<!-- tag::test_dep[] -->
-		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>beer-common</artifactId>
-			<version>${project.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- end::test_dep[] -->
-		<!-- remove::end[] -->
 	</dependencies>
 
 	<properties>
@@ -80,34 +63,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- remove::start[] -->
-			<!-- SPRING CLOUD CONTRACT -->
-			<!-- tag::test_dep_in_plugin[] -->
-			<plugin>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
-				<version>${spring-cloud-contract.version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<packageWithBaseClasses>com.example</packageWithBaseClasses>
-					<baseClassMappings>
-						<baseClassMapping>
-							<contractPackageRegex>.*intoxication.*</contractPackageRegex>
-							<baseClassFQN>com.example.intoxication.BeerIntoxicationBase</baseClassFQN>
-						</baseClassMapping>
-					</baseClassMappings>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.example</groupId>
-						<artifactId>beer-common</artifactId>
-						<version>${project.version}</version>
-						<scope>compile</scope>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<!-- end::test_dep_in_plugin[] -->
-			<!-- remove::end[] -->
 
 		</plugins>
 	</build>

@@ -54,13 +54,6 @@
 		</dependency>
 
 		<!-- spring cloud contract test dependencies -->
-		<!-- remove::start[] -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- remove::end[] -->
 	</dependencies>
 
 	<build>
@@ -70,55 +63,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- remove::start[] -->
-			<!-- SPRING CLOUD CONTRACT -->
-			<plugin>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
-				<version>${spring-cloud-contract.version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<baseClassMappings>
-						<baseClassMapping>
-							<contractPackageRegex>.*messaging.*</contractPackageRegex>
-							<baseClassFQN>com.example.BeerMessagingBase</baseClassFQN>
-						</baseClassMapping>
-						<baseClassMapping>
-							<contractPackageRegex>.*rest.*</contractPackageRegex>
-							<baseClassFQN>com.example.BeerRestBase</baseClassFQN>
-						</baseClassMapping>
-					</baseClassMappings>
-					<!-- We want to pick contracts from a Git repository -->
-					<contractsRepositoryUrl>git://file://${env.ROOT}/target/contract_git/</contractsRepositoryUrl>
-					<!-- Example of URL via git protocol -->
-					<!--<contractsRepositoryUrl>git://git@github.com:spring-cloud-samples/spring-cloud-contract-samples.git</contractsRepositoryUrl>-->
-					<!-- Example of URL via http protocol -->
-					<!--<contractsRepositoryUrl>git://https://github.com/spring-cloud-samples/spring-cloud-contract-samples.git</contractsRepositoryUrl>-->
-					<!-- We reuse the contract dependency section to set up the path
-					to the folder that contains the contract definitions. In our case the
-					path will be /groupId/artifactId/version/contracts -->
-					<contractDependency>
-						<groupId>${project.groupId}</groupId>
-						<artifactId>${project.artifactId}</artifactId>
-						<version>${project.version}</version>
-					</contractDependency>
-					<!-- The mode can't be classpath -->
-					<contractsMode>LOCAL</contractsMode>
-					<basePackageForTests>com.example</basePackageForTests>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<!-- By default we will not push the stubs back to SCM,
-							you have to explicitly add it as a goal -->
-							<goal>pushStubsToScm</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- SPRING CLOUD CONTRACT -->
-			<!-- remove::end[] -->
 
 		</plugins>
 	</build>

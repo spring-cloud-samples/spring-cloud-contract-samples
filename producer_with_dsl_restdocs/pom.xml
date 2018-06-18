@@ -46,15 +46,6 @@
 		</dependency>
 
 		<!-- spring cloud contract test dependencies -->
-		<!-- remove::start[] -->
-		<!-- tag::verifier_dep[] -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- end::verifier_dep[] -->
-		<!-- remove::end[] -->
 		<dependency>
 			<groupId>org.springframework.restdocs</groupId>
 			<artifactId>spring-restdocs-mockmvc</artifactId>
@@ -77,34 +68,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- remove::start[] -->
-			<!-- SPRING CLOUD CONTRACT -->
-			<!-- tag::test_dep_in_plugin[] -->
-			<plugin>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
-				<version>${spring-cloud-contract.version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<packageWithBaseClasses>com.example</packageWithBaseClasses>
-					<baseClassMappings>
-						<baseClassMapping>
-							<contractPackageRegex>.*intoxication.*</contractPackageRegex>
-							<baseClassFQN>com.example.intoxication.BeerIntoxicationBase</baseClassFQN>
-						</baseClassMapping>
-					</baseClassMappings>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.example</groupId>
-						<artifactId>beer-common</artifactId>
-						<version>${project.version}</version>
-						<scope>compile</scope>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<!-- end::test_dep_in_plugin[] -->
-			<!-- remove::end[] -->
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
@@ -121,60 +84,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- remove::start[] -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
-				<executions>
-					<execution>
-						<id>npm-install-restdocs-to-postman</id>
-						<phase>generate-test-sources</phase>
-						<configuration>
-							<executable>./npm</executable>
-							<arguments>
-								<argument>install</argument>
-								<argument>restdocs-to-postman</argument>
-							</arguments>
-						</configuration>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>generate_swagger</id>
-						<phase>test</phase>
-						<configuration>
-							<executable>./src/test/bash/generate_swagger.sh</executable>
-						</configuration>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>generate_client_code</id>
-						<phase>test</phase>
-						<configuration>
-							<executable>java</executable>
-							<arguments>
-								<argument>-jar</argument>
-								<argument>src/test/swagger/swagger-codegen-cli-2.2.1.jar</argument>
-								<argument>generate</argument>
-								<argument>-i</argument>
-								<argument>target/swagger.json</argument>
-								<argument>-l</argument>
-								<argument>java</argument>
-								<argument>-o</argument>
-								<argument>target/generated-sources/swagger_codegen</argument>
-							</arguments>
-						</configuration>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- remove::end[] -->
 		</plugins>
 	</build>
 

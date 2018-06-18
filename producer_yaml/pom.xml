@@ -46,13 +46,6 @@
 		</dependency>
 
 		<!-- spring cloud contract test dependencies -->
-		<!-- remove::start[] -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- remove::end[] -->
 	</dependencies>
 
 	<properties>
@@ -70,24 +63,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- remove::start[] -->
-			<!-- SPRING CLOUD CONTRACT -->
-			<plugin>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
-				<version>${spring-cloud-contract.version}</version>
-				<extensions>true</extensions>
-				<configuration>
-					<packageWithBaseClasses>com.example</packageWithBaseClasses>
-					<baseClassMappings>
-						<baseClassMapping>
-							<contractPackageRegex>.*intoxication.*</contractPackageRegex>
-							<baseClassFQN>com.example.intoxication.BeerIntoxicationBase</baseClassFQN>
-						</baseClassMapping>
-					</baseClassMappings>
-				</configuration>
-			</plugin>
-			<!-- remove::end[] -->
 
 		</plugins>
 	</build>
