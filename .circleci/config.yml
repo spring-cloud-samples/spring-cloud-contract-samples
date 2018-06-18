@@ -11,7 +11,6 @@ jobs:
     branches:
       ignore:
         - gh-pages # list of branches to ignore
-    resource_class: large
     steps:
       - run:
           name: Install Docker Compose
