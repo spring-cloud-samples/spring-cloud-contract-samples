@@ -24,11 +24,16 @@ public abstract class BeerRestBase {
 	@Before
 	public void setup() {
 		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
-		RestAssuredMockMvc.standaloneSetup(producerController);
+		RestAssuredMockMvc.standaloneSetup(producerController,
+				new CarRentalHistoryController(someServiceStub()));
 	}
 
 	private ArgumentMatcher<PersonToCheck> oldEnough() {
 		return argument -> argument.age >= 20;
+	}
+
+	private SomeService someServiceStub() {
+		return () -> "OK";
 	}
 	//remove::end[]
 }

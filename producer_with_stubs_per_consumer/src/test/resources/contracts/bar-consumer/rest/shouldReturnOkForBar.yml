@@ -1,0 +1,8 @@
+description: |
+  Represents a scenario of sending request to /bar
+request:
+  method: GET
+  url: /bar
+response:
+  status: 200
+  body: "OK"
