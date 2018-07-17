@@ -13,11 +13,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+// tag::annotations[]
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BeerRestBase.Config.class,
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
 		properties = "server.port=0")
 public abstract class BeerRestBase {
+// end::annotations[]
 
 	@LocalServerPort int port;
 
@@ -28,6 +30,7 @@ public abstract class BeerRestBase {
 		// remove::end[]
 	}
 
+	// tag::config[]
 	@Configuration
 	@EnableAutoConfiguration
 	static class Config {
@@ -42,5 +45,6 @@ public abstract class BeerRestBase {
 			return new ProducerController(personCheckingService());
 		}
 	}
+	// end::config[]
 
 }
