@@ -1,6 +1,12 @@
 spring:
     application.name: beer-api-producer
-    cloud.stream.bindings.output:
+    cloud.stream.bindings:
+      output:
+        content-type: application/json
+        # remove::start[]
+        destination: verifications
+        # remove::end[]
+      input:
         content-type: application/json
         # remove::start[]
         destination: verifications
