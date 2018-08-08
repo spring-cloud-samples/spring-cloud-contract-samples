@@ -22,7 +22,7 @@ import org.springframework.http.MediaType;
 //remove::start[]
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 //remove::end[]
-import org.springframework.test.annotation.DirtiesContext;
+
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //remove::end[]
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-@DirtiesContext
+
 public class ProducerControllerTests {
 
 	@Autowired private MockMvc mockMvc;

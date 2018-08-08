@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
-import org.springframework.test.annotation.DirtiesContext;
+
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.BDDAssertions.then;
@@ -20,7 +20,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 //remove::start[]
 @AutoConfigureStubRunner(workOffline = true, ids = "com.example:beer-api-producer")
 //remove::end[]
-@DirtiesContext
+
 public class BeerVerificationListenerTest extends AbstractTest {
 
 	//remove::start[]

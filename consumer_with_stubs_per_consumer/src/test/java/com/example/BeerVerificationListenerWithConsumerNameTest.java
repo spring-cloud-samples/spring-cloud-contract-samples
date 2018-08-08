@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
-import org.springframework.test.annotation.DirtiesContext;
+
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.BDDAssertions.then;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 		stubsPerConsumer = true,
 		consumerName = "foo-consumer")
 //remove::end[]
-@DirtiesContext
+
 //@org.junit.Ignore
 public class BeerVerificationListenerWithConsumerNameTest extends AbstractTest {
 
