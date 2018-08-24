@@ -30,7 +30,7 @@ apply plugin: "io.spring.dependency-management"
 
 dependencyManagement {
 	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:$BOM_VERSION"
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"
 	}
 }
 

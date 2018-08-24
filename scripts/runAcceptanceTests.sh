@@ -30,6 +30,10 @@ startDockerCompose
 . ${ROOT}/scripts/runGradleBuilds.sh
 clearDocker
 
+startDockerCompose
+. ${ROOT}/scripts/runCompatibilityBuild.sh
+clearDocker
+
 cat <<'EOF'
  .----------------.  .----------------.  .----------------.  .----------------.
 | .--------------. || .--------------. || .--------------. || .--------------. |
