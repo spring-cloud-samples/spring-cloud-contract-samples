@@ -19,7 +19,14 @@ public class ProducerController {
 			consumes="application/json",
 			produces="application/json")
 	public Response check(@RequestBody PersonToCheck personToCheck) {
-		return null;
+		//remove::start[]
+		//tag:impl[]
+		if (personCheckingService.shouldGetBeer(personToCheck)) {
+			return new Response(BeerCheckStatus.OK, personToCheck.name);
+		}
+		return new Response(BeerCheckStatus.NOT_OK, personToCheck.name);
+		//end:impl[]
+		//remove::end[return]
 	}
 	
 }
@@ -42,9 +49,14 @@ class PersonToCheck {
 
 class Response {
 	public BeerCheckStatus status;
+	public String name;
+	public String surname;
 
-	Response(BeerCheckStatus status) {
+	// we're setting the name to both fields
+	Response(BeerCheckStatus status, String name) {
 		this.status = status;
+		this.name = name;
+		this.surname = name;
 	}
 }
 
