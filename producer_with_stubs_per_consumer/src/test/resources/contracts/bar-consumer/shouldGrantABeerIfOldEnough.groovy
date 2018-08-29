@@ -31,7 +31,7 @@ then:
 		body("""
 			{
 				"status": "OK",
-				"surname": "marcin"
+				"name": "marcin"
 			}
 			""")
 		headers {
