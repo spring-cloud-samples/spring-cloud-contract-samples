@@ -87,26 +87,8 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<baseClassMappings>
-						<baseClassMapping>
-							<contractPackageRegex>.*messaging.*</contractPackageRegex>
-							<baseClassFQN>com.example.BeerMessagingBase</baseClassFQN>
-						</baseClassMapping>
-						<baseClassMapping>
-							<contractPackageRegex>.*rest.*</contractPackageRegex>
-							<baseClassFQN>com.example.BeerRestBase</baseClassFQN>
-						</baseClassMapping>
-					</baseClassMappings>
-					<packageWithBaseClasses>com.example</packageWithBaseClasses>
+					<baseClassForTests>com.example.BeerRestBase</baseClassForTests>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.example</groupId>
-						<artifactId>beer-common</artifactId>
-						<version>${project.version}</version>
-						<scope>compile</scope>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<!-- end::test_dep_in_plugin[] -->
 			<!-- remove::end[] -->
