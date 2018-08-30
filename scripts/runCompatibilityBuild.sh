@@ -12,9 +12,11 @@ export SKIP_TESTS="${SKIP_TESTS:-false}"
 function clean() {
     rm -rf ~/.m2/repository/com/example/
     rm -rf ~/.m2/repository/org/springframework/cloud/spring-cloud-contract-gradle-plugin/
+    rm -rf ~/.m2/repository/org/springframework/cloud/spring-cloud-contract-verifier/
     rm -rf "${ROOT}"/target/
     rm -rf ~/.gradle/caches/modules-2/files-2.1/com.example/
     rm -rf ~/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-contract-gradle-plugin
+    rm -rf ~/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-contract-verifier
 }
 
 function bootVersion() {
