@@ -5,22 +5,47 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-ROOT=${ROOT:-`pwd`}
-BUILD_COMMON="${BUILD_COMMON:-true}"
-SKIP_TESTS="${SKIP_TESTS:-false}"
-# TODO: Fetch these automatically
-CURRENT_BOOT_VERSION="${CURRENT_BOOT_VERSION:-2.1.0.M2}"
-CURRENT_CLOUD_VERSION="${CURRENT_CLOUD_VERSION:-Greenwich.BUILD-SNAPSHOT}"
-CURRENT_CONTRACT_VERSION="${CURRENT_CONTRACT_VERSION:-2.1.0.BUILD-SNAPSHOT}"
-PREVIOUS_BOOT_VERSION="${PREVIOUS_BOOT_VERSION:-2.0.3.RELEASE}"
-PREVIOUS_CLOUD_VERSION="${PREVIOUS_CLOUD_VERSION:-Finchley.BUILD-SNAPSHOT}"
-PREVIOUS_CONTRACT_VERSION="${PREVIOUS_CONTRACT_VERSION:-2.0.2.BUILD-SNAPSHOT}"
+export ROOT=${ROOT:-`pwd`}
+export BUILD_COMMON="${BUILD_COMMON:-true}"
+export SKIP_TESTS="${SKIP_TESTS:-false}"
 
 function clean() {
     rm -rf ~/.m2/repository/com/example/
     rm -rf "${ROOT}"/target/
     rm -rf ~/.gradle/caches/modules-2/files-2.1/com.example/
 }
+
+function bootVersion() {
+    local minor="${1}"
+    # FOR LATEST
+    #BOOT_VERSION="\$( curl https://repo.spring.io/libs-snapshot-local/org/springframework/boot/spring-boot-starter/maven-metadata.xml | sed -ne '/<latest>/s#\s*<[^>]*>\s*##gp')"
+    curl --silent https://repo.spring.io/libs-snapshot-local/org/springframework/boot/spring-boot-starter/maven-metadata.xml | grep "<version>${minor}." | tail -1 | sed -ne '/<version>/s#\s*<[^>]*>\s*##gp' | xargs
+}
+
+function contractVersion() {
+    local minor="${1}"
+    #BOOT_VERSION="\$( curl https://repo.spring.io/libs-snapshot-local/org/springframework/cloud/spring-cloud-starter-contract-verifier/maven-metadata.xml | sed -ne '/<latest>/s#\s*<[^>]*>\s*##gp')"
+    curl --silent https://repo.spring.io/libs-snapshot-local/org/springframework/cloud/spring-cloud-starter-contract-verifier/maven-metadata.xml | grep "<version>${minor}." | tail -1 | sed -ne '/<version>/s#\s*<[^>]*>\s*##gp' | xargs
+}
+
+function cloudVersion() {
+    local minor="${1}"
+    #BOOT_VERSION="\$( curl https://repo.spring.io/libs-snapshot-local/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml | sed -ne '/<latest>/s#\s*<[^>]*>\s*##gp')"
+    curl --silent https://repo.spring.io/libs-snapshot-local/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml | grep "<version>${minor}." | tail -1 | sed -ne '/<version>/s#\s*<[^>]*>\s*##gp' | xargs
+}
+
+CURRENT_BOOT_VERSION="${CURRENT_BOOT_VERSION:-}"
+CURRENT_CONTRACT_VERSION="${CURRENT_CONTRACT_VERSION:-}"
+CURRENT_CLOUD_VERSION="${CURRENT_CLOUD_VERSION:-}"
+PREVIOUS_BOOT_VERSION="${PREVIOUS_BOOT_VERSION:-}"
+PREVIOUS_CLOUD_VERSION="${PREVIOUS_CLOUD_VERSION:-}"
+PREVIOUS_CONTRACT_VERSION="${PREVIOUS_CONTRACT_VERSION:-}"
+[[ -z "${CURRENT_BOOT_VERSION}" ]] && CURRENT_BOOT_VERSION="$( bootVersion "2.1" )"
+[[ -z "${CURRENT_CONTRACT_VERSION}" ]] && CURRENT_CONTRACT_VERSION="$( contractVersion "2.1" )"
+[[ -z "${CURRENT_CLOUD_VERSION}" ]] && CURRENT_CLOUD_VERSION="$( cloudVersion "Greenwich" )"
+[[ -z "${PREVIOUS_BOOT_VERSION}" ]] && PREVIOUS_BOOT_VERSION="$( bootVersion "2.0" )"
+[[ -z "${PREVIOUS_CLOUD_VERSION}" ]] && PREVIOUS_CLOUD_VERSION="$( cloudVersion "Finchley" )"
+[[ -z "${PREVIOUS_CONTRACT_VERSION}" ]] && PREVIOUS_CONTRACT_VERSION="$( contractVersion "2.0" )"
 
 function build() {
     local folder="${1}"
@@ -30,9 +55,9 @@ function build() {
     echo -e "\n\nBuilding [${folder}] for boot [${bootVersion}] and cloud [${cloudVersion}] and verifier [${verifierVersion}]\n\n"
     cd "${ROOT}/${folder}"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./gradlew clean build publishToMavenLocal -x test -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}"
+        ./gradlew clean build publishToMavenLocal --refresh-dependencies -x test -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}" --stacktrace
     else
-        ./gradlew clean build publishToMavenLocal -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}"
+        ./gradlew clean build publishToMavenLocal --refresh-dependencies -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}" --stacktrace
     fi
     cd "${ROOT}"
 }
@@ -43,13 +68,14 @@ function prepare_for_build() {
     cd "${ROOT}/beer_contracts"
     ./mvnw clean install -U
 
+    rm -rf "${ROOT}/target/"
     echo -e "\n\nCopying git repo to contract_git/target/git\n\n"
     mkdir -p "${ROOT}/target/contract_git"
     cp -r "${ROOT}/contract_git" "${ROOT}/target/"
     mv "${ROOT}/target/contract_git/git" "${ROOT}/target/contract_git/.git"
 
     if [[ "${BUILD_COMMON}" == "true" ]]; then
-        pushd "${ROOT}/common" && ./gradlew clean build publishToMavenLocal -x test && popd
+        pushd "${ROOT}/common" && ./gradlew clean build publishToMavenLocal --refresh-dependencies -x test --stacktrace && popd
     fi
 }
 
@@ -97,6 +123,18 @@ cat <<'EOF'
 | |      | |   | || |   | || (      | (   ) |   | |      | |   | (  \ \    | |   | |         | |      | |      ) (
 | (____/\| (___) || )   ( || )      | )   ( |   | |   ___) (___| )___) )___) (___| (____/\___) (___   | |      | |
 (_______/(_______)|/     \||/       |/     \|   )_(   \_______/|/ \___/ \_______/(_______/\_______/   )_(      \_/
+
+EOF
+
+cat <<EOF
+VERSIONS:
+
+CURRENT_BOOT_VERSION="${CURRENT_BOOT_VERSION}"
+CURRENT_CLOUD_VERSION="${CURRENT_CLOUD_VERSION}"
+CURRENT_CONTRACT_VERSION="${CURRENT_CONTRACT_VERSION}"
+PREVIOUS_BOOT_VERSION="${PREVIOUS_BOOT_VERSION}"
+PREVIOUS_CLOUD_VERSION="${PREVIOUS_CLOUD_VERSION}"
+PREVIOUS_CONTRACT_VERSION="${PREVIOUS_CONTRACT_VERSION}"
 
 EOF
 
