@@ -13,7 +13,7 @@ Represents a grumpy waiter that is too bored to sell any alcohol for anyone.
 				name: $(anyAlphaUnicode()),
 				age: 25
 		)
-		stubMatchers {
+		bodyMatchers {
 			jsonPath('$.age', byRegex('[2-9][0-9]'))
 		}
 		headers {
@@ -26,7 +26,7 @@ Represents a grumpy waiter that is too bored to sell any alcohol for anyone.
 				message: "You're drunk [${fromRequest().body('$.name')}]. Go home!",
 				status: $(c("NOT_OK"), p(execute('assertStatus($it)')))
 		)
-		testMatchers {
+		bodyMatchers {
 			jsonPath('$.message', byCommand('assertMessage($it)'))
 		}
 		headers {

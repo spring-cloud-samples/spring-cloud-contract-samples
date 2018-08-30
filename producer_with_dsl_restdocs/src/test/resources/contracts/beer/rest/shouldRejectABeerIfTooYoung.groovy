@@ -39,7 +39,7 @@ then:
 		headers {
 			contentType(applicationJson())
 		}
-		testMatchers {
+		bodyMatchers {
 			jsonPath('$.status', byType())
 		}
 	}

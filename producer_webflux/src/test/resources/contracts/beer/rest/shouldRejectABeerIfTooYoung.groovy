@@ -26,7 +26,7 @@ then:
 		headers {
 			contentType(applicationJson())
 		}
-		stubMatchers {
+		bodyMatchers {
 			jsonPath('$.age', byRegex(PatternUtils.tooYoung()))
 		}
 	}
@@ -40,7 +40,7 @@ then:
 		headers {
 			contentType(applicationJson())
 		}
-		testMatchers {
+		bodyMatchers {
 			jsonPath('$.status', byType())
 		}
 	}
