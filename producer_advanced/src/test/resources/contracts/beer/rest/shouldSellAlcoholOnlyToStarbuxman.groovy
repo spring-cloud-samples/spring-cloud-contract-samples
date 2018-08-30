@@ -13,7 +13,7 @@ Represents a grumpy waiter that will sell alcohol only to Starbuxman.
 				name: "starbuxman",
 				age: 25
 		)
-		stubMatchers {
+		bodyMatchers {
 			jsonPath('$.age', byRegex('[2-9][0-9]'))
 		}
 		headers {
