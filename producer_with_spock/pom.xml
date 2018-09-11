@@ -208,14 +208,14 @@
                 <version>1.8</version>
                 <executions>
                     <execution>
-                        <id>assert-contrac-tests-executed</id>
+                        <id>assert-contract-tests-executed</id>
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
                         <configuration>
                             <target>
-                                <fileset id="contract.test.files" dir="${project.basedir}/target/surefire-reports/"
+                                <fileset id="contract.test.files" dir="${project.basedir}"
                                          includes="**/*.IntoxicationSpec.txt,**/*.MessagingSpec.txt,**/*.RestSpec.txt">
                                 </fileset>
                                 <fail message="All contract tests were not executed.">
