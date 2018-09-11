@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Producer</name>
+    <name>Producer with Spock</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>

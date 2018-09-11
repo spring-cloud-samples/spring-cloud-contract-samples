@@ -1,6 +1,8 @@
 package com.example.intoxication
 
+//remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc
+//remove::end[]
 import spock.lang.Specification
 
 import org.springframework.beans.factory.annotation.Autowired

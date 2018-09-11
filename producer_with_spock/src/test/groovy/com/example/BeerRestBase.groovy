@@ -1,6 +1,8 @@
 package com.example
 
+//remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc
+//remove::end[]
 import spock.lang.Specification
 
 abstract class BeerRestBase extends Specification {

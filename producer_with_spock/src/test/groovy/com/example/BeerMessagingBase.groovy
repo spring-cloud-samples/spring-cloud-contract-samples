@@ -1,14 +1,17 @@
 package com.example
 
 import java.util.concurrent.TimeUnit
+//remove::start[]
 import javax.inject.Inject
-
+//remove::end[]
 import spock.lang.Specification
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+//remove::start[]
 import org.springframework.cloud.contract.verifier.messaging.MessageVerifier
 import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier
+//remove::end[]
 
 @SpringBootTest(classes = ProducerApplication, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 //remove::start[]
