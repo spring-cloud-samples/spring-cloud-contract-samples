@@ -22,4 +22,4 @@ jobs:
           name: "Running build"
           command: ./scripts/runAcceptanceTests.sh
       - store_test_results:
-          path: target/surefire-reports
+          path: producer_with_spock/target/surefire-reports
