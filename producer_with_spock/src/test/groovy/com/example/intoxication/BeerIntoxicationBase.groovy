@@ -6,14 +6,15 @@ package com.example.intoxication
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import spock.lang.Specification
 
+import org.springframework.beans.factory.annotation.Autowired
+
 //remove::start[]
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.boot.test.context.SpringBootTest
 
 //remove::end[]
 
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.context.WebApplicationContext

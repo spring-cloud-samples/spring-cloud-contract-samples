@@ -1,6 +1,7 @@
 package contracts.beer.messaging
 
 import com.example.ProducerUtils
+
 import org.springframework.cloud.contract.spec.Contract
 
 // only to see if it works on both sides

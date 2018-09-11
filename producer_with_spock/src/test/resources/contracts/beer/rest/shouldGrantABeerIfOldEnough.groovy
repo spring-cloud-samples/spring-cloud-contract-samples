@@ -2,6 +2,7 @@ package contracts.beer.rest
 
 import com.example.ConsumerUtils
 import com.example.ProducerUtils
+
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
@@ -30,7 +31,11 @@ then:
 	}
 	response {
 		status 200
-		body(file('response.json'))
+		body("""
+			{
+				"status": "${value(ProducerUtils.ok())}"
+			}
+			""")
 		headers {
 			contentType(applicationJson())
 		}
