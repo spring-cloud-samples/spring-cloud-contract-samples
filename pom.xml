@@ -31,23 +31,23 @@
 			</activation>
 			<modules>
 				<module>common</module>
-				<module>beer_contracts</module>
-				<module>producer</module>
-				<module>producer_webflux</module>
-				<module>consumer_pact</module>
-				<module>producer_yaml</module>
-				<module>producer_advanced</module>
-				<module>producer_pact</module>
-				<module>producer_with_stubs_per_consumer</module>
-				<module>producer_with_git</module>
-				<module>producer_with_external_contracts</module>
-				<module>producer_with_restdocs</module>
-				<module>producer_with_dsl_restdocs</module>
-				<module>consumer</module>
-				<module>consumer_pact_stubrunner</module>
-				<module>consumer_with_stubs_per_consumer</module>
-				<module>consumer_with_discovery</module>
-				<module>consumer_with_restdocs</module>
+				<!--<module>beer_contracts</module>-->
+				<!--<module>producer</module>-->
+				<!--<module>producer_webflux</module>-->
+				<!--<module>consumer_pact</module>-->
+				<!--<module>producer_yaml</module>-->
+				<!--<module>producer_advanced</module>-->
+				<!--<module>producer_pact</module>-->
+				<!--<module>producer_with_stubs_per_consumer</module>-->
+				<!--<module>producer_with_git</module>-->
+				<!--<module>producer_with_external_contracts</module>-->
+				<!--<module>producer_with_restdocs</module>-->
+				<!--<module>producer_with_dsl_restdocs</module>-->
+				<!--<module>consumer</module>-->
+				<!--<module>consumer_pact_stubrunner</module>-->
+				<!--<module>consumer_with_stubs_per_consumer</module>-->
+				<!--<module>consumer_with_discovery</module>-->
+				<!--<module>consumer_with_restdocs</module>-->
 				<module>producer_with_spock</module>
 			</modules>
 		</profile>
@@ -58,22 +58,22 @@
 			</activation>
 			<modules>
 				<module>beer_contracts</module>
-				<module>producer</module>
-				<module>producer_webflux</module>
-				<module>consumer_pact</module>
-				<module>producer_yaml</module>
-				<module>producer_advanced</module>
-				<module>producer_pact</module>
-				<module>producer_with_stubs_per_consumer</module>
-				<module>producer_with_git</module>
-				<module>producer_with_external_contracts</module>
-				<module>producer_with_restdocs</module>
-				<module>producer_with_dsl_restdocs</module>
-				<module>consumer</module>
-				<module>consumer_pact_stubrunner</module>
-				<module>consumer_with_stubs_per_consumer</module>
-				<module>consumer_with_discovery</module>
-				<module>consumer_with_restdocs</module>
+				<!--<module>producer</module>-->
+				<!--<module>producer_webflux</module>-->
+				<!--<module>consumer_pact</module>-->
+				<!--<module>producer_yaml</module>-->
+				<!--<module>producer_advanced</module>-->
+				<!--<module>producer_pact</module>-->
+				<!--<module>producer_with_stubs_per_consumer</module>-->
+				<!--<module>producer_with_git</module>-->
+				<!--<module>producer_with_external_contracts</module>-->
+				<!--<module>producer_with_restdocs</module>-->
+				<!--<module>producer_with_dsl_restdocs</module>-->
+				<!--<module>consumer</module>-->
+				<!--<module>consumer_pact_stubrunner</module>-->
+				<!--<module>consumer_with_stubs_per_consumer</module>-->
+				<!--<module>consumer_with_discovery</module>-->
+				<!--<module>consumer_with_restdocs</module>-->
 				<module>producer_with_spock</module>
 			</modules>
 		</profile>
