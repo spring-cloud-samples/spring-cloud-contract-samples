@@ -115,14 +115,14 @@
                 <configuration>
                     <testSources>
                         <testSource>
-                            <directory>${project.basedir}/src/test/groovy</directory>
+                            <directory>src/test/groovy</directory>
                             <includes>
                                 <include>**/*.groovy</include>
                             </includes>
                         </testSource>
                         <testSource>
                             <directory>
-                                ${project.basedir}/target/generated-test-sources/contracts/com/example/beer
+                                target/generated-test-sources/contracts/com/example/beer
                             </directory>
                             <includes>
                                 <include>**/*.groovy</include>
