@@ -21,3 +21,13 @@ jobs:
       - run:
           name: "Running build"
           command: ./scripts/runAcceptanceTests.sh
+      - run:
+          name: Save test results
+          command: |
+              mkdir -p ~/junit/
+              find . -type f -regex ".*/target/surefire-reports/.*" -exec cp {} ~/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/junit
+      - store_artifacts:
+          path: ~/junit
