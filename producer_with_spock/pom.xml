@@ -107,22 +107,22 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>compile</goal>
                             <goal>compileTests</goal>
+                            <goal>addTestSources</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <testSources>
                         <testSource>
-                            <directory>src/test/groovy</directory>
+                            <directory>${project.basedir}/src/test/groovy</directory>
                             <includes>
                                 <include>**/*.groovy</include>
                             </includes>
                         </testSource>
                         <testSource>
                             <directory>
-                                target/generated-test-sources/contracts/com/example/beer
+                                ${project.basedir}/target/generated-test-sources/contracts/com/example/beer
                             </directory>
                             <includes>
                                 <include>**/*.groovy</include>
