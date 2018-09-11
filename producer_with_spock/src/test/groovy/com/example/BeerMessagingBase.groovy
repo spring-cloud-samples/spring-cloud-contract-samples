@@ -10,14 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cloud.contract.verifier.messaging.MessageVerifier
 import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier
 
-//remove::start[]
-
-//remove::end[]
-
-//remove::start[]
-
-//remove::end[]
-
 @SpringBootTest(classes = ProducerApplication, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 //remove::start[]
 @AutoConfigureMessageVerifier

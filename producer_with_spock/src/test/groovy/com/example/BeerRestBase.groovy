@@ -3,11 +3,6 @@ package com.example
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import spock.lang.Specification
 
-//remove::start[]
-
-//remove::end[]
-
-
 abstract class BeerRestBase extends Specification {
 	//remove::start[]
 	PersonCheckingService personCheckingService = Mock(PersonCheckingService)
