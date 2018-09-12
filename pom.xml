@@ -43,6 +43,7 @@
 				<module>producer_with_external_contracts</module>
 				<module>producer_with_restdocs</module>
 				<module>producer_with_dsl_restdocs</module>
+				<module>producer_with_spock</module>
 				<module>consumer</module>
 				<module>consumer_pact_stubrunner</module>
 				<module>consumer_with_stubs_per_consumer</module>
@@ -68,6 +69,7 @@
 				<module>producer_with_external_contracts</module>
 				<module>producer_with_restdocs</module>
 				<module>producer_with_dsl_restdocs</module>
+				<module>producer_with_spock</module>
 				<module>consumer</module>
 				<module>consumer_pact_stubrunner</module>
 				<module>consumer_with_stubs_per_consumer</module>
