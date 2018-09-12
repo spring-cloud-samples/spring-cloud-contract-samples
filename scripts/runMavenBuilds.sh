@@ -34,7 +34,7 @@ function build_maven() {
     if [[ "${SKIP_TESTS}" == "true" ]]; then
         ./mvnw clean install -Ptest -U -DskipTests
     else
-        ./mvnw clean install -Ptest -U -X
+        ./mvnw clean install -Ptest -U
     fi
 }
 
