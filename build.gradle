@@ -83,6 +83,8 @@ task removeTextFromFiles() {
     description = "Removes written implementation"
     doLast {
         FileTree tree = fileTree(dir: '.', include: ['**/*.java',
+                                                     '**/*.groovy',
+                                                     '**/*.gvy',
                                                      '**/*.xml',
                                                      '**/*.gradle',
                                                      '**/*.yml',

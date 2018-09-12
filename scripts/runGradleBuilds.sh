@@ -52,6 +52,7 @@ function build_gradle() {
     build producer_with_external_contracts
     build producer_with_restdocs
     build producer_with_dsl_restdocs
+    build producer_with_spock
     build consumer
     build consumer_pact_stubrunner
     build consumer_with_stubs_per_consumer
