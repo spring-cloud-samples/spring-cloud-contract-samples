@@ -107,8 +107,8 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>compile</goal>
                             <goal>compileTests</goal>
+                            <goal>addTestSources</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -185,22 +185,6 @@
                     </includes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.22.0</version>
-                <configuration>
-                    <outputDirectory>${project.basedir}/target/surefire-reports</outputDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
-                <configuration>
-                    <outputDirectory>${project.basedir}/target/surefire-reports</outputDirectory>
-                </configuration>
-            </plugin>
             <!--// end::spock-surefire-setup[]-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -215,7 +199,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <fileset id="contract.test.files" dir="${project.basedir}"
+                                <fileset id="contract.test.files" dir="target/surefire-reports/"
                                          includes="**/*.IntoxicationSpec.txt,**/*.MessagingSpec.txt,**/*.RestSpec.txt">
                                 </fileset>
                                 <fail message="All contract tests were not executed.">
