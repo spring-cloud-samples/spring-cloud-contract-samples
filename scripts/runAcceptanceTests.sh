@@ -30,11 +30,18 @@ startDockerCompose
 . ${ROOT}/scripts/runGradleBuilds.sh
 clearDocker
 
-startDockerCompose
-. ${ROOT}/scripts/runCompatibilityBuild.sh
-clearDocker
+export SKIP_COMPATIBILITY="${SKIP_COMPATIBILITY:-false}"
 
-cat <<'EOF'
+if [[ "${SKIP_COMPATIBILITY}" != "true" ]]; then
+	startDockerCompose
+	. ${ROOT}/scripts/runCompatibilityBuild.sh
+	clearDocker
+fi
+
+export SKIP_DOCS="${SKIP_DOCS:-false}"
+
+if [[ "${SKIP_DOCS}" != "true" ]]; then
+	cat <<'EOF'
  .----------------.  .----------------.  .----------------.  .----------------.
 | .--------------. || .--------------. || .--------------. || .--------------. |
 | |  ________    | || |     ____     | || |     ______   | || |    _______   | |
@@ -48,22 +55,23 @@ cat <<'EOF'
  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-echo "Generating docs"
-cd ${ROOT} && ./gradlew generateDocumentation
+	echo "Generating docs"
+	cd ${ROOT} && ./gradlew generateDocumentation
 
-echo "Preparing for docs"
-cd ${ROOT} && ./gradlew prepareForWorkshops
+	echo "Preparing for docs"
+	cd ${ROOT} && ./gradlew prepareForWorkshops
 
-echo "Building the whole project again after preparing for docs"
-export BUILD_COMMON=false
-export SKIP_TESTS=true
+	echo "Building the whole project again after preparing for docs"
+	export BUILD_COMMON=false
+	export SKIP_TESTS=true
 
-clean
+	clean
 
-startDockerCompose
-. ${ROOT}/scripts/runMavenBuilds.sh
-clearDocker
+	startDockerCompose
+	. ${ROOT}/scripts/runMavenBuilds.sh
+	clearDocker
 
-startDockerCompose
-. ${ROOT}/scripts/runGradleBuilds.sh
-clearDocker
+	startDockerCompose
+	. ${ROOT}/scripts/runGradleBuilds.sh
+	clearDocker
+fi
