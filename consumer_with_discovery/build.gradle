@@ -36,6 +36,7 @@ dependencyManagement {
 }
 
 dependencies {
+	compile("org.codehaus.groovy:groovy:2.4.15")
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	// remove::start[]

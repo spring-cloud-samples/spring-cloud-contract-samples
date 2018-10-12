@@ -37,6 +37,7 @@ dependencyManagement {
 }
 
 dependencies {
+	compile("org.codehaus.groovy:groovy:2.4.15")
 	compile("org.springframework.cloud:spring-cloud-contract-spec")
 }
 
