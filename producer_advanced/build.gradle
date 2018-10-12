@@ -48,7 +48,6 @@ dependencyManagement {
 sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
 
 dependencies {
-	compile("org.codehaus.groovy:groovy:2.4.15")
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
@@ -77,8 +76,4 @@ test {
 	testLogging {
 		exceptionFormat = 'full'
 	}
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.10.1'
 }
