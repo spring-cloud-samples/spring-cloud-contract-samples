@@ -35,6 +35,8 @@ dependencyManagement {
 	}
 }
 
+sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
+
 dependencies {
 	compile("org.codehaus.groovy:groovy:2.4.15")
 	compile("org.springframework.boot:spring-boot-starter-web")
