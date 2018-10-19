@@ -170,12 +170,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
                         <include>**/*Spec.java</include>
                     </includes>
+                    <failIfNoTests>true</failIfNoTests>
                 </configuration>
             </plugin>
             <!--// end::spock-surefire-setup[]-->

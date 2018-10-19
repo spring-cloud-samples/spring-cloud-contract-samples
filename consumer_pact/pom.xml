@@ -23,6 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.BUILD-SNAPSHOT</spring-cloud.version>
+		<pact-jvm-provider-maven.version>3.5.23</pact-jvm-provider-maven.version>
 	</properties>
 
 	<dependencies>
@@ -43,7 +44,7 @@
 		<dependency>
 			<groupId>au.com.dius</groupId>
 			<artifactId>pact-jvm-consumer-junit_2.12</artifactId>
-			<version>3.5.13</version>
+			<version>${pact-jvm-provider-maven.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -69,7 +70,7 @@
 			<plugin>
 				<groupId>au.com.dius</groupId>
 				<artifactId>pact-jvm-provider-maven_2.12</artifactId>
-				<version>3.5.13</version>
+				<version>${pact-jvm-provider-maven.version}</version>
 				<configuration>
 					<pactBrokerUrl>http://localhost:8085</pactBrokerUrl>
 				</configuration>
@@ -81,6 +82,12 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<failIfNoTests>true</failIfNoTests>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
