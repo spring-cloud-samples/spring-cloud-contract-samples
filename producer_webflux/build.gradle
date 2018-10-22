@@ -18,6 +18,10 @@ buildscript {
 	}
 }
 
+ext{
+	restAssuredVersion = '3.2.0'
+}
+
 println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}],Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
 
 group = 'com.example'
@@ -60,12 +64,13 @@ dependencies {
 	// tag::test_dep[]
 	testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
 	// end::test_dep[]
+	testCompile ("io.rest-assured:spring-web-test-client:$restAssuredVersion")
 	// remove::end[]
 }
 
 // remove::start[]
 contracts {
-	testMode = "EXPLICIT"
+	testMode = "WEBTESTCLIENT"
 	packageWithBaseClasses = 'com.example'
 	baseClassMappings {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")

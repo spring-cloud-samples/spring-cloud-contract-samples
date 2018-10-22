@@ -40,8 +40,5 @@ then:
 		headers {
 			contentType(applicationJson())
 		}
-		bodyMatchers {
-			jsonPath('$.status', byType())
-		}
 	}
 }
