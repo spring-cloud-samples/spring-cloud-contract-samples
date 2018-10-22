@@ -33,6 +33,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>spring-web-test-client</artifactId>
+            <version>3.1.2-SNAPSHOT</version>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
 
 		<!-- Stream dependencies -->
 		<dependency>
@@ -96,7 +103,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
-					<testMode>EXPLICIT</testMode>
+					<testMode>WEBTESTCLIENT</testMode>
 				</configuration>
 				<dependencies>
 					<dependency>
