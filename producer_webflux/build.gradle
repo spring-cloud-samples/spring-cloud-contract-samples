@@ -64,7 +64,7 @@ dependencies {
 	// tag::test_dep[]
 	testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
 	// end::test_dep[]
-	compile group: 'io.rest-assured', name: 'spring-web-test-client', version: '3.2.0'
+	testCompile ("io.rest-assured:spring-web-test-client:$restAssuredVersion")
 	// remove::end[]
 }
 
