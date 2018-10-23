@@ -43,6 +43,7 @@ function build_gradle() {
     fi
     build producer
     build producer_webflux
+    build producer_webflux_webtestclient
     build consumer_pact
     build producer_with_git
     build producer_yaml

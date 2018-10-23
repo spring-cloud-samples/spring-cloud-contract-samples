@@ -34,6 +34,7 @@
 				<module>beer_contracts</module>
 				<module>producer</module>
 				<module>producer_webflux</module>
+				<module>producer_webflux_webtestclient</module>
 				<module>consumer_pact</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>

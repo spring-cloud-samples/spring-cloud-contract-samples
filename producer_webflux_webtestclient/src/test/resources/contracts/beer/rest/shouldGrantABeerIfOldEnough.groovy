@@ -1,19 +1,20 @@
 package contracts.beer.rest
 
-import com.example.PatternUtils
+import com.example.ConsumerUtils
+import com.example.ProducerUtils
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
 	description("""
-Represents an unsuccessful scenario of getting a beer
+Represents a successful scenario of getting a beer
 
 ```
 given:
-	client is not old enough
+	client is old enough
 when:
 	he applies for a beer
 then:
-	we'll NOT grant him the beer
+	we'll grant him the beer
 ```
 
 """)
@@ -21,27 +22,21 @@ then:
 		method 'POST'
 		url '/check'
 		body(
-				age: 10
+				age: $(ConsumerUtils.oldEnough())
 		)
 		headers {
 			contentType(applicationJson())
 		}
-		bodyMatchers {
-			jsonPath('$.age', byRegex(PatternUtils.tooYoung()))
-		}
 	}
 	response {
 		status 200
-		body( """
-	{
-		"status": "NOT_OK"
-	}
-	""")
+		body("""
+			{
+				"status": "${value(ProducerUtils.ok())}"
+			}
+			""")
 		headers {
 			contentType(applicationJson())
-		}
-		bodyMatchers {
-			jsonPath('$.status', byType())
 		}
 	}
 }
