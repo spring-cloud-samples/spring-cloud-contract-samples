@@ -34,6 +34,8 @@ export SKIP_COMPATIBILITY="${SKIP_COMPATIBILITY:-false}"
 
 if [[ "${SKIP_COMPATIBILITY}" != "true" ]]; then
 	startDockerCompose
+  # TODO: Go back to snapshots one day
+  export CURRENT_BOOT_VERSION="2.1.0.RC1"
 	. ${ROOT}/scripts/runCompatibilityBuild.sh
 	clearDocker
 fi
