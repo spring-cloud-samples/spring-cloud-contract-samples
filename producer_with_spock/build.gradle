@@ -51,9 +51,9 @@ dependencies {
 	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
-	testCompile group: 'org.spockframework', name: 'spock-core', version: "$spockVersion"
-	testCompile group: 'org.spockframework', name: 'spock-spring', version: "$spockVersion"
-	testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version: "$groovyVersion"
+	testCompile("org.spockframework:spock-core:$spockVersion")
+	testCompile("org.spockframework:spock-spring:$spockVersion")
+	testCompile("org.codehaus.groovy:groovy-all':$groovyVersion")
 	// remove::start[]
 	// tag::verifier_dep[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
