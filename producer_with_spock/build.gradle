@@ -53,7 +53,7 @@ dependencies {
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
 	testCompile("org.spockframework:spock-core:$spockVersion")
 	testCompile("org.spockframework:spock-spring:$spockVersion")
-	testCompile("org.codehaus.groovy:groovy-all':$groovyVersion")
+	testCompile("org.codehaus.groovy:groovy-all:$groovyVersion")
 	// remove::start[]
 	// tag::verifier_dep[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
