@@ -20,9 +20,9 @@ function build() {
     echo -e "\n\nBuilding ${folder}\n\n"
     cd "${ROOT}/${folder}"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./gradlew clean build publishToMavenLocal -x test --stacktrace
+        ./gradlew clean build publishToMavenLocal -x test --stacktrace --refresh-dependencies
     else
-        ./gradlew clean build publishToMavenLocal  --stacktrace
+        ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies
     fi
     cd "${ROOT}"
 }
