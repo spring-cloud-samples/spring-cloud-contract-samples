@@ -80,7 +80,7 @@ dependencies {
 
 // remove::start[]
 contracts {
-	testFramework = TestFramework.JUNIT5
+	targetFramework = TestFramework.JUNIT5
 	packageWithBaseClasses = 'com.example'
 	baseClassMappings {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")

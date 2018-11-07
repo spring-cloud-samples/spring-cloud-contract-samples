@@ -72,7 +72,7 @@ contracts {
 	baseClassMappings {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
 	}
-	testFramework = TestFramework.SPOCK
+	targetFramework = TestFramework.SPOCK
 }
 // remove::end[]
 
