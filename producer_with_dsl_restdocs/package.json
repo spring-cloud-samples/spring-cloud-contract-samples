@@ -14,6 +14,6 @@
   },
   "private": true,
   "devDependencies": {
-    "restdocs-to-postman": "^2.0.1"
+    "restdocs-to-postman": "^2.0.3"
   }
 }

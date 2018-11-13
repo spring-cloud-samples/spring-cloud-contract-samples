@@ -9,6 +9,8 @@ export ROOT=`pwd`
 
 source "${ROOT}"/scripts/clean.sh
 
+trap 'clean && clearDocker' EXIT
+
 function startDockerCompose() {
     pushd "${ROOT}"/docker
     docker-compose pull
@@ -17,18 +19,13 @@ function startDockerCompose() {
 }
 
 clean
+clearDocker
 
-startDockerCompose
 . ${ROOT}/scripts/runMavenBuilds.sh
-clearDocker
 
-startDockerCompose
 . ${ROOT}/scripts/runManual.sh
-clearDocker
 
-startDockerCompose
 . ${ROOT}/scripts/runGradleBuilds.sh
-clearDocker
 
 export SKIP_COMPATIBILITY="${SKIP_COMPATIBILITY:-false}"
 
@@ -37,7 +34,6 @@ if [[ "${SKIP_COMPATIBILITY}" != "true" ]]; then
   # TODO: Go back to snapshots one day
   export CURRENT_BOOT_VERSION="2.1.0.RELEASE"
 	. ${ROOT}/scripts/runCompatibilityBuild.sh
-	clearDocker
 fi
 
 export SKIP_DOCS="${SKIP_DOCS:-false}"
@@ -68,12 +64,9 @@ EOF
 	export SKIP_TESTS=true
 
 	clean
+	clearDocker
 
-	startDockerCompose
 	. ${ROOT}/scripts/runMavenBuilds.sh
-	clearDocker
 
-	startDockerCompose
 	. ${ROOT}/scripts/runGradleBuilds.sh
-	clearDocker
 fi

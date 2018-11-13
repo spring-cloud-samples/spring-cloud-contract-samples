@@ -16,8 +16,7 @@ function clean() {
 
 function clearDocker() {
     pushd "${ROOT}"/docker
-    yes | docker-compose kill || echo "Failed to kill docker compose"
-    yes | docker-compose rm -v || echo "Failed to remove docker compose volumes"
+		./stop.sh
     popd
 }
 

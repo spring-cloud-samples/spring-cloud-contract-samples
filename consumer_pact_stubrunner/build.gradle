@@ -64,6 +64,23 @@ test {
 	}
 }
 
+task stopBroker(type:Exec) {
+	workingDir '../docker'
+
+	//on linux
+	commandLine './stop.sh'
+
+	//store the output instead of printing to the console:
+	standardOutput = new ByteArrayOutputStream()
+
+	//extension method stopTomcat.output() can be used to obtain the output:
+	ext.output = {
+		return standardOutput.toString()
+	}
+}
+
+build.dependsOn("stopBroker")
+
 task wrapper(type: Wrapper) {
     gradleVersion = '4.10.1'
 }

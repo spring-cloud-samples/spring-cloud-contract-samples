@@ -48,7 +48,23 @@ dependencies {
 	testCompile "au.com.dius:pact-jvm-consumer-junit_2.12:3.5.13"
 }
 
+task startBroker(type:Exec) {
+	workingDir '../docker'
+
+	//on linux
+	commandLine './start.sh'
+
+	//store the output instead of printing to the console:
+	standardOutput = new ByteArrayOutputStream()
+
+	//extension method stopTomcat.output() can be used to obtain the output:
+	ext.output = {
+		return standardOutput.toString()
+	}
+}
+
 test {
+	dependsOn("startBroker")
 	testLogging {
 		exceptionFormat = 'full'
 	}

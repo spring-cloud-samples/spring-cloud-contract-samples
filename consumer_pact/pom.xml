@@ -89,6 +89,25 @@
 					<failIfNoTests>true</failIfNoTests>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<id>setup-docker</id>
+						<phase>test-compile</phase>
+						<configuration>
+							<workingDirectory>${project.basedir}/../docker/</workingDirectory>
+							<executable>./start.sh</executable>
+						</configuration>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
