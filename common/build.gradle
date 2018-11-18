@@ -15,7 +15,7 @@ plugins {
 println "Cloud version [${findProperty('BOM_VERSION') ?: verifierVersion}]"
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1.BUILD-SNAPSHOT'
 
 repositories {
 	mavenCentral()

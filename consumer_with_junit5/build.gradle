@@ -19,7 +19,7 @@ buildscript {
 println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}]"
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1.BUILD-SNAPSHOT'
 
 repositories {
 	mavenCentral()
@@ -57,7 +57,7 @@ dependencies {
 		exclude group: 'junit', module: 'junit'
 	}
 	// end::stubrunner[]
-	testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
+	testCompile("com.example:beer-common:0.0.1.BUILD-SNAPSHOT")
 	// remove::end[]
 	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "$jupiterVersion"
 	testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "$jupiterVersion"

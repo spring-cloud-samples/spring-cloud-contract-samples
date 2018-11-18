@@ -47,7 +47,7 @@
 			<groupId>com.example</groupId>
 			<artifactId>beer-api-producer-restdocs</artifactId>
 			<classifier>stubs</classifier>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.1.BUILD-SNAPSHOT</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
