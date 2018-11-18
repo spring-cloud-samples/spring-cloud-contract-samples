@@ -5,7 +5,7 @@
 
 	<groupId>com.example</groupId>
 	<artifactId>beer-api-consumer-pact-stubrunner</artifactId>
-	<version>0.0.1-BUILD-SNAPSHOT</version>
+	<version>0.0.1.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Consumer Pact Stubrunner</name>

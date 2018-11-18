@@ -5,7 +5,7 @@
 
 	<groupId>com.example</groupId>
 	<artifactId>beer-contracts</artifactId>
-	<version>0.0.1-BUILD-SNAPSHOT</version>
+	<version>0.0.1.BUILD-SNAPSHOT</version>
 
 	<name>Contracts</name>
 	<description>Contains all the contracts</description>

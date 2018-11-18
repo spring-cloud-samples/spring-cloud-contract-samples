@@ -5,7 +5,7 @@
 
 	<groupId>com.example</groupId>
 	<artifactId>beer-api-consumer-with-stub-per-consumer</artifactId>
-	<version>0.0.1-BUILD-SNAPSHOT</version>
+	<version>0.0.1.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Consumer With Stubs Per Consumer</name>

@@ -6,7 +6,7 @@
 
 	<groupId>com.example</groupId>
 	<artifactId>beer-api-producer-external</artifactId>
-	<version>0.0.1-BUILD-SNAPSHOT</version>
+	<version>0.0.1.BUILD-SNAPSHOT</version>
 
 	<name>Beer API producer Stubs</name>
 	<description>POM used to install locally stubs for consumer side</description>
