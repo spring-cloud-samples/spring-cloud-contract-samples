@@ -22,7 +22,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 //@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer:+:stubs:8090")
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.REMOTE,
 		repositoryRoot = "git://${ROOT}/target/contract_git/",
-		ids = { "com.example:beer-api-producer-git:0.0.1-SNAPSHOT"})
+		ids = { "com.example:beer-api-producer-git:0.0.1.BUILD-SNAPSHOT"})
 //remove::end[]
 @DirtiesContext
 //@org.junit.Ignore
