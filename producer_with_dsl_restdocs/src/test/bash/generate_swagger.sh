@@ -9,8 +9,12 @@ case "`uname`" in
     ;;
 esac
 
-export TEST_ROOT="$( pwd )/src/test"
+export ROOT="$( pwd )"
+export TEST_ROOT="${ROOT}/src/test"
 export SWAGYMNIA_BIN="${TEST_ROOT}/bash/${uname}/swaggymnia"
+
+PATH="${PATH}:${ROOT}/node/"
+export PATH
 
 echo "Generate postman from restdocs"
 node_modules/restdocs-to-postman/bin/cli -i target/generated-snippets -e insomnia -f secondLastFolder -r "${TEST_ROOT}"/swagger/replacements.json -o target/insomnia-collection.json
