@@ -70,7 +70,7 @@ function prepare_for_build() {
     clean
 
     cd "${ROOT}/beer_contracts"
-    ./mvnw clean install -U
+    ./mvnw clean install -U -Dspring-cloud.version="${PREVIOUS_CLOUD_VERSION}"
 
     rm -rf "${ROOT}/target/"
     echo -e "\n\nCopying git repo to contract_git/target/git\n\n"
