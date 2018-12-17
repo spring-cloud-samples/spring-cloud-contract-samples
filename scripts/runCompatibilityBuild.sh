@@ -57,13 +57,13 @@ function build() {
     local cloudVersion="${3}"
     local verifierVersion="${4}"
     echo -e "\n\nBuilding [${folder}] for boot [${bootVersion}] and cloud [${cloudVersion}] and verifier [${verifierVersion}]\n\n"
-    cd "${ROOT}/${folder}"
+    pushd "${ROOT}/${folder}"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
         ./gradlew clean build publishToMavenLocal --refresh-dependencies -x test -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}" --stacktrace
     else
         ./gradlew clean build publishToMavenLocal --refresh-dependencies -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}" --stacktrace
     fi
-    cd "${ROOT}"
+    popd
 }
 
 function prepare_for_build() {
@@ -79,7 +79,7 @@ function prepare_for_build() {
     mv "${ROOT}/target/contract_git/git" "${ROOT}/target/contract_git/.git"
 
     if [[ "${BUILD_COMMON}" == "true" ]]; then
-        pushd "${ROOT}/common" && ./gradlew clean build publishToMavenLocal --refresh-dependencies -x test --stacktrace && popd
+        pushd "${ROOT}/common" && ./gradlew clean build publishToMavenLocal -PBOM_VERSION="${PREVIOUS_CLOUD_VERSION}" --refresh-dependencies -x test --stacktrace && popd
     fi
 }
 
