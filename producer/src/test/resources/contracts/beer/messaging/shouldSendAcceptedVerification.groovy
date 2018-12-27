@@ -30,7 +30,7 @@ then:
 	// output message of the contract
 	outputMessage {
 		// destination to which the output message will be sent
-		sentTo 'verifications'
+		sentTo 'aa'
 		// the body of the output message
 		body(
 			eligible: true

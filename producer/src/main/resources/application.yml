@@ -3,7 +3,7 @@ spring:
     cloud.stream.bindings.output:
         content-type: application/json
         # remove::start[]
-        destination: verifications
+        destination: aa
         # remove::end[]
 server.port: ${PORT:8080}
 logging:
