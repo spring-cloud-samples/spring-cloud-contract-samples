@@ -15,6 +15,15 @@ function clean() {
     rm -rf ~/.gradle/caches/modules-2/files-2.1/com.example/
 }
 
+function setup_git() {
+    local git_name
+    git_name="${1}"
+    echo -e "\n\nCopying git repo to /target/${git_name}\n\n"
+    mkdir -p "${ROOT}/target/${git_name}"
+    cp -R "${ROOT}/${git_name}" "${ROOT}/target/"
+    mv "${ROOT}/target/${git_name}/git" "${ROOT}/target/${git_name}/.git"
+}
+
 function build() {
     local folder="${1}"
     echo -e "\n\nBuilding ${folder}\n\n"
@@ -33,10 +42,8 @@ function build_gradle() {
     cd "${ROOT}/beer_contracts"
     ./mvnw clean install -U
 
-    echo -e "\n\nCopying git repo to contract_git/target/git\n\n"
-    mkdir -p "${ROOT}/target/contract_git"
-    cp -r "${ROOT}/contract_git" "${ROOT}/target/"
-    mv "${ROOT}/target/contract_git/git" "${ROOT}/target/contract_git/.git"
+    setup_git contract_git
+    setup_git contract_empty_git
 
     if [[ "${BUILD_COMMON}" == "true" ]]; then
         build common
