@@ -1,0 +1,3 @@
+0000000000000000000000000000000000000000 5c5c21c41060f5b168144ee9f29be8a2006152b0 Marcin Grzejszczak <mgrzejszczak@pivotal.io> 1522245185 +0200	commit (initial): Initial commit
+5c5c21c41060f5b168144ee9f29be8a2006152b0 f83a13ef05d1318cdc8a2cb48c13108c11fb1794 Marcin Grzejszczak <mgrzejszczak@pivotal.io> 1542551589 +0100	commit: Moved snapshot to build snapshot
+f83a13ef05d1318cdc8a2cb48c13108c11fb1794 b176ae6214b2e788561b9e2429815c69fe3d28ef Marcin Grzejszczak <mgrzejszczak@pivotal.io> 1546272298 +0100	commit: empty

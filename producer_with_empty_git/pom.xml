@@ -78,11 +78,13 @@
 
 			<!-- remove::start[] -->
 			<!-- SPRING CLOUD CONTRACT -->
+			<!-- tag::plugin[] -->
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
+				<!-- In the default configuration, we want to use the contracts stored locally -->
 				<configuration>
 					<baseClassMappings>
 						<baseClassMapping>
@@ -94,26 +96,7 @@
 							<baseClassFQN>com.example.BeerRestBase</baseClassFQN>
 						</baseClassMapping>
 					</baseClassMappings>
-					<!-- We want to pick contracts from a Git repository -->
-					<contractsRepositoryUrl>git://file://${env.ROOT}/target/contract_empty_git/</contractsRepositoryUrl>
-					<!-- Example of URL via git protocol -->
-					<!--<contractsRepositoryUrl>git://git@github.com:spring-cloud-samples/spring-cloud-contract-samples.git</contractsRepositoryUrl>-->
-					<!-- Example of URL via http protocol -->
-					<!--<contractsRepositoryUrl>git://https://github.com/spring-cloud-samples/spring-cloud-contract-samples.git</contractsRepositoryUrl>-->
-					<!-- We reuse the contract dependency section to set up the path
-					to the folder that contains the contract definitions. In our case the
-					path will be /groupId/artifactId/version/contracts -->
-					<contractDependency>
-						<groupId>${project.groupId}</groupId>
-						<artifactId>${project.artifactId}</artifactId>
-						<version>${project.version}</version>
-					</contractDependency>
-					<!-- The mode can't be classpath -->
-					<contractsMode>LOCAL</contractsMode>
 					<basePackageForTests>com.example</basePackageForTests>
-					<contractsProperties>
-						<git.push.only>true</git.push.only>
-					</contractsProperties>
 				</configuration>
 				<executions>
 					<execution>
@@ -123,9 +106,28 @@
 							you have to explicitly add it as a goal -->
 							<goal>pushStubsToScm</goal>
 						</goals>
+						<configuration>
+							<!-- We want to pick contracts from a Git repository -->
+							<contractsRepositoryUrl>git://file://${env.ROOT}/target/contract_empty_git/</contractsRepositoryUrl>
+							<!-- Example of URL via git protocol -->
+							<!--<contractsRepositoryUrl>git://git@github.com:spring-cloud-samples/spring-cloud-contract-samples.git</contractsRepositoryUrl>-->
+							<!-- Example of URL via http protocol -->
+							<!--<contractsRepositoryUrl>git://https://github.com/spring-cloud-samples/spring-cloud-contract-samples.git</contractsRepositoryUrl>-->
+							<!-- We reuse the contract dependency section to set up the path
+							to the folder that contains the contract definitions. In our case the
+							path will be /groupId/artifactId/version/contracts -->
+							<contractDependency>
+								<groupId>${project.groupId}</groupId>
+								<artifactId>${project.artifactId}</artifactId>
+								<version>${project.version}</version>
+							</contractDependency>
+							<!-- The mode can't be classpath -->
+							<contractsMode>LOCAL</contractsMode>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+			<!-- end::plugin[] -->
 			<!-- SPRING CLOUD CONTRACT -->
 			<!-- remove::end[] -->
 

@@ -55,25 +55,9 @@ dependencies {
 }
 
 // remove::start[]
+// tag::plugin[]
 contracts {
-	// We want to pick contracts from a Git repository
-	contractDependency {
-		stringNotation = "${project.group}:${project.name}:${project.version}"
-	}
-	/*
-	We reuse the contract dependency section to set up the path
-	to the folder that contains the contract definitions. In our case the
-	path will be /groupId/artifactId/version/contracts
-	 */
-	contractRepository {
-		repositoryUrl = "git://file://${System.getenv("ROOT")}/target/contract_empty_git/"
-		contractsProperties(
-				[ "git.push.only" : true]
-		)
-	}
-	// The mode can't be classpath
-	contractsMode = "LOCAL"
-	// Base package for generated tests
+		// Base package for generated tests
 	basePackageForTests = "com.example"
 	baseClassMappings {
 		baseClassMapping(".*messaging.*", "com.example.BeerMessagingBase")
@@ -85,8 +69,29 @@ contracts {
 In this scenario we want to publish stubs to SCM whenever
 the `publish` task is executed
 */
+publishStubsToScm {
+	// We want to modify the default set up of the plugin when publish stubs to scm is called
+	customize {
+		// We want to pick contracts from a Git repository
+		contractDependency {
+			stringNotation = "${project.group}:${project.name}:${project.version}"
+		}
+		/*
+		We reuse the contract dependency section to set up the path
+		to the folder that contains the contract definitions. In our case the
+		path will be /groupId/artifactId/version/contracts
+		 */
+		contractRepository {
+			repositoryUrl = "git://file://${System.getenv("ROOT")}/target/contract_empty_git/"
+		}
+		// The mode can't be classpath
+		contractsMode = "LOCAL"
+	}
+}
+
 publish.dependsOn("publishStubsToScm")
 publishToMavenLocal.dependsOn("publishStubsToScm")
+// end::plugin[]
 // remove::end[]
 
 test {

@@ -53,6 +53,7 @@ function build_gradle() {
     build producer_webflux_webtestclient
     build consumer_pact
     build producer_with_git
+    build producer_with_empty_git
     build producer_yaml
     build producer_advanced
     build producer_pact
