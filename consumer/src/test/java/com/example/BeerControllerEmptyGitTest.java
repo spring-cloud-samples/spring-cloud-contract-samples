@@ -1,5 +1,6 @@
 package com.example;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +49,18 @@ public class BeerControllerEmptyGitTest extends AbstractTest {
 	@Before
 	public void setupPort() {
 		beerController.port = producerPort;
+		Assume.assumeTrue(atLeast210());
 	}
+
+	private boolean atLeast210() {
+		try {
+			Class.forName("org.springframework.cloud.contract.verifier.util.ContractVerifierUtil");
+		} catch (Exception ex) {
+			return false;
+		}
+		return true;
+	}
+
 	//remove::end[]
 	//tag::tests[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {

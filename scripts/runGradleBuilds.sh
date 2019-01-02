@@ -9,6 +9,8 @@ ROOT=${ROOT:-`pwd`}
 BUILD_COMMON="${BUILD_COMMON:-true}"
 SKIP_TESTS="${SKIP_TESTS:-false}"
 
+. ${ROOT}/scripts/setup.sh
+
 function clean() {
     rm -rf ~/.m2/repository/com/example/
     rm -rf "${ROOT}"/target/
@@ -42,8 +44,7 @@ function build_gradle() {
     cd "${ROOT}/beer_contracts"
     ./mvnw clean install -U
 
-    setup_git contract_git
-    setup_git contract_empty_git
+    prepare_git
 
     if [[ "${BUILD_COMMON}" == "true" ]]; then
         build common

@@ -9,6 +9,8 @@ export ROOT=${ROOT:-`pwd`}
 export BUILD_COMMON="${BUILD_COMMON:-true}"
 export SKIP_TESTS="${SKIP_TESTS:-false}"
 
+. ${ROOT}/scripts/setup.sh
+
 function clean() {
     rm -rf ~/.m2/repository/com/example/
     rm -rf ~/.m2/repository/org/springframework/cloud/spring-cloud-contract-gradle-plugin/
@@ -72,11 +74,7 @@ function prepare_for_build() {
     cd "${ROOT}/beer_contracts"
     ./mvnw clean install -U -Dspring-cloud.version="${PREVIOUS_CLOUD_VERSION}"
 
-    rm -rf "${ROOT}/target/"
-    echo -e "\n\nCopying git repo to contract_git/target/git\n\n"
-    mkdir -p "${ROOT}/target/contract_git"
-    cp -r "${ROOT}/contract_git" "${ROOT}/target/"
-    mv "${ROOT}/target/contract_git/git" "${ROOT}/target/contract_git/.git"
+    prepare_git
 
     if [[ "${BUILD_COMMON}" == "true" ]]; then
         pushd "${ROOT}/common" && ./gradlew clean build publishToMavenLocal -PBOM_VERSION="${PREVIOUS_CLOUD_VERSION}" --refresh-dependencies -x test --stacktrace && popd
@@ -94,7 +92,6 @@ function build_all_projects() {
     build producer_webflux "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build consumer_pact "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
     build producer_with_git "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
-    build producer_with_empty_git "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_yaml "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_advanced "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_pact "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
