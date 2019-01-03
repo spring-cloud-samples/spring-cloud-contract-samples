@@ -2,6 +2,8 @@ package com.example;
 
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -10,8 +12,7 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
-import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
+import org.springframework.cloud.contract.stubrunner.junit.StubRunnerRule;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
@@ -29,13 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-//remove::start[]
 // example of usage with fixed port
-//@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer:+:stubs:8090")
-@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.REMOTE,
-		repositoryRoot = "git://${ROOT}/target/contract_empty_git/",
-		ids = { "com.example:beer-api-producer-empty-git:0.0.1.BUILD-SNAPSHOT"})
-//remove::end[]
 @DirtiesContext
 //@org.junit.Ignore
 public class BeerControllerEmptyGitTest extends AbstractTest {
@@ -44,15 +39,26 @@ public class BeerControllerEmptyGitTest extends AbstractTest {
 	@Autowired BeerController beerController;
 
 	//remove::start[]
-	@StubRunnerPort("beer-api-producer-empty-git") int producerPort;
+	@Rule
+	public StubRunnerRule rule = new StubRunnerRule()
+			.downloadStub("com.example","beer-api-producer-empty-git", "0.0.1.BUILD-SNAPSHOT")
+			.repoRoot("git://" + System.getenv("ROOT") + "/target/contract_empty_git/")
+			.stubsMode(StubRunnerProperties.StubsMode.REMOTE);
+	//remove::end[]
+
+	@BeforeClass
+	public static void beforeClass() {
+		Assume.assumeTrue("Spring Cloud Contract must be in version at least 2.1.0", atLeast210());
+	}
 
 	@Before
 	public void setupPort() {
-		beerController.port = producerPort;
-		Assume.assumeTrue(atLeast210());
+		// remove::start[]
+		beerController.port = rule.findStubUrl("beer-api-producer-empty-git").getPort();
+		// remove::end[]
 	}
 
-	private boolean atLeast210() {
+	private static boolean atLeast210() {
 		try {
 			Class.forName("org.springframework.cloud.contract.verifier.util.ContractVerifierUtil");
 		} catch (Exception ex) {
