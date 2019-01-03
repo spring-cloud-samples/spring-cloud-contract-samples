@@ -74,11 +74,11 @@ function prepare_for_build() {
     cd "${ROOT}/beer_contracts"
     ./mvnw clean install -U -Dspring-cloud.version="${PREVIOUS_CLOUD_VERSION}"
 
-    prepare_git
-
     if [[ "${BUILD_COMMON}" == "true" ]]; then
         pushd "${ROOT}/common" && ./gradlew clean build publishToMavenLocal -PBOM_VERSION="${PREVIOUS_CLOUD_VERSION}" --refresh-dependencies -x test --stacktrace && popd
     fi
+
+    prepare_git
 }
 
 function build_all_projects() {
