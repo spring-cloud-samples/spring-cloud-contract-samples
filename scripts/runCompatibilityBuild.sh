@@ -113,6 +113,7 @@ function build_gradle() {
     build_all_projects "${CURRENT_BOOT_VERSION}" "${CURRENT_CLOUD_VERSION}" "${CURRENT_CONTRACT_VERSION}" "${PREVIOUS_BOOT_VERSION}" "${PREVIOUS_CLOUD_VERSION}" "${PREVIOUS_CONTRACT_VERSION}"
 
     prepare_for_build
+    export OLD_PRODUCER_TRAIN="true"
     echo "Building old producer, current consumer"
     build_all_projects "${PREVIOUS_BOOT_VERSION}" "${PREVIOUS_CLOUD_VERSION}" "${PREVIOUS_CONTRACT_VERSION}" "${CURRENT_BOOT_VERSION}" "${CURRENT_CLOUD_VERSION}" "${CURRENT_CONTRACT_VERSION}"
 }
