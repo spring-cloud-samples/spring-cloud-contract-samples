@@ -1,0 +1,118 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		mavenLocal()
+		maven { url "http://repo.spring.io/snapshot" }
+		maven { url "http://repo.spring.io/milestone" }
+		maven { url "http://repo.spring.io/release" }
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
+		// remove::start[]
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
+		// remove::end[]
+	}
+}
+
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}],Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+
+group = 'com.example'
+version = '0.0.1.BUILD-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	maven { url "http://repo.spring.io/snapshot" }
+	maven { url "http://repo.spring.io/milestone" }
+	maven { url "http://repo.spring.io/release" }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+// remove::start[]
+apply plugin: 'spring-cloud-contract'
+// remove::end[]
+apply plugin: 'maven-publish'
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"
+	}
+}
+
+sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
+
+	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
+	// remove::start[]
+	testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
+	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	testCompile("org.springframework.cloud:spring-cloud-contract-wiremock")
+	// remove::end[]
+}
+
+// remove::start[]
+contracts {
+	packageWithBaseClasses = 'com.example'
+}
+// remove::end[]
+
+test {
+	testLogging {
+		exceptionFormat = 'full'
+	}
+	afterSuite { desc, result ->
+		if (!desc.parent) {
+			println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+			if (result.testCount == 0) {
+				throw new IllegalStateException("No tests were found. Failing the build")
+			}
+		}
+	}
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '4.10.1'
+}
+
+// remove::start[]
+// tag::stubsjar[]
+// we want to override the default Spring Cloud Contract behaviour and generate JAR in a custom way
+task stubsJar(type: Jar) {
+	classifier = "stubs"
+	into('/') {
+		include('**/com/example/model/*.*')
+		from("${project.rootDir}/src/main/java/")
+	}
+	into('/') {
+		include('**/com/example/model/*.*')
+		from("${project.buildDir}/classes/main")
+	}
+	into("META-INF/${project.group}/${project.name}/${project.version}/mappings") {
+		include('**/*.*')
+		from("${project.rootDir}/target/snippets/stubs")
+	}
+	into("META-INF/${project.group}/${project.name}/${project.version}/contracts") {
+		include('**/*.groovy')
+		from("${project.rootDir}/src/test/resources/contracts")
+	}
+}
+// we need the tests to pass to build the stub jar
+stubsJar.dependsOn(test)
+// we want to disable the default Spring Cloud Contract stub jar generation
+verifierStubsJar.enabled = false
+
+artifacts {
+	archives stubsJar
+}
+// end::stubsjar[]
+// remove::end[]
+
+clean.doFirst {
+	delete 'target/'
+}

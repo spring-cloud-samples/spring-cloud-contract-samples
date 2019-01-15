@@ -44,6 +44,7 @@
 				<module>producer_with_empty_git</module>
 				<module>producer_with_external_contracts</module>
 				<module>producer_with_restdocs</module>
+				<module>producer_with_webtestclient_restdocs</module>
 				<module>producer_with_dsl_restdocs</module>
 				<module>producer_with_spock</module>
 				<module>producer_with_junit5</module>
@@ -73,6 +74,7 @@
 				<module>producer_with_empty_git</module>
 				<module>producer_with_external_contracts</module>
 				<module>producer_with_restdocs</module>
+				<module>producer_with_webtestclient_restdocs</module>
 				<module>producer_with_dsl_restdocs</module>
 				<module>producer_with_spock</module>
 				<module>consumer</module>
