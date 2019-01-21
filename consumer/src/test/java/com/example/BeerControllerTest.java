@@ -3,6 +3,7 @@ package com.example;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -35,19 +36,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 public class BeerControllerTest extends AbstractTest {
 
-	@Autowired MockMvc mockMvc;
-	@Autowired BeerController beerController;
+	@Autowired
+	MockMvc mockMvc;
+	@Autowired
+	BeerController beerController;
 
 	//remove::start[]
-	@StubRunnerPort("beer-api-producer") int producerPort;
+	@StubRunnerPort("beer-api-producer")
+	int producerPort;
 
 	@Before
 	public void setupPort() {
 		beerController.port = producerPort;
 	}
+
 	//remove::end[]
 	//tag::tests[]
-	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+	@Test
+	public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -57,7 +63,8 @@ public class BeerControllerTest extends AbstractTest {
 		//remove::end[]
 	}
 
-	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
+	@Test
+	public void should_reject_a_beer_when_im_too_young() throws Exception {
 		//remove::start[]
 		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -68,7 +75,6 @@ public class BeerControllerTest extends AbstractTest {
 	}
 	//end::tests[]
 }
-
 
 //remove::start[]
 /*
