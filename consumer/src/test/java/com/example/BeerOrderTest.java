@@ -8,7 +8,10 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.junit.Assume;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -17,19 +20,16 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
-import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
+import org.springframework.cloud.contract.stubrunner.junit.StubRunnerRule;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.util.StringUtils;
 
-import static java.lang.System.getenv;
-import static org.junit.Assume.assumeTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.util.StringUtils.isEmpty;
 
 
 /**
@@ -39,11 +39,22 @@ import static org.springframework.util.StringUtils.isEmpty;
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-//remove::start[]
-@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer-xml")
-//remove::end[]
 @DirtiesContext
 public class BeerOrderTest extends AbstractTest {
+
+	//remove::start[]
+	@Rule
+	public StubRunnerRule rule = new StubRunnerRule()
+			.downloadStub("com.example", "beer-api-producer-xml")
+			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
+	//remove::end[]
+
+	@BeforeClass
+	public static void beforeClass() {
+		Assume.assumeTrue("Spring Cloud Contract must be in version at least 2.1.0", atLeast210());
+		Assume.assumeTrue("Env var OLD_PRODUCER_TRAIN must not be set", StringUtils
+				.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")));
+	}
 
 	@Autowired
 	MockMvc mockMvc;
@@ -51,19 +62,15 @@ public class BeerOrderTest extends AbstractTest {
 	BeerController beerController;
 
 	//remove::start[]
-	@StubRunnerPort("beer-api-producer-xml")
-	int producerPort;
-
 	@Before
 	public void setupPort() {
-		beerController.port = producerPort;
+		beerController.port = this.rule.findStubUrl("beer-api-producer-xml").getPort();
 	}
 	//remove::end[]
 
 	@Test
 	public void shouldProcessBeerOrder() throws Exception {
 		//remove::start[]
-		verifyNotOldProducerVersion();
 		XmlMapper xmlMapper = new XmlMapper();
 		mockMvc.perform(MockMvcRequestBuilders.post("/order")
 				.contentType(MediaType.APPLICATION_XML)
@@ -77,7 +84,6 @@ public class BeerOrderTest extends AbstractTest {
 	@Test
 	public void shouldCancelBeerOrder() throws Exception {
 		//remove::start[]
-		verifyNotOldProducerVersion();
 		XmlMapper xmlMapper = new XmlMapper();
 		mockMvc.perform(MockMvcRequestBuilders.post("/cancelOrder")
 				.contentType(MediaType.APPLICATION_XML)
@@ -88,11 +94,6 @@ public class BeerOrderTest extends AbstractTest {
 		//remove::end[]
 	}
 
-	private void verifyNotOldProducerVersion() {
-		assumeTrue("Spring Cloud Contract must be in version at least 2.1.0", atLeast210());
-		assumeTrue("Env var OLD_PRODUCER_TRAIN must not be set",
-				isEmpty(getenv("OLD_PRODUCER_TRAIN")));
-	}
 
 	private static boolean atLeast210() {
 		try {
