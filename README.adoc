@@ -116,6 +116,14 @@ can upload the pacts from a consumer (which actually can be the producer)
 and then all the other consumers, can use Spring Cloud Contract Stub Runner
 to run stubs of the producer.
 
+=== Producer_proto
+
+Project that uses Protocol Buffers to communicate.
+
+=== Consumer_proto
+
+Project that uses Protocol Buffers to communicate.
+
 == How to build it?
 
 You can run Maven from the root folder once the "common" module has been installed. So from a clean checkout:

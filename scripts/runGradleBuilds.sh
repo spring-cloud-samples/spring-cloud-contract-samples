@@ -58,6 +58,7 @@ function build_gradle() {
     build producer_yaml
     build producer_advanced
     build producer_pact
+    build producer_protobuf
     build producer_with_stubs_per_consumer
     build producer_with_external_contracts
     build producer_with_restdocs
@@ -67,6 +68,7 @@ function build_gradle() {
     build producer_with_junit5
     build producer_with_xml
     build consumer
+    build consumer_proto
     build consumer_pact_stubrunner
     build consumer_with_stubs_per_consumer
     build consumer_with_restdocs
