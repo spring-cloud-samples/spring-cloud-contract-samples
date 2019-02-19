@@ -23,3 +23,5 @@ nohup.out
 effective.pom
 test-results/
 bin/
+protoc
+.vscode/

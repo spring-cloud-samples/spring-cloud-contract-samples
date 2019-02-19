@@ -25,9 +25,9 @@ class BeerVerificationListener {
 		//remove::start[]
 		//tag::listener[]
 		if (verification.eligible) {
-			eligibleCounter.incrementAndGet();
+			this.eligibleCounter.incrementAndGet();
 		} else {
-			notEligibleCounter.incrementAndGet();
+			this.notEligibleCounter.incrementAndGet();
 		}
 		//end::listener[]
 		//remove::end[]

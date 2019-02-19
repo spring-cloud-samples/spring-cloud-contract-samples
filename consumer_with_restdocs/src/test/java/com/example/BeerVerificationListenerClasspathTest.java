@@ -29,24 +29,24 @@ public class BeerVerificationListenerClasspathTest extends AbstractTest {
 	@Autowired BeerVerificationListener listener;
 
 	@Test public void should_increase_the_eligible_counter_when_verification_was_accepted() throws Exception {
-		int initialCounter = listener.eligibleCounter.get();
+		int initialCounter = this.listener.eligibleCounter.get();
 
 		// trigger the message
 		//remove::start[]
-		stubTrigger.trigger("accepted_verification");
+		this.stubTrigger.trigger("accepted_verification");
 		//remove::end[]
 
-		then(listener.eligibleCounter.get()).isGreaterThan(initialCounter);
+		then(this.listener.eligibleCounter.get()).isGreaterThan(initialCounter);
 	}
 
 	@Test public void should_increase_the_noteligible_counter_when_verification_was_rejected() throws Exception {
-		int initialCounter = listener.notEligibleCounter.get();
+		int initialCounter = this.listener.notEligibleCounter.get();
 
 		// trigger the message
 		//remove::start[]
-		stubTrigger.trigger("rejected_verification");
+		this.stubTrigger.trigger("rejected_verification");
 		//remove::end[]
 
-		then(listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
+		then(this.listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
 	}
 }

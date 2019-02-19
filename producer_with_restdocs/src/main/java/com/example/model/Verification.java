@@ -11,7 +11,7 @@ public class Verification {
 	}
 
 	public boolean isEligible() {
-		return eligible;
+		return this.eligible;
 	}
 
 	public void setEligible(boolean eligible) {

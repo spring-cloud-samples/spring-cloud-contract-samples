@@ -52,7 +52,7 @@ public abstract class BeerIntoxicationBase {
 		//remove::start[]
 		RestAssuredMockMvc.mockMvc(MockMvcBuilders.webAppContextSetup(this.context)
 				.apply(documentationConfiguration(this.restDocumentation))
-				.alwaysDo(document(getClass().getSimpleName() + "_" + testName.getMethodName()))
+				.alwaysDo(document(getClass().getSimpleName() + "_" + this.testName.getMethodName()))
 				.build());
 		//remove::end[]
 	}
@@ -79,25 +79,25 @@ public abstract class BeerIntoxicationBase {
 		@Override public Response thereYouGo(Customer personToCheck) {
 			//remove::start[]
 			if ("marcin".equals(personToCheck.name)) {
-				 switch (current) {
+				 switch (this.current) {
 				 case SOBER:
-				 	current = TIPSY;
-				 	previous = SOBER;
+					 this.current = TIPSY;
+					 this.previous = SOBER;
 					 break;
 				 case TIPSY:
-					 current = DRUNK;
-					 previous = TIPSY;
+					 this.current = DRUNK;
+					 this.previous = TIPSY;
 					 break;
 				 case DRUNK:
-					 current = WASTED;
-					 previous = DRUNK;
+					 this.current = WASTED;
+					 this.previous = DRUNK;
 					 break;
 				 case WASTED:
 					 throw new UnsupportedOperationException("You can't handle it");
 				 }
 			}
 			//remove::end[]
-			return new Response(previous, current);
+			return new Response(this.previous, this.current);
 		}
 	}
 	//end::mock[]

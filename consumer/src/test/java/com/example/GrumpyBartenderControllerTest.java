@@ -50,20 +50,20 @@ public class GrumpyBartenderControllerTest extends AbstractTest {
 	public void setupPort() {
 		// either one or the other option
 		//tag::portfinder[]
-		int portFromStubFinder = stubFinder.findStubUrl("beer-api-producer-advanced").getPort();
+		int portFromStubFinder = this.stubFinder.findStubUrl("beer-api-producer-advanced").getPort();
 		//end::portfinder[]
-		int port2 = producerPort;
+		int port2 = this.producerPort;
 		BDDAssertions.then(portFromStubFinder).isEqualTo(port2);
-		controller.port = portFromStubFinder;
+		this.controller.port = portFromStubFinder;
 	}
 	//remove::end[]
 
 	//tag::tests[]
 	@Test public void should_fail_to_sell_beer() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/grumpy")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/grumpy")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 22)).getJson()))
+				.content(this.json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.whatTheBartenderSaid").value("You're drunk [marcin]. Go home!"))
 				.andExpect(jsonPath("$.whatDoWeDo").value("Go to another bar"));
@@ -72,9 +72,9 @@ public class GrumpyBartenderControllerTest extends AbstractTest {
 
 	@Test public void should_sell_beer_to_Josh() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/grumpy")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/grumpy")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("starbuxman", 22)).getJson()))
+				.content(this.json.write(new Person("starbuxman", 22)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.whatTheBartenderSaid").value("There you go Josh!"))
 				.andExpect(jsonPath("$.whatDoWeDo").value("Enjoy!"));

@@ -32,7 +32,7 @@ class BeerStatsController {
 		//remove::start[]
 		ResponseEntity<StatsResponse> response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/stats"))
+						.post(URI.create("http://localhost:" + this.port + "/stats"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(new StatsRequest(statsRequest.getName())),
 				StatsResponse.class);

@@ -57,10 +57,10 @@ public class BeerControllerTest {
 	@PactVerification
 	public void runTestBeer() {
 		// OK
-		assertEquals(controller.gimmeABeer(new Person("marcin", 25)), "THERE YOU GO");
+		assertEquals(this.controller.gimmeABeer(new Person("marcin", 25)), "THERE YOU GO");
 
 		// NOT_OK
-		assertEquals(controller.gimmeABeer(new Person("marcin", 10)), "GET LOST");
+		assertEquals(this.controller.gimmeABeer(new Person("marcin", 10)), "GET LOST");
 	}
 
 	private Map<String, String> responseHeaders() {

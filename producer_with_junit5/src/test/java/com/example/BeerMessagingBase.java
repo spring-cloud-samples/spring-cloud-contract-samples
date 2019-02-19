@@ -38,13 +38,13 @@ public abstract class BeerMessagingBase {
 
 	public void clientIsOldEnough() {
 		//remove::start[]
-		personCheckingService.shouldGetBeer(new PersonToCheck(25));
+		this.personCheckingService.shouldGetBeer(new PersonToCheck(25));
 		//remove::end[]
 	}
 
 	public void clientIsTooYoung() {
 		//remove::start[]
-		personCheckingService.shouldGetBeer(new PersonToCheck(5));
+		this.personCheckingService.shouldGetBeer(new PersonToCheck(5));
 		//remove::end[]
 	}
 }

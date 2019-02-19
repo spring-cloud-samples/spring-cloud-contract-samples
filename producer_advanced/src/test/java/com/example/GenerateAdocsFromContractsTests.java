@@ -31,7 +31,7 @@ public class GenerateAdocsFromContractsTests {
 	@Test public void should_convert_contracts_into_adoc() throws IOException {
 		final StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(header);
-		final Path rootDir = contracts.getFile().toPath();
+		final Path rootDir = this.contracts.getFile().toPath();
 
 		Files.walkFileTree(rootDir, new FileVisitor<Path>() {
 			private Pattern pattern = Pattern.compile("^.*groovy$");
@@ -45,7 +45,7 @@ public class GenerateAdocsFromContractsTests {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes mainAtts)
 					throws IOException {
-				boolean matches = pattern.matcher(path.toString()).matches();
+				boolean matches = this.pattern.matcher(path.toString()).matches();
 				if (matches) {
 					appendContract(stringBuilder, path);
 				}

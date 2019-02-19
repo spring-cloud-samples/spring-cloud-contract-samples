@@ -46,7 +46,7 @@ public class IntoxicationControllerYamlTest extends AbstractTest {
 
 	@Before
 	public void setupPort() {
-		intoxicationController.port = producerPort;
+		this.intoxicationController.port = this.producerPort;
 	}
 	//remove::end[]
 
@@ -61,9 +61,9 @@ public class IntoxicationControllerYamlTest extends AbstractTest {
 	private void sendARequestAndExpectStatuses(DrunkLevel previousStatus, DrunkLevel currentStatus) throws Exception {
 		//remove::start[]
 		//tag::test[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/wasted")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/wasted")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin")).getJson()))
+				.content(this.json.write(new Person("marcin")).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().json("{\"previousStatus\":\"" + previousStatus.name() +
 						"\",\"currentStatus\":\"" + currentStatus.name() + "\"}"));

@@ -45,15 +45,15 @@ public class BeerControllerTest extends AbstractTest {
 
 	@Before
 	public void setupPort() {
-		beerController.port = producerPort;
+		this.beerController.port = this.producerPort;
 	}
 
 	//tag::impl[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 22)).getJson()))
+				.content(this.json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("THERE YOU GO MY DEAR FRIEND [marcin]"));
 		//remove::end[]
@@ -61,9 +61,9 @@ public class BeerControllerTest extends AbstractTest {
 
 	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 17)).getJson()))
+				.content(this.json.write(new Person("marcin", 17)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST MY DEAR FRIEND [marcin]"));
 		//remove::end[]

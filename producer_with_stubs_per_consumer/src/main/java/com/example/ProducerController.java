@@ -21,7 +21,7 @@ public class ProducerController {
 	public Response check(@RequestBody PersonToCheck personToCheck) {
 		//remove::start[]
 		//tag:impl[]
-		if (personCheckingService.shouldGetBeer(personToCheck)) {
+		if (this.personCheckingService.shouldGetBeer(personToCheck)) {
 			return new Response(BeerCheckStatus.OK, personToCheck.name);
 		}
 		return new Response(BeerCheckStatus.NOT_OK, personToCheck.name);

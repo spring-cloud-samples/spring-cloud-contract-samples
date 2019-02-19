@@ -45,15 +45,15 @@ public class BeerStatsControllerTest extends AbstractTest {
 	@Before
 	public void setupPort() {
 		//remove::start[]
-		beerStatsController.port = producerPort;
+		this.beerStatsController.port = this.producerPort;
 		//remove::start[]
 	}
 
 	@Test public void should_return_a_personalized_text_with_amount_of_beers() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/stats")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/stats")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(statsJson.write(new StatsRequest("marcin")).getJson()))
+				.content(this.statsJson.write(new StatsRequest("marcin")).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("Dear marcin thanks for your interested in drinking beer. You've drank <5> beers"));
 		//remove::end[]

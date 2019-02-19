@@ -33,7 +33,7 @@ class IntoxicationController {
 		//remove::start[]
 		return this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/beer"))
+						.post(URI.create("http://localhost:" + this.port + "/beer"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class).getBody();

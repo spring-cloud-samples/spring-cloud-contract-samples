@@ -24,9 +24,9 @@ class BeerVerificationListener {
 		//remove::start[]
 		log.info("Received new verification");
 		if (verification.eligible) {
-			eligibleCounter.incrementAndGet();
+			this.eligibleCounter.incrementAndGet();
 		} else {
-			notEligibleCounter.incrementAndGet();
+			this.notEligibleCounter.incrementAndGet();
 		}
 		//remove::end[]
 	}

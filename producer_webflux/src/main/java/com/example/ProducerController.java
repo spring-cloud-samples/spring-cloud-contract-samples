@@ -21,7 +21,7 @@ public class ProducerController {
 			produces="application/json")
 	public Mono<Response> check(@RequestBody PersonToCheck personToCheck) {
 		//remove::start[]
-		if (personCheckingService.shouldGetBeer(personToCheck)) {
+		if (this.personCheckingService.shouldGetBeer(personToCheck)) {
 			return Mono.just(new Response(BeerCheckStatus.OK));
 		}
 		return Mono.just(new Response(BeerCheckStatus.NOT_OK));

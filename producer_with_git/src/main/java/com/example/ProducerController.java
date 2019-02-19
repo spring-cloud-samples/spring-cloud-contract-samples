@@ -20,7 +20,7 @@ public class ProducerController {
 			produces="application/json")
 	public Response check(@RequestBody PersonToCheck personToCheck) {
 		//remove::start[]
-		if (personCheckingService.shouldGetBeer(personToCheck)) {
+		if (this.personCheckingService.shouldGetBeer(personToCheck)) {
 			return new Response(BeerCheckStatus.OK);
 		}
 		return new Response(BeerCheckStatus.NOT_OK);

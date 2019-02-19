@@ -12,7 +12,7 @@ public abstract class BeerRestBase {
 
 	@Before
 	public void setup() {
-		RestAssuredMockMvc.standaloneSetup(producerController);
+		RestAssuredMockMvc.standaloneSetup(this.producerController);
 	}
 
 	private PersonCheckingService oldEnough() {

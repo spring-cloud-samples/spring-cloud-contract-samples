@@ -38,9 +38,9 @@ public abstract class BeerRestBase {
 
 	@Before
 	public void setup() {
-		RestAssuredMockMvc.mockMvc(MockMvcBuilders.standaloneSetup(producerController, statsController)
+		RestAssuredMockMvc.mockMvc(MockMvcBuilders.standaloneSetup(this.producerController, this.statsController)
 				.apply(documentationConfiguration(this.restDocumentation))
-				.alwaysDo(document(getClass().getSimpleName() + "_" + testName.getMethodName()))
+				.alwaysDo(document(getClass().getSimpleName() + "_" + this.testName.getMethodName()))
 				.build());
 	}
 	//remove::end[]

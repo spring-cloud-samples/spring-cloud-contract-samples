@@ -26,7 +26,7 @@ public abstract class BeerRestBase {
 	@Before
 	public void setup() {
 		// remove::start[]
-		RestAssured.baseURI = "http://localhost:" + port;
+		RestAssured.baseURI = "http://localhost:" + this.port;
 		// remove::end[]
 	}
 

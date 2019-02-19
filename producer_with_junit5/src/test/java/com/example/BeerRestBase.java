@@ -30,9 +30,9 @@ public abstract class BeerRestBase {
 
 	@BeforeEach
 	public void setup() {
-		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
-		given(statsService.findBottlesByName(anyString())).willReturn(new Random().nextInt());
-		RestAssuredMockMvc.standaloneSetup(producerController, statsController);
+		given(this.personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+		given(this.statsService.findBottlesByName(anyString())).willReturn(new Random().nextInt());
+		RestAssuredMockMvc.standaloneSetup(this.producerController, this.statsController);
 	}
 
 	private ArgumentMatcher<PersonToCheck> oldEnough() {

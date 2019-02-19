@@ -42,7 +42,7 @@ class BeerController {
 		//tag::controller[]
 		ResponseEntity<Response> response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/check"))
+						.post(URI.create("http://localhost:" + this.port + "/check"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class);
@@ -62,7 +62,7 @@ class BeerController {
 	public String order(@RequestBody BeerOrder beerSaleOrder) {
 		ResponseEntity<BeerOrderResponse> response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/order"))
+						.post(URI.create("http://localhost:" + this.port + "/order"))
 						.contentType(APPLICATION_XML)
 						.body(new BeerOrder(beerSaleOrder.value, beerSaleOrder.beerName)),
 				BeerOrderResponse.class);
@@ -76,7 +76,7 @@ class BeerController {
 	public String cancelOrder(@RequestBody BeerOrder beerSaleOrder) {
 		ResponseEntity<BeerOrderResponse> response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/cancelOrder"))
+						.post(URI.create("http://localhost:" + this.port + "/cancelOrder"))
 						.contentType(APPLICATION_XML)
 						.body(new BeerOrder(beerSaleOrder.value, beerSaleOrder.beerName)),
 				BeerOrderResponse.class);

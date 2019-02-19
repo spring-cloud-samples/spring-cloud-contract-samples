@@ -64,7 +64,7 @@ public class BeerOrderTest extends AbstractTest {
 	//remove::start[]
 	@Before
 	public void setupPort() {
-		beerController.port = this.rule.findStubUrl("beer-api-producer-xml").getPort();
+		this.beerController.port = this.rule.findStubUrl("beer-api-producer-xml").getPort();
 	}
 	//remove::end[]
 
@@ -72,7 +72,7 @@ public class BeerOrderTest extends AbstractTest {
 	public void shouldProcessBeerOrder() throws Exception {
 		//remove::start[]
 		XmlMapper xmlMapper = new XmlMapper();
-		mockMvc.perform(MockMvcRequestBuilders.post("/order")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/order")
 				.contentType(MediaType.APPLICATION_XML)
 				.content(xmlMapper
 						.writeValueAsString(new BeerOrder(new BigDecimal("123"), Arrays
@@ -85,7 +85,7 @@ public class BeerOrderTest extends AbstractTest {
 	public void shouldCancelBeerOrder() throws Exception {
 		//remove::start[]
 		XmlMapper xmlMapper = new XmlMapper();
-		mockMvc.perform(MockMvcRequestBuilders.post("/cancelOrder")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/cancelOrder")
 				.contentType(MediaType.APPLICATION_XML)
 				.content(xmlMapper
 						.writeValueAsString(new BeerOrder(new BigDecimal("123"), Arrays

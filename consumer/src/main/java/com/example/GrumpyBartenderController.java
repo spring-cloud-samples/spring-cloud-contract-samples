@@ -29,7 +29,7 @@ public class GrumpyBartenderController {
 		//tag::controller[]
 		ResponseEntity<GrumpyBartenderResponse> response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/buy"))
+						.post(URI.create("http://localhost:" + this.port + "/buy"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				GrumpyBartenderResponse.class);

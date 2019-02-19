@@ -34,7 +34,7 @@ class BeerController {
 		//tag::controller[]
 		ResponseEntity<Response> response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/check"))
+						.post(URI.create("http://localhost:" + this.port + "/check"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class);

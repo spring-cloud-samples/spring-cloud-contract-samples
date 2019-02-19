@@ -22,7 +22,7 @@ public class StatsController {
 			consumes="application/json",
 			produces="application/json")
 	public StatsResponse check(@RequestBody StatsRequest request) {
-		int bottles = statsService.findBottlesByName(request.getName());
+		int bottles = this.statsService.findBottlesByName(request.getName());
 		String text = String.format("Dear %s thanks for your interested in drinking beer", request.getName());
 		return new StatsResponse(bottles, text);
 	}

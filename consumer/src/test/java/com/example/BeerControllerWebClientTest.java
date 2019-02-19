@@ -39,7 +39,7 @@ public class BeerControllerWebClientTest extends AbstractTest {
 		WebTestClient.bindToServer()
 				.build()
 				.post()
-				.uri("http://localhost:" + producerPort + "/check")
+				.uri("http://localhost:" + this.producerPort + "/check")
 				.syncBody(new WebClientPerson("marcin", 22))
 				.header("Content-Type", "application/json")
 				.exchange()
@@ -54,7 +54,7 @@ public class BeerControllerWebClientTest extends AbstractTest {
 		WebTestClient.bindToServer()
 				.build()
 				.post()
-				.uri("http://localhost:" + producerPort + "/check")
+				.uri("http://localhost:" + this.producerPort + "/check")
 				.syncBody(new WebClientPerson("marcin", 17))
 				.header("Content-Type", "application/json")
 				.exchange()
@@ -94,12 +94,12 @@ class WebClientResponse {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		WebClientResponse that = (WebClientResponse) o;
-		return status == that.status;
+		return this.status == that.status;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(status);
+		return Objects.hash(this.status);
 	}
 }
 

@@ -36,13 +36,13 @@ public class GenerateGraphFromContractsTests {
 
 	@Test
 	public void should_build_a_list_of_relationships() throws IOException {
-		Path root = Paths.get(contracts.getURI());
+		Path root = Paths.get(this.contracts.getURI());
 		DependencyWalker dependencyWalker = new DependencyWalker(root);
 
 		Files.walkFileTree(root, dependencyWalker);
 
 		File outputFile = new File("relationships.js");
-		String relationships = mapper.writeValueAsString(dependencyWalker.relationships());
+		String relationships = this.mapper.writeValueAsString(dependencyWalker.relationships());
 		outputFile.createNewFile();
 		Files.write(outputFile.toPath(), ("relationships = '" + relationships + "'").getBytes());
 	}
