@@ -10,6 +10,8 @@ set -o pipefail
 
 ./src/main/bash/download_protoc.sh
 
+export LD_LIBRARY_PATH=/usr/local/lib
+
 echo "Generating request"
 echo age : 17 | target/protoc/bin/protoc --encode=beer.PersonToCheck src/main/resources/proto/beer.proto > target/PersonToCheck_too_young.bin
 echo "Generated proto"
