@@ -2,7 +2,6 @@
 
 set -o errexit
 set -o errtrace
-set -o nounset
 set -o pipefail
 
 export PROTOC_TAG="v3.7.0rc2"

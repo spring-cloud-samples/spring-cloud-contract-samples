@@ -2,13 +2,13 @@
 
 set -o errexit
 set -o errtrace
-set -o nounset
 set -o pipefail
 
 ./src/main/bash/download_protoc.sh
 
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 [[ -z "${LD_LIBRARY_PATH}" ]] && LD_LIBRARY_PATH="$( whereis libatomic.so.1 | awk '{ print $2 }' )"
+echo "${LD_LIBRARY_PATH}"
 
 echo "Generating proto files"
 mkdir -p target/generated-sources/java
