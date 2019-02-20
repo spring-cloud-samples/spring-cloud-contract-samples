@@ -95,6 +95,7 @@ function build_all_projects() {
     build producer_yaml "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_advanced "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_pact "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
+    build producer_kotlin "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_stubs_per_consumer "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_external_contracts "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_restdocs "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"

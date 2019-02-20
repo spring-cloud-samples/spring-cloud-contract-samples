@@ -1,0 +1,112 @@
+buildscript {
+	ext {
+		kotlinVersion = '1.3.21'
+	}
+	repositories {
+		mavenCentral()
+		mavenLocal()
+		maven { url "http://repo.spring.io/snapshot" }
+		maven { url "http://repo.spring.io/milestone" }
+		maven { url "http://repo.spring.io/release" }
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
+		// remove::start[]
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
+		// tag::test_dep_in_plugin[]
+		classpath "com.example:beer-common:0.0.1.BUILD-SNAPSHOT"
+		// end::test_dep_in_plugin[]
+		// remove::end[]
+		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+	}
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+// remove::start[]
+apply plugin: 'spring-cloud-contract'
+// remove::end[]
+apply plugin: 'maven-publish'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	maven { url "http://repo.spring.io/snapshot" }
+	maven { url "http://repo.spring.io/milestone" }
+	maven { url "http://repo.spring.io/release" }
+}
+
+dependencies {
+	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion" // Required for Kotlin integration
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
+
+	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
+	// remove::start[]
+	// tag::verifier_dep[]
+	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	// end::verifier_dep[]
+	// tag::test_dep[]
+	testCompile("com.example:beer-common:0.0.1.BUILD-SNAPSHOT")
+	// end::test_dep[]
+	// remove::end[]
+}
+
+// remove::start[]
+contracts {
+	packageWithBaseClasses = 'com.example'
+	baseClassMappings {
+		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
+	}
+}
+// remove::end[]
+
+test {
+	testLogging {
+		exceptionFormat = 'full'
+	}
+	afterSuite { desc, result ->
+		if (!desc.parent) {
+			println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+			if (result.testCount == 0) {
+				throw new IllegalStateException("No tests were found. Failing the build")
+			}
+		}
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"
+	}
+}
+
+compileKotlin {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '1.8'
+	}
+}
+
+compileTestKotlin {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '1.8'
+	}
+}
+
+// IMPORTANT!
+
+sourceSets {
+    test.java.srcDirs += new File(project.buildDir, "generated-test-source").toString()
+}
+
+compileTestGroovy.enabled = false

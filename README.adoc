@@ -124,6 +124,10 @@ Project that uses Protocol Buffers to communicate.
 
 Project that uses Protocol Buffers to communicate.
 
+=== Producer_kotlin
+
+Producer application written in Kotlin.
+
 == How to build it?
 
 You can run Maven from the root folder once the "common" module has been installed. So from a clean checkout:
