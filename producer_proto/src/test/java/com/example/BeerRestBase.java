@@ -2,6 +2,7 @@ package com.example;
 
 //remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+//remove::end[]
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
@@ -13,22 +14,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.context.WebApplicationContext;
-//remove::end[]
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BeerRestBase.Config.class)
 public abstract class BeerRestBase {
 
-	// remove::start[]
 	@Autowired
 	WebApplicationContext context;
 
+	// remove::start[]
 	@Before
 	public void setup() {
 		RestAssuredMockMvc.webAppContextSetup(this.context);
 	}
-
 	// remove::end[]
+
 	@Configuration
 	@EnableAutoConfiguration
 	@Import({ ProtoConfiguration.class, ProducerController.class })
