@@ -1,6 +1,5 @@
 package beer.rest
 
-import com.example.PatternUtils
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
@@ -27,7 +26,7 @@ then:
 			contentType(applicationJson())
 		}
 		bodyMatchers {
-			jsonPath('$.age', byRegex(PatternUtils.tooYoung()))
+			jsonPath('$.age', byRegex("[0-1][0-9]"))
 		}
 	}
 	response {

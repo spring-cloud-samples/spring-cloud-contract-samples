@@ -1,7 +1,5 @@
 package beer.rest
 
-import com.example.ConsumerUtils
-import com.example.ProducerUtils
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
@@ -22,7 +20,7 @@ then:
 		method 'POST'
 		url '/check'
 		body(
-				age: $(ConsumerUtils.oldEnough())
+				age: $(regex("[2-9][0-9]"))
 		)
 		headers {
 			contentType(applicationJson())

@@ -58,14 +58,6 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- end::verifier_dep[] -->
-		<!-- tag::test_dep[] -->
-		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>beer-common</artifactId>
-			<version>${project.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- end::test_dep[] -->
 	</dependencies>
 
 	<properties>
@@ -171,14 +163,6 @@
 						</baseClassMapping>
 					</baseClassMappings>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.example</groupId>
-						<artifactId>beer-common</artifactId>
-						<version>${project.version}</version>
-						<scope>compile</scope>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<!-- end::test_dep_in_plugin[] -->
 
