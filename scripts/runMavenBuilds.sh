@@ -31,7 +31,7 @@ function build_maven() {
 
     echo -e "\n\nBuilding everything\n\n"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./mvnw clean install -Ptest -U -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true
+        ./mvnw clean install -Ptest -U -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else
         ./mvnw clean install -Ptest -U
     fi
