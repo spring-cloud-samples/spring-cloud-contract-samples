@@ -63,7 +63,8 @@ test {
 	afterSuite { desc, result ->
 		if (!desc.parent) {
 			println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
-			if (result.testCount == 0) {
+			boolean skipTests = Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
+			if (result.testCount == 0 && !skipTests) {
 				throw new IllegalStateException("No tests were found. Failing the build")
 			}
 		}
