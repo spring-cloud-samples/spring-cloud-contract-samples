@@ -22,7 +22,7 @@ ext{
 	restAssuredVersion = '3.2.0'
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}],Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
 
 group = 'com.example'
 version = '0.0.1.BUILD-SNAPSHOT'
