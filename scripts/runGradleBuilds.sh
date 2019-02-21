@@ -31,7 +31,7 @@ function build() {
     echo -e "\n\nBuilding ${folder}\n\n"
     cd "${ROOT}/${folder}"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true --stacktrace --refresh-dependencies
+        ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies
     else
         ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies
     fi
