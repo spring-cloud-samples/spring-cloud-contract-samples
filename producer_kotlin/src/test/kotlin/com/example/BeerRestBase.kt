@@ -1,14 +1,10 @@
 package com.example
 
-
-//remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc
-//remove::end[]
 import org.junit.Before
 import java.util.*
 
 abstract class BeerRestBase {
-    //remove::start[]
     internal var producerController = ProducerController(oldEnough())
     internal var statsController = StatsController(statsService())
 
@@ -32,5 +28,4 @@ abstract class BeerRestBase {
             }
         }
     }
-    //remove::end[]
 }

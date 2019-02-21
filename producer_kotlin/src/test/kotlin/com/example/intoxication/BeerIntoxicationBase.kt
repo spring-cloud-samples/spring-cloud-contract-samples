@@ -1,9 +1,7 @@
 package com.example.intoxication
 
 import com.example.intoxication.DrunkLevel.*
-//remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc
-//remove::end[]
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,9 +24,7 @@ abstract class BeerIntoxicationBase {
 
     @Before
     fun setup() {
-        //remove::start[]
         RestAssuredMockMvc.webAppContextSetup(this.webApplicationContext)
-        //remove::end[]
     }
 
     @Configuration
@@ -46,14 +42,12 @@ abstract class BeerIntoxicationBase {
         }
     }
 
-    //tag::mock[]
     internal class MockResponseProvider : ResponseProvider {
 
         private var previous = SOBER
         private var current = SOBER
 
         override fun thereYouGo(personToCheck: Customer): Response {
-            //remove::start[]
             if ("marcin" == personToCheck.name) {
                 when (this.current) {
                     SOBER -> {
@@ -71,9 +65,7 @@ abstract class BeerIntoxicationBase {
                     WASTED -> throw UnsupportedOperationException("You can't handle it")
                 }
             }
-            //remove::end[]
             return Response(this.previous, this.current)
         }
     }
-    //end::mock[]
 }
