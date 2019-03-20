@@ -385,7 +385,7 @@ following snippet:
             <artifactId>beer-contracts</artifactId>
         </contractDependency>
         <!-- The JAR with contracts will get downloaded from an external repo -->
-        <contractsRepositoryUrl>http://foo.bar/baz</contractsRepositoryUrl>
+        <contractsRepositoryUrl>https://foo.bar/baz</contractsRepositoryUrl>
         <!-- Base package for generated tests -->
         <basePackageForTests>com.example</basePackageForTests>
     </configuration>
@@ -402,7 +402,7 @@ contracts {
 	}
 	// The JAR with contracts will get downloaded from an external repo
 	contracts {
-		repositoryUrl = "http://foo.bar/baz"
+		repositoryUrl = "https://foo.bar/baz"
 	}
 	// Base package for generated tests
 	basePackageForTests = "com.example"

@@ -8,7 +8,7 @@
 <title>Contracts in an external repository 2.1.0.BUILD-SNAPSHOT</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
-/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -1254,7 +1254,7 @@ Gradle. In this tutorial, we use Maven. You can see how the <code>pom.xml</code>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
 	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
 	&lt;groupId&gt;com.example&lt;/groupId&gt;
@@ -2239,7 +2239,7 @@ following snippet:</p>
             &lt;artifactId&gt;beer-contracts&lt;/artifactId&gt;
         &lt;/contractDependency&gt;
         &lt;!-- The JAR with contracts will get downloaded from an external repo --&gt;
-        &lt;contractsRepositoryUrl&gt;http://foo.bar/baz&lt;/contractsRepositoryUrl&gt;
+        &lt;contractsRepositoryUrl&gt;https://foo.bar/baz&lt;/contractsRepositoryUrl&gt;
         &lt;!-- Base package for generated tests --&gt;
         &lt;basePackageForTests&gt;com.example&lt;/basePackageForTests&gt;
     &lt;/configuration&gt;
@@ -2258,7 +2258,7 @@ following snippet:</p>
 		stringNotation = 'com.example:beer-contracts'
 	}
 	// The JAR with contracts will get downloaded from an external repo
-	contractsRepositoryUrl = "http://foo.bar/baz"
+	contractsRepositoryUrl = "https://foo.bar/baz"
 	// Base package for generated tests
 	basePackageForTests = "com.example"
 	baseClassMappings {
@@ -2300,7 +2300,7 @@ code) it&#8217;s enough to pass the <code>repositoryRoot</code> parameter and se
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 @AutoConfigureStubRunner(
-repositoryRoot="http://foo.com/bar,
+repositoryRoot="http://www.foo.com/bar,
 ids = "com.example:beer-api-producer-external:+:stubs:8090",
 stubsMode = StubRunnerProperties.StubsMode.REMOTE
 )
