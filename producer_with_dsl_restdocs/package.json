@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "description": "Simple client app",
-  "repository": "http://registry.npmjs.org/",
+  "repository": "https://registry.npmjs.org/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
