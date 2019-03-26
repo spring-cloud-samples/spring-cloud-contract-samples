@@ -100,7 +100,7 @@ Contains docker setup for Pact Broker
 
 === Consumer_pact
 
-Since http://pact.io/[Pact] works around the idea of consumer contract,
+Since https://pact.io/[Pact] works around the idea of consumer contract,
 the contract definitions (the Pact files), are defined and set up on the consumer side.
 Then the Pact files get uploaded to the Pact Broker
 
