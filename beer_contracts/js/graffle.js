@@ -1,7 +1,7 @@
 /**
  * Originally grabbed from the official RaphaelJS Documentation
- * http://raphaeljs.com/graffle.html
- * Changes and comments by Philipp Strathausen http://blog.ameisenbar.de
+ * https://raphaeljs.com/graffle.html
+ * Changes and comments by Philipp Strathausen https://blog.ameisenbar.de/
  * Licenced under the MIT licence.
  */
 
