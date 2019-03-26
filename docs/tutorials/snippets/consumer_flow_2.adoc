@@ -16,7 +16,7 @@ code) it's enough to pass the `repositoryRoot` parameter and set the
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 @AutoConfigureStubRunner(
-repositoryRoot="http://foo.com/bar,
+repositoryRoot="http://www.foo.com/bar,
 ids = "com.example:{producer_artifact}:+:stubs:8090",
 stubsMode = StubRunnerProperties.StubsMode.REMOTE
 )
