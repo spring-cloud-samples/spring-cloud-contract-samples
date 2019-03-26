@@ -15,7 +15,7 @@ code) it's enough to remove the `workOffline` flag and to pass the `repositoryRo
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 @AutoConfigureStubRunner(
-repositoryRoot="http://foo.com/bar,
+repositoryRoot="http://www.foo.com/bar,
 ids = "com.example:{producer_artifact}:+:stubs:8090")
 
 public class YourTestOnTheConsumerSide extends AbstractTest {

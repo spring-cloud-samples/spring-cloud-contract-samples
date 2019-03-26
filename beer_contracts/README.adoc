@@ -164,7 +164,7 @@ your HTML file. It will load to a var called `relationships` the JSON representi
 the relationships. The JSON consists of `source`, `target` pairs where `source` is
 the `producer` and `target` is the `consumer`.
 
-There are two example HTML files `relationships_d3.html` that uses http://d3js.org/[d3js]
+There are two example HTML files `relationships_d3.html` that uses https://d3js.org/[d3js]
 and `relationships_dracula.html` that uses https://www.graphdracula.net[Graph Dracula] to
 render the graph.
 
