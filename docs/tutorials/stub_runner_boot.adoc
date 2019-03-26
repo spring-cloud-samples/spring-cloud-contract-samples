@@ -135,7 +135,7 @@ We should get a `STOUT` string on the terminal.
 
 TIP: There are also  `/trigger` endpoints available if you want to trigger some messaging
 labels. You can read more about them in the https://cloud.spring.io/spring-cloud-contract/spring-cloud-contract.html#_stub_runner_boot_application[docs].
-For the http://cloud.spring.io/spring-cloud-pipelines/spring-cloud-pipelines.html[Spring
+For the https://cloud.spring.io/spring-cloud-pipelines/spring-cloud-pipelines.html[Spring
 Cloud Pipelines] project, we have a Stub Runner Boot application that uses a real
 instance of RabbitMQ for messaging and registers stubs in Eureka. You can check the code
 https://github.com/spring-cloud-samples/github-analytics-stub-runner-boot[here].
