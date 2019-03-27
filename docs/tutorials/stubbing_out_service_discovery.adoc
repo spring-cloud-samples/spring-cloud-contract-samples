@@ -73,7 +73,7 @@ RestTemplate restTemplate() {
 ----
 
 Now let's assume that we call the producer application by using the
-`http://somenameforproducer/check` URL. You need to provide some properties to tell Stub
+`https://somenameforproducer/check` URL. You need to provide some properties to tell Stub
 Runner that the given service name (in our case, `somenameforproducer`) should be mapped
 to the running HTTP server stub of a given producer. Let's set those properties.
 Stub Runner requires you to set the `stubrunner.idsToServiceIds` mapping in which the key
@@ -87,7 +87,7 @@ stubrunner:
     beer-api-producer: somenameforproducer
 ----
 
-When you call the URL `http://somenameforproducer/check`, it will get redirected to a
+When you call the URL `https://somenameforproducer/check`, it will get redirected to a
 fake HTTP instance that was started with the `beer-api-producer` stubs JAR. We know how
 the API needs to look, so we can now go ahead and try to write the missing implementation
 of the `BeerController`.

@@ -32,7 +32,7 @@ class BeerController {
 		//tag::controller[]
 		ResponseEntity<Response> response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://somenameforproducer/check"))
+						.post(URI.create("https://somenameforproducer/check"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class);
