@@ -59,6 +59,7 @@
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
 				<module>consumer_with_junit5</module>-->
+				<module>consumer_security</module>
 			</modules>
 		</profile>
 		<profile>
