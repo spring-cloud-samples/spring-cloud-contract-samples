@@ -20,6 +20,8 @@ buildscript {
 
 println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
 
+boolean oldProducerTrainEnabled = project.findProperty('OLD_PRODUCER_TRAIN') == "true"
+
 group = 'com.example'
 version = '0.0.1.BUILD-SNAPSHOT'
 
@@ -80,10 +82,11 @@ test {
 	afterSuite { desc, result ->
 		if (!desc.parent) {
 			println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
-			boolean skipTests = Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
+			boolean skipTests = oldProducerTrainEnabled || Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
 			if (result.testCount == 0 && !skipTests) {
 				throw new IllegalStateException("No tests were found. Failing the build")
 			}
 		}
 	}
+	enabled = !oldProducerTrainEnabled
 }

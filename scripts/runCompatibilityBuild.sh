@@ -61,9 +61,9 @@ function build() {
     echo -e "\n\nBuilding [${folder}] for boot [${bootVersion}] and cloud [${cloudVersion}] and verifier [${verifierVersion}]\n\n"
     pushd "${ROOT}/${folder}"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./gradlew clean build publishToMavenLocal --refresh-dependencies -x test -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}" --stacktrace
+        ./gradlew clean build publishToMavenLocal --refresh-dependencies -x test -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}" -POLD_PRODUCER_TRAIN="${OLD_PRODUCER_TRAIN}" --stacktrace
     else
-        ./gradlew clean build publishToMavenLocal --refresh-dependencies -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}" --stacktrace
+        ./gradlew clean build publishToMavenLocal --refresh-dependencies -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}" -POLD_PRODUCER_TRAIN="${OLD_PRODUCER_TRAIN}" --stacktrace
     fi
     popd
 }
@@ -95,12 +95,13 @@ function build_all_projects() {
     build producer_yaml "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_advanced "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_pact "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
-#    build producer_kotlin "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
+    build producer_kotlin "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_stubs_per_consumer "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_external_contracts "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_restdocs "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_dsl_restdocs "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_spock "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
+    build producer_with_xml "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build consumer "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
     build consumer_pact_stubrunner "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
     build consumer_with_stubs_per_consumer "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
