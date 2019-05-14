@@ -81,7 +81,3 @@ task stopBroker(type:Exec) {
 }
 
 build.dependsOn("stopBroker")
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.10.1'
-}
