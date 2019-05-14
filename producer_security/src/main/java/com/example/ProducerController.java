@@ -16,7 +16,7 @@ public class ProducerController {
         this.personCheckingService = personCheckingService;
     }
 
-    @RequestMapping(value = "/check", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/check", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public Response check(Authentication authentication) {
         // remove::start[]
         if (this.personCheckingService.shouldGetBeer(currentUserDetails(authentication))) {
@@ -48,7 +48,7 @@ public class ProducerController {
 class PersonCheckingService {
 
     Boolean shouldGetBeer(UserDetails userDetails) {
-        return userDetails.getAge() >= 20;
+        return userDetails.getAge() >= 21;
     }
 }
 

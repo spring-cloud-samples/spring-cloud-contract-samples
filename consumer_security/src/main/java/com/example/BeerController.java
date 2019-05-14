@@ -35,7 +35,7 @@ class BeerController {
         // remove::start[]
         // tag::controller[]
         String token = OLD_ENOUGH_TOKEN;
-        if (person.getAge() < 20) {
+        if (person.getAge() < 21) {
             token = TOO_YOUNG_TOKEN;
         }
 
