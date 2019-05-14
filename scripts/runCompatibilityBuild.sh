@@ -8,6 +8,7 @@ set -o pipefail
 export ROOT=${ROOT:-`pwd`}
 export BUILD_COMMON="${BUILD_COMMON:-true}"
 export SKIP_TESTS="${SKIP_TESTS:-false}"
+export OLD_PRODUCER_TRAIN="${OLD_PRODUCER_TRAIN:-false}"
 
 . ${ROOT}/scripts/setup.sh
 
