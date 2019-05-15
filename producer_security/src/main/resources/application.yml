@@ -1,5 +1,5 @@
 spring:
-  application.name: beer-api-producer
+  application.name: beer-api-producer-security
 security:
   oauth2:
     resource:

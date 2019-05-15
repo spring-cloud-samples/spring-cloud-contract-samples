@@ -43,7 +43,7 @@ class BeerController {
 
         ResponseEntity<Response> response =
             this.restTemplate.exchange(RequestEntity.post(URI.create("http://localhost:" + this.port + "/check"))
-                                                    .contentType(MediaType.APPLICATION_JSON)
+                                                    .contentType(MediaType.APPLICATION_JSON_UTF8)
                                                     .header(AUTHORIZATION, token)
                                                     .build(),
                 Response.class);
