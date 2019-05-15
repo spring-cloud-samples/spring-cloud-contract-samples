@@ -153,8 +153,8 @@
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
 					<baseClassMappings>
 						<baseClassMapping>
-							<contractPackageRegex>.*intoxication.*</contractPackageRegex>
-							<baseClassFQN>com.example.intoxication.BeerIntoxicationBase</baseClassFQN>
+							<contractPackageRegex>.*rest.*</contractPackageRegex>
+							<baseClassFQN>com.example.rest.BeerRestBase</baseClassFQN>
 						</baseClassMapping>
 					</baseClassMappings>
 				</configuration>

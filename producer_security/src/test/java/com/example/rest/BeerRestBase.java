@@ -1,4 +1,4 @@
-package com.example;
+package com.example.rest;
 
 // remove::start[]
 
@@ -12,15 +12,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.example.ProducerApplication;
+
 // remove::end[]
 
+@WebMvcTestImports
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = ProducerController.class)
+// @SpringBootTest(classes = ProducerApplication.class)
 @ContextConfiguration(classes = ProducerApplication.class)
-/*
- * @Import({ ResourceServerConfiguration.class, ResourceServerTokenServicesConfiguration.class, OAuth2AutoConfiguration.class,
- * ResourceServerTokenRelayAutoConfiguration.class })
- */
 public abstract class BeerRestBase {
 
     // remove::start[]
@@ -31,6 +31,5 @@ public abstract class BeerRestBase {
     public void setup() {
         webAppContextSetup(context);
     }
-
     // remove::end[]
 }

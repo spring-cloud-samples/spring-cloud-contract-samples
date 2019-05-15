@@ -1,22 +1,24 @@
-package com.example;
+package com.example.rest;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.security.core.userdetails.UserDetails;
+import com.example.service.PersonCheckingService;
 
 @RestController
 public class ProducerController {
 
     private final PersonCheckingService personCheckingService;
 
-    public ProducerController(PersonCheckingService personCheckingService) {
-        this.personCheckingService = personCheckingService;
+    public ProducerController() {
+        this.personCheckingService = new PersonCheckingService();
     }
 
-    @RequestMapping(value = "/check", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/check", produces = APPLICATION_JSON_UTF8_VALUE)
     public Response check(Authentication authentication) {
         // remove::start[]
         if (this.personCheckingService.shouldGetBeer(currentUserDetails(authentication))) {
@@ -43,24 +45,4 @@ public class ProducerController {
         return userDetails;
     }
 
-}
-
-class PersonCheckingService {
-
-    Boolean shouldGetBeer(UserDetails userDetails) {
-        return userDetails.getAge() >= 21;
-    }
-}
-
-class Response {
-
-    public BeerCheckStatus status;
-
-    Response(BeerCheckStatus status) {
-        this.status = status;
-    }
-}
-
-enum BeerCheckStatus {
-        OK, NOT_OK
 }

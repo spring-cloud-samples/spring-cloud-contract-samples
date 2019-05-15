@@ -56,7 +56,7 @@ public class BeerControllerSecurityTest extends AbstractTest {
         // remove::start[]
         this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
                                                    .contentType(MediaType.APPLICATION_JSON)
-                                                   .content(this.json.write(new Person("marcin", 22)).getJson()))
+                                                   .content(this.json.write(new Person("Old Enough", 42)).getJson()))
                     .andExpect(status().isOk())
                     .andExpect(content().string("THERE YOU GO"));
         // remove::end[]
@@ -67,7 +67,7 @@ public class BeerControllerSecurityTest extends AbstractTest {
         // remove::start[]
         this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
                                                    .contentType(MediaType.APPLICATION_JSON)
-                                                   .content(this.json.write(new Person("marcin", 17)).getJson()))
+                                                   .content(this.json.write(new Person("Too Young", 16)).getJson()))
                     .andExpect(status().isOk())
                     .andExpect(content().string("GET LOST"));
         // remove::end[]
