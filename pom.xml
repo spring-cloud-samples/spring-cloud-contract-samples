@@ -32,17 +32,17 @@
 			<modules>
 				<module>common</module>
 				<module>beer_contracts</module>
-				<!--<module>producer</module>-->
-				<!--<module>producer_webflux</module>
+				<module>producer</module>
+				<module>producer_webflux</module>
 				<module>producer_webflux_webtestclient</module>
-				<module>consumer_pact</module>-->
-				<!--<module>producer_yaml</module>-->
-				<!--<module>producer_advanced</module>
+				<module>consumer_pact</module>
+				<module>producer_yaml</module>
+				<module>producer_advanced</module>
 				<module>producer_pact</module>
 				<module>producer_proto</module>
-				<module>producer_kotlin</module>-->
+				<module>producer_kotlin</module>
 				<module>producer_security</module>
-				<!--<module>producer_with_stubs_per_consumer</module>
+				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_git</module>
 				<module>producer_with_empty_git</module>
 				<module>producer_with_external_contracts</module>
@@ -51,14 +51,14 @@
 				<module>producer_with_dsl_restdocs</module>
 				<module>producer_with_spock</module>
 				<module>producer_with_junit5</module>
-				<module>producer_with_xml</module>-->
-				<!--<module>consumer</module>-->
-				<!--<module>consumer_proto</module>
+				<module>producer_with_xml</module>
+				<module>consumer</module>
+				<module>consumer_proto</module>
 				<module>consumer_pact_stubrunner</module>
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
-				<module>consumer_with_junit5</module>-->
+				<module>consumer_with_junit5</module>
 				<module>consumer_security</module>
 			</modules>
 		</profile>
@@ -77,7 +77,7 @@
 				<module>producer_pact</module>
 				<module>producer_proto</module>
 				<module>producer_kotlin</module>
-				<module>producer_with_authentication</module>
+				<module>producer_security</module>
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_git</module>
 				<module>producer_with_empty_git</module>
@@ -93,6 +93,7 @@
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
+				<module>consumer_security</module>
 			</modules>
 		</profile>
 	</profiles>
