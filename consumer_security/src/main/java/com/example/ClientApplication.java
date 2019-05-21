@@ -8,12 +8,13 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class ClientApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ClientApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(ClientApplication.class, args);
+	}
 
-    @Bean
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+	@Bean
+	RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+
 }
