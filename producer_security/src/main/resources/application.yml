@@ -1,0 +1,14 @@
+spring:
+  application.name: beer-api-producer-security
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7Wmces7bhQ8h24h1NxAvsEp9Q2yNrEmLrhHXt3l7kBzb/0LYs/6Bm1HSQetHDUqGoTpQv/b0/7N9jHTm4p7M/bHLprsFgv/uOdt7Nq/TJo16yGEE6+fL11DrhGfVfUKrRReyw+T/PCMIALurc9zVDqzUbD8vCfb4d/7mCcCqaOhfT/5HsDQcB5w1tjiUuiA28z2mqstjGmD8Kzwno7smZkKnTcP4JD8p7WFDUHq0HNLY77R65g6Rtx45E/ZhXxtRlvh+L3aDXoV4QbXy3aSQmaajYfR4FHJq9/lLYJpH8HkdET6imEE7C9mNP1pu10InycHlW7shmsHb+3aTBq7U0QIDAQAB
+          -----END PUBLIC KEY-----
+server.port: ${PORT:44444}
+logging:
+  level:
+    org.springframework.cloud: debug

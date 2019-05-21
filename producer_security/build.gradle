@@ -1,0 +1,90 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		mavenLocal()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+		maven { url "https://repo.spring.io/release" }
+	}
+
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
+		// remove::start[]
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
+		// tag::test_dep_in_plugin[]
+		classpath "com.example:beer-common:0.0.1.BUILD-SNAPSHOT"
+		// end::test_dep_in_plugin[]
+		// remove::end[]
+	}
+}
+
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+
+group = 'com.example'
+version = '0.0.1.BUILD-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url "https://repo.spring.io/release" }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+// remove::start[]
+apply plugin: 'spring-cloud-contract'
+// remove::end[]
+apply plugin: 'maven-publish'
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"
+	}
+}
+
+sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+
+	// security
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.springframework.cloud:spring-cloud-security")
+	compile("org.springframework.security:spring-security-config")
+	runtime("org.springframework.security:spring-security-jwt:${springSecurityJwtVersion}")
+	compile("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}")
+	compile("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOauth2AutoconfigureVersion}")
+
+	// remove::start[]
+	// tag::verifier_dep[]
+	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	// end::verifier_dep[]
+	// remove::end[]
+}
+
+// remove::start[]
+contracts {
+	baseClassMappings {
+		baseClassMapping(".*rest.*", "com.example.rest.BeerRestBase")
+	}
+}
+// remove::end[]
+
+test {
+	testLogging {
+		exceptionFormat = 'full'
+	}
+	afterSuite { desc, result ->
+		if (!desc.parent) {
+			println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+			boolean skipTests = Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
+			if (result.testCount == 0 && !skipTests) {
+				throw new IllegalStateException("No tests were found. Failing the build")
+			}
+		}
+	}
+}

@@ -41,6 +41,7 @@
 				<module>producer_pact</module>
 				<module>producer_proto</module>
 				<module>producer_kotlin</module>
+				<module>producer_security</module>
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_git</module>
 				<module>producer_with_empty_git</module>
@@ -58,6 +59,7 @@
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
 				<module>consumer_with_junit5</module>
+				<module>consumer_security</module>
 			</modules>
 		</profile>
 		<profile>
@@ -75,6 +77,7 @@
 				<module>producer_pact</module>
 				<module>producer_proto</module>
 				<module>producer_kotlin</module>
+				<module>producer_security</module>
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_git</module>
 				<module>producer_with_empty_git</module>
@@ -90,6 +93,7 @@
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
+				<module>consumer_security</module>
 			</modules>
 		</profile>
 	</profiles>

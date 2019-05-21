@@ -103,11 +103,13 @@ function build_all_projects() {
     build producer_with_dsl_restdocs "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_spock "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_xml "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
+    build producer_security "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build consumer "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
     build consumer_pact_stubrunner "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
     build consumer_with_stubs_per_consumer "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
     build consumer_with_restdocs "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
     build consumer_with_discovery "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
+    build consumer_security "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 }
 
 function build_gradle() {

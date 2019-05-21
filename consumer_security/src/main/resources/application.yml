@@ -1,0 +1,6 @@
+spring:
+  application.name: beer-api-consumer-security
+server.port: ${PORT:8081}
+logging:
+  level:
+    org.springframework.cloud: debug
