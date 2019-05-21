@@ -8,9 +8,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class AuthenticationMananagerProvider extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+
 }

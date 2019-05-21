@@ -1,6 +1,5 @@
 package contracts.beer.rest
 
-
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {

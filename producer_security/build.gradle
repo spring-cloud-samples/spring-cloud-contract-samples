@@ -50,24 +50,26 @@ sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
-	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
-	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
+	// security
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.springframework.cloud:spring-cloud-security")
+	compile("org.springframework.security:spring-security-config")
+	runtime("org.springframework.security:spring-security-jwt:${springSecurityJwtVersion}")
+	compile("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}")
+	compile("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOauth2AutoconfigureVersion}")
+
 	// remove::start[]
 	// tag::verifier_dep[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
-	// tag::test_dep[]
-	testCompile("com.example:beer-common:0.0.1.BUILD-SNAPSHOT")
-	// end::test_dep[]
 	// remove::end[]
 }
 
 // remove::start[]
 contracts {
-	packageWithBaseClasses = 'com.example'
 	baseClassMappings {
-		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
+		baseClassMapping(".*rest.*", "com.example.rest.BeerRestBase")
 	}
 }
 // remove::end[]

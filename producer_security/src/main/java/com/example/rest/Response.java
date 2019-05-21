@@ -2,9 +2,10 @@ package com.example.rest;
 
 public class Response {
 
-    public BeerCheckStatus status;
+	public BeerCheckStatus status;
 
-    Response(BeerCheckStatus status) {
-        this.status = status;
-    }
+	Response(BeerCheckStatus status) {
+		this.status = status;
+	}
+
 }
