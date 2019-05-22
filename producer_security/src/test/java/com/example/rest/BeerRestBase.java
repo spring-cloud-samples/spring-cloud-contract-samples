@@ -1,6 +1,6 @@
 package com.example.rest;
 
-// remove::start[]
+//remove::start[]
 
 import com.example.ProducerApplication;
 import com.example.security.UserDetails;
@@ -24,7 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 // remove::end[]
 public abstract class BeerRestBase {
 
-	// remove::start[]
+	//remove::start[]
 	@Autowired
 	private WebApplicationContext context;
 

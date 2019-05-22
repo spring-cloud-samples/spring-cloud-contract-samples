@@ -58,6 +58,7 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- end::verifier_dep[] -->
+		<!-- remove::end[] -->
 		<!-- security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
