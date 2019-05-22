@@ -9,7 +9,7 @@ buildscript {
 
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
-		// remove::start[]
+		//remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
 		// remove::end[]
 	}
@@ -31,7 +31,7 @@ repositories {
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-// remove::start[]
+//remove::start[]
 apply plugin: 'spring-cloud-contract'
 // remove::end[]
 apply plugin: 'maven-publish'
@@ -57,14 +57,14 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile("com.google.protobuf:protobuf-java:3.6.1")
 	
-	// remove::start[]
+	//remove::start[]
 	// tag::verifier_dep[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
 	// remove::end[]
 }
 
-// remove::start[]
+//remove::start[]
 contracts {
 	packageWithBaseClasses = 'com.example'
 }

@@ -50,7 +50,7 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile("com.google.protobuf:protobuf-java:3.6.1")
 
-	// remove::start[]
+	//remove::start[]
 	// tag::stubrunner[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 	// end::stubrunner[]

@@ -19,13 +19,13 @@ public class ProducerController {
 
 	@PostMapping(path = "/check", produces = APPLICATION_JSON_UTF8_VALUE)
 	public Response check(Authentication authentication) {
-		// remove::start[]
+		//remove::start[]
 		if (this.personCheckingService
 				.shouldGetBeer(currentUserDetails(authentication))) {
 			return new Response(BeerCheckStatus.OK);
 		}
 		return new Response(BeerCheckStatus.NOT_OK);
-		// remove::end[return]
+		//remove::end[return]
 	}
 
 	/**

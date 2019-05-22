@@ -55,7 +55,7 @@ public class BeerControllerEmptyGitTest extends AbstractTest {
 
 	@Before
 	public void setupPort() {
-		// remove::start[]
+		//remove::start[]
 		this.beerController.port = this.rule.findStubUrl("beer-api-producer-empty-git").getPort();
 		// remove::end[]
 	}

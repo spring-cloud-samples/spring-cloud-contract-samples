@@ -45,7 +45,7 @@ dependencies {
 
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
 	testCompile("org.springframework.boot:spring-boot-starter-webflux")
-	// remove::start[]
+	//remove::start[]
 	// tag::stubrunner[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 	// end::stubrunner[]

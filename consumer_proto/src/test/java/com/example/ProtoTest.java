@@ -30,7 +30,7 @@ public class ProtoTest {
 
 	int port;
 
-	// remove::start[]
+	//remove::start[]
 	@Rule
 	public StubRunnerRule rule = new StubRunnerRule()
 			.downloadStub("com.example", "beer-api-producer-proto")
@@ -48,7 +48,7 @@ public class ProtoTest {
 
 	@Before
 	public void setupPort() {
-		// remove::start[]
+		//remove::start[]
 		this.port = this.rule.findStubUrl("beer-api-producer-proto").getPort();
 		// remove::end[]
 	}
@@ -68,7 +68,7 @@ public class ProtoTest {
 	// tag::tests[]
 	@Test
 	public void should_give_me_a_beer_when_im_old_enough() throws Exception {
-		// remove::start[]
+		//remove::start[]
 		Beer.Response response = this.restTemplate.postForObject(
 				"http://localhost:" + this.port + "/check",
 				Beer.PersonToCheck.newBuilder().setAge(23).build(), Beer.Response.class);
@@ -79,7 +79,7 @@ public class ProtoTest {
 
 	@Test
 	public void should_reject_a_beer_when_im_too_young() throws Exception {
-		// remove::start[]
+		//remove::start[]
 		Beer.Response response = this.restTemplate.postForObject(
 				"http://localhost:" + this.port + "/check",
 				Beer.PersonToCheck.newBuilder().setAge(17).build(), Beer.Response.class);

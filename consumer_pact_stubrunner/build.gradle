@@ -44,7 +44,7 @@ dependencies {
 	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
 	testCompile "org.springframework.boot:spring-boot-starter-test"
-	// remove::start[]
+	//remove::start[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 	testCompile("org.springframework.cloud:spring-cloud-contract-pact")
 	// remove::end[]

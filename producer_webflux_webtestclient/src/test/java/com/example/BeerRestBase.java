@@ -1,7 +1,7 @@
 
 package com.example;
 
-// remove::start[]
+//remove::start[]
 
 import io.restassured.module.webtestclient.RestAssuredWebTestClient;
 // remove::end[]
@@ -12,7 +12,7 @@ public abstract class BeerRestBase {
 
 	@Before
 	public void setup() {
-		// remove::start[]
+		//remove::start[]
 		RestAssuredWebTestClient.standaloneSetup(new ProducerController(personToCheck -> personToCheck.age >= 20));
 		// remove::end[]
 	}

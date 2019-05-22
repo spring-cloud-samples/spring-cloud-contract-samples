@@ -8,7 +8,7 @@ buildscript {
 	}
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
-		// remove::start[]
+		//remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
 		// remove::end[]
 	}
@@ -30,7 +30,7 @@ repositories {
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-// remove::start[]
+//remove::start[]
 apply plugin: 'spring-cloud-contract'
 // remove::end[]
 apply plugin: 'maven-publish'
@@ -49,12 +49,12 @@ dependencies {
 	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
-	// remove::start[]
+	//remove::start[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// remove::end[]
 }
 
-// remove::start[]
+//remove::start[]
 contracts {
 	// We want to pick contracts from a Git repository
 	contractDependency {

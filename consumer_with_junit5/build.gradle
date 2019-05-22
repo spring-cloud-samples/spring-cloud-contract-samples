@@ -51,7 +51,7 @@ dependencies {
 		exclude group: 'junit', module: 'junit'
 	}
 	testCompile group: 'name.falgout.jeffrey.testing.junit5', name: 'mockito-extension', version: "$mockitoExtensionVersion"
-	// remove::start[]
+	//remove::start[]
 	// tag::stubrunner[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner"){
 		exclude group: 'junit', module: 'junit'

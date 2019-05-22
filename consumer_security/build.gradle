@@ -42,7 +42,7 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.9.8'
 
-	// remove::start[]
+	//remove::start[]
 	// tag::stubrunner[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 	// end::stubrunner[]

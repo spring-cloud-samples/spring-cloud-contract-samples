@@ -22,7 +22,7 @@ public abstract class BeerRestBase {
 	@Autowired
 	WebApplicationContext context;
 
-	// remove::start[]
+	//remove::start[]
 	@Before
 	public void setup() {
 		RestAssuredMockMvc.webAppContextSetup(this.context);

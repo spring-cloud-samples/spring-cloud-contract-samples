@@ -1,7 +1,7 @@
 
 package com.example;
 
-// remove::start[]
+//remove::start[]
 import io.restassured.RestAssured;
 // remove::end[]
 import org.junit.Before;
@@ -25,7 +25,7 @@ public abstract class BeerRestBase {
 
 	@Before
 	public void setup() {
-		// remove::start[]
+		//remove::start[]
 		RestAssured.baseURI = "http://localhost:" + this.port;
 		// remove::end[]
 	}

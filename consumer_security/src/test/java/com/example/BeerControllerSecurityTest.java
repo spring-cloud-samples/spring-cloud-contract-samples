@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-// remove::start[]
+//remove::start[]
 // example of usage with fixed port
 // @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids =
 // "com.example:beer-api-producer:+:stubs:8090")
@@ -43,7 +43,7 @@ public class BeerControllerSecurityTest extends AbstractTest {
 	@Autowired
 	BeerController beerController;
 
-	// remove::start[]
+	//remove::start[]
 	@StubRunnerPort("beer-api-producer-security")
 	int producerPort;
 
@@ -56,7 +56,7 @@ public class BeerControllerSecurityTest extends AbstractTest {
 	// tag::tests[]
 	@Test
 	public void should_give_me_a_beer_when_im_old_enough() throws Exception {
-		// remove::start[]
+		//remove::start[]
 		this.mockMvc
 				.perform(MockMvcRequestBuilders.post("/beer")
 						.contentType(MediaType.APPLICATION_JSON)
@@ -67,7 +67,7 @@ public class BeerControllerSecurityTest extends AbstractTest {
 
 	@Test
 	public void should_reject_a_beer_when_im_too_young() throws Exception {
-		// remove::start[]
+		//remove::start[]
 		this.mockMvc
 				.perform(MockMvcRequestBuilders.post("/beer")
 						.contentType(MediaType.APPLICATION_JSON)

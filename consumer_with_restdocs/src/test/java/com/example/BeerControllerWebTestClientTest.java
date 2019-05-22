@@ -50,7 +50,7 @@ public class BeerControllerWebTestClientTest extends AbstractTest {
 
 	@Before
 	public void setupPort() {
-		// remove::start[]
+		//remove::start[]
 		this.beerController.port = this.rule.findStubUrl("beer-api-producer-webtestclient-restdocs").getPort();
 		// remove::end[]
 	}
