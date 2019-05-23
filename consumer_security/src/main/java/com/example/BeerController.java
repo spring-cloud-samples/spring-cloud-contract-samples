@@ -58,7 +58,7 @@ class BeerController {
 			return "GET LOST";
 		}
 		// end::controller[]
-		// remove::end[return]
+		//remove::end[return]
 	}
 
 }
