@@ -28,7 +28,7 @@ response:
   matchers:
     headers:
     - key: Content-Type
-      regex: "application/json.*"
+      regex: "application/xml.*"
     body:
     - path: /sale/transactionUuid/text()
       type: by_regex
