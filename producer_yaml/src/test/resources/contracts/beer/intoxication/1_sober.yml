@@ -22,3 +22,7 @@ response:
     currentStatus: TIPSY
   headers:
     Content-Type: application/json
+  matchers:
+    headers:
+    - key: Content-Type
+      regex: "application/json.*"

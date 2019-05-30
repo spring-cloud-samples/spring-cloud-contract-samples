@@ -33,3 +33,6 @@ response:
     body:
       - path: $.status
         type: by_type
+    headers:
+    - key: Content-Type
+      regex: "application/json.*"

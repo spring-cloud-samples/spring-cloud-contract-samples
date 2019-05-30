@@ -35,3 +35,6 @@ response:
       - path: $.quantity
         type: by_regex
         value: -?(\d*\.\d+|\d+)
+    headers:
+    - key: Content-Type
+      regex: "application/json.*"

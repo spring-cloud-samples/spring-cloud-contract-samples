@@ -26,6 +26,9 @@ response:
     </beerNames>
     </sale>
   matchers:
+    headers:
+    - key: Content-Type
+      regex: "application/json.*"
     body:
     - path: /sale/transactionUuid/text()
       type: by_regex

@@ -22,3 +22,7 @@ response:
     currentStatus: WASTED
   headers:
     Content-Type: application/json
+  matchers:
+    headers:
+    - key: Content-Type
+      regex: "application/json.*"
