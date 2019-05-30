@@ -15,7 +15,7 @@ request:
 response:
   status: 200
   headers:
-    Content-Type: application/xml;charset=UTF-8
+    Content-Type: application/xml
   body: |
     <sale>
     <transactionUuid>uuid</transactionUuid>

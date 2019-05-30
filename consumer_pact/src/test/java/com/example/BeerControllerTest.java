@@ -65,7 +65,7 @@ public class BeerControllerTest {
 
 	private Map<String, String> responseHeaders() {
 		Map<String, String> map = new HashMap<>();
-		map.put("Content-Type", "application/json;charset=UTF-8");
+		map.put("Content-Type", "application/json");
 		return map;
 	}
 }

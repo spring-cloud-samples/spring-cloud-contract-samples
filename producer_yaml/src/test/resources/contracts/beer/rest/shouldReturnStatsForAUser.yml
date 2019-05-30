@@ -29,7 +29,7 @@ response:
     text: Dear {{{jsonpath this '$.name'}}} thanks for your interested in drinking beer
     quantity: 5
   headers:
-    Content-Type: application/json;charset=UTF-8
+    Content-Type: application/json
   matchers:
     body:
       - path: $.quantity
