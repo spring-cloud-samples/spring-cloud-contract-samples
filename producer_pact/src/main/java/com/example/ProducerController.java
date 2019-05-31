@@ -16,8 +16,8 @@ public class ProducerController {
 
 	@RequestMapping(value = "/check",
 			method=RequestMethod.POST,
-			consumes="application/json",
-			produces="application/json")
+			consumes="application/json;charset=UTF-8",
+			produces="application/json;charset=UTF-8")
 	public Response check(@RequestBody PersonToCheck personToCheck) {
 		//remove::start[]
 		if (this.personCheckingService.shouldGetBeer(personToCheck)) {

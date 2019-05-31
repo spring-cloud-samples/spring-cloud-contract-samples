@@ -19,8 +19,8 @@ public class BeerServingController {
 
 	@RequestMapping(value = "/beer",
 			method=RequestMethod.POST,
-			consumes="application/json",
-			produces="application/json")
+			consumes="application/json;charset=UTF-8",
+			produces="application/json;charset=UTF-8")
 	public Response check(@RequestBody Customer customer) {
 		//remove::start[]
 		return this.responseProvider.thereYouGo(customer);

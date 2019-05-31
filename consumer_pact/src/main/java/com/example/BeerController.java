@@ -28,12 +28,13 @@ class BeerController {
 
 	@RequestMapping(method = RequestMethod.POST,
 			value = "/beer",
-			consumes = MediaType.APPLICATION_JSON_VALUE)
+			consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String gimmeABeer(@RequestBody Person person) {
 		ResponseEntity<Response> response = this.restTemplate.exchange(
 				RequestEntity
 						.post(URI.create("http://localhost:" + this.port + "/check"))
-						.contentType(MediaType.APPLICATION_JSON)
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
 						.body(person),
 				Response.class);
 		switch (response.getBody().status) {

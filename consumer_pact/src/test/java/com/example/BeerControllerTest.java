@@ -34,7 +34,7 @@ public class BeerControllerTest {
 					.uponReceiving("Represents a successful scenario of getting a beer")
 					.path("/check")
 					.method("POST")
-					.headers("Content-Type", "application/json")
+					.headers("Content-Type", "application/json;charset=UTF-8")
 					.body("{\"name\":\"marcin\",\"age\":25}")
 					.willRespondWith()
 					.status(200)
@@ -44,7 +44,7 @@ public class BeerControllerTest {
 					.uponReceiving("Represents an unsuccessful scenario of getting a beer")
 					.path("/check")
 					.method("POST")
-					.headers("Content-Type", "application/json")
+					.headers("Content-Type", "application/json;charset=UTF-8")
 					.body("{\"name\":\"marcin\",\"age\":10}")
 					.willRespondWith()
 					.status(200)
@@ -65,7 +65,7 @@ public class BeerControllerTest {
 
 	private Map<String, String> responseHeaders() {
 		Map<String, String> map = new HashMap<>();
-		map.put("Content-Type", "application/json");
+		map.put("Content-Type", "application/json;charset=UTF-8");
 		return map;
 	}
 }
