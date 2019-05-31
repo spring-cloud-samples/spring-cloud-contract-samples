@@ -51,7 +51,7 @@ public class BeerControllerWithJUnitTest extends AbstractTest {
 	//tag::tests[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
-				.contentType(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(this.json.write(new Person("marcin", 25)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("THERE YOU GO"));
@@ -59,7 +59,7 @@ public class BeerControllerWithJUnitTest extends AbstractTest {
 
 	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
-				.contentType(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(this.json.write(new Person("marcin", 10)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST"));
