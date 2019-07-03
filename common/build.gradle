@@ -9,7 +9,7 @@ buildscript {
 }
 
 plugins {
-	id "io.spring.dependency-management" version "0.6.1.RELEASE"
+	id "io.spring.dependency-management" version "1.0.8.RELEASE"
 }
 
 println "Cloud version [${findProperty('BOM_VERSION') ?: verifierVersion}]"
@@ -55,5 +55,5 @@ publishing {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.10.1'
+    gradleVersion = '5.5'
 }
