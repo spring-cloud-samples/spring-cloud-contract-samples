@@ -24,7 +24,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.BUILD-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>2.1.1.BUILD-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud-contract.version>2.1.3.BUILD-SNAPSHOT</spring-cloud-contract.version>
 		<junit-jupiter-engine.version>5.3.1</junit-jupiter-engine.version>
 		<junit-platform-surefire-provider.version>1.2.0</junit-platform-surefire-provider.version>
 	</properties>
