@@ -27,6 +27,7 @@ asciidoctor {
     outputDir = file('docs')
     separateOutputDirs = false
     resources { }
+    // TODO: Pass the version here
     attributes 'source-highlighter': 'prettify'
 
 }
