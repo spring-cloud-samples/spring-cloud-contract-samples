@@ -14,10 +14,6 @@ repositories {
     maven { url "https://repo.spring.io/release" }
 }
 
-wrapper {
-    gradleVersion '3.5'
-}
-
 dependencies {
     asciidoctor "io.spring.asciidoctor:spring-asciidoctor-extensions:0.1.1.RELEASE"
 }

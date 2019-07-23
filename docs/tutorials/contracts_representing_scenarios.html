@@ -8,7 +8,7 @@
 <title>Contracts Representing Scenarios (Stateful Stubs) 2.1.0.BUILD-SNAPSHOT</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
-/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -629,9 +629,9 @@ As a response, we expect to get the <code>previousStatus</code> and <code>curren
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">		mockMvc.perform(MockMvcRequestBuilders.post("/wasted")
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">		this.mockMvc.perform(MockMvcRequestBuilders.post("/wasted")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin")).getJson()))
+				.content(this.json.write(new Person("marcin")).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().json("{\"previousStatus\":\"" + previousStatus.name() +
 						"\",\"currentStatus\":\"" + currentStatus.name() + "\"}"));</code></pre>
@@ -1518,7 +1518,7 @@ public class GenerateAdocsFromContractsTests {
 	@Test public void should_convert_contracts_into_adoc() throws IOException {
 		final StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(header);
-		final Path rootDir = contracts.getFile().toPath();
+		final Path rootDir = this.contracts.getFile().toPath();
 
 		Files.walkFileTree(rootDir, new FileVisitor&lt;Path&gt;() {
 			private Pattern pattern = Pattern.compile("^.*groovy$");
@@ -1532,7 +1532,7 @@ public class GenerateAdocsFromContractsTests {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes mainAtts)
 					throws IOException {
-				boolean matches = pattern.matcher(path.toString()).matches();
+				boolean matches = this.pattern.matcher(path.toString()).matches();
 				if (matches) {
 					appendContract(stringBuilder, path);
 				}
@@ -1615,21 +1615,23 @@ public class GenerateAdocsFromContractsTests {
 <h3 id="_written_consumer_tests">Written consumer tests</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test
+	public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 22)).getJson()))
+				.content(this.json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("THERE YOU GO"));
 		//remove::end[]
 	}
 
-	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
+	@Test
+	public void should_reject_a_beer_when_im_too_young() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 17)).getJson()))
+				.content(this.json.write(new Person("marcin", 17)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST"));
 		//remove::end[]
@@ -1827,7 +1829,7 @@ then:
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		ResponseEntity&lt;Response&gt; response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/check"))
+						.post(URI.create("http://localhost:" + this.port + "/check"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class);
@@ -1888,9 +1890,9 @@ then:
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		if (verification.eligible) {
-			eligibleCounter.incrementAndGet();
+			this.eligibleCounter.incrementAndGet();
 		} else {
-			notEligibleCounter.incrementAndGet();
+			this.notEligibleCounter.incrementAndGet();
 		}</code></pre>
 </div>
 </div>
@@ -1900,23 +1902,23 @@ then:
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test public void should_increase_the_eligible_counter_when_verification_was_accepted() throws Exception {
-		int initialCounter = listener.eligibleCounter.get();
+		int initialCounter = this.listener.eligibleCounter.get();
 
 		//remove::start[]
-		stubTrigger.trigger("accepted_verification");
+		this.stubTrigger.trigger("accepted_verification");
 		//remove::end[]
 
-		then(listener.eligibleCounter.get()).isGreaterThan(initialCounter);
+		then(this.listener.eligibleCounter.get()).isGreaterThan(initialCounter);
 	}
 
 	@Test public void should_increase_the_noteligible_counter_when_verification_was_rejected() throws Exception {
-		int initialCounter = listener.notEligibleCounter.get();
+		int initialCounter = this.listener.notEligibleCounter.get();
 
 		//remove::start[]
-		stubTrigger.trigger("rejected_verification");
+		this.stubTrigger.trigger("rejected_verification");
 		//remove::end[]
 
-		then(listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
+		then(this.listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
 	}</code></pre>
 </div>
 </div>
@@ -2079,7 +2081,7 @@ public abstract class BeerMessagingBase {
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		boolean shouldGetBeer = personToCheck.age &gt;= 20;
-		source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
 		return shouldGetBeer;</code></pre>
 </div>
 </div>
@@ -2208,7 +2210,7 @@ class IntoxicationController {
 		//remove::start[]
 		return this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/beer"))
+						.post(URI.create("http://localhost:" + this.port + "/beer"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class).getBody();
@@ -2283,7 +2285,7 @@ public abstract class BeerIntoxicationBase {
 	@Before
 	public void setup() {
 		//remove::start[]
-		RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
+		RestAssuredMockMvc.webAppContextSetup(this.webApplicationContext);
 		//remove::end[]
 	}
 
@@ -2309,25 +2311,25 @@ public abstract class BeerIntoxicationBase {
 		@Override public Response thereYouGo(Customer personToCheck) {
 			//remove::start[]
 			if ("marcin".equals(personToCheck.name)) {
-				 switch (current) {
+				 switch (this.current) {
 				 case SOBER:
-				 	current = TIPSY;
-				 	previous = SOBER;
+					 this.current = TIPSY;
+					 this.previous = SOBER;
 					 break;
 				 case TIPSY:
-					 current = DRUNK;
-					 previous = TIPSY;
+					 this.current = DRUNK;
+					 this.previous = TIPSY;
 					 break;
 				 case DRUNK:
-					 current = WASTED;
-					 previous = DRUNK;
+					 this.current = WASTED;
+					 this.previous = DRUNK;
 					 break;
 				 case WASTED:
 					 throw new UnsupportedOperationException("You can't handle it");
 				 }
 			}
 			//remove::end[]
-			return new Response(previous, current);
+			return new Response(this.previous, this.current);
 		}
 	}
 	//end::mock[]

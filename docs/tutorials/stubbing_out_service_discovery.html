@@ -8,7 +8,7 @@
 <title>Contracts on the Producer side 2.1.0.BUILD-SNAPSHOT</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
-/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -1166,21 +1166,23 @@ equal to <code>remote</code></p>
 <h3 id="_written_consumer_tests">Written consumer tests</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test
+	public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 22)).getJson()))
+				.content(this.json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("THERE YOU GO"));
 		//remove::end[]
 	}
 
-	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
+	@Test
+	public void should_reject_a_beer_when_im_too_young() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 17)).getJson()))
+				.content(this.json.write(new Person("marcin", 17)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST"));
 		//remove::end[]
@@ -1378,7 +1380,7 @@ then:
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		ResponseEntity&lt;Response&gt; response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/check"))
+						.post(URI.create("http://localhost:" + this.port + "/check"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class);
@@ -1439,9 +1441,9 @@ then:
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		if (verification.eligible) {
-			eligibleCounter.incrementAndGet();
+			this.eligibleCounter.incrementAndGet();
 		} else {
-			notEligibleCounter.incrementAndGet();
+			this.notEligibleCounter.incrementAndGet();
 		}</code></pre>
 </div>
 </div>
@@ -1451,23 +1453,23 @@ then:
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test public void should_increase_the_eligible_counter_when_verification_was_accepted() throws Exception {
-		int initialCounter = listener.eligibleCounter.get();
+		int initialCounter = this.listener.eligibleCounter.get();
 
 		//remove::start[]
-		stubTrigger.trigger("accepted_verification");
+		this.stubTrigger.trigger("accepted_verification");
 		//remove::end[]
 
-		then(listener.eligibleCounter.get()).isGreaterThan(initialCounter);
+		then(this.listener.eligibleCounter.get()).isGreaterThan(initialCounter);
 	}
 
 	@Test public void should_increase_the_noteligible_counter_when_verification_was_rejected() throws Exception {
-		int initialCounter = listener.notEligibleCounter.get();
+		int initialCounter = this.listener.notEligibleCounter.get();
 
 		//remove::start[]
-		stubTrigger.trigger("rejected_verification");
+		this.stubTrigger.trigger("rejected_verification");
 		//remove::end[]
 
-		then(listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
+		then(this.listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
 	}</code></pre>
 </div>
 </div>
@@ -1630,7 +1632,7 @@ public abstract class BeerMessagingBase {
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		boolean shouldGetBeer = personToCheck.age &gt;= 20;
-		source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
 		return shouldGetBeer;</code></pre>
 </div>
 </div>
