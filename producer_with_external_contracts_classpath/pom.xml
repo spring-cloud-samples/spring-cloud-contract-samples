@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>beer-api-producer-external</artifactId>
+	<artifactId>beer-api-producer-external-classpath</artifactId>
 	<version>0.0.1.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -64,6 +64,15 @@
 	</dependencies>
 
 	<build>
+
+		<extensions>
+			<extension>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<version>${spring-cloud-contract.version}</version>
+			</extension>
+		</extensions>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -82,7 +91,7 @@
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
 				<version>${spring-cloud-contract.version}</version>
-				<extensions>true</extensions>
+				<extensions>false</extensions>
 				<configuration>
 					<baseClassMappings>
 						<baseClassMapping>
@@ -97,10 +106,11 @@
 					<!-- We want to use the JAR with contracts with the following coordinates -->
 					<contractDependency>
 						<groupId>com.example</groupId>
-						<artifactId>beer-contracts</artifactId>
+						<artifactId>beer-contracts-with-stubs</artifactId>
+						<classifier>stubs</classifier>
 					</contractDependency>
 					<!-- The JAR with contracts should be taken from Maven local -->
-					<contractsMode>LOCAL</contractsMode>
+					<contractsMode>CLASSPATH</contractsMode>
 					<!-- Base package for generated tests -->
 					<basePackageForTests>com.example</basePackageForTests>
 				</configuration>
@@ -110,6 +120,12 @@
 						<groupId>org.springframework.cloud</groupId>
 						<artifactId>spring-cloud-contract-verifier</artifactId>
 						<version>${spring-cloud-contract.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.example</groupId>
+						<artifactId>beer-contracts-with-stubs</artifactId>
+						<classifier>stubs</classifier>
+						<version>0.0.1.BUILD-SNAPSHOT</version>
 					</dependency>
 				</dependencies>
 			</plugin>

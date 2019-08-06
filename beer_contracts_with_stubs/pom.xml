@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>beer-contracts</artifactId>
+	<artifactId>beer-contracts-with-stubs</artifactId>
 	<version>0.0.1.BUILD-SNAPSHOT</version>
 
-	<name>Contracts</name>
-	<description>Contains all the contracts</description>
+	<name>Contracts with stubs</name>
+	<description>Contains all the contracts and stubs</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -20,6 +20,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-cloud.version>Greenwich.BUILD-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>2.1.3.BUILD-SNAPSHOT</spring-cloud-contract.version>
+		<skipTests>true</skipTests>
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.0</maven-jar-plugin.version>
 	</properties>
@@ -58,46 +60,11 @@
 
 	<build>
 		<plugins>
-			<!-- remove::start[] -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>contracts</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<attach>true</attach>
-							<descriptors>
-								${project.basedir}/src/assembly/contracts.xml
-							</descriptors>
-							<!-- If you want an explicit classifier remove the following line -->
-							<appendAssemblyId>false</appendAssemblyId>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>${maven-jar-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>default-jar</id>
-						<phase>none</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<failIfNoTests>true</failIfNoTests>
-				</configuration>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<version>${spring-cloud-contract.version}</version>
+				<extensions>true</extensions>
 			</plugin>
 			<!-- remove::end[] -->
 		</plugins>
