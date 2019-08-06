@@ -69,6 +69,7 @@ function build_gradle() {
     build producer_with_spock
     build producer_with_junit5
     build producer_with_xml
+    build producer_with_latest_features
     build producer_security
     build consumer
     build consumer_proto
