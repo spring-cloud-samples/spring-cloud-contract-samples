@@ -69,8 +69,8 @@ function build_gradle() {
     build producer_with_spock
     build producer_with_junit5
     build producer_with_xml
-    build producer_with_latest_features
     build producer_security
+    build producer_with_latest_features
     build consumer
     build consumer_proto
     build consumer_pact_stubrunner
@@ -79,6 +79,7 @@ function build_gradle() {
     build consumer_with_discovery
     build consumer_with_junit5
     build consumer_security
+    build consumer_with_latest_features
 }
 
 cat <<'EOF'

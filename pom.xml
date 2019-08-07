@@ -62,6 +62,7 @@
 				<module>consumer_with_restdocs</module>
 				<module>consumer_with_junit5</module>
 				<module>consumer_security</module>
+				<module>consumer_with_latest_features</module>
 			</modules>
 		</profile>
 		<profile>
@@ -98,6 +99,7 @@
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
 				<module>consumer_security</module>
+				<module>consumer_with_latest_features</module>
 			</modules>
 		</profile>
 	</profiles>

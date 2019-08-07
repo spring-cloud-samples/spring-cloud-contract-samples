@@ -31,21 +31,6 @@ public class GenerateStubsTest {
 			.withGenerateStubs(true);
 	//remove::end[]
 
-	@BeforeClass
-	public static void beforeClass() {
-		Assume.assumeTrue("Spring Cloud Contract must be in version at least 2.2.0", atLeast220());
-		Assume.assumeTrue("Env var OLD_PRODUCER_TRAIN must not be set", StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")));
-	}
-
-	private static boolean atLeast220() {
-		try {
-			Class.forName("org.springframework.cloud.contract.spec.internal.DslPropertyConverter");
-		} catch (Exception ex) {
-			return false;
-		}
-		return true;
-	}
-
 	//tag::tests[]
 	@Test public void should_generate_a_stub_at_runtime() throws Exception {
 		//remove::start[]
