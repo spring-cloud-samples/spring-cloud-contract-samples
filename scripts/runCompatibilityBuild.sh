@@ -62,7 +62,7 @@ function build() {
     echo -e "\n\nBuilding [${folder}] for boot [${bootVersion}] and cloud [${cloudVersion}] and verifier [${verifierVersion}]\n\n"
     pushd "${ROOT}/${folder}"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./gradlew clean build publishToMavenLocal --refresh-dependencies -x test -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}" -POLD_PRODUCER_TRAIN="${OLD_PRODUCER_TRAIN}" --stacktrace
+        ./gradlew clean build publishToMavenLocal --refresh-dependencies -x test -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}" -POLD_PRODUCER_TRAIN="${OLD_PRODUCER_TRAIN}" --stacktrace -x copyContracts -x verifierStubsJar -x generateClientStubs -x generateContractTests
     else
         ./gradlew clean build publishToMavenLocal --refresh-dependencies -PBOM_VERSION="${cloudVersion}" -PbootVersion="${bootVersion}" -PverifierVersion="${verifierVersion}" -POLD_PRODUCER_TRAIN="${OLD_PRODUCER_TRAIN}" --stacktrace
     fi
