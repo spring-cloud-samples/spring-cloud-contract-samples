@@ -82,6 +82,9 @@
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
+				<configuration>
+					<failOnInProgress>false</failOnInProgress>
+				</configuration>
 			</plugin>
 			<!-- end::test_dep_in_plugin[] -->
 			<!-- remove::end[] -->
