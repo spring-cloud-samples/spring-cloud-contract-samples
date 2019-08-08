@@ -25,7 +25,7 @@ public class GenerateStubsTest {
 	@Rule
 	public StubRunnerRule rule = new StubRunnerRule()
 			.downloadStub("com.example","beer-api-producer-latest", "0.0.1.BUILD-SNAPSHOT")
-			.repoRoot("stubs://file://" + System.getenv("ROOT") + "/producer_with_latest_features/src/test/resources/contracts/beer/in_progress")
+			.repoRoot("stubs://file://" + System.getenv("ROOT") + "/producer_with_latest_2_2_features/src/test/resources/contracts/beer/in_progress")
 			.stubsMode(StubRunnerProperties.StubsMode.REMOTE)
 			.withGenerateStubs(true);
 	//remove::end[]

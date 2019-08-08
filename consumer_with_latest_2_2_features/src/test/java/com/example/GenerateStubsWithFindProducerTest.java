@@ -39,7 +39,7 @@ public class GenerateStubsWithFindProducerTest {
 			.downloadStub("com.example:some-artifact-id:0.0.1")
 			.downloadStub("com.example:some-other-artifact-id")
 			.repoRoot("stubs://file://" + System.getenv("ROOT")
-					+ "/producer_with_latest_features/src/test/resources/contracts")
+					+ "/producer_with_latest_2_2_features/src/test/resources/contracts")
 			.withProperties(contractProperties())
 			.stubsMode(StubRunnerProperties.StubsMode.REMOTE).withGenerateStubs(true);
 

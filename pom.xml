@@ -53,7 +53,7 @@
 				<module>producer_with_spock</module>
 				<module>producer_with_junit5</module>
 				<module>producer_with_xml</module>
-				<module>producer_with_latest_features</module>
+				<module>producer_with_latest_2_2_features</module>
 				<module>consumer</module>
 				<module>consumer_proto</module>
 				<module>consumer_pact_stubrunner</module>
@@ -62,7 +62,7 @@
 				<module>consumer_with_restdocs</module>
 				<module>consumer_with_junit5</module>
 				<module>consumer_security</module>
-				<module>consumer_with_latest_features</module>
+				<module>consumer_with_latest_2_2_features</module>
 			</modules>
 		</profile>
 		<profile>
@@ -91,7 +91,7 @@
 				<module>producer_with_dsl_restdocs</module>
 				<module>producer_with_spock</module>
 				<module>producer_with_xml</module>
-				<module>producer_with_latest_features</module>
+				<module>producer_with_latest_2_2_features</module>
 				<module>consumer</module>
 				<module>consumer_proto</module>
 				<module>consumer_pact_stubrunner</module>
@@ -99,7 +99,7 @@
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
 				<module>consumer_security</module>
-				<module>consumer_with_latest_features</module>
+				<module>consumer_with_latest_2_2_features</module>
 			</modules>
 		</profile>
 	</profiles>

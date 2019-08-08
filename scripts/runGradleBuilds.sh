@@ -31,7 +31,7 @@ function build() {
     echo -e "\n\nBuilding ${folder}\n\n"
     cd "${ROOT}/${folder}"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies
+        ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies -x copyContracts -x verifierStubsJar -x generateClientStubs -x generateContractTests
     else
         ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies
     fi
@@ -70,7 +70,7 @@ function build_gradle() {
     build producer_with_junit5
     build producer_with_xml
     build producer_security
-    build producer_with_latest_features
+    build producer_with_latest_2_2_features
     build consumer
     build consumer_proto
     build consumer_pact_stubrunner
@@ -79,7 +79,7 @@ function build_gradle() {
     build consumer_with_discovery
     build consumer_with_junit5
     build consumer_security
-    build consumer_with_latest_features
+    build consumer_with_latest_2_2_features
 }
 
 cat <<'EOF'
