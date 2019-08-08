@@ -1,17 +1,16 @@
 package com.example;
 
 import org.assertj.core.api.BDDAssertions;
-import org.junit.Assume;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.springframework.boot.test.context.SpringBootTest;
+// remove::start[]
 import org.springframework.cloud.contract.stubrunner.junit.StubRunnerRule;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
+// remove::end[]
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 /**

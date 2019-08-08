@@ -11,8 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.springframework.boot.test.context.SpringBootTest;
+// remove::start[]
 import org.springframework.cloud.contract.stubrunner.junit.StubRunnerRule;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
+// remove::end[]
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
@@ -25,6 +27,7 @@ import org.springframework.web.client.RestTemplate;
 // @org.junit.Ignore
 public class GenerateStubsWithFindProducerTest {
 
+	// remove::start[]
 	static Map<String, String> contractProperties() {
 		Map<String, String> map = new HashMap<>();
 		map.put("stubs.find-producer", "true");
