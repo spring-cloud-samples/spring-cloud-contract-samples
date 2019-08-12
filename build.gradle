@@ -53,12 +53,15 @@ task removeFiles(type: Delete) {
     description = "Removes all contracts"
     List<String> producers =  project.rootDir.list(new FilenameFilter() {
         @Override
-        public boolean accept(File current, String name) {
+        boolean accept(File current, String name) {
           return new File(current, name).isDirectory() && name.startsWith("producer")
         }
       })
     List<String> folders = producers.collect {
         "${it}/src/test/resources/contracts/"
+    }
+    List<String> javaContractFolders = producers.collect {
+        "${it}/src/test/java/contracts/"
     }
     List<String> adocTests = producers.collect {
         "${it}/src/test/java/com/example/GenerateAdocsFromContractsTests.java"
@@ -67,6 +70,7 @@ task removeFiles(type: Delete) {
         "${it}/src/test/java/com/example/GenerateGraphFromContractsTests.java"
     }
     delete folders
+    delete javaContractFolders
     delete adocTests
     delete graphsTests
     delete 'beer_contracts/src/main/resources/contracts/'
