@@ -1,4 +1,4 @@
-package beer.intoxication
+package contracts.beer.intoxication
 
 import org.springframework.cloud.contract.spec.Contract
 

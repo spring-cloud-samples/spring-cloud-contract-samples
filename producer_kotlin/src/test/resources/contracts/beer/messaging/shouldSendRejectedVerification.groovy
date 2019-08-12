@@ -1,4 +1,4 @@
-package beer.messaging
+package contracts.beer.messaging
 
 org.springframework.cloud.contract.spec.Contract.make {
 	description("""

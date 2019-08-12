@@ -1,4 +1,4 @@
-package beer.messaging
+package contracts.beer.messaging
 
 import org.springframework.cloud.contract.spec.Contract
 
