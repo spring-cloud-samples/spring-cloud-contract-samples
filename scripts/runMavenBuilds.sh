@@ -8,6 +8,7 @@ set -o pipefail
 ROOT=${ROOT:-`pwd`}
 BUILD_COMMON="${BUILD_COMMON:-true}"
 SKIP_TESTS="${SKIP_TESTS:-false}"
+PREPARE_FOR_WORKSHOPS="${PREPARE_FOR_WORKSHOPS:-false}"
 
 . ${ROOT}/scripts/setup.sh
 
@@ -29,7 +30,7 @@ function build_maven() {
     fi
     cd ${ROOT}
 
-    echo -e "\n\nBuilding everything skipping tests? [${SKIP_TESTS}]\n\n"
+    echo -e "\n\nBuilding everything skipping tests? [${SKIP_TESTS}] after prepare for workshops? [${PREPARE_FOR_WORKSHOPS}]\n\n"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
         ./mvnw clean install -Ptest -U -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else

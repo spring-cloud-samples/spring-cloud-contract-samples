@@ -8,6 +8,7 @@ set -o pipefail
 ROOT=${ROOT:-`pwd`}
 BUILD_COMMON="${BUILD_COMMON:-true}"
 SKIP_TESTS="${SKIP_TESTS:-false}"
+PREPARE_FOR_WORKSHOPS="${PREPARE_FOR_WORKSHOPS:-false}"
 
 . ${ROOT}/scripts/setup.sh
 
@@ -28,7 +29,7 @@ function setup_git() {
 
 function build() {
     local folder="${1}"
-    echo -e "\n\nBuilding [${folder}] skipping tests? [${SKIP_TESTS}]\n\n"
+    echo -e "\n\nBuilding [${folder}] skipping tests? [${SKIP_TESTS}] after prepare for workshops? [${PREPARE_FOR_WORKSHOPS}]\n\n"
     cd "${ROOT}/${folder}"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
         ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies

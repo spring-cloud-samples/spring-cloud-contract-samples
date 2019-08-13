@@ -62,6 +62,7 @@ EOF
 	echo "Building the whole project again after preparing for docs"
 	export BUILD_COMMON=false
 	export SKIP_TESTS=true
+	export PREPARE_FOR_WORKSHOPS=true
 
 	clean
 	clearDocker
