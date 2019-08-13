@@ -105,4 +105,6 @@ sourceSets {
     test.java.srcDirs += new File(project.buildDir, "generated-test-source").toString()
 }
 
+//remove::start[]
 compileTestGroovy.enabled = false
+//remove::end[]
