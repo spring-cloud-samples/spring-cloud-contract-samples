@@ -28,7 +28,7 @@ function setup_git() {
 
 function build() {
     local folder="${1}"
-    echo -e "\n\nBuilding ${folder}\n\n"
+    echo -e "\n\nBuilding [${folder}] skipping tests? [${SKIP_TESTS}]\n\n"
     cd "${ROOT}/${folder}"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
         ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies

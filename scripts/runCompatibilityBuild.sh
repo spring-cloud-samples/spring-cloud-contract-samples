@@ -59,6 +59,7 @@ function build() {
     local bootVersion="${2}"
     local cloudVersion="${3}"
     local verifierVersion="${4}"
+    echo -e "\n\nCOMPATIBILITY BUILD IN PROGRESS\n\n"
     echo -e "\n\nBuilding [${folder}] for boot [${bootVersion}] and cloud [${cloudVersion}] and verifier [${verifierVersion}]\n\n"
     pushd "${ROOT}/${folder}"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
