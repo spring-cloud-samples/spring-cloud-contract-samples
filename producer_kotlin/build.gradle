@@ -11,7 +11,9 @@ buildscript {
 	}
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
+		//remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
+		//remove::end[]
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
 	}
@@ -24,7 +26,9 @@ apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+//remove::start[]
 apply plugin: 'spring-cloud-contract'
+//remove::end[]
 apply plugin: 'maven-publish'
 
 group = 'com.example'
@@ -46,15 +50,20 @@ dependencies {
 	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
 	testCompile("org.springframework.cloud:spring-cloud-stream-test-support")
+
+	//remove::start[]
 	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	//remove::end[]
 }
 
+//remove::start[]
 contracts {
 	packageWithBaseClasses = 'com.example'
 	baseClassMappings {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
 	}
 }
+//remove::end[]
 
 test {
 	testLogging {
