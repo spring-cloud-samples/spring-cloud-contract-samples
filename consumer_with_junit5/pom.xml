@@ -23,8 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.BUILD-SNAPSHOT</spring-cloud.version>
-		<junit-jupiter-engine.version>5.3.1</junit-jupiter-engine.version>
-		<junit-platform-surefire-provider.version>1.2.0</junit-platform-surefire-provider.version>
+		<junit-jupiter-engine.version>5.5.1</junit-jupiter-engine.version>
 	</properties>
 
 	<dependencies>
@@ -121,13 +120,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<dependencies>
-					<dependency>
-						<groupId>org.junit.platform</groupId>
-						<artifactId>junit-platform-surefire-provider</artifactId>
-						<version>${junit-platform-surefire-provider.version}</version>
-					</dependency>
-				</dependencies>
+				<version>2.22.2</version>
 				<configuration>
 					<failIfNoTests>true</failIfNoTests>
 				</configuration>
