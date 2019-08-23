@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 //remove::start[]
-@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer")
+@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer-junit5")
 //remove::end[]
 @DirtiesContext
 class IntoxicationControllerTest {
@@ -45,7 +45,7 @@ class IntoxicationControllerTest {
 	@Autowired
 	IntoxicationController intoxicationController;
 	//remove::start[]
-	@StubRunnerPort("beer-api-producer")
+	@StubRunnerPort("beer-api-producer-junit5")
 	int producerPort;
 	private JacksonTester<Person> json;
 
