@@ -1,7 +1,7 @@
 import org.springframework.cloud.contract.verifier.config.TestFramework
 
+ext['junit-jupiter.version'] = '5.5.1'
 ext {
-	jupiterVersion = '5.5.1'
 	mockitoExtensionVersion = '1.1.1'
 }
 
@@ -73,8 +73,9 @@ dependencies {
 	testCompile("com.example:beer-common:0.0.1.BUILD-SNAPSHOT")
 	// end::test_dep[]
 	testCompile group: 'name.falgout.jeffrey.testing.junit5', name: 'mockito-extension', version: "$mockitoExtensionVersion"
-	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "$jupiterVersion"
-	testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "$jupiterVersion"
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api'
+	testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
+	testRuntime group: 'org.junit.platform', name: 'junit-platform-launcher'
 	// remove::end[]
 }
 

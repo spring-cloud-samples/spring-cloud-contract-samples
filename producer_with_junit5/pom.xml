@@ -25,6 +25,7 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.BUILD-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>2.1.3.BUILD-SNAPSHOT</spring-cloud-contract.version>
+		<junit-jupiter.version>5.5.1</junit-jupiter.version>
 	</properties>
 
 	<dependencies>
@@ -168,13 +169,6 @@
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
 				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.junit</groupId>
-				<artifactId>junit-bom</artifactId>
-				<version>5.5.1</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
