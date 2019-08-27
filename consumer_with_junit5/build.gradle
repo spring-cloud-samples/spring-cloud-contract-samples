@@ -1,6 +1,6 @@
+ext['junit-jupiter.version'] = '5.5.1'
 ext {
-	jupiterVersion = '5.3.1'
-	mockitoExtensionVersion = '1.0.2'
+	mockitoExtensionVersion = '1.1.1'
 }
 
 buildscript {
@@ -47,34 +47,35 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
-	testCompile("org.springframework.cloud:spring-cloud-stream-test-support"){
+	testCompile("org.springframework.cloud:spring-cloud-stream-test-support") {
 		exclude group: 'junit', module: 'junit'
 	}
-	testCompile group: 'name.falgout.jeffrey.testing.junit5', name: 'mockito-extension', version: "$mockitoExtensionVersion"
 	// remove::start[]
 	// tag::stubrunner[]
-	testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner"){
+	testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner") {
 		exclude group: 'junit', module: 'junit'
 	}
 	// end::stubrunner[]
 	testCompile("com.example:beer-common:0.0.1.BUILD-SNAPSHOT")
 	// remove::end[]
-	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "$jupiterVersion"
-	testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "$jupiterVersion"
+	testCompile group: 'name.falgout.jeffrey.testing.junit5', name: 'mockito-extension', version: "$mockitoExtensionVersion"
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api'
+	testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
+	testRuntime group: 'org.junit.platform', name: 'junit-platform-launcher'
 }
-
-test {
-	useJUnitPlatform()
-	testLogging {
-		exceptionFormat = 'full'
-	}
-	afterSuite { desc, result ->
-		if (!desc.parent) {
-			println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
-			boolean skipTests = Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
-			if (result.testCount == 0 && !skipTests) {
-				throw new IllegalStateException("No tests were found. Failing the build")
+	test {
+		useJUnitPlatform()
+		testLogging {
+			exceptionFormat = 'full'
+		}
+		afterSuite { desc, result ->
+			if (!desc.parent) {
+				println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+				boolean skipTests = Boolean.
+						parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
+				if (result.testCount == 0 && !skipTests) {
+					throw new IllegalStateException("No tests were found. Failing the build")
+				}
 			}
 		}
 	}
-}
