@@ -38,6 +38,11 @@ fi
 
 export SKIP_DOCS="${SKIP_DOCS:-false}"
 
+if [[ "${CI}" == "true" ]]; then
+	echo "Skipping docs for CI build. Can't tweak Gradle's memory."
+	SKIP_DOCS="true"
+fi
+
 if [[ "${SKIP_DOCS}" != "true" ]]; then
 	cat <<'EOF'
  .----------------.  .----------------.  .----------------.  .----------------.
@@ -53,26 +58,11 @@ if [[ "${SKIP_DOCS}" != "true" ]]; then
  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
-	if [[ "${CI}" == "true" ]]; then
-		echo "Killing all gradle daemons"
-		pkill -f '.*GradleDaemon.*' || echo "Failed to kill Gradle daemons"
-	fi
-
 	echo "Generating docs"
 	cd ${ROOT} && ./gradlew generateDocumentation
 
-	if [[ "${CI}" == "true" ]]; then
-		echo "Killing all gradle daemons"
-		pkill -f '.*GradleDaemon.*' || echo "Failed to kill Gradle daemons"
-	fi
-
 	echo "Preparing for docs"
 	cd ${ROOT} && ./gradlew prepareForWorkshops
-
-	if [[ "${CI}" == "true" ]]; then
-		echo "Killing all gradle daemons"
-		pkill -f '.*GradleDaemon.*' || echo "Failed to kill Gradle daemons"
-	fi
 
 	echo "Building the whole project again after preparing for docs"
 	export BUILD_COMMON=false
