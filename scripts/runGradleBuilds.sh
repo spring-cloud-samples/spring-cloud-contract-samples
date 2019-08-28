@@ -73,6 +73,7 @@ function build_gradle() {
     build producer_security
     build producer_with_latest_2_2_features
     build producer_java
+    build producer_kotlin_ftw
     build consumer
     build consumer_proto
     build consumer_pact_stubrunner
@@ -83,6 +84,7 @@ function build_gradle() {
     build consumer_security
     build consumer_with_latest_2_2_features
     build consumer_java
+    build consumer_kotlin_ftw
 }
 
 cat <<'EOF'
