@@ -53,11 +53,26 @@ if [[ "${SKIP_DOCS}" != "true" ]]; then
  '----------------'  '----------------'  '----------------'  '----------------'
 EOF
 
+	if [[ "${CI}" == "true" ]]; then
+		echo "Killing all gradle daemons"
+		pkill -f '.*GradleDaemon.*' || echo "Failed to kill Gradle daemons"
+	fi
+
 	echo "Generating docs"
 	cd ${ROOT} && ./gradlew generateDocumentation
 
+	if [[ "${CI}" == "true" ]]; then
+		echo "Killing all gradle daemons"
+		pkill -f '.*GradleDaemon.*' || echo "Failed to kill Gradle daemons"
+	fi
+
 	echo "Preparing for docs"
 	cd ${ROOT} && ./gradlew prepareForWorkshops
+
+	if [[ "${CI}" == "true" ]]; then
+		echo "Killing all gradle daemons"
+		pkill -f '.*GradleDaemon.*' || echo "Failed to kill Gradle daemons"
+	fi
 
 	echo "Building the whole project again after preparing for docs"
 	export BUILD_COMMON=false

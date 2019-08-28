@@ -1,5 +1,6 @@
 import org.springframework.cloud.contract.verifier.config.TestFramework
 
+ext['junit-jupiter.version'] = '5.5.1'
 ext {
 	mockitoExtensionVersion = '1.1.1'
 }
