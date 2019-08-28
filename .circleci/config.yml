@@ -3,9 +3,10 @@ jobs:
   build:
     machine: true
     environment:
-      JAVA_TOOL_OPTIONS: "-Xms300m -Xmx400m"
-      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx300m -Xmx400m -XX:+HeapDumpOnOutOfMemoryError" -Dorg.gradle.daemon=false'
+      JAVA_TOOL_OPTIONS: "-Xms100m -Xmx400m"
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx100m -Xmx400m -XX:+HeapDumpOnOutOfMemoryError" -Dorg.gradle.daemon=false'
       TERM: dumb
+      CI: true
     branches:
       ignore:
         - gh-pages # list of branches to ignore
