@@ -8,7 +8,7 @@
 	<artifactId>consumer-kotlin-ftw</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>Spring Cloud Contract Verifier Http Client Kotlin Sample</name>
+	<name>Consumer Kotlin FTW</name>
 	<description>Spring Cloud Contract Verifier Http Client Kotlin Sample</description>
 
 	<parent>
