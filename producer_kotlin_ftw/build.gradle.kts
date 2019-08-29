@@ -41,14 +41,8 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	testImplementation("org.springframework.cloud:spring-cloud-contract-gradle-plugin")
+	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
-	testImplementation("io.rest-assured:rest-assured")
-	testImplementation("io.rest-assured:spring-mock-mvc")
-	testImplementation("io.rest-assured:spring-web-test-client") {
-		exclude(group = "org.springframework", module = "spring-context")
-		exclude(group = "org.springframework", module = "spring-webflux")
-	}
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 		exclude(group = "junit", module = "junit")
