@@ -6,6 +6,7 @@ set -o nounset
 set -o pipefail
 
 export ROOT=`pwd`
+export CI="${CI:-false}"
 
 source "${ROOT}"/scripts/clean.sh
 
