@@ -1,6 +1,20 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+buildscript {
+    repositories {
+		mavenCentral()
+		mavenLocal()
+		maven { url = uri("https://repo.spring.io/release") }
+		maven { url = uri("https://repo.spring.io/milestone") }
+		maven { url = uri("https://repo.spring.io/snapshot") }
+    }
+        
+    dependencies {
+        classpath("org.springframework.cloud:spring-cloud-contract-spec-kotlin:${findProperty('verifierVersion') ?: verifierVersion}")
+    }
+}
+
 plugins {
 	id("org.springframework.boot")
 	id("io.spring.dependency-management") version "1.0.7.RELEASE"
@@ -43,6 +57,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	testImplementation("org.springframework.cloud:spring-cloud-contract-spec-kotlin")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 		exclude(group = "junit", module = "junit")

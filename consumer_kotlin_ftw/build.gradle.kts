@@ -42,6 +42,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
+	testImplementation("org.springframework.cloud:spring-cloud-contract-spec-kotlin")
 	//	for easier testing of multipart
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {

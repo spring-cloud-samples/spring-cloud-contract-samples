@@ -46,10 +46,14 @@
 			<artifactId>jackson-module-kotlin</artifactId>
 		</dependency>
 
-		<!-- tag::verifier_test_dependencies[] -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-spec-kotlin</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -127,6 +131,13 @@
 				<configuration>
 					<packageWithBaseClasses>com.example.fraud</packageWithBaseClasses>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.cloud</groupId>
+						<artifactId>spring-cloud-contract-spec-kotlin</artifactId>
+						<version>${spring-cloud-contract.version}</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<!-- end::contract_maven_plugin[] -->
 			<plugin>

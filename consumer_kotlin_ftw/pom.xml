@@ -59,6 +59,11 @@
 			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-spec-kotlin</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<!-- end::stub_runner[] -->
 
 		<!-- for easier testing of multipart -->
