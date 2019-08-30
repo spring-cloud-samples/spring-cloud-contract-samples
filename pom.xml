@@ -96,7 +96,6 @@
 				<module>producer_with_spock</module>
 				<module>producer_with_xml</module>
 				<module>producer_with_latest_2_2_features</module>
-				<module>producer_java</module>
 				<module>producer_kotlin_ftw</module>
 				<module>consumer</module>
 				<module>consumer_proto</module>
@@ -106,8 +105,17 @@
 				<module>consumer_with_restdocs</module>
 				<module>consumer_security</module>
 				<module>consumer_with_latest_2_2_features</module>
-				<module>consumer_java</module>
 				<module>consumer_kotlin_ftw</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>highmem</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<modules>
+				<module>producer_java</module>
+				<module>consumer_java</module>
 			</modules>
 		</profile>
 	</profiles>

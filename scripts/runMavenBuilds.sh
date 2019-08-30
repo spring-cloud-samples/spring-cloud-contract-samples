@@ -36,6 +36,12 @@ function build_maven() {
     else
         ./mvnw clean install -Ptest -U
     fi
+    echo -e "Running the high memory requirement projects"
+    if [[ "${SKIP_TESTS}" == "true" ]]; then
+        ./mvnw clean install -Phighmem -U -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+    else
+        ./mvnw clean install -Phighmem -U
+    fi
 }
 
 cat <<'EOF'
