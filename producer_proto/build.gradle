@@ -55,7 +55,7 @@ sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
-	compile("com.google.protobuf:protobuf-java:3.6.1")
+	compile("com.google.protobuf:protobuf-java:3.9.1")
 	
 	// remove::start[]
 	// tag::verifier_dep[]
