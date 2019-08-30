@@ -4,8 +4,8 @@ set -o errexit
 set -o errtrace
 set -o pipefail
 
-export PROTOC_TAG="v3.7.0rc2"
-export PROTOC_VERSION="3.7.0-rc-2"
+export PROTOC_VERSION="3.9.1"
+export PROTOC_TAG="v${PROTOC_VERSION}"
 
 if [ ! -f target/protoc/bin/protoc ]; then
 	rm -rf target/protoc
