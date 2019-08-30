@@ -20,8 +20,8 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.7.RELEASE"
 	id("spring-cloud-contract")
 	id("maven-publish")
-	kotlin("jvm") version "1.3.41"
-	kotlin("plugin.spring") version "1.3.41"
+	kotlin("jvm") version "1.3.50"
+	kotlin("plugin.spring") version "1.3.50"
 }
 
 group = "com.example"
