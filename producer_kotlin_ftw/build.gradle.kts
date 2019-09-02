@@ -2,6 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
+	val verifierVersion: String by extra
     repositories {
 		mavenCentral()
 		mavenLocal()
@@ -11,7 +12,7 @@ buildscript {
     }
         
     dependencies {
-        classpath("org.springframework.cloud:spring-cloud-contract-spec-kotlin:${findProperty('verifierVersion') ?: verifierVersion}")
+        classpath("org.springframework.cloud:spring-cloud-contract-spec-kotlin:$verifierVersion")
     }
 }
 
@@ -20,8 +21,9 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.7.RELEASE"
 	id("spring-cloud-contract")
 	id("maven-publish")
-	kotlin("jvm") version "1.3.50"
-	kotlin("plugin.spring") version "1.3.50"
+	// Kotlin version needs to be aligned with Gradle
+	kotlin("jvm") version "1.3.31"
+	kotlin("plugin.spring") version "1.3.31"
 }
 
 group = "com.example"

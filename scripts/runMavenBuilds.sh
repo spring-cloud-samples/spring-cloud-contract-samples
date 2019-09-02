@@ -8,6 +8,7 @@ set -o pipefail
 ROOT=${ROOT:-`pwd`}
 BUILD_COMMON="${BUILD_COMMON:-true}"
 SKIP_TESTS="${SKIP_TESTS:-false}"
+CI="${CI:-false}"
 PREPARE_FOR_WORKSHOPS="${PREPARE_FOR_WORKSHOPS:-false}"
 
 . ${ROOT}/scripts/setup.sh
@@ -35,6 +36,10 @@ function build_maven() {
         ./mvnw clean install -Ptest -U -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else
         ./mvnw clean install -Ptest -U
+    fi
+    if [[ "${CI}" == "true" ]]; then
+        echo "Skipping high mem projects for CI build"
+        return 0
     fi
     echo -e "Running the high memory requirement projects"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
