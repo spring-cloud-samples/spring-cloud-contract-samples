@@ -5,8 +5,9 @@ plugins {
 	id("org.springframework.boot")
 	id("io.spring.dependency-management") version "1.0.7.RELEASE"
 	id("maven-publish")
-	kotlin("jvm") version "1.3.50"
-	kotlin("plugin.spring") version "1.3.50"
+	// aligned with Gradle
+	kotlin("jvm") version "1.3.31"
+	kotlin("plugin.spring") version "1.3.31"
 }
 
 group = "com.example"
