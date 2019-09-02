@@ -5,13 +5,13 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-ROOT=${ROOT:-`pwd`}
-BUILD_COMMON="${BUILD_COMMON:-true}"
-SKIP_TESTS="${SKIP_TESTS:-false}"
-CI="${CI:-false}"
-PREPARE_FOR_WORKSHOPS="${PREPARE_FOR_WORKSHOPS:-false}"
+export ROOT=${ROOT:-`pwd`}
+export BUILD_COMMON="${BUILD_COMMON:-true}"
+export SKIP_TESTS="${SKIP_TESTS:-false}"
+export CI="${CI:-false}"
+export PREPARE_FOR_WORKSHOPS="${PREPARE_FOR_WORKSHOPS:-false}"
 
-. ${ROOT}/scripts/setup.sh
+. ${ROOT}/scripts/common.sh
 
 function clean() {
     rm -rf ~/.m2/repository/com/example/

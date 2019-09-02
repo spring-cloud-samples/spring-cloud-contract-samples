@@ -21,5 +21,3 @@ function prepare_git() {
 	setup_git contract_git
 	setup_git contract_empty_git
 }
-
-prepare_git
