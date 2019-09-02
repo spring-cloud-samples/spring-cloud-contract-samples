@@ -12,14 +12,18 @@ buildscript {
     }
         
     dependencies {
+		// remove::start[]
         classpath("org.springframework.cloud:spring-cloud-contract-spec-kotlin:$verifierVersion")
+		// remove::end[]
     }
 }
 
 plugins {
 	id("org.springframework.boot")
 	id("io.spring.dependency-management") version "1.0.7.RELEASE"
+	// remove::start[]
 	id("spring-cloud-contract")
+	// remove::end[]
 	id("maven-publish")
 	// Kotlin version needs to be aligned with Gradle
 	kotlin("jvm") version "1.3.31"
@@ -58,8 +62,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	
+	// remove::start[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	testImplementation("org.springframework.cloud:spring-cloud-contract-spec-kotlin")
+	// remove::end[]
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 		exclude(group = "junit", module = "junit")

@@ -26,16 +26,21 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
+// remove::start[]
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties
+// remove::end[]
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE, properties = ["server.context-path=/app"])
+// remove::start[]
 @AutoConfigureStubRunner(ids = ["com.example:producer-kotlin-ftw:+:stubs:6565"],
 		stubsMode = StubRunnerProperties.StubsMode.LOCAL)
+// remove::end[]
 class LoanApplicationServiceContextPathTests {
 
+// remove::start[]
 	@Autowired
 	lateinit var service: LoanApplicationService
 
@@ -62,5 +67,6 @@ class LoanApplicationServiceContextPathTests {
 				.isEqualTo(LoanApplicationStatus.LOAN_APPLICATION_REJECTED)
 		assertThat(loanApplication?.rejectionReason).isEqualTo("Amount too high")
 	}
+	// remove::end[]
 
 }

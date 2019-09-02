@@ -55,6 +55,7 @@
 		</dependency>
 
 		<!-- tag::stub_runner[] -->
+		<!-- remove::start[] -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
@@ -66,13 +67,14 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- end::stub_runner[] -->
-
+		
 		<!-- for easier testing of multipart -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- remove::end[] -->
 	</dependencies>
 	<!-- tag::contract_bom[] -->
 	<dependencyManagement>

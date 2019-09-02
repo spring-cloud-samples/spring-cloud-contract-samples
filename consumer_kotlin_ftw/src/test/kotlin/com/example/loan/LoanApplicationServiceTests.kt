@@ -24,9 +24,11 @@ import com.example.loan.model.Client
 import com.example.loan.model.LoanApplication
 import com.example.loan.model.LoanApplicationStatus
 import com.fasterxml.jackson.annotation.JsonProperty
+// remove::start[]
 import com.jayway.jsonpath.JsonPath
 import com.toomuchcoding.jsonassert.JsonAssertion.assertThatJson
 import io.restassured.RestAssured
+// remove::end[]
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -34,8 +36,10 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
+// remove::start[]
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties
+// remove::end[]
 import org.springframework.http.RequestEntity
 import org.springframework.http.ResponseEntity
 import org.springframework.test.context.junit.jupiter.SpringExtension
@@ -44,11 +48,14 @@ import org.springframework.web.client.RestTemplate
 // tag::autoconfigure_stubrunner[]
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
+// remove::start[]
 @AutoConfigureStubRunner(ids = ["com.example:producer-kotlin-ftw:+:stubs:6565"],
 		stubsMode = StubRunnerProperties.StubsMode.LOCAL)
+// remove::end[]
 class LoanApplicationServiceTests {
 // end::autoconfigure_stubrunner[]
 
+// remove::start[]
 	@Autowired
 	lateinit var service: LoanApplicationService
 
@@ -161,6 +168,7 @@ class LoanApplicationServiceTests {
 		// and:
 		assertThat(exchange.body?.message).isEqualTo("Don't worry Tim you're not a fraud")
 	}
+	// remove::end[]
 
 }
 
