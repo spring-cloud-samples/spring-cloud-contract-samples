@@ -85,6 +85,7 @@ task removeTextFromFiles() {
     doLast {
         FileTree tree = fileTree(dir: '.', include: ['**/*.java',
                                                      '**/*.kt',
+                                                     '**/*.kts',
                                                      '**/*.groovy',
                                                      '**/*.gvy',
                                                      '**/*.xml',
