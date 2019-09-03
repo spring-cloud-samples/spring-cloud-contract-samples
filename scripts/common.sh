@@ -7,6 +7,7 @@ set -o pipefail
 
 export ROOT="${ROOT:-`pwd`}"
 export PARALLEL="${PARALLEL:-false}"
+export KILL_JAVA="${KILL_JAVA:-false}"
 
 function setup_git() {
     local git_name
@@ -21,6 +22,13 @@ function setup_git() {
 function prepare_git() {
 	setup_git contract_git
 	setup_git contract_empty_git
+}
+
+function kill_java() {
+    if [[ "${KILL_JAVA}" == "true" ]]; then
+        pkill java -9 || echo "Failed to kill java processes"
+        pkill gradle -9 || echo "Failed to kill gradle processes"
+    fi
 }
 
 declare -a pids

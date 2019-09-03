@@ -66,6 +66,7 @@ function build_gradle() {
     build producer_webflux_webtestclient
     build consumer_pact
     waitPids
+    kill_java
 
     build producer_with_git
     build producer_with_empty_git
@@ -73,6 +74,7 @@ function build_gradle() {
     build producer_advanced
     build producer_pact
     waitPids
+    kill_java
 
     build producer_proto
     build producer_kotlin
@@ -80,6 +82,7 @@ function build_gradle() {
     build producer_with_external_contracts
     build producer_with_restdocs
     waitPids
+    kill_java
 
     build producer_with_webtestclient_restdocs
     build producer_with_dsl_restdocs
@@ -87,12 +90,14 @@ function build_gradle() {
     build producer_with_junit5
     build producer_with_xml
     waitPids
+    kill_java
 
     build producer_security
     build producer_with_latest_2_2_features
     build producer_java
     build producer_kotlin_ftw
     waitPids
+    kill_java
 
     build consumer
     build consumer_proto
@@ -100,16 +105,19 @@ function build_gradle() {
     build consumer_with_stubs_per_consumer
     build consumer_with_restdocs
     waitPids
+    kill_java
 
     build consumer_with_discovery
     build consumer_with_junit5
     build consumer_security
     build consumer_with_latest_2_2_features
     waitPids
+    kill_java
 
     build consumer_java
     build consumer_kotlin_ftw
     waitPids
+    kill_java
 }
 
 cat <<'EOF'
