@@ -102,8 +102,20 @@ task prepareGit(type: Copy) {
         file(new File(project.buildDir, 'contract_empty_git/git')).renameTo(file(new File(project.buildDir, 'contract_empty_git/.git')))
     }
 }
+
+task cleanupGit(type: Delete) {
+	delete new File(project.rootDir, "../target/contract_empty_git/")
+}
+
+task copyBackGit(type: Copy) {
+	dependsOn("cleanupGit")
+	from new File(project.buildDir, 'contract_empty_git')
+	into new File(project.rootDir, "../target/contract_empty_git/")
+}
+
 compileJava.dependsOn("prepareGit")
 copyContracts.dependsOn("prepareGit")
+publishToMavenLocal.dependsOn("copyBackGit")
 // remove::end[]
 
 test {

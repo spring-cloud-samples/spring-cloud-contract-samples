@@ -86,7 +86,7 @@ publish.dependsOn("publishStubsToScm")
 publishToMavenLocal.dependsOn("publishStubsToScm")
 // remove::end[]
 
-// This task is used only for the sake of CI build. You shouldn't have to use it
+// These tasks is used only for the sake of CI build. You shouldn't have to use it
 task prepareGit(type: Copy) {
 	from new File(project.rootDir, "../contract_git/")
 	into new File(project.buildDir, 'contract_git')
@@ -95,8 +95,20 @@ task prepareGit(type: Copy) {
         file(new File(project.buildDir, 'contract_git/git')).renameTo(file(new File(project.buildDir, 'contract_git/.git')))
     }
 }
+
+task cleanupGit(type: Delete) {
+	delete new File(project.rootDir, "../target/contract_git/")
+}
+
+task copyBackGit(type: Copy) {
+	dependsOn("cleanupGit")
+	from new File(project.buildDir, 'contract_git')
+	into new File(project.rootDir, "../target/contract_git/")
+}
+
 compileJava.dependsOn("prepareGit")
 copyContracts.dependsOn("prepareGit")
+publishToMavenLocal.dependsOn("copyBackGit")
 
 test {
 	testLogging {
