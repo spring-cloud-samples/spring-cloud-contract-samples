@@ -20,4 +20,4 @@ pluginManagement {
         }
     }
 }
-rootProject.name = "producer-kotlin-ftw-gradle"
+rootProject.name = "producer-kotlin-ftw"
