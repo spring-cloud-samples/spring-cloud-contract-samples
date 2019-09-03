@@ -66,7 +66,7 @@ contracts {
 	path will be /groupId/artifactId/version/contracts
 	 */
 	contractRepository {
-		repositoryUrl = "git://file://${project.buildDir}/contract_git/"
+		repositoryUrl = "git://file://${new File(project.rootDir, "../target")}/contract_git/"
 	}
 	// The mode can't be classpath
 	contractsMode = "LOCAL"
@@ -85,30 +85,6 @@ the `publish` task is executed
 publish.dependsOn("publishStubsToScm")
 publishToMavenLocal.dependsOn("publishStubsToScm")
 // remove::end[]
-
-// These tasks is used only for the sake of CI build. You shouldn't have to use it
-task prepareGit(type: Copy) {
-	from new File(project.rootDir, "../contract_git/")
-	into new File(project.buildDir, 'contract_git')
-	
-	doLast {
-        file(new File(project.buildDir, 'contract_git/git')).renameTo(file(new File(project.buildDir, 'contract_git/.git')))
-    }
-}
-
-task cleanupGit(type: Delete) {
-	delete new File(project.rootDir, "../target/contract_git/")
-}
-
-task copyBackGit(type: Copy) {
-	dependsOn("cleanupGit")
-	from new File(project.buildDir, 'contract_git')
-	into new File(project.rootDir, "../target/contract_git/")
-}
-
-compileJava.dependsOn("prepareGit")
-copyContracts.dependsOn("prepareGit")
-publishToMavenLocal.dependsOn("copyBackGit")
 
 test {
 	testLogging {

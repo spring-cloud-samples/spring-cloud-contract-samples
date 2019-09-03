@@ -5,7 +5,8 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-ROOT=${ROOT:-`pwd`}
+export ROOT="${ROOT:-`pwd`}"
+export PARALLEL="${PARALLEL:-false}"
 
 function setup_git() {
     local git_name
@@ -20,4 +21,34 @@ function setup_git() {
 function prepare_git() {
 	setup_git contract_git
 	setup_git contract_empty_git
+}
+
+declare -a pids
+
+function waitPids() {
+    if [[ "${PARALLEL}" != "true" ]]; then
+        echo "Not running a parallel build"
+        return 0
+    fi
+    while [ ${#pids[@]} -ne 0 ]; do
+        echo "Waiting for pids: ${pids[@]}"
+        local range=$(eval echo {0..$((${#pids[@]}-1))})
+        local i
+        for i in $range; do
+            if ! kill -0 ${pids[$i]} 2> /dev/null; then
+                echo "Done -- ${pids[$i]}"
+                unset pids[$i]
+            fi
+        done
+        pids=("${pids[@]}") # Expunge nulls created by unset.
+        sleep 1
+    done
+    echo "Done!"
+}
+
+function addPid() {
+    desc=$1
+    pid=$2
+    echo "$desc -- $pid"
+    pids=(${pids[@]} $pid)
 }

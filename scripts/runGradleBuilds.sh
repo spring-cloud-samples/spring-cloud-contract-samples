@@ -9,6 +9,7 @@ export ROOT="${ROOT:-`pwd`}"
 export BUILD_COMMON="${BUILD_COMMON:-true}"
 export SKIP_TESTS="${SKIP_TESTS:-false}"
 export PREPARE_FOR_WORKSHOPS="${PREPARE_FOR_WORKSHOPS:-false}"
+export PARALLEL="${PARALLEL:-false}"
 
 . "${ROOT}/scripts/common.sh"
 
@@ -31,10 +32,19 @@ function build() {
     local folder="${1}"
     echo -e "\n\nBuilding [${folder}] skipping tests? [${SKIP_TESTS}] after prepare for workshops? [${PREPARE_FOR_WORKSHOPS}]\n\n"
     cd "${ROOT}/${folder}"
-    if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies
+    if [[ "${PARALLEL}" == "true" ]]; then
+        if [[ "${SKIP_TESTS}" == "true" ]]; then
+            ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies --console=plain &
+        else
+            ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies --console=plain & 
+        fi
+        addPid "Building [${folder}]" $!
     else
-        ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies
+        if [[ "${SKIP_TESTS}" == "true" ]]; then
+            ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies --console=plain
+        else
+            ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies --console=plain
+        fi
     fi
     cd "${ROOT}"
 }
@@ -55,36 +65,51 @@ function build_gradle() {
     build producer_webflux
     build producer_webflux_webtestclient
     build consumer_pact
+    waitPids
+
     build producer_with_git
     build producer_with_empty_git
     build producer_yaml
     build producer_advanced
     build producer_pact
+    waitPids
+
     build producer_proto
     build producer_kotlin
     build producer_with_stubs_per_consumer
     build producer_with_external_contracts
     build producer_with_restdocs
+    waitPids
+
     build producer_with_webtestclient_restdocs
     build producer_with_dsl_restdocs
     build producer_with_spock
     build producer_with_junit5
     build producer_with_xml
+    waitPids
+
     build producer_security
     build producer_with_latest_2_2_features
     build producer_java
     build producer_kotlin_ftw
+    waitPids
+
     build consumer
     build consumer_proto
     build consumer_pact_stubrunner
     build consumer_with_stubs_per_consumer
     build consumer_with_restdocs
+    waitPids
+
     build consumer_with_discovery
     build consumer_with_junit5
     build consumer_security
     build consumer_with_latest_2_2_features
+    waitPids
+
     build consumer_java
     build consumer_kotlin_ftw
+    waitPids
 }
 
 cat <<'EOF'
