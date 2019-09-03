@@ -16,11 +16,14 @@
 
 package com.example.fraud;
 
+// remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
+// remove::end[]
 
 open class FraudnameBase {
 
+// remove::start[]
 	@Before
 	fun setup() {
 		RestAssuredMockMvc.standaloneSetup(FraudNameController(object : FraudVerifier {
@@ -29,5 +32,7 @@ open class FraudnameBase {
 			}
 		}))
 	}
+
+	// remove::end[]
 
 }

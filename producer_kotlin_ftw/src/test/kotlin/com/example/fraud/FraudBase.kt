@@ -16,11 +16,14 @@
 
 package com.example.fraud;
 
+// remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
+// remove::end[]
 
 open class FraudBase {
 
+// remove::start[]
 	@Before
 	fun setup() {
 		RestAssuredMockMvc.standaloneSetup(FraudDetectionController(),
@@ -42,5 +45,7 @@ open class FraudBase {
 	fun assertThatRejectionReasonIsNull(rejectionReason: Any?) {
 		assert(rejectionReason == null)
 	}
+
+	// remove::end[]
 
 }
