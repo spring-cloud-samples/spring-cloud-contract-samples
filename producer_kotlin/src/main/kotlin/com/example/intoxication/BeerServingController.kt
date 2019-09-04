@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class BeerServingController(private val responseProvider: ResponseProvider) {
 
+    //remove::start[]
     @RequestMapping(value = ["/beer"],
             method = arrayOf(RequestMethod.POST),
             consumes = arrayOf("application/json"),
             produces = arrayOf("application/json"))
     fun check(@RequestBody customer: Customer): Response {
-        //remove::start[]
         return this.responseProvider.thereYouGo(customer)
-        //remove::end[return]
     }
+    //remove::end[return]
 
 }
 

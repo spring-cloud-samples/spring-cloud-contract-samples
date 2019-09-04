@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class ProducerController(private val personCheckingService: PersonCheckingService) {
 
+    //remove::start[]
     @RequestMapping(value = ["/check"],
             method = arrayOf(RequestMethod.POST),
             consumes = arrayOf("application/json"),
             produces = arrayOf("application/json"))
     fun check(@RequestBody personToCheck: PersonToCheck): Response {
-        //remove::start[]
         return if (this.personCheckingService.shouldGetBeer(personToCheck)!!) {
             Response(BeerCheckStatus.OK)
         } else Response(BeerCheckStatus.NOT_OK)
-        //remove::end[return]
     }
+    //remove::end[]
 
 }
 
