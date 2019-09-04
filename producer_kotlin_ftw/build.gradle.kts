@@ -73,11 +73,13 @@ dependencies {
 }
 // end::deps[]
 
+// remove::start[]
 // tag::contract_dsl[]
 contracts {
 	packageWithBaseClasses.set("com.example.fraud")
 }
 // end::contract_dsl[]
+// remove::end[]
 
 tasks.withType<Delete> {
 	doFirst {
