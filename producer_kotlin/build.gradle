@@ -45,6 +45,7 @@ repositories {
 
 dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion" // Required for Kotlin integration
+	compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion" // Required for Kotlin integration
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
