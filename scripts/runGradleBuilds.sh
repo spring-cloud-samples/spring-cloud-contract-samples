@@ -96,6 +96,7 @@ function build_gradle() {
     build producer_with_latest_2_2_features
     build producer_java
     build producer_kotlin_ftw
+    build producer_kafka
     waitPids
     kill_java
 
@@ -116,6 +117,7 @@ function build_gradle() {
 
     build consumer_java
     build consumer_kotlin_ftw
+    build consumer_kafka
     waitPids
     kill_java
 }
