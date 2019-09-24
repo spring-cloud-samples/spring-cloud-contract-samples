@@ -85,7 +85,6 @@
 			</plugin>
 			<!-- end::test_dep_in_plugin[] -->
 			<!-- remove::end[] -->
-
 		</plugins>
 	</build>
 
@@ -100,7 +99,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 
 	<repositories>
 		<repository>
