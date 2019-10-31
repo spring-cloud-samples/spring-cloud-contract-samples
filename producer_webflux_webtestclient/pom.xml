@@ -36,7 +36,7 @@
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>spring-web-test-client</artifactId>
-			<version>${spring-web-test-client.version}</version>
+			<version>${rest-assured.version}</version>
 			<scope>test</scope>
 			<optional>true</optional>
 		</dependency>
@@ -78,7 +78,8 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>2.2.0.BUILD-SNAPSHOT</spring-cloud-contract.version>
-		<spring-web-test-client.version>4.0.0</spring-web-test-client.version>
+		<!-- example of using 4.x version of rest assured -->
+		<rest-assured.version>4.0.0</rest-assured.version>
 	</properties>
 
 	<build>

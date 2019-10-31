@@ -18,9 +18,11 @@ buildscript {
 	}
 }
 
+// example of using 4.x version of rest assured
 ext{
 	restAssuredVersion = '4.0.0'
 }
+ext['rest-assured.version'] = '4.0.0'
 
 println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
 
