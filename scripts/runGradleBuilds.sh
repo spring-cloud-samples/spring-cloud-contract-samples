@@ -50,6 +50,7 @@ function build_gradle() {
         build common
     fi
     build producer
+    build producer_jaxrs
     build producer_webflux
     build producer_webflux_webtestclient
     build consumer_pact
