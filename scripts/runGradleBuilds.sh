@@ -36,7 +36,7 @@ function build() {
         if [[ "${SKIP_TESTS}" == "true" ]]; then
             ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies --console=plain &
         else
-            ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies --console=plain & 
+            ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies --console=plain &
         fi
         addPid "Building [${folder}]" $!
     else
@@ -62,6 +62,7 @@ function build_gradle() {
     fi
     build producer
     build producer_testng
+    build producer_jaxrs
     build producer_webflux
     build producer_webflux_webtestclient
     build consumer_pact

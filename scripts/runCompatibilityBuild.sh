@@ -91,6 +91,7 @@ function build_all_projects() {
     local consumerCloudVersion="${5}"
     local consumerVerifierVersion="${6}"
     build producer "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
+    build producer_jaxrs "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_webflux "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build consumer_pact "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
     build producer_with_git "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
