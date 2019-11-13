@@ -63,6 +63,7 @@ function build_gradle() {
     build producer
     build producer_testng
     build producer_jaxrs
+    build producer_jaxrs_spring
     build producer_webflux
     build producer_webflux_webtestclient
     build consumer_pact
