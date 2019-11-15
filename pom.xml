@@ -35,6 +35,7 @@
 				<module>producer</module>
 				<module>producer_testng</module>
 				<module>producer_jaxrs</module>
+				<module>producer_jaxrs_spring</module>
 				<module>producer_webflux</module>
 				<module>producer_webflux_webtestclient</module>
 				<module>consumer_pact</module>
@@ -82,6 +83,7 @@
 				<module>producer</module>
 				<module>producer_testng</module>
 				<module>producer_jaxrs</module>
+				<module>producer_jaxrs_spring</module>
 				<module>producer_webflux</module>
 				<module>consumer_pact</module>
 				<module>producer_yaml</module>
