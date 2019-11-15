@@ -13,10 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-//remove::end[]
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {ProducerWithJaxRsApplication.class},
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//remove::end[]
 public abstract class BeerRestBase {
 	//remove::start[]
 
