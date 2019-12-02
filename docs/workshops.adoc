@@ -2,7 +2,7 @@
 :toclevels: 8
 :nofooter:
 :images_folder: images
-:version: 2.1.4.BUILD-SNAPSHOT
+:version: 2.2.1.BUILD-SNAPSHOT
 
 = Spring Cloud Contract {version} Workshops
 

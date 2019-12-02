@@ -8,7 +8,7 @@
 :images_folder: ../images
 :where_are_contracts: repo with contracts
 :producer_artifact: beer-api-producer-external
-:version: 2.1.4.BUILD-SNAPSHOT
+:version: 2.2.1.BUILD-SNAPSHOT
 
 = Contracts in an external repository {version}
 

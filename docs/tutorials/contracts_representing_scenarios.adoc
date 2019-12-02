@@ -7,7 +7,7 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer
-:version: 2.1.4.BUILD-SNAPSHOT
+:version: 2.2.1.BUILD-SNAPSHOT
 
 = Contracts Representing Scenarios (Stateful Stubs) {version}
 

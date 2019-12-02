@@ -5,10 +5,10 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Contracts in an external repository 2.1.0.BUILD-SNAPSHOT</title>
+<title>Contracts in an external repository 2.2.1.BUILD-SNAPSHOT</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
-/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Contracts in an external repository 2.1.0.BUILD-SNAPSHOT</h1>
+<h1>Contracts in an external repository 2.2.1.BUILD-SNAPSHOT</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -1253,13 +1253,13 @@ Gradle. In this tutorial, we use Maven. You can see how the <code>pom.xml</code>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<pre class="prettyprint highlight"><code class="language-xml" data-lang="xml">&lt;project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
 	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
 	&lt;groupId&gt;com.example&lt;/groupId&gt;
 	&lt;artifactId&gt;beer-api-producer-external&lt;/artifactId&gt;
-	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+	&lt;version&gt;0.0.1.BUILD-SNAPSHOT&lt;/version&gt;
 
 	&lt;name&gt;Beer API producer Stubs&lt;/name&gt;
 	&lt;description&gt;POM used to install locally stubs for consumer side&lt;/description&gt;
@@ -1267,14 +1267,14 @@ Gradle. In this tutorial, we use Maven. You can see how the <code>pom.xml</code>
 	&lt;parent&gt;
 		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
 		&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
-		&lt;version&gt;2.1.0.M2&lt;/version&gt;
-		&lt;relativePath /&gt;
+		&lt;version&gt;2.2.1.RELEASE&lt;/version&gt;
+		&lt;relativePath/&gt;
 	&lt;/parent&gt;
 
 	&lt;properties&gt;
 		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
 		&lt;java.version&gt;1.8&lt;/java.version&gt;
-		&lt;spring-cloud-contract.version&gt;2.1.0.BUILD-SNAPSHOT&lt;/spring-cloud-contract.version&gt;
+		&lt;spring-cloud-contract.version&gt;2.2.1.BUILD-SNAPSHOT&lt;/spring-cloud-contract.version&gt;
 		&lt;spring-cloud-dependencies.version&gt;Hoxton.BUILD-SNAPSHOT&lt;/spring-cloud-dependencies.version&gt;
 		&lt;!-- We don't want to run tests --&gt;
 		&lt;skipTests&gt;true&lt;/skipTests&gt;
@@ -1827,7 +1827,7 @@ coordinates (<code>com.example:beer-contracts</code>).</p>
 <div class="paragraph">
 <p>We do not provide the <code>contractsRepositoryUrl</code> (the URL from which we expect the
 contracts to be downloaded), because we want to work offline. That&#8217;s why we set the
-<code>contractsWorkOffline</code> flag.</p>
+<code>LOCAL</code> mode.</p>
 </div>
 <div class="paragraph">
 <p>We decided that all the generated tests should be generated under the <code>com.example</code>
@@ -2258,7 +2258,9 @@ following snippet:</p>
 		stringNotation = 'com.example:beer-contracts'
 	}
 	// The JAR with contracts will get downloaded from an external repo
-	contractsRepositoryUrl = "https://foo.bar/baz"
+	contracts {
+		repositoryUrl = "https://foo.bar/baz"
+	}
 	// Base package for generated tests
 	basePackageForTests = "com.example"
 	baseClassMappings {
@@ -2378,7 +2380,7 @@ public class GenerateAdocsFromContractsTests {
 	@Test public void should_convert_contracts_into_adoc() throws IOException {
 		final StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(header);
-		final Path rootDir = contracts.getFile().toPath();
+		final Path rootDir = this.contracts.getFile().toPath();
 
 		Files.walkFileTree(rootDir, new FileVisitor&lt;Path&gt;() {
 			private Pattern pattern = Pattern.compile("^.*groovy$");
@@ -2392,7 +2394,7 @@ public class GenerateAdocsFromContractsTests {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes mainAtts)
 					throws IOException {
-				boolean matches = pattern.matcher(path.toString()).matches();
+				boolean matches = this.pattern.matcher(path.toString()).matches();
 				if (matches) {
 					appendContract(stringBuilder, path);
 				}
@@ -2475,21 +2477,23 @@ public class GenerateAdocsFromContractsTests {
 <h3 id="_written_consumer_tests">Written consumer tests</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test
+	public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 22)).getJson()))
+				.content(this.json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("THERE YOU GO"));
 		//remove::end[]
 	}
 
-	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
+	@Test
+	public void should_reject_a_beer_when_im_too_young() throws Exception {
 		//remove::start[]
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 17)).getJson()))
+				.content(this.json.write(new Person("marcin", 17)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST"));
 		//remove::end[]
@@ -2687,7 +2691,7 @@ then:
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		ResponseEntity&lt;Response&gt; response = this.restTemplate.exchange(
 				RequestEntity
-						.post(URI.create("http://localhost:" + port + "/check"))
+						.post(URI.create("http://localhost:" + this.port + "/check"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class);
@@ -2748,9 +2752,9 @@ then:
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		if (verification.eligible) {
-			eligibleCounter.incrementAndGet();
+			this.eligibleCounter.incrementAndGet();
 		} else {
-			notEligibleCounter.incrementAndGet();
+			this.notEligibleCounter.incrementAndGet();
 		}</code></pre>
 </div>
 </div>
@@ -2760,23 +2764,23 @@ then:
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test public void should_increase_the_eligible_counter_when_verification_was_accepted() throws Exception {
-		int initialCounter = listener.eligibleCounter.get();
+		int initialCounter = this.listener.eligibleCounter.get();
 
 		//remove::start[]
-		stubTrigger.trigger("accepted_verification");
+		this.stubTrigger.trigger("accepted_verification");
 		//remove::end[]
 
-		then(listener.eligibleCounter.get()).isGreaterThan(initialCounter);
+		then(this.listener.eligibleCounter.get()).isGreaterThan(initialCounter);
 	}
 
 	@Test public void should_increase_the_noteligible_counter_when_verification_was_rejected() throws Exception {
-		int initialCounter = listener.notEligibleCounter.get();
+		int initialCounter = this.listener.notEligibleCounter.get();
 
 		//remove::start[]
-		stubTrigger.trigger("rejected_verification");
+		this.stubTrigger.trigger("rejected_verification");
 		//remove::end[]
 
-		then(listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
+		then(this.listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
 	}</code></pre>
 </div>
 </div>
@@ -2939,7 +2943,7 @@ public abstract class BeerMessagingBase {
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		boolean shouldGetBeer = personToCheck.age &gt;= 20;
-		source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
 		return shouldGetBeer;</code></pre>
 </div>
 </div>
