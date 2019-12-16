@@ -12,5 +12,5 @@
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
+testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 ----

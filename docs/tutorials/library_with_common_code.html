@@ -564,12 +564,12 @@ contract</p>
 <li>
 <p>the <code>oldEnough</code> method needs to return the compiled Pattern of a person whose
 age is greater or equal to 20. If you don&#8217;t remember how to do it here is a small
-hint - <code>Pattern.compile("[2-9][0-9]")</code></p>
+hint - <code>Pattern.implementation("[2-9][0-9]")</code></p>
 </li>
 <li>
 <p>the <code>ok</code> method makes no business sense but we&#8217;ll write it anyway ;) Let it
 return a compiled <code>Pattern</code> of <code>OK</code>. We just want to play around with the contract right?
-Just write - <code>Pattern.compile("OK")</code></p>
+Just write - <code>Pattern.implementation("OK")</code></p>
 </li>
 </ul>
 </div>
@@ -734,7 +734,7 @@ add them as a test dependency to our project</p>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("com.example:beer-common:0.0.1-SNAPSHOT")</code></pre>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")</code></pre>
 </div>
 </div>
 </li>
@@ -854,7 +854,7 @@ to the common utility JAR as a test dependency</p>
 <div class="listingblock secondary">
 <div class="title">Gradle</div>
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testCompile("com.example:beer-common:0.0.1-SNAPSHOT")</code></pre>
+<pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")</code></pre>
 </div>
 </div>
 </li>

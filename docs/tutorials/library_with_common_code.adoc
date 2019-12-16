@@ -33,10 +33,10 @@ perspective but it's a tutorial ;) ).
   * the `tooYoung` method needs to return the `"[0-1][0-9]"` String
   * the `oldEnough` method needs to return the compiled Pattern of a person whose
   age is greater or equal to 20. If you don't remember how to do it here is a small
-  hint - `Pattern.compile("[2-9][0-9]")`
+  hint - `Pattern.implementation("[2-9][0-9]")`
   * the `ok` method makes no business sense but we'll write it anyway ;) Let it
    return a compiled `Pattern` of `OK`. We just want to play around with the contract right?
-   Just write - `Pattern.compile("OK")`
+   Just write - `Pattern.implementation("OK")`
 - Open the `ConsumerUtils` class
   * the `oldEnough` method returns `ClientDslProperty`. That's a type that the Spring Cloud Contract
   internals understand as those that need to be set appropriately for the `request` part of
@@ -112,7 +112,7 @@ add them as a test dependency to our project
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
+testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
 ----
 - Now our IDE should start seeing our functions. Let's modify the contracts to use them!
 - Open the `shouldGrantABeerIfOldEnough.groovy` file and let's modify it (<<_modified_first_http_contract,or copy the solution>>)
@@ -198,7 +198,7 @@ to the common utility JAR as a test dependency
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-testCompile("com.example:beer-common:0.0.1-SNAPSHOT")
+testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
 ----
 - And you're ready to run the tests as usual!
 

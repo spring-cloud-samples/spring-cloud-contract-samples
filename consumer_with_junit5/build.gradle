@@ -31,35 +31,32 @@ repositories {
 
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+apply plugin: "io.spring.dependency-management"
 apply plugin: 'maven-publish'
 
-dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"
-	}
+dependencies {
+  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
 }
-
 sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
 
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-web")
-	compile("org.springframework.boot:spring-boot-starter-actuator")
-	compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
-	testCompile("org.springframework.cloud:spring-cloud-stream-test-support") {
+	testImplementation("org.springframework.cloud:spring-cloud-stream-test-support") {
 		exclude group: 'junit', module: 'junit'
 	}
 	// remove::start[]
 	// tag::stubrunner[]
-	testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner") {
+	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner") {
 		exclude group: 'junit', module: 'junit'
 	}
 	// end::stubrunner[]
-	testCompile("com.example:beer-common:0.0.1.BUILD-SNAPSHOT")
+	testImplementation("com.example:beer-common:0.0.1.BUILD-SNAPSHOT")
 	// remove::end[]
-	testCompile group: 'name.falgout.jeffrey.testing.junit5', name: 'mockito-extension', version: "$mockitoExtensionVersion"
-	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api'
+	testImplementation group: 'name.falgout.jeffrey.testing.junit5', name: 'mockito-extension', version: "$mockitoExtensionVersion"
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
 	testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
 	testRuntime group: 'org.junit.platform', name: 'junit-platform-launcher'
 }

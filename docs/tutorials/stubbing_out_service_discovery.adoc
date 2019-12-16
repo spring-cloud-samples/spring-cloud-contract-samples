@@ -58,7 +58,7 @@ TIP: Remember that, in order to use the load balancing features, we need to add 
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 ----
 Also, you need to register the `RestTemplate` bean as `@LoadBalanced`. Go to
 the `ClientApplication` class and register the bean as follows:

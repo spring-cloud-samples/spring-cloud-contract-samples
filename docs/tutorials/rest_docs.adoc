@@ -56,7 +56,7 @@ test dependencies:
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
+testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 ----
 In order to use Spring Cloud Contract Rest Docs integration, you have to add the
 `spring-cloud-contract-wiremock` dependency. That way, we can generate the
@@ -75,7 +75,7 @@ http://wiremock.org[WireMock] stubs from our Rest Docs tests.
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-testCompile("org.springframework.cloud:spring-cloud-contract-wiremock")
+testImplementation("org.springframework.cloud:spring-cloud-contract-wiremock")
 ----
 To get the IDE to help us with code completion in writing DSL contracts, we can add the
 necessary Spring Cloud Contract dependencies. You need to add
@@ -94,7 +94,7 @@ necessary Spring Cloud Contract dependencies. You need to add
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 ----
 
 You need to this task only once, because, when you add contracts, all the dependencies
@@ -478,7 +478,7 @@ Runner test dependency.
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
+testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 ----
 
 - Now we'll add the producer stub dependency to our project
@@ -504,7 +504,7 @@ testCompile("org.springframework.cloud:spring-cloud-starter-contract-stub-runner
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-testCompile("com.example:beer-api-producer-restdocs:0.0.1-SNAPSHOT:stubs") {
+testImplementation("com.example:beer-api-producer-restdocs:0.0.1-SNAPSHOT:stubs") {
     transitive = false
 }
 ----

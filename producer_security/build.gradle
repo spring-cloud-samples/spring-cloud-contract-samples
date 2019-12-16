@@ -33,35 +33,32 @@ repositories {
 
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+apply plugin: "io.spring.dependency-management"
 //remove::start[]
 apply plugin: 'spring-cloud-contract'
 // remove::end[]
 apply plugin: 'maven-publish'
 
-dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"
-	}
+dependencies {
+  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
 }
-
 sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
 
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-web")
-	compile("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 
 	// security
-	compile("org.springframework.boot:spring-boot-starter-security")
-	compile("org.springframework.cloud:spring-cloud-security")
-	compile("org.springframework.security:spring-security-config")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.cloud:spring-cloud-security")
+	implementation("org.springframework.security:spring-security-config")
 	runtime("org.springframework.security:spring-security-jwt:${springSecurityJwtVersion}")
-	compile("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}")
-	compile("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOauth2AutoconfigureVersion}")
+	implementation("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}")
+	implementation("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:${springSecurityOauth2AutoconfigureVersion}")
 
 	//remove::start[]
 	// tag::verifier_dep[]
-	testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
 	// remove::end[]
 }

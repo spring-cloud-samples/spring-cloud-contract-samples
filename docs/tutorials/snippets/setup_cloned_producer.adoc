@@ -22,7 +22,7 @@ dependencies. You need to add `spring-cloud-starter-contract-verifier` as a test
 [source,groovy,indent=0,subs="verbatim,attributes",role="secondary"]
 .Gradle
 ----
-testCompile("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 ----
 - This is a task that you would do once only since when you'll be adding next contracts
 all the dependencies will already be added
