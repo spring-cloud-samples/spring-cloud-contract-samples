@@ -47,8 +47,9 @@ test {
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
             versionMapping {
                 usage('java-api') {
                     fromResolutionOf('runtimeClasspath')
@@ -57,6 +58,6 @@ publishing {
                     fromResolutionResult()
                 }
             }
-        }
-    }
+		}
+	}
 }
