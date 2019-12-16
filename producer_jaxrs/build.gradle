@@ -39,7 +39,7 @@ apply plugin: 'maven-publish'
 dependencies {
   implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
 }
-sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
+
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-jersey")
