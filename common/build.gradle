@@ -45,3 +45,18 @@ test {
 		exceptionFormat = 'full'
 	}
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+        }
+    }
+}
