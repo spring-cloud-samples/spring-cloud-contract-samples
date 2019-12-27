@@ -8,7 +8,7 @@
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-advanced
 :producer_project: producer_advanced
-:version: 2.2.1.BUILD-SNAPSHOT
+:version: 2.2.2.BUILD-SNAPSHOT
 
 = Spring Cloud Contract Advanced {version}
 

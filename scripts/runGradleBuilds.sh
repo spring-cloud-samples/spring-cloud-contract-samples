@@ -70,6 +70,7 @@ function build_gradle() {
     waitPids
     kill_java
 
+    build producer_webflux_security
     build producer_with_git
     build producer_with_empty_git
     build producer_yaml
@@ -120,6 +121,7 @@ function build_gradle() {
     build consumer_java
     build consumer_kotlin_ftw
     build consumer_kafka
+    build consumer_with_secured_webflux
     waitPids
     kill_java
 }

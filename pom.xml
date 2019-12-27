@@ -38,6 +38,7 @@
 				<module>producer_jaxrs_spring</module>
 				<module>producer_webflux</module>
 				<module>producer_webflux_webtestclient</module>
+				<module>producer_webflux_security</module>
 				<module>consumer_pact</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
@@ -71,6 +72,7 @@
 				<module>consumer_java</module>
 				<module>consumer_kotlin_ftw</module>
 				<module>consumer_kafka</module>
+				<module>consumer_with_secured_webflux</module>
 			</modules>
 		</profile>
 		<profile>
@@ -85,6 +87,8 @@
 				<module>producer_jaxrs</module>
 				<module>producer_jaxrs_spring</module>
 				<module>producer_webflux</module>
+				<module>producer_webflux_webtestclient</module>
+				<module>producer_webflux_security</module>
 				<module>consumer_pact</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
@@ -114,6 +118,7 @@
 				<module>consumer_with_latest_2_2_features</module>
 				<module>consumer_kotlin_ftw</module>
 				<module>consumer_kafka</module>
+				<module>consumer_with_secured_webflux</module>
 			</modules>
 		</profile>
 		<profile>
