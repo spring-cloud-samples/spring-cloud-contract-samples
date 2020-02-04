@@ -65,6 +65,7 @@ function build_gradle() {
     build producer_jaxrs
     build producer_jaxrs_spring
     build producer_webflux
+    build producer_router_function
     build producer_webflux_webtestclient
     build consumer_pact
     waitPids
