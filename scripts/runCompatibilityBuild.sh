@@ -100,6 +100,7 @@ function build_all_projects() {
     build producer_kotlin_ftw "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build consumer_pact "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
     build producer_proto "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
+    build producer_router_function "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_security "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_testng "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_webflux "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
