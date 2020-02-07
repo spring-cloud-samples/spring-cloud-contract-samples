@@ -39,6 +39,7 @@
 				<module>producer_webflux</module>
 				<module>producer_webflux_webtestclient</module>
 				<module>producer_webflux_security</module>
+				<module>producer_router_function</module>
 				<module>consumer_pact</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
@@ -89,6 +90,7 @@
 				<module>producer_webflux</module>
 				<module>producer_webflux_webtestclient</module>
 				<module>producer_webflux_security</module>
+				<module>producer_router_function</module>
 				<module>consumer_pact</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
