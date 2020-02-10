@@ -5,11 +5,11 @@ import io.restassured.module.mockmvc.RestAssuredMockMvc;
 //remove::end[]
 
 import org.assertj.core.api.BDDAssertions;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class BeerRestBase {
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		//remove::start[]
 		RestAssuredMockMvc.standaloneSetup(new StoutController(), new BuyController());

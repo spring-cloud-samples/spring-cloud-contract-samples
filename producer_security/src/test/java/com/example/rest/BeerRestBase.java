@@ -5,8 +5,7 @@ package com.example.rest;
 import com.example.ProducerApplication;
 import com.example.security.UserDetails;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,11 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = { ProducerApplication.class,
 		BeerRestBase.Config.class }, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 // remove::end[]
@@ -31,7 +27,7 @@ public abstract class BeerRestBase {
 	@Autowired
 	private FilterChainProxy springSecurityFilterChain;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		RestAssuredMockMvc
 				.standaloneSetup(MockMvcBuilders.webAppContextSetup(this.context)

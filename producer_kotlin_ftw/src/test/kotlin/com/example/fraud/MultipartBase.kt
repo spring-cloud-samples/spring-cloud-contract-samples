@@ -18,13 +18,13 @@ package com.example.fraud;
 
 // remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 // remove::end[]
 
 open class MultipartBase {
 
 // remove::start[]
-	@Before
+	@BeforeEach
 	fun setUp() {
 		RestAssuredMockMvc.standaloneSetup(TestController())
 	}

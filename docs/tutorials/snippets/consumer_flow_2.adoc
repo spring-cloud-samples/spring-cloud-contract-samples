@@ -11,7 +11,6 @@ code) it's enough to pass the `repositoryRoot` parameter and set the
 +
 [source,java,subs="verbatim,attributes"]
 ----
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters

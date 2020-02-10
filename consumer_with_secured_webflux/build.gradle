@@ -87,6 +87,7 @@ compileTestGroovy.enabled = false
 //remove::end[]
 
 test {
+	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
 	}

@@ -557,7 +557,7 @@ Stub Runner. If you run the test it will fail</p>
 <p>Let&#8217;s add the missing JUnit Rule!</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Rule public StubRunnerRule rule = new StubRunnerRule()</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RegisterExtension public StubRunnerExtension rule = new StubRunnerExtension()</code></pre>
 </div>
 </div>
 </li>
@@ -636,7 +636,7 @@ can set one for you. If you&#8217;re using a JUnit rule - you have to do that yo
 <h3 id="_junit_rule">JUnit Rule</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Rule public StubRunnerRule rule = new StubRunnerRule()
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@RegisterExtension public StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example","beer-api-producer-with-stubs-per-consumer")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL)
 			.withStubPerConsumer(true)
@@ -648,7 +648,7 @@ can set one for you. If you&#8217;re using a JUnit rule - you have to do that yo
 <h3 id="_port_setting">Port setting</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Before
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@BeforeEach
 	public void setupPort() {
 		this.beerController.port = this.rule.findStubUrl("beer-api-producer-with-stubs-per-consumer").getPort();
 	}</code></pre>

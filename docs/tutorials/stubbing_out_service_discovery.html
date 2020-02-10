@@ -1030,7 +1030,7 @@ producerController</code>. Mockito will inject any mocks for us via the construc
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Mock PersonCheckingService personCheckingService;
     @InjectMocks ProducerController producerController;
 
-    @Before
+    @BeforeEach
     public void setup() {
         given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
     }</code></pre>
@@ -1071,7 +1071,7 @@ public abstract class BeerRestBase {
     @Mock PersonCheckingService personCheckingService;
     @InjectMocks ProducerController producerController;
 
-    @Before
+    @BeforeEach
     public void setup() {
         given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
         RestAssuredMockMvc.standaloneSetup(producerController);
@@ -1577,7 +1577,7 @@ public abstract class BeerRestBase {
 	@Mock PersonCheckingService personCheckingService;
 	@InjectMocks ProducerController producerController;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
 		RestAssuredMockMvc.standaloneSetup(producerController);
@@ -1609,7 +1609,7 @@ public abstract class BeerMessagingBase {
 	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name

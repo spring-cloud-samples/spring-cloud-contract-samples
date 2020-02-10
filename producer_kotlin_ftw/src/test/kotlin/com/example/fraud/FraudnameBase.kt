@@ -18,13 +18,13 @@ package com.example.fraud;
 
 // remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 // remove::end[]
 
 open class FraudnameBase {
 
 // remove::start[]
-	@Before
+	@BeforeEach
 	fun setup() {
 		RestAssuredMockMvc.standaloneSetup(FraudNameController(object : FraudVerifier {
 			override fun isFraudByName(name: String): Boolean {

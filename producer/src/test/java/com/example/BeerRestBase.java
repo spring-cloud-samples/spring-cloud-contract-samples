@@ -4,7 +4,7 @@ package com.example;
 import java.util.Random;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 //remove::end[]
 
@@ -13,7 +13,7 @@ public abstract class BeerRestBase {
 	ProducerController producerController = new ProducerController(oldEnough());
 	StatsController statsController = new StatsController(statsService());
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		RestAssuredMockMvc.standaloneSetup(this.producerController, this.statsController);
 	}

@@ -4,10 +4,10 @@ package com.example.intoxication;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 //remove::end[]
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.Rule;
 import org.junit.rules.TestName;
-import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Configuration;
 //remove::start[]
 import org.springframework.restdocs.JUnitRestDocumentation;
 //remove::end[]
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -32,7 +31,6 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 /**
  * Tests for the scenario based stub
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = BeerIntoxicationBase.Config.class)
 public abstract class BeerIntoxicationBase {
 
@@ -47,7 +45,7 @@ public abstract class BeerIntoxicationBase {
 
 	@Autowired WebApplicationContext context;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		//remove::start[]
 		RestAssuredMockMvc.mockMvc(MockMvcBuilders.webAppContextSetup(this.context)

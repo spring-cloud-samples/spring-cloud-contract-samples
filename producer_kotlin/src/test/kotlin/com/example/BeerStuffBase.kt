@@ -1,10 +1,10 @@
 package com.example
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc
-import org.junit.Before
+import org.junit.jupiter.api.BeforeEach
 
 abstract class BeerStuffBase {
-    @Before
+    @BeforeEach
     fun setup() {
         RestAssuredMockMvc.standaloneSetup(StuffController())
     }

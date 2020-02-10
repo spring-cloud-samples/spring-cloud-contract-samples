@@ -500,7 +500,7 @@ why we need to set it up by using the following notation:
 ----
     @Autowired WebApplicationContext webApplicationContext;
 
-    @Before
+    @BeforeEach
     public void setup() {
         RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
     }

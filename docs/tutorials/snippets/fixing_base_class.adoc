@@ -19,7 +19,7 @@ public abstract class BeerRestBase {
     @Mock PersonCheckingService personCheckingService;
     @InjectMocks ProducerController producerController;
 
-    @Before
+    @BeforeEach
     public void setup() {
         given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
     }
@@ -54,7 +54,7 @@ public abstract class BeerRestBase {
     @Mock PersonCheckingService personCheckingService;
     @InjectMocks ProducerController producerController;
 
-    @Before
+    @BeforeEach
     public void setup() {
         given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
         RestAssuredMockMvc.standaloneSetup(producerController);

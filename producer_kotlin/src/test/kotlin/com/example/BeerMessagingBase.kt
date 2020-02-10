@@ -1,6 +1,6 @@
 package com.example
 
-import org.junit.Before
+import org.junit.jupiter.api.BeforeEach
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -19,7 +19,7 @@ abstract class BeerMessagingBase {
     @Autowired
     internal var personCheckingService: PersonCheckingService? = null
 
-    @Before
+    @BeforeEach
     fun setup() {
         // let's clear any remaining messages
         // output == destination or channel name

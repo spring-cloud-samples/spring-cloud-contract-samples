@@ -5,24 +5,22 @@ import java.util.Map;
 
 import org.assertj.core.api.BDDAssertions;
 import org.junit.Assume;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import org.springframework.boot.test.context.SpringBootTest;
-// remove::start[]
-import org.springframework.cloud.contract.stubrunner.junit.StubRunnerRule;
+import org.springframework.cloud.contract.stubrunner.junit.StubRunnerExtension;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
-// remove::end[]
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
+
+// remove::start[]
+// remove::end[]
 
 /**
  * @author Marcin Grzejszczak
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 // @org.junit.Ignore
 public class GenerateStubsWithFindProducerTest {
@@ -34,8 +32,8 @@ public class GenerateStubsWithFindProducerTest {
 		return map;
 	}
 
-	@Rule
-	public StubRunnerRule rule = new StubRunnerRule()
+	@RegisterExtension
+	public StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example:some-artifact-id:0.0.1")
 			.downloadStub("com.example:some-other-artifact-id")
 			.repoRoot("stubs://file://" + System.getenv("ROOT")
@@ -45,7 +43,7 @@ public class GenerateStubsWithFindProducerTest {
 
 	// remove::end[]
 
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		Assume.assumeTrue("Spring Cloud Contract must be in version at least 2.2.0",
 				atLeast220());

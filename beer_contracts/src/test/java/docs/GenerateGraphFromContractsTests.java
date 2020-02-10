@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 /**
  * Generates a JSON file that will be used to sketch
@@ -28,7 +28,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  *
  * @author Marcin Grzejszczak
  */
-@RunWith(SpringRunner.class)
+@SpringJUnitConfig
 public class GenerateGraphFromContractsTests {
 	private final ObjectMapper mapper = new ObjectMapper();
 

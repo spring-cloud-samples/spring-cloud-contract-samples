@@ -1,29 +1,27 @@
 package com.example;
 
 import org.assertj.core.api.BDDAssertions;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import org.springframework.boot.test.context.SpringBootTest;
-// remove::start[]
-import org.springframework.cloud.contract.stubrunner.junit.StubRunnerRule;
+import org.springframework.cloud.contract.stubrunner.junit.StubRunnerExtension;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
-// remove::end[]
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
+
+// remove::start[]
+// remove::end[]
 
 /**
  * @author Marcin Grzejszczak
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 //@org.junit.Ignore
 public class GenerateStubsTest {
 
 	//remove::start[]
-	@Rule
-	public StubRunnerRule rule = new StubRunnerRule()
+	@RegisterExtension
+	public StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example","beer-api-producer-latest", "0.0.1.BUILD-SNAPSHOT")
 			.repoRoot("stubs://file://" + System.getenv("ROOT") + "/producer_with_latest_2_2_features/src/test/resources/contracts/beer/in_progress")
 			.stubsMode(StubRunnerProperties.StubsMode.REMOTE)

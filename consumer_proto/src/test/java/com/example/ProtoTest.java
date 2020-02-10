@@ -2,25 +2,22 @@ package com.example;
 
 import org.assertj.core.api.BDDAssertions;
 import org.junit.Assume;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.cloud.contract.stubrunner.junit.StubRunnerRule;
+import org.springframework.cloud.contract.stubrunner.junit.StubRunnerExtension;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Marcin Grzejszczak
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 // @org.junit.Ignore
 public class ProtoTest {
@@ -31,14 +28,14 @@ public class ProtoTest {
 	int port;
 
 	//remove::start[]
-	@Rule
-	public StubRunnerRule rule = new StubRunnerRule()
+	@RegisterExtension
+	public StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example", "beer-api-producer-proto")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
 
 	// remove::end[]
 
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		Assume.assumeTrue("Spring Cloud Contract must be in version at least 2.1.0",
 				atLeast210());
@@ -46,7 +43,7 @@ public class ProtoTest {
 				StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")));
 	}
 
-	@Before
+	@BeforeEach
 	public void setupPort() {
 		//remove::start[]
 		this.port = this.rule.findStubUrl("beer-api-producer-proto").getPort();

@@ -49,7 +49,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
-	testImplementation("org.springframework.cloud:spring-cloud-stream-test-support")
+	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
 	testImplementation("org.spockframework:spock-core:$spockVersion")
 	testImplementation("org.spockframework:spock-spring:$spockVersion")
 	testImplementation("org.codehaus.groovy:groovy-all:$groovyVersion")
@@ -74,6 +74,7 @@ contracts {
 // remove::end[]
 
 test {
+	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
 	}

@@ -1396,7 +1396,7 @@ why we need to set it up by using the following notation:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Autowired WebApplicationContext webApplicationContext;
 
-    @Before
+    @BeforeEach
     public void setup() {
         RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
     }</code></pre>
@@ -1487,7 +1487,7 @@ it as you wish - the current version is just to show you an example.
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">package docs;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.contract.spec.Contract;
@@ -1505,8 +1505,9 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collection;
 import java.util.regex.Pattern;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@RunWith(SpringRunner.class)
+@SpringJUnitConfig
 public class GenerateAdocsFromContractsTests {
 
 	// TODO: Can be parametrized
@@ -2026,7 +2027,7 @@ public abstract class BeerRestBase {
 	@Mock PersonCheckingService personCheckingService;
 	@InjectMocks ProducerController producerController;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
 		RestAssuredMockMvc.standaloneSetup(producerController);
@@ -2058,7 +2059,7 @@ public abstract class BeerMessagingBase {
 	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name
@@ -2258,7 +2259,7 @@ enum DrunkLevel {
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 //remove::end[]
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -2276,13 +2277,12 @@ import static com.example.intoxication.DrunkLevel.WASTED;
 /**
  * Tests for the scenario based stub
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = BeerIntoxicationBase.Config.class)
 public abstract class BeerIntoxicationBase {
 
 	@Autowired WebApplicationContext webApplicationContext;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		//remove::start[]
 		RestAssuredMockMvc.webAppContextSetup(this.webApplicationContext);

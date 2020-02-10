@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
@@ -16,7 +16,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.0.BUILD-SNAPSHOT</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<dependencies>
@@ -42,9 +42,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-stream-test-support</artifactId>
+			<artifactId>spring-cloud-stream</artifactId>
+			<type>test-jar</type>
 			<scope>test</scope>
+			<classifier>test-binder</classifier>
 		</dependency>
+
 
 		<!-- spring cloud contract test dependencies -->
 		<!-- remove::start[] -->
@@ -71,7 +74,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Ilford.BUILD-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>2.3.0.BUILD-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud-contract.version>3.0.0.BUILD-SNAPSHOT</spring-cloud-contract.version>
 	</properties>
 
 	<build>

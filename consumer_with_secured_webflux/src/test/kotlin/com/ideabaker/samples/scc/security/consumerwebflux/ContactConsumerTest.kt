@@ -1,7 +1,7 @@
 package com.ideabaker.samples.scc.security.consumerwebflux
 
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.context.SpringBootTest
@@ -31,7 +31,7 @@ class ContactConsumerTest {
 
   @StubRunnerPort("secured-producer-webflux") lateinit var port: Integer
 
-  @Before
+  @BeforeEach
   fun before() {
     webTestClient = WebTestClient
         .bindToServer()

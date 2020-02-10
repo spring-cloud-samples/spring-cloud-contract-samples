@@ -2,7 +2,7 @@ package com.example.intoxication
 
 import com.example.intoxication.DrunkLevel.*
 import io.restassured.module.mockmvc.RestAssuredMockMvc
-import org.junit.Before
+import org.junit.jupiter.api.BeforeEach
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
@@ -25,7 +25,7 @@ abstract class BeerIntoxicationBase {
     @Autowired
     internal var webApplicationContext: WebApplicationContext? = null
 
-    @Before
+    @BeforeEach
     fun setup() {
         RestAssuredMockMvc.webAppContextSetup(this.webApplicationContext)
     }

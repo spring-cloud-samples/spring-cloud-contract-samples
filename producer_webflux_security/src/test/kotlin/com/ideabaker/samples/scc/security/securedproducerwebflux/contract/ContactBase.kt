@@ -7,8 +7,7 @@ import com.ideabaker.samples.scc.security.securedproducerwebflux.service.Contact
 import com.ideabaker.samples.scc.security.securedproducerwebflux.web.ContactHandler
 import com.ideabaker.samples.scc.security.securedproducerwebflux.web.Routes
 import io.restassured.module.webtestclient.RestAssuredWebTestClient
-import org.junit.Before
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.test.context.SpringBootTest
@@ -16,7 +15,6 @@ import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
-import org.springframework.test.context.junit4.SpringRunner
 import reactor.core.publisher.Flux
 
 /**
@@ -24,14 +22,13 @@ import reactor.core.publisher.Flux
  * @author Arthur Kazemi<bidadh@gmail.com>
  * @since 2019-06-23 22:41
  */
-@RunWith(SpringRunner::class)
 @SpringBootTest(classes = [GlobalSecurityConfig::class, SpringSecurityWebFluxConfig::class, ContactBase.Config::class, Routes::class],
     webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 abstract class ContactBase {
   @Autowired
   lateinit var context: ApplicationContext
 
-  @Before
+  @BeforeEach
   fun setup() {
     RestAssuredWebTestClient.applicationContextSetup(this.context)
   }

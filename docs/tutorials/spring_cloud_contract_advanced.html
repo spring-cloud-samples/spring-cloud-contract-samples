@@ -1303,7 +1303,7 @@ We want the port to be set automatically.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Value("${stubrunner.runningstubs.beer-api-producer-advanced.port}") int stubPort;
 
-@Before
+@BeforeEach
 public void setupPort() {
     controller.port = stubPort;
 }</code></pre>
@@ -1317,7 +1317,7 @@ public void setupPort() {
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Autowired StubFinder stubFinder;
 
-@Before
+@BeforeEach
 public void setupPort() {
     controller.port = stubFinder.findStubUrl("beer-api-producer-advanced").getPort();
 }</code></pre>
@@ -1998,7 +1998,7 @@ public abstract class BeerRestBase {
 	@Mock PersonCheckingService personCheckingService;
 	@InjectMocks ProducerController producerController;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
 		RestAssuredMockMvc.standaloneSetup(producerController);
@@ -2030,7 +2030,7 @@ public abstract class BeerMessagingBase {
 	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name

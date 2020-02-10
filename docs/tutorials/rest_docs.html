@@ -1314,7 +1314,7 @@ public abstract class BeerMessagingBase {
     @Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name
@@ -2256,7 +2256,7 @@ public abstract class BeerRestBase {
 	@Mock PersonCheckingService personCheckingService;
 	@InjectMocks ProducerController producerController;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
 		RestAssuredMockMvc.standaloneSetup(producerController);
@@ -2288,7 +2288,7 @@ public abstract class BeerMessagingBase {
 	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name
@@ -2352,7 +2352,7 @@ public class ProducerControllerTests {
 
 	private JacksonTester&lt;PersonToCheck&gt; json;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		ObjectMapper objectMappper = new ObjectMapper();
 		// Possibly configure the mapper
@@ -2410,7 +2410,7 @@ public class ProducerControllerTests {
 
 	private JacksonTester&lt;PersonToCheck&gt; json;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		ObjectMapper objectMappper = new ObjectMapper();
 		// Possibly configure the mapper

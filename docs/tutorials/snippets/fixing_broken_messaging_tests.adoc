@@ -10,7 +10,6 @@ the setup related to messaging and Spring Cloud Contract.
 +
 [source,java]
 ----
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
 public abstract class BeerMessagingBase {
@@ -23,14 +22,13 @@ abstraction (it allows to send and receive messages from e.g. Spring Cloud Strea
 +
 [source,java]
 ----
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
 public abstract class BeerMessagingBase {
     @Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name

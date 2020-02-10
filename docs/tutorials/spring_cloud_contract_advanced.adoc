@@ -599,7 +599,7 @@ The following code shows an example of autowiring the field for
 ----
 @Value("${stubrunner.runningstubs.beer-api-producer-advanced.port}") int stubPort;
 
-@Before
+@BeforeEach
 public void setupPort() {
     controller.port = stubPort;
 }
@@ -612,7 +612,7 @@ The following code shows an example of using the `StubFinder` interface for
 ----
 @Autowired StubFinder stubFinder;
 
-@Before
+@BeforeEach
 public void setupPort() {
     controller.port = stubFinder.findStubUrl("beer-api-producer-advanced").getPort();
 }

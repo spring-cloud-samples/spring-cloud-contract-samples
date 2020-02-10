@@ -1,9 +1,9 @@
 package com.example;
 
 import org.assertj.core.api.BDDAssertions;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,7 +15,6 @@ import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -25,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author Marcin Grzejszczak
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
@@ -46,7 +44,7 @@ public class GrumpyBartenderControllerTest extends AbstractTest {
 	//tag::valueport[]
 	@StubRunnerPort("beer-api-producer-advanced") int producerPort;
 	//end::valueport[]
-	@Before
+	@BeforeEach
 	public void setupPort() {
 		// either one or the other option
 		//tag::portfinder[]
