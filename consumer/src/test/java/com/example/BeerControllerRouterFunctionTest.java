@@ -59,7 +59,9 @@ public class BeerControllerRouterFunctionTest extends AbstractTest {
 
 	@Before
 	public void setupPort() {
+		//remove::start[]
 		this.beerController.port = this.rule.findStubUrl("beer-api-producer-routerfunction-webtestclient").getPort();
+		//remove::end[]
 	}
 	
 	//remove::end[]
