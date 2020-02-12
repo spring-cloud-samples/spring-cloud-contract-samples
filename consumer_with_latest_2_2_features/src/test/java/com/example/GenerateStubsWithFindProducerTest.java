@@ -33,7 +33,7 @@ public class GenerateStubsWithFindProducerTest {
 	}
 
 	@RegisterExtension
-	public StubRunnerExtension rule = new StubRunnerExtension()
+	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example:some-artifact-id:0.0.1")
 			.downloadStub("com.example:some-other-artifact-id")
 			.repoRoot("stubs://file://" + System.getenv("ROOT")
@@ -67,7 +67,7 @@ public class GenerateStubsWithFindProducerTest {
 	public void should_generate_a_stub_at_runtime_for_some_artifact_id()
 			throws Exception {
 		// remove::start[]
-		int port = this.rule.findStubUrl("some-artifact-id").getPort();
+		int port = rule.findStubUrl("some-artifact-id").getPort();
 
 		String object = new RestTemplate()
 				.getForObject("http://localhost:" + port + "/stuff", String.class);
@@ -80,7 +80,7 @@ public class GenerateStubsWithFindProducerTest {
 	public void should_generate_a_stub_at_runtime_for_some_other_artifact_id()
 			throws Exception {
 		// remove::start[]
-		int port = this.rule.findStubUrl("some-other-artifact-id").getPort();
+		int port = rule.findStubUrl("some-other-artifact-id").getPort();
 
 		String object = new RestTemplate()
 				.getForObject("http://localhost:" + port + "/stuff2", String.class);

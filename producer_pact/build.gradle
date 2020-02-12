@@ -57,6 +57,7 @@ dependencies {
 
 //remove::start[]
 contracts {
+	testFramework = "JUNIT5"
 	contractDependency {
 		stringNotation = "${project.group}:${project.name}:+"
 	}

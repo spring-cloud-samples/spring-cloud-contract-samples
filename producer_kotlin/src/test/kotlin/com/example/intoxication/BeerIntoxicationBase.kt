@@ -3,20 +3,17 @@ package com.example.intoxication
 import com.example.intoxication.DrunkLevel.*
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import org.junit.jupiter.api.BeforeEach
-import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.web.context.WebApplicationContext
 
 /**
  * Tests for the scenario based stub
  */
  // remove::start[]
-@RunWith(SpringRunner::class)
 @SpringBootTest(classes = arrayOf(BeerIntoxicationBase.Config::class))
 // remove::end[]
 abstract class BeerIntoxicationBase {

@@ -57,6 +57,7 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<testFramework>JUNIT5</testFramework>
 					<!-- By default it would search under src/test/resources/ -->
 					<contractsDirectory>${project.basedir}</contractsDirectory>
 				</configuration>

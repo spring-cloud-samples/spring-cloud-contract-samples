@@ -69,6 +69,7 @@ dependencies {
 
 //remove::start[]
 contracts {
+	testFramework = "JUNIT5"
 	testMode = "WEBTESTCLIENT"
 	packageWithBaseClasses = 'com.example'
 	baseClassMappings {

@@ -1,36 +1,30 @@
 package com.example;
 
-import org.junit.jupiter.api.BeforeEach;
+import javax.inject.Inject;
+
+import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 //remove::start[]
 import org.springframework.cloud.contract.verifier.messaging.MessageVerifier;
 import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier;
+import org.springframework.cloud.stream.binder.test.TestChannelBinderConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 //remove::end[]
 
-//remove::start[]
-import javax.inject.Inject;
-//remove::end[]
-import java.util.concurrent.TimeUnit;
+@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 //remove::start[]
 @AutoConfigureMessageVerifier
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 //remove::end[]
 public abstract class BeerMessagingBase {
 	//remove::start[]
 	@Inject MessageVerifier messaging;
 	//remove::end[]
 	@Autowired PersonCheckingService personCheckingService;
-
-	@BeforeEach
-	public void setup() {
-		// let's clear any remaining messages
-		// output == destination or channel name
-		//remove::start[]
-		this.messaging.receive("output", 100, TimeUnit.MILLISECONDS);
-		//remove::end[]
-	}
 
 	public void clientIsOldEnough() {
 		//remove::start[]

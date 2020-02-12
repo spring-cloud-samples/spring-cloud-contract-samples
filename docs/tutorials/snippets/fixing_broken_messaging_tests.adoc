@@ -12,6 +12,7 @@ the setup related to messaging and Spring Cloud Contract.
 ----
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
 ...
 }
@@ -24,6 +25,7 @@ abstraction (it allows to send and receive messages from e.g. Spring Cloud Strea
 ----
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
     @Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;

@@ -107,6 +107,7 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<testFramework>JUNIT5</testFramework>
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
 					<testMode>WEBTESTCLIENT</testMode>
 				</configuration>

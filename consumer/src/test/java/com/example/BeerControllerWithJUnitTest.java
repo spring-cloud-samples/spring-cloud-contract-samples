@@ -33,14 +33,14 @@ public class BeerControllerWithJUnitTest extends AbstractTest {
 	@Autowired BeerController beerController;
 	//remove::start[]
 	// tag::rule[]
-	@RegisterExtension public StubRunnerExtension rule = new StubRunnerExtension()
+	@RegisterExtension static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example","beer-api-producer")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
 	// end:rule[]
 	//tag::setup[]
 	@BeforeEach
 	public void setupPort() {
-		this.beerController.port = this.rule.findStubUrl("beer-api-producer").getPort();
+		this.beerController.port = rule.findStubUrl("beer-api-producer").getPort();
 	}
 	// end::setup[]
 	//remove::end[]

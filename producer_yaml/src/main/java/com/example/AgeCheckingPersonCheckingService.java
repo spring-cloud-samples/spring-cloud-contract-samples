@@ -1,7 +1,7 @@
 package com.example;
 
-import org.springframework.cloud.stream.messaging.Source;
-import org.springframework.messaging.support.MessageBuilder;
+import reactor.core.publisher.EmitterProcessor;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 
-	private final Source source;
+	private final EmitterProcessor<Verification> emitterProcessor;
 
-	public AgeCheckingPersonCheckingService(Source source) {
-		this.source = source;
+	public AgeCheckingPersonCheckingService(EmitterProcessor<AgeCheckingPersonCheckingService.Verification> emitterProcessor) {
+		this.emitterProcessor = emitterProcessor;
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 		//remove::start[]
 		//tag::impl[]
 		boolean shouldGetBeer = personToCheck.age >= 20;
-		this.source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.emitterProcessor.onNext(new Verification(shouldGetBeer));
 		return shouldGetBeer;
 		//end::impl[]
 		//remove::end[return]

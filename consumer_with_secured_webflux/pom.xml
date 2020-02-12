@@ -11,7 +11,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>consumer-webflux</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>consumer-webflux</name>
+	<name>Consumer WIth Secured WebFlux</name>
 	<description>SCC Consumer Demo project for Spring Boot</description>
 
 	<properties>
@@ -56,6 +56,17 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 

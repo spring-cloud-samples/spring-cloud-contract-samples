@@ -41,7 +41,7 @@ public class BeerOrderTest extends AbstractTest {
 
 	//remove::start[]
 	@RegisterExtension
-	public StubRunnerExtension rule = new StubRunnerExtension()
+	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example", "beer-api-producer-xml")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
 	//remove::end[]
@@ -61,7 +61,7 @@ public class BeerOrderTest extends AbstractTest {
 	//remove::start[]
 	@BeforeEach
 	public void setupPort() {
-		this.beerController.port = this.rule.findStubUrl("beer-api-producer-xml").getPort();
+		this.beerController.port = rule.findStubUrl("beer-api-producer-xml").getPort();
 	}
 	//remove::end[]
 

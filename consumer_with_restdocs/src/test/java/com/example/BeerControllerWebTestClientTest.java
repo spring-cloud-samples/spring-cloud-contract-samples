@@ -34,7 +34,7 @@ public class BeerControllerWebTestClientTest extends AbstractTest {
 
 	//remove::start[]
 	@RegisterExtension
-	public StubRunnerExtension rule = new StubRunnerExtension()
+	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example","beer-api-producer-webtestclient-restdocs")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
 	//remove::end[]
@@ -48,7 +48,7 @@ public class BeerControllerWebTestClientTest extends AbstractTest {
 	@BeforeEach
 	public void setupPort() {
 		//remove::start[]
-		this.beerController.port = this.rule.findStubUrl("beer-api-producer-webtestclient-restdocs").getPort();
+		this.beerController.port = rule.findStubUrl("beer-api-producer-webtestclient-restdocs").getPort();
 		// remove::end[]
 	}
 

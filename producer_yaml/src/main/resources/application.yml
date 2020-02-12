@@ -1,10 +1,13 @@
 spring:
     application.name: beer-api-producer
-    cloud.stream.bindings.output:
+    cloud.stream.bindings.output-out-0:
         content-type: application/json
         # remove::start[]
         destination: verifications
         # remove::end[]
+    cloud:
+      function:
+        definition: output
 server.port: ${PORT:8080}
 logging:
   level:

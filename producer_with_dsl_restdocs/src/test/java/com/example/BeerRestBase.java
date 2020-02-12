@@ -1,10 +1,11 @@
 package com.example;
 
 //remove::start[]
+
 import java.util.Random;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 
@@ -36,7 +37,7 @@ public abstract class BeerRestBase {
 		return name -> new Random().nextInt();
 	}
 
-	@BeforeEach
+	@Before
 	public void setup() {
 		RestAssuredMockMvc.mockMvc(MockMvcBuilders.standaloneSetup(this.producerController, this.statsController)
 				.apply(documentationConfiguration(this.restDocumentation))

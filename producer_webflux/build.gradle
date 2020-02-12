@@ -62,6 +62,7 @@ dependencies {
 
 //remove::start[]
 contracts {
+	testFramework = "JUNIT5"
 	testMode = "EXPLICIT"
 	packageWithBaseClasses = 'com.example'
 	baseClassMappings {

@@ -307,6 +307,7 @@ have a base class with fully qualified name equal to the value you specify).
 .Gradle
 ----
 contracts {
+	testFramework = "JUNIT5"
 	// We want to use the JAR with contracts with the following coordinates
 	contractDependency {
 		stringNotation = 'com.example:beer-contracts'
@@ -396,12 +397,14 @@ following snippet:
 .Gradle
 ----
 contracts {
+	testFramework = "JUNIT5"
 	// We want to use the JAR with contracts with the following coordinates
 	contractDependency {
 		stringNotation = 'com.example:beer-contracts'
 	}
 	// The JAR with contracts will get downloaded from an external repo
 	contracts {
+	testFramework = "JUNIT5"
 		repositoryUrl = "https://foo.bar/baz"
 	}
 	// Base package for generated tests

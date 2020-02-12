@@ -39,7 +39,7 @@ public class BeerControllerKotlinTest extends AbstractTest {
 
 	//remove::start[]
 	@RegisterExtension
-	public StubRunnerExtension rule = new StubRunnerExtension()
+	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example","beer-api-producer-kotlin")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
 	//remove::end[]
@@ -53,7 +53,7 @@ public class BeerControllerKotlinTest extends AbstractTest {
 	@BeforeEach
 	public void setupPort() {
 		//remove::start[]
-		this.beerController.port = this.rule.findStubUrl("beer-api-producer-kotlin").getPort();
+		this.beerController.port = rule.findStubUrl("beer-api-producer-kotlin").getPort();
 		// remove::end[]
 	}
 

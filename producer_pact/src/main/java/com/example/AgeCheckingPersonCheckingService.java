@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 
-	private final Source source;
+	private final EmitterProcessor<Message<Verification>> source;
 
-	public AgeCheckingPersonCheckingService(Source source) {
+	public AgeCheckingPersonCheckingService(EmitterProcessor<Message<Verification>> source) {
 		this.source = source;
 	}
 
@@ -21,7 +21,7 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 		//remove::start[]
 		//tag::impl[]
 		boolean shouldGetBeer = personToCheck.age >= 20;
-		this.source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.onNext(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
 		return shouldGetBeer;
 		//end::impl[]
 		//remove::end[return]

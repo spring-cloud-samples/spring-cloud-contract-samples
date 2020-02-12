@@ -54,6 +54,7 @@ dependencies {
 //remove::start[]
 // tag::plugin[]
 contracts {
+	testFramework = "JUNIT5"
 		// Base package for generated tests
 	basePackageForTests = "com.example"
 	baseClassMappings {

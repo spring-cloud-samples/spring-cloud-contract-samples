@@ -216,6 +216,7 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<testFramework>JUNIT5</testFramework>
 					<packageWithBaseClasses>com.ideabaker.samples.scc.security.securedproducerwebflux.contract</packageWithBaseClasses>
 					<testMode>WEBTESTCLIENT</testMode>
 				</configuration>

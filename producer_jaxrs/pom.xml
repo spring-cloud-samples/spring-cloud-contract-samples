@@ -76,6 +76,7 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<testFramework>JUNIT5</testFramework>
 					<testMode>JAXRSCLIENT</testMode>
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
 				</configuration>

@@ -85,6 +85,7 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<testFramework>JUNIT5</testFramework>
 					<contractsRepositoryUrl>pact://http://localhost:8085</contractsRepositoryUrl>
 					<contractDependency>
 						<groupId>${project.groupId}</groupId>

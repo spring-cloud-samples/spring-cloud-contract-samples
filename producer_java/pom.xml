@@ -98,6 +98,7 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<testFramework>JUNIT5</testFramework>
 					<contractsDirectory>src/test/java/contracts</contractsDirectory>
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
 					<baseClassMappings>

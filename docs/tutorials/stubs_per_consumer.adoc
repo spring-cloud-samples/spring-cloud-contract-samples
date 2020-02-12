@@ -573,6 +573,7 @@ our contracts, as shown in the following example:
 .Gradle
 ----
 contracts {
+	testFramework = "JUNIT5"
 	baseClassMappings {
 		baseClassMapping(".*rest.*", "com.example.BeerRestBase")
 	}

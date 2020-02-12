@@ -87,6 +87,7 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<testFramework>JUNIT5</testFramework>
 					<baseClassMappings>
 						<baseClassMapping>
 							<contractPackageRegex>.*messaging.*</contractPackageRegex>

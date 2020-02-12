@@ -425,6 +425,7 @@ following snippet (for both Maven and Gradle):
 .Gradle
 ----
 contracts {
+	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 	baseClassMappings {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")

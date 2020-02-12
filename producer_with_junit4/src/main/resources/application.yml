@@ -1,0 +1,10 @@
+spring:
+    application.name: beer-api-producer-junit4
+    cloud.stream.bindings.output-out-0:
+        # remove::start[]
+        destination: verifications
+        # remove::end[]
+server.port: ${PORT:8080}
+logging:
+  level:
+    org.springframework.cloud: debug

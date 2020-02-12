@@ -34,7 +34,7 @@ public class BeerControllerWithJUnitTest extends AbstractTest {
 	//remove::start[]
 	// tag::rule[]
 	@RegisterExtension
-	public StubRunnerExtension rule = new StubRunnerExtension()
+	static StubRunnerExtension rule = new StubRunnerExtension()
 			.repoRoot("pact://http://localhost:8085")
 			.downloadStub("com.example","beer-api-producer-pact")
 			.stubsMode(StubRunnerProperties.StubsMode.REMOTE);
@@ -42,7 +42,7 @@ public class BeerControllerWithJUnitTest extends AbstractTest {
 	//tag::setup[]
 	@BeforeEach
 	public void setupPort() {
-		this.beerController.port = this.rule.findStubUrl("beer-api-producer-pact").getPort();
+		this.beerController.port = rule.findStubUrl("beer-api-producer-pact").getPort();
 	}
 	// end::setup[]
 	//remove::end[]

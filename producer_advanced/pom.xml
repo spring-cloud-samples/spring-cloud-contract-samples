@@ -34,20 +34,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Stream dependencies -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-stream-rabbit</artifactId>
-		</dependency>
-		<dependency>
-                        <groupId>org.springframework.cloud</groupId>
-                        <artifactId>spring-cloud-stream</artifactId>
-                        <type>test-jar</type>
-                        <scope>test</scope>
-                        <classifier>test-binder</classifier>
-                </dependency>
-
-
 		<!-- spring cloud contract test dependencies -->
 		<!-- remove::start[] -->
 		<!-- tag::verifier_dep[] -->
@@ -89,6 +75,7 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<testFramework>JUNIT5</testFramework>
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
 				</configuration>
 			</plugin>

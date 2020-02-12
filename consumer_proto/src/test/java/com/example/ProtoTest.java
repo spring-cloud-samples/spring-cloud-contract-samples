@@ -29,7 +29,7 @@ public class ProtoTest {
 
 	//remove::start[]
 	@RegisterExtension
-	public StubRunnerExtension rule = new StubRunnerExtension()
+	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example", "beer-api-producer-proto")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
 
@@ -46,7 +46,7 @@ public class ProtoTest {
 	@BeforeEach
 	public void setupPort() {
 		//remove::start[]
-		this.port = this.rule.findStubUrl("beer-api-producer-proto").getPort();
+		this.port = rule.findStubUrl("beer-api-producer-proto").getPort();
 		// remove::end[]
 	}
 

@@ -1,6 +1,8 @@
 package com.example;
 
-import org.springframework.cloud.stream.messaging.Source;
+import reactor.core.publisher.EmitterProcessor;
+
+import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 
-	private final Source source;
+	private final EmitterProcessor<Message<Verification>> source;
 
-	public AgeCheckingPersonCheckingService(Source source) {
+	public AgeCheckingPersonCheckingService(EmitterProcessor<Message<Verification>> source) {
 		this.source = source;
 	}
 
@@ -20,7 +22,7 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 	public Boolean shouldGetBeer(PersonToCheck personToCheck) {
 		//remove::start[]
 		boolean shouldGetBeer = personToCheck.age >= 20;
-		this.source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.onNext(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
 		return shouldGetBeer;
 		//remove::end[return]
 	}

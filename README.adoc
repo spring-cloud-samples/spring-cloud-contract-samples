@@ -70,7 +70,7 @@ The producer application stores the contracts in such way that every consumer ha
 own, delegated folder. Then on the consumer side by turning on the stubs per consumer
 feature only respective stubs for the given consumer will be used.
 
-=== Producer_with_junit5
+=== producer_with_junit4
 
 The producer application using JUnit 5
 

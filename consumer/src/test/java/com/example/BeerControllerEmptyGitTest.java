@@ -38,7 +38,7 @@ public class BeerControllerEmptyGitTest extends AbstractTest {
 
 	//remove::start[]
 	@RegisterExtension
-	public StubRunnerExtension rule = new StubRunnerExtension()
+	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example","beer-api-producer-empty-git", "0.0.1.BUILD-SNAPSHOT")
 			.repoRoot("git://" + System.getenv("ROOT") + "/target/contract_empty_git/")
 			.stubsMode(StubRunnerProperties.StubsMode.REMOTE);
@@ -53,7 +53,7 @@ public class BeerControllerEmptyGitTest extends AbstractTest {
 	@BeforeEach
 	public void setupPort() {
 		//remove::start[]
-		this.beerController.port = this.rule.findStubUrl("beer-api-producer-empty-git").getPort();
+		this.beerController.port = rule.findStubUrl("beer-api-producer-empty-git").getPort();
 		// remove::end[]
 	}
 

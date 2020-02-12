@@ -29,7 +29,7 @@ consumer side!
 +
 [source,java]
 ----
-@RegisterExtension public StubRunnerExtension rule = new StubRunnerExtension()
+@RegisterExtension static StubRunnerExtension rule = new StubRunnerExtension()
 ----
 - The `StubRunnerRule` is a fluent interface that allows you to set up the Stub Runner
 functionality. In our case we would like to (<<_junit_rule,or copy from solutions>>)

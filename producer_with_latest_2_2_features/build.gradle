@@ -56,6 +56,7 @@ dependencies {
 
 //remove::start[]
 contracts {
+	testFramework = "JUNIT5"
 	failOnInProgress = false
 }
 // remove::end[]
