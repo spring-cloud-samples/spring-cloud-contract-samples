@@ -1,6 +1,8 @@
 package com.example;
 
-import org.springframework.cloud.stream.messaging.Source;
+import reactor.core.publisher.EmitterProcessor;
+
+import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
