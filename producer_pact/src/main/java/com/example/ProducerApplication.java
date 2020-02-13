@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
 
 @SpringBootApplication
-
 public class ProducerApplication {
 
 	public static void main(String[] args) {
