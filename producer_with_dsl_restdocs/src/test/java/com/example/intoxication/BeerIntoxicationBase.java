@@ -3,18 +3,15 @@ package com.example.intoxication;
 //remove::start[]
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.TestName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.restdocs.JUnitRestDocumentation;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -25,39 +22,24 @@ import static com.example.intoxication.DrunkLevel.WASTED;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 
-//remove::end[]
-//remove::start[]
-//remove::end[]
-//remove::start[]
-//remove::end[]
-
 /**
  * Tests for the scenario based stub
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = BeerIntoxicationBase.Config.class)
+//remove::end[]
 public abstract class BeerIntoxicationBase {
 
-	private static final String OUTPUT = "target/generated-snippets";
-
 	//remove::start[]
-	@Rule
-	public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation(OUTPUT);
-
-	@Rule public TestName testName = new TestName();
-	//remove::end[]
-
 	@Autowired WebApplicationContext context;
 
-	@Before
-	public void setup() {
-		//remove::start[]
+	@BeforeEach
+	public void setup(RestDocumentationContextProvider provider, TestInfo testInfo) {
 		RestAssuredMockMvc.mockMvc(MockMvcBuilders.webAppContextSetup(this.context)
-				.apply(documentationConfiguration(this.restDocumentation))
-				.alwaysDo(document(getClass().getSimpleName() + "_" + this.testName.getMethodName()))
+				.apply(documentationConfiguration(provider))
+				.alwaysDo(document(getClass().getSimpleName() + "_" + testInfo.getDisplayName()))
 				.build());
-		//remove::end[]
 	}
+	//remove::end[]
 
 	@Configuration
 	@EnableAutoConfiguration
