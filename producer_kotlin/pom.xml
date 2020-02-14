@@ -56,12 +56,12 @@
 			<artifactId>spring-cloud-starter-stream-rabbit</artifactId>
 		</dependency>
 		<dependency>
-                        <groupId>org.springframework.cloud</groupId>
-                        <artifactId>spring-cloud-stream</artifactId>
-                        <type>test-jar</type>
-                        <scope>test</scope>
-                        <classifier>test-binder</classifier>
-                </dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+			<classifier>test-binder</classifier>
+		</dependency>
 
 
 		<!-- spring cloud contract test dependencies -->
