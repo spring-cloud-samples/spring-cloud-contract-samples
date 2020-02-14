@@ -116,6 +116,7 @@ compileTestGroovy.enabled = false
 //remove::end[]
 
 test {
+	useJUnitPlatform()
 	dependsOn("keygen")
 	testLogging {
 		exceptionFormat = 'full'
