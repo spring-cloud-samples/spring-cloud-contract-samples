@@ -1,8 +1,3 @@
-ext['junit-jupiter.version'] = '5.5.1'
-ext {
-	mockitoExtensionVersion = '1.1.1'
-}
-
 buildscript {
 	repositories {
 		mavenCentral()
@@ -52,25 +47,16 @@ dependencies {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit"){
-		exclude group: 'junit', module: 'junit'
-	}
-	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder'){
-		exclude group: 'junit', module: 'junit'
-	}
+	implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
 	//remove::start[]
 	// tag::verifier_dep[]
-	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier"){
-		exclude group: 'junit', module: 'junit'
-	}
+	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
 	// tag::test_dep[]
 	testImplementation("com.example:beer-common:0.0.1.BUILD-SNAPSHOT")
 	// end::test_dep[]
-	testImplementation group: 'name.falgout.jeffrey.testing.junit5', name: 'mockito-extension', version: "$mockitoExtensionVersion"
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
-	testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
-	testRuntime group: 'org.junit.platform', name: 'junit-platform-launcher'
 	// remove::end[]
 }
 
@@ -85,7 +71,6 @@ contracts {
 // remove::end[]
 
 test {
-	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
 	}
