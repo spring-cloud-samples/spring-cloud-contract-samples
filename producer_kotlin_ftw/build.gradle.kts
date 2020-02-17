@@ -76,7 +76,7 @@ dependencies {
 // remove::start[]
 // tag::contract_dsl[]
 contracts {
-	testFramework = "JUNIT5"
+	testFramework.set("JUNIT5")
 	packageWithBaseClasses.set("com.example.fraud")
 }
 // end::contract_dsl[]
