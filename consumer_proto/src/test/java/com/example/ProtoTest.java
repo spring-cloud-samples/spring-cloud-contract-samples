@@ -37,10 +37,9 @@ public class ProtoTest {
 
 	@BeforeAll
 	public static void beforeClass() {
-		Assumptions.assumeTrue("Spring Cloud Contract must be in version at least 2.1.0",
-				atLeast210());
-		Assumptions.assumeTrue("Env var OLD_PRODUCER_TRAIN must not be set",
-				StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")));
+		Assumptions.assumeTrue(atLeast210(), "Spring Cloud Contract must be in version at least 2.1.0");
+		Assumptions.assumeTrue(StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")),
+				"Env var OLD_PRODUCER_TRAIN must not be set");
 	}
 
 	@BeforeEach

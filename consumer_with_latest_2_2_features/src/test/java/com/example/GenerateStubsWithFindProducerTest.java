@@ -10,13 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import org.springframework.boot.test.context.SpringBootTest;
+// remove::start[]
 import org.springframework.cloud.contract.stubrunner.junit.StubRunnerExtension;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
+// remove::end[]
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
-
-// remove::start[]
-// remove::end[]
 
 /**
  * @author Marcin Grzejszczak
@@ -45,10 +44,9 @@ public class GenerateStubsWithFindProducerTest {
 
 	@BeforeAll
 	public static void beforeClass() {
-		Assumptions.assumeTrue("Spring Cloud Contract must be in version at least 2.2.0",
-				atLeast220());
-		Assumptions.assumeTrue("Env var OLD_PRODUCER_TRAIN must not be set",
-				StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")));
+		Assumptions.assumeTrue(atLeast220(), "Spring Cloud Contract must be in version at least 2.2.0");
+		Assumptions.assumeTrue(StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")),
+				"Env var OLD_PRODUCER_TRAIN must not be set");
 	}
 
 	private static boolean atLeast220() {
