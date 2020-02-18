@@ -49,8 +49,8 @@ public class BeerOrderTest extends AbstractTest {
 	@BeforeAll
 	public static void beforeClass() {
 		Assumptions.assumeTrue(atLeast210(), "Spring Cloud Contract must be in version at least 2.1.0");
-		Assumptions.assumeTrue("Env var OLD_PRODUCER_TRAIN must not be set", StringUtils
-				.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")));
+		Assumptions.assumeTrue(StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")),
+				"Env var OLD_PRODUCER_TRAIN must not be set");
 	}
 
 	@Autowired
