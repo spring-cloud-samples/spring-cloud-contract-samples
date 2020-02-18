@@ -1,6 +1,6 @@
 package com.example;
 
-import org.junit.Assume;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+//remove::start[]
 import org.springframework.cloud.contract.stubrunner.junit.StubRunnerExtension;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
+//remove::end[]
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,9 +22,6 @@ import org.springframework.util.StringUtils;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-//remove::start[]
-//remove::end[]
 
 /**
  * @author Marcin Grzejszczak
@@ -46,8 +45,8 @@ public class BeerControllerKotlinTest extends AbstractTest {
 
 	@BeforeAll
 	public static void beforeClass() {
-		Assume.assumeTrue("Spring Cloud Contract must be in version at least 2.1.0", atLeast210());
-		Assume.assumeTrue("Env var OLD_PRODUCER_TRAIN must not be set", StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")));
+		Assumptions.assumeTrue(atLeast210(), "Spring Cloud Contract must be in version at least 2.1.0");
+		Assumptions.assumeTrue(StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")), "Env var OLD_PRODUCER_TRAIN must not be set");
 	}
 
 	@BeforeEach
@@ -90,27 +89,3 @@ public class BeerControllerKotlinTest extends AbstractTest {
 	}
 	//end::tests[]
 }
-
-//remove::start[]
-/*
-
-
-
-	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 22)).getJson()))
-				.andExpect(status().isOk())
-				.andExpect(content().string("THERE YOU GO"));
-	}
-
-	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/beer")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(json.write(new Person("marcin", 17)).getJson()))
-				.andExpect(status().isOk())
-				.andExpect(content().string("GET LOST"));
-	}
-
- */
-//remove::end[]

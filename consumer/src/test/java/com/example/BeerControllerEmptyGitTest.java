@@ -1,6 +1,6 @@
 package com.example;
 
-import org.junit.Assume;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,8 +46,8 @@ public class BeerControllerEmptyGitTest extends AbstractTest {
 
 	@BeforeAll
 	public static void beforeClass() {
-		Assume.assumeTrue("Spring Cloud Contract must be in version at least 2.1.0", atLeast210());
-		Assume.assumeTrue("Env var OLD_PRODUCER_TRAIN must not be set", StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")));
+		Assumptions.assumeTrue(atLeast210(), "Spring Cloud Contract must be in version at least 2.1.0");
+		Assumptions.assumeTrue(StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")), "Env var OLD_PRODUCER_TRAIN must not be set");
 	}
 
 	@BeforeEach

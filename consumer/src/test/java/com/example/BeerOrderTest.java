@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import org.junit.Assume;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,8 +48,8 @@ public class BeerOrderTest extends AbstractTest {
 
 	@BeforeAll
 	public static void beforeClass() {
-		Assume.assumeTrue("Spring Cloud Contract must be in version at least 2.1.0", atLeast210());
-		Assume.assumeTrue("Env var OLD_PRODUCER_TRAIN must not be set", StringUtils
+		Assumptions.assumeTrue(atLeast210(), "Spring Cloud Contract must be in version at least 2.1.0");
+		Assumptions.assumeTrue("Env var OLD_PRODUCER_TRAIN must not be set", StringUtils
 				.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")));
 	}
 
