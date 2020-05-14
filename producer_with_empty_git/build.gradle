@@ -60,7 +60,7 @@ contracts {
 		baseClassMapping(".*messaging.*", "com.example.BeerMessagingBase")
 		baseClassMapping(".*rest.*", "com.example.BeerRestBase")
 	}
-}
+
 
 /*
 In this scenario we want to publish stubs to SCM whenever
@@ -68,21 +68,20 @@ the `publish` task is executed
 */
 publishStubsToScm {
 	// We want to modify the default set up of the plugin when publish stubs to scm is called
-	customize {
-		// We want to pick contracts from a Git repository
-		contractDependency {
-			stringNotation = "${project.group}:${project.name}:${project.version}"
-		}
-		/*
-		We reuse the contract dependency section to set up the path
-		to the folder that contains the contract definitions. In our case the
-		path will be /groupId/artifactId/version/contracts
-		 */
-		contractRepository {
-			repositoryUrl = "git://file://${new File(project.rootDir, "../target")}/contract_empty_git/"
-		}
-		// The mode can't be classpath
-		contractsMode = "LOCAL"
+	// We want to pick contracts from a Git repository
+	contractDependency {
+		stringNotation = "${project.group}:${project.name}:${project.version}"
+	}
+	/*
+	We reuse the contract dependency section to set up the path
+	to the folder that contains the contract definitions. In our case the
+	path will be /groupId/artifactId/version/contracts
+	 */
+	contractRepository {
+		repositoryUrl = "git://file://${new File(project.rootDir, "../target")}/contract_empty_git/"
+	}
+	// The mode can't be classpath
+	contractsMode = "LOCAL"
 	}
 }
 
