@@ -78,7 +78,7 @@ test {
 // tag::stubsjar[]
 // we want to override the default Spring Cloud Contract behaviour and generate JAR in a custom way
 task stubsJar(type: Jar) {
-	classifier = "stubs"
+	archiveClassifier = "stubs"
 	into('/') {
 		include('**/com/example/model/*.*')
 		from("${project.rootDir}/src/main/java/")
@@ -101,8 +101,12 @@ stubsJar.dependsOn(test)
 // we want to disable the default Spring Cloud Contract stub jar generation
 verifierStubsJar.enabled = false
 
-artifacts {
-	archives stubsJar
+publishing {
+	publications {
+		myPublicationName(MavenPublication) {
+			artifact stubsJar
+		}
+	}
 }
 // end::stubsjar[]
 // remove::end[]

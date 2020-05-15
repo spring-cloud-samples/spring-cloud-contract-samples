@@ -42,7 +42,7 @@ dependencies {
 	testImplementation("org.springframework.cloud:spring-cloud-stream-test-support")
 	//remove::start[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-	testCompile("com.example:beer-api-producer-restdocs:0.0.1.BUILD-SNAPSHOT:stubs") {
+	testImplementation("com.example:beer-api-producer-restdocs:0.0.1.BUILD-SNAPSHOT:stubs") {
 		transitive = false
 	}
 	// remove::end[]
