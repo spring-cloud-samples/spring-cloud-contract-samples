@@ -20,7 +20,6 @@ function startDockerCompose() {
 }
 
 clean
-clearDocker
 
 . ${ROOT}/scripts/runMavenBuilds.sh
 
