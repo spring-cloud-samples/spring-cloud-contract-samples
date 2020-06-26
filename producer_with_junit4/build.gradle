@@ -49,6 +49,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("junit:junit")
 	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
 	//remove::start[]
 	// tag::verifier_dep[]
