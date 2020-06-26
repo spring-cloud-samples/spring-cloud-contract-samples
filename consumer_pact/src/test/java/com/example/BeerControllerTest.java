@@ -3,30 +3,27 @@ package com.example;
 import java.util.HashMap;
 import java.util.Map;
 
-import au.com.dius.pact.consumer.Pact;
-import au.com.dius.pact.consumer.PactProviderRuleMk2;
-import au.com.dius.pact.consumer.PactVerification;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
-import au.com.dius.pact.model.RequestResponsePact;
-import org.junit.Rule;
-import org.junit.Test;
+import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
+import au.com.dius.pact.consumer.junit5.PactTestFor;
+import au.com.dius.pact.core.model.RequestResponsePact;
+import au.com.dius.pact.core.model.annotations.Pact;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.web.client.RestTemplate;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Marcin Grzejszczak
  */
 //@org.junit.Ignore;
+@ExtendWith(PactConsumerTestExt.class)
+@PactTestFor(providerName = "beer-api-producer-pact", port = "8083")
 public class BeerControllerTest {
 
 	BeerController controller = new BeerController(new RestTemplate());
-
-	@Rule
-	public PactProviderRuleMk2 mockProvider =
-			new PactProviderRuleMk2("beer-api-producer-pact", "localhost", 8083, this);
-
 
 	@Pact(consumer="beer-api-consumer-pact")
 	public RequestResponsePact beerNotOk(PactDslWithProvider builder) {
@@ -55,7 +52,6 @@ public class BeerControllerTest {
 	}
 
 	@Test
-	@PactVerification
 	public void runTestBeer() {
 		// OK
 		assertEquals(this.controller.gimmeABeer(new Person("marcin", 25)), "THERE YOU GO");
