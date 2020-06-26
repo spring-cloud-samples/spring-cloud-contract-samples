@@ -7,7 +7,7 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-restdocs
-:version: 2.3.0.BUILD-SNAPSHOT
+:version: 2.4.0-SNAPSHOT
 
 = Spring Cloud Contract with Rest Docs {version}
 
@@ -217,8 +217,8 @@ contains:
 * The stubs, under
 `META-INF/${project.group}/${project.name}/${project.version}/mappings`.
 
-An example for `com.example:beer-producer:0.0.1.BUILD-SNAPSHOT` would be
-`META-INF/com.example/beer-producer/0.0.1.BUILD-SNAPSHOT/contracts`.
+An example for `com.example:beer-producer:0.0.1-SNAPSHOT` would be
+`META-INF/com.example/beer-producer/0.0.1-SNAPSHOT/contracts`.
 
 ==== Writing Your First Rest Docs Test
 

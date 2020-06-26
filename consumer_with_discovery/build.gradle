@@ -14,7 +14,7 @@ buildscript {
 println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}]"
 
 group = 'com.example'
-version = '0.0.1.BUILD-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
 
 repositories {
 	mavenCentral()
@@ -43,7 +43,7 @@ dependencies {
 
 	//remove::start[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-	testImplementation("com.example:beer-common:0.0.1.BUILD-SNAPSHOT")
+	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
 	// remove::end[]
 }
 

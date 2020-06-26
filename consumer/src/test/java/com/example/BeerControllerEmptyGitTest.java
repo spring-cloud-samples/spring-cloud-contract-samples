@@ -39,7 +39,7 @@ public class BeerControllerEmptyGitTest extends AbstractTest {
 	//remove::start[]
 	@RegisterExtension
 	static StubRunnerExtension rule = new StubRunnerExtension()
-			.downloadStub("com.example","beer-api-producer-empty-git", "0.0.1.BUILD-SNAPSHOT")
+			.downloadStub("com.example","beer-api-producer-empty-git", "0.0.1-SNAPSHOT")
 			.repoRoot("git://" + System.getenv("ROOT") + "/target/contract_empty_git/")
 			.stubsMode(StubRunnerProperties.StubsMode.REMOTE);
 	//remove::end[]

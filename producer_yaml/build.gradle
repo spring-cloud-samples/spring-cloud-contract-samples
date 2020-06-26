@@ -18,7 +18,7 @@ buildscript {
 println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
 
 group = 'com.example'
-version = '0.0.1.BUILD-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
 
 repositories {
 	mavenCentral()
@@ -52,7 +52,7 @@ dependencies {
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
 	// tag::test_dep[]
-	testImplementation("com.example:beer-common:0.0.1.BUILD-SNAPSHOT")
+	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
 	// end::test_dep[]
 	// remove::end[]
 }

@@ -38,7 +38,7 @@ public class BeerControllerRouterFunctionTest extends AbstractTest {
 	//remove::start[]
 	@RegisterExtension
 	static StubRunnerExtension rule = new StubRunnerExtension()
-			.downloadStub("com.example","beer-api-producer-routerfunction-webtestclient", "0.0.1.BUILD-SNAPSHOT")
+			.downloadStub("com.example","beer-api-producer-routerfunction-webtestclient", "0.0.1-SNAPSHOT")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
 	//remove::end[]
 

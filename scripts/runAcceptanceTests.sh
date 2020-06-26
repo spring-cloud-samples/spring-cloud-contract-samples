@@ -32,7 +32,7 @@ export SKIP_COMPATIBILITY="${SKIP_COMPATIBILITY:-false}"
 if [[ "${SKIP_COMPATIBILITY}" != "true" ]]; then
 	startDockerCompose
   # TODO: Go back to snapshots one day
-  export CURRENT_BOOT_VERSION="2.3.0.BUILD-SNAPSHOT"
+  export CURRENT_BOOT_VERSION="2.4.0-SNAPSHOT"
 	. ${ROOT}/scripts/runCompatibilityBuild.sh
 fi
 

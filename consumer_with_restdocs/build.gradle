@@ -14,7 +14,7 @@ buildscript {
 println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}]"
 
 group = 'com.example'
-version = '0.0.1.BUILD-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
 
 repositories {
 	mavenCentral()
@@ -42,7 +42,7 @@ dependencies {
 	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
 	//remove::start[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-	testImplementation("com.example:beer-api-producer-restdocs:0.0.1.BUILD-SNAPSHOT:stubs") {
+	testImplementation("com.example:beer-api-producer-restdocs:0.0.1-SNAPSHOT:stubs") {
 		transitive = false
 	}
 	// remove::end[]
