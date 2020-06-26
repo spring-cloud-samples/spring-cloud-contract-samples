@@ -26,6 +26,7 @@
 		<spring-cloud-contract.version>3.0.0-SNAPSHOT</spring-cloud-contract.version>
 		<spock.version>1.3-groovy-2.5</spock.version>
 		<groovy.version>2.5.10</groovy.version>
+		<junit-platform.version>1.2.0</junit-platform.version>
 	</properties>
 
 	<dependencies>
@@ -175,10 +176,28 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.junit.vintage</groupId>
+						<artifactId>junit-vintage-engine</artifactId>
+						<version>${junit-jupiter.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.junit.jupiter</groupId>
+						<artifactId>junit-jupiter-engine</artifactId>
+						<version>${junit-jupiter.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.junit.platform</groupId>
+						<artifactId>junit-platform-surefire-provider</artifactId>
+						<version>${junit-platform.version}</version>
+					</dependency>
+				</dependencies>
 				<configuration>
+					<detail>true</detail>
 					<includes>
-						<include>**/*Test.java</include>
-						<include>**/*Spec.java</include>
+						<include>**/*Test.*</include>
+						<include>**/*Spec.*</include>
 					</includes>
 					<failIfNoTests>true</failIfNoTests>
 				</configuration>
