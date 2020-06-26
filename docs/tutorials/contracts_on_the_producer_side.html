@@ -2665,7 +2665,7 @@ public abstract class BeerMessagingBase {
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		boolean shouldGetBeer = personToCheck.age &gt;= 20;
-		this.source.onNext(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.send("output-out-0", new Verification(shouldGetBeer));
 		return shouldGetBeer;</code></pre>
 </div>
 </div>

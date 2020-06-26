@@ -2,10 +2,7 @@ package com.example;
 
 import com.example.model.PersonToCheck;
 import com.example.model.Verification;
-import reactor.core.publisher.EmitterProcessor;
-
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,9 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 
-	private final EmitterProcessor<Message<Verification>> source;
+	private final StreamBridge source;
 
-	public AgeCheckingPersonCheckingService(EmitterProcessor<Message<Verification>> source) {
+	public AgeCheckingPersonCheckingService(StreamBridge source) {
 		this.source = source;
 	}
 
@@ -24,7 +21,7 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 	public Boolean shouldGetBeer(PersonToCheck personToCheck) {
 		//remove::start[]
 		boolean shouldGetBeer = personToCheck.age >= 20;
-		this.source.onNext(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.send("output-out-0", new Verification(shouldGetBeer));
 		return shouldGetBeer;
 		//remove::end[return]
 	}

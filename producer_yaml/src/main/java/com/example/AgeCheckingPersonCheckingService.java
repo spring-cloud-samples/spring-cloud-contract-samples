@@ -1,7 +1,6 @@
 package com.example;
 
-import reactor.core.publisher.EmitterProcessor;
-
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,10 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 
-	private final EmitterProcessor<Verification> emitterProcessor;
+	private final StreamBridge source;
 
-	public AgeCheckingPersonCheckingService(EmitterProcessor<AgeCheckingPersonCheckingService.Verification> emitterProcessor) {
-		this.emitterProcessor = emitterProcessor;
+	public AgeCheckingPersonCheckingService(StreamBridge source) {
+		this.source = source;
 	}
 
 	@Override
@@ -21,7 +20,7 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 		//remove::start[]
 		//tag::impl[]
 		boolean shouldGetBeer = personToCheck.age >= 20;
-		this.emitterProcessor.onNext(new Verification(shouldGetBeer));
+		this.source.send("output-out-0", new Verification(shouldGetBeer));
 		return shouldGetBeer;
 		//end::impl[]
 		//remove::end[return]
