@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 set -o errexit
 set -o errtrace
@@ -175,3 +175,4 @@ PREVIOUS_CONTRACT_VERSION="${PREVIOUS_CONTRACT_VERSION}"
 EOF
 
 build_gradle
+echo -e "\n\nFinished compatibility build!!!\n\n"

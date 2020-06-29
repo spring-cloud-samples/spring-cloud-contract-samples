@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 set -o errexit
 set -o errtrace
@@ -142,3 +142,4 @@ cat <<'EOF'
 EOF
 
 build_gradle
+echo -e "\n\nFinished Maven build!!!\n\n"

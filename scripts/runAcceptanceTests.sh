@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 set -o errexit
 set -o errtrace
@@ -30,6 +30,7 @@ clean
 export SKIP_COMPATIBILITY="${SKIP_COMPATIBILITY:-false}"
 
 if [[ "${SKIP_COMPATIBILITY}" != "true" ]]; then
+	echo -e "\n\nWill run compatibility build\n\n"
 	startDockerCompose
   # TODO: Go back to snapshots one day
   export CURRENT_BOOT_VERSION="2.4.0-SNAPSHOT"
@@ -75,4 +76,7 @@ EOF
 	. ${ROOT}/scripts/runMavenBuilds.sh
 
 	. ${ROOT}/scripts/runGradleBuilds.sh
+
+else
+	echo -e "\n\nSkipping docs generation\n\n"
 fi
