@@ -1,26 +1,26 @@
 package com.example;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.cloud.stream.messaging.Sink;
+
 import org.springframework.stereotype.Component;
 
 /**
  * @author Marcin Grzejszczak
  */
-@Component
-class BeerVerificationListener {
+@Component("input")
+class BeerVerificationListener implements Consumer<BeerVerificationListener.Verification> {
 
 	private static final Log log = LogFactory.getLog(BeerVerificationListener.class);
 
 	AtomicInteger eligibleCounter = new AtomicInteger();
 	AtomicInteger notEligibleCounter = new AtomicInteger();
 
-	@StreamListener(Sink.INPUT)
-	public void listen(Verification verification) {
+	@Override
+	public void accept(Verification verification) {
 		log.info("Received new verification");
 		//remove::start[]
 		//tag::listener[]
