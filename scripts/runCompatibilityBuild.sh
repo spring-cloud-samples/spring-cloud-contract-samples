@@ -115,7 +115,7 @@ function build_all_projects() {
     build producer_with_empty_git "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_external_contracts "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_git "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
-    build producer_with_junit_5 "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
+    build producer_with_junit_4 "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_latest_2_2_features "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_restdocs "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_with_spock "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
