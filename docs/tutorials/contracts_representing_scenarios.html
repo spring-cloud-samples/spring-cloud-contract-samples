@@ -1342,7 +1342,7 @@ test for each folder in which you store your contracts. The name of the test
 class is the name of that folder. Each of the contracts is a single test inside that test
 class. If you check out the generated <code>IntoxicationTest</code>, you can seee that it got
 annotated with <code>@FixMethodOrder(MethodSorters.NAME_ASCENDING)</code> in order to ensure
-that the tests are executed sequentially.</p>
+that the tests are run sequentially.</p>
 </div>
 <div class="paragraph">
 <p>Now we can fix the broken tests by providing the missing implementation.</p>
@@ -1376,7 +1376,7 @@ actions. That means that we can work with a fake instance of the <code>ResponseP
 </div>
 <div class="paragraph">
 <p>We need to maintain state between the tests. If you try to store the state in a field in
-a base class, you lose it between test executions, because JUnit is reinitializing all
+a base class, you lose it between test runs, because JUnit is reinitializing all
 the fields. We can fix that by setting up a small Spring Context to be reused. The
 following example shows what that annotation might look like:</p>
 </div>
