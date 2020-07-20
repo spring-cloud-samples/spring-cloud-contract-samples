@@ -23,7 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>2.2.3.BUILD-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud-contract.version>3.0.0.BUILD-SNAPSHOT</spring-cloud-contract.version>
 		<spock.version>1.3-groovy-2.5</spock.version>
 		<groovy.version>2.5.10</groovy.version>
 	</properties>
