@@ -97,8 +97,6 @@ function build_all_projects() {
     build producer_jaxrs_spring "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_webflux "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build consumer_pact "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
-    build producer_with_git "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
-    build producer_yaml "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_advanced "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_pact "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
     build producer_kotlin "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"

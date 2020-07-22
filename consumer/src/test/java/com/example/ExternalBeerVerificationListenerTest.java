@@ -15,7 +15,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Marcin Grzejszczak
  */
-@SpringBootTest(webEnvironment = WebEnvironment.NONE)
+@SpringBootTest(classes = ClientApplication.class, webEnvironment = WebEnvironment.NONE)
 //remove::start[]
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer-external")
 //remove::end[]
