@@ -1,5 +1,7 @@
 package com.example;
 
+import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -32,6 +34,11 @@ public class BeerVerificationListenerTest extends AbstractTest {
 	// remove::end[]
 	@Autowired
 	BeerVerificationListener listener;
+
+	@Before
+	public void setup() {
+		Assume.assumeFalse("Skip compatibility tests env var was set to true", "true".equals(System.getenv("SKIP_COMPATIBILITY_TESTS")));
+	}
 
 	// tag::listener_test[]
 	@Test
