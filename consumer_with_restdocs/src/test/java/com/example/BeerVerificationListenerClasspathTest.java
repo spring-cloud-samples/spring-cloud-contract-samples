@@ -1,6 +1,7 @@
 package com.example;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 //remove::start[]
 @AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs")
 //remove::end[]
+@DisabledIfEnvironmentVariable(named = "SKIP_COMPATIBILITY_TESTS", matches = "true")
 public class BeerVerificationListenerClasspathTest extends AbstractTest {
 
 	//remove::start[]
