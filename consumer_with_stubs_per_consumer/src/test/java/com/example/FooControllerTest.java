@@ -23,7 +23,7 @@ import org.springframework.http.ResponseEntity;
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true)
 //remove::end[]
-//@org.junit.Ignore
+//@org.junit.jupiter.api.Disabled
 public class FooControllerTest {
 
 	//remove::start[]

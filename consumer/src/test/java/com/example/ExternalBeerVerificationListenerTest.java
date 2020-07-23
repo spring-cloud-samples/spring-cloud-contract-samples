@@ -22,7 +22,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 //remove::end[]
 @DirtiesContext
 @DisabledIfEnvironmentVariable(named = "SKIP_COMPATIBILITY_TESTS", matches = "true")
-//@org.junit.Ignore
+//@org.junit.jupiter.api.Disabled
 public class ExternalBeerVerificationListenerTest extends AbstractTest {
 
 	//remove::start[]

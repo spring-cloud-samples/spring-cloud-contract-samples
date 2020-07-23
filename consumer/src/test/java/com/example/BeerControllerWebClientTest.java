@@ -24,7 +24,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer-webflux")
 //remove::end[]
 @DirtiesContext
-//@org.junit.Ignore
+//@org.junit.jupiter.api.Disabled
 public class BeerControllerWebClientTest extends AbstractTest {
 
 	//remove::start[]

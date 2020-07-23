@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 		repositoryRoot = "pact://http://localhost:8085")
 //remove::end[]
 @DirtiesContext
-//@org.junit.Ignore
+//@org.junit.jupiter.api.Disabled
 public class BeerControllerTest extends AbstractTest {
 
 	@Autowired MockMvc mockMvc;

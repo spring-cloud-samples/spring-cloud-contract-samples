@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 		consumerName = "foo-consumer")
 //remove::end[]
 @DirtiesContext
-//@org.junit.Ignore
+//@org.junit.jupiter.api.Disabled
 public class BeerControllerWithConsumerNameTest extends AbstractTest {
 
 	@Autowired MockMvc mockMvc;

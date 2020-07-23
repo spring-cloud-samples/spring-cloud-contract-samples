@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Marcin Grzejszczak
  */
 @SpringBootTest
-//@org.junit.Ignore
+//@org.junit.jupiter.api.Disabled
 public class GenerateStubsTest {
 
 	//remove::start[]

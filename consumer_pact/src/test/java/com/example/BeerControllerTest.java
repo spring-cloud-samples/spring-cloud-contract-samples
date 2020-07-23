@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Marcin Grzejszczak
  */
-//@org.junit.Ignore;
+//@org.junit.jupiter.api.Disabled;
 @ExtendWith(PactConsumerTestExt.class)
 @PactTestFor(providerName = "beer-api-producer-pact", port = "8083")
 public class BeerControllerTest {
