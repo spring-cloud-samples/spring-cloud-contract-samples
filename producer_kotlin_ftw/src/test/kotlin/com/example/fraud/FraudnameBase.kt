@@ -17,7 +17,9 @@
 package com.example.fraud;
 
 // remove::start[]
+import io.restassured.config.EncoderConfig
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig
 import org.junit.jupiter.api.BeforeEach;
 // remove::end[]
 
@@ -26,10 +28,10 @@ open class FraudnameBase {
 // remove::start[]
 	@BeforeEach
 	fun setup() {
-
 		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
-		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
-		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
+		val encoderConfig: EncoderConfig = EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)
+		val restAssuredConf: RestAssuredMockMvcConfig = RestAssuredMockMvcConfig().encoderConfig(encoderConfig)
+		RestAssuredMockMvc.config = restAssuredConf
 		RestAssuredMockMvc.standaloneSetup(FraudNameController(object : FraudVerifier {
 			override fun isFraudByName(name: String): Boolean {
 				return "fraud" == name
