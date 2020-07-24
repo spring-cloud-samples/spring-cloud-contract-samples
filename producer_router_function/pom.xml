@@ -89,8 +89,6 @@
 		<spring-cloud.version>2020.0.0-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>3.0.0-SNAPSHOT</spring-cloud-contract.version>
 		<rest-assured.version>4.3.1</rest-assured.version>
-		<!-- example of using 4.x version of rest assured -->
-		<rest-assured.version>4.0.0</rest-assured.version>
 	</properties>
 
 	<build>
