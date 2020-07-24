@@ -26,6 +26,10 @@ open class MultipartBase {
 // remove::start[]
 	@BeforeEach
 	fun setUp() {
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.standaloneSetup(TestController())
 	}
 // remove::end[]

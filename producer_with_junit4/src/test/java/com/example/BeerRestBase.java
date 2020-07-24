@@ -2,7 +2,9 @@ package com.example;
 
 import java.util.Random;
 
+import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatcher;
@@ -26,6 +28,10 @@ public abstract class BeerRestBase {
 	public void setup() {
 		given(this.personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
 		given(this.statsService.findBottlesByName(anyString())).willReturn(new Random().nextInt());
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.standaloneSetup(this.producerController, this.statsController);
 	}
 

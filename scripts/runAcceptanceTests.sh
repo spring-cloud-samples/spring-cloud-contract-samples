@@ -33,7 +33,7 @@ if [[ "${SKIP_COMPATIBILITY}" != "true" ]]; then
 	echo -e "\n\nWill run compatibility build\n\n"
 	startDockerCompose
   # TODO: Go back to snapshots one day
-  export CURRENT_BOOT_VERSION="2.4.0-SNAPSHOT"
+  export CURRENT_BOOT_VERSION="2.4.0-M1"
 	. ${ROOT}/scripts/runCompatibilityBuild.sh
 fi
 

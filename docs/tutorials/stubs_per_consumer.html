@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Contracts on the Producer Side 2.4.0-SNAPSHOT</title>
+<title>Contracts on the Producer Side 2.4.0-M1</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Contracts on the Producer Side 2.4.0-SNAPSHOT</h1>
+<h1>Contracts on the Producer Side 2.4.0-M1</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -1331,7 +1331,7 @@ is the Spring Cloud Contract plugin. Let&#8217;s add it to the producer&#8217;s 
 <div class="ulist">
 <ul>
 <li>
-<p>The coordinates of the plugin are: <code>org.springframework.cloud:spring-cloud-contract-gradle-plugin:$2.4.0-SNAPSHOT</code></p>
+<p>The coordinates of the plugin are: <code>org.springframework.cloud:spring-cloud-contract-gradle-plugin:$2.4.0-M1</code></p>
 </li>
 <li>
 <p>For this tutorial we&#8217;re using latest snapshot versions that you can reference via the Maven&#8217;s
@@ -1692,7 +1692,11 @@ if the person to check is older or is 20 then the method <code>shouldGetBeer</co
 <li>
 <p>Now we need to configure <a href="http://rest-assured.io/">RestAssured</a> that is used by Spring Cloud Contract
 to send requests. In our case we want to profit from MockMvc. In order to set the <code>ProducerController</code>
-with RestAssured it&#8217;s enough to call <code>RestAssuredMockMvc.standaloneSetup(producerController);</code></p>
+with RestAssured it&#8217;s enough to call <code>
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
+		RestAssuredMockMvc.standaloneSetup(producerController);</code></p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(MockitoJUnitRunner.class)
@@ -1704,7 +1708,11 @@ public abstract class BeerRestBase {
     @BeforeEach
     public void setup() {
         given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
-        RestAssuredMockMvc.standaloneSetup(producerController);
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
+		RestAssuredMockMvc.standaloneSetup(producerController);
     }
 
     private TypeSafeMatcher&lt;PersonToCheck&gt; oldEnough() {
@@ -2374,6 +2382,10 @@ public abstract class BeerRestBase {
 	@BeforeEach
 	public void setup() {
 		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.standaloneSetup(producerController);
 	}
 

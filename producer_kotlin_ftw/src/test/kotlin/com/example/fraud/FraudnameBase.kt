@@ -26,6 +26,10 @@ open class FraudnameBase {
 // remove::start[]
 	@BeforeEach
 	fun setup() {
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.standaloneSetup(FraudNameController(object : FraudVerifier {
 			override fun isFraudByName(name: String): Boolean {
 				return "fraud" == name
