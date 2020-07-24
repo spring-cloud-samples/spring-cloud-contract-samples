@@ -52,6 +52,13 @@
 			<scope>test</scope>
 			<classifier>test-binder</classifier>
 		</dependency>
+		<!-- For JDK 14 -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+			<scope>test</scope>
+		</dependency>
 
 
 		<!-- spring cloud contract test dependencies -->
