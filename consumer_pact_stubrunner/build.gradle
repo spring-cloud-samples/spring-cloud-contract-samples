@@ -45,6 +45,9 @@ dependencies {
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 	testImplementation("org.springframework.cloud:spring-cloud-contract-pact")
 	// remove::end[]
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
 
 test {

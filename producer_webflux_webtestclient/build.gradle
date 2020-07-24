@@ -66,6 +66,9 @@ dependencies {
 	// end::test_dep[]
 	testImplementation ("io.rest-assured:spring-web-test-client:$restAssuredVersion")
 	// remove::end[]
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
 
 //remove::start[]

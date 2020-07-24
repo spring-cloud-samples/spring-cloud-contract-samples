@@ -54,6 +54,9 @@ dependencies {
 	// end::verifier_dep[]
 	// remove::end[]
 	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
 
 //remove::start[]

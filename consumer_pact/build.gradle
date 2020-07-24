@@ -43,6 +43,9 @@ dependencies {
 
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
 	testImplementation "au.com.dius.pact.consumer:junit5:4.1.4"
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
 
 task startBroker(type:Exec) {

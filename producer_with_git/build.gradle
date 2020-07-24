@@ -50,6 +50,9 @@ dependencies {
 	//remove::start[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// remove::end[]
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
 
 //remove::start[]

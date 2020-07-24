@@ -47,6 +47,9 @@ dependencies {
 		transitive = false
 	}
 	// remove::end[]
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
 
 test {
