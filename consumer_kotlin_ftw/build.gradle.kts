@@ -52,7 +52,7 @@ dependencies {
 	}
 
 	// for compatibility
-	testImplementation('org.junit.jupiter:junit-jupiter-engine')
+	testImplementation("org.junit.jupiter:junit-jupiter-engine")
 }
 // end::deps[]
 
