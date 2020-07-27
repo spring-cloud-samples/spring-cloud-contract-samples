@@ -1675,7 +1675,7 @@ producer&#8217;s perspective - the <code>input</code> part</p>
 <p>Input message produces an output message</p>
 </li>
 <li>
-<p>A method execution produces an output message</p>
+<p>A method call produces an output message</p>
 </li>
 <li>
 <p>Input message doesn&#8217;t produce any output message</p>
@@ -1685,7 +1685,7 @@ producer&#8217;s perspective - the <code>input</code> part</p>
 </li>
 <li>
 <p>In our situation we&#8217;ll have a method produce an output. It&#8217;s enough to pass the <code>input {}</code> method
-and then the <code>triggeredBy</code> method. The <code>triggeredBy</code> method requires a String with a method execution.
+and then the <code>triggeredBy</code> method. The <code>triggeredBy</code> method requires a String with a method call.
 So if in the base class we expect to have a method called <code>triggerSomeMessage()</code> that would trigger a message
 for tests, then we would write <code>input { triggeredBy("triggerSomeMessage()") }</code> to make this happen. Example:</p>
 <div class="listingblock">

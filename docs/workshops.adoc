@@ -28,8 +28,8 @@ $ ./gradlew prepareForWorkshops
 The preceding commands removes most of the code, contracts, and project setup details, so
 that you can start the workshops.
 
-TIP: Whenever your lost, do not worry. At any time, you can check what the contents in
-the `master` branch where all of the examples are ready and working.
+TIP: Whenever you are lost, do not worry. At any time, you can check the contents in
+the `master` branch, where all of the examples are ready and working.
 
 IMPORTANT: You must have Maven installed. Check out
 https://maven.apache.org/download.cgi[the website on how to download and install Maven].
@@ -93,7 +93,7 @@ video::iyNzYOcuU4I[youtube,start=538,width=960,height=569]
 ** link:tutorials/stubs_per_consumer.html[Stubs per Consumer]
 ** link:tutorials/spring_cloud_contract_advanced.html[Spring Cloud Contract advanced]
 *** Using regular expressions
-*** Code execution
+*** Code invocation
 *** Referencing request from response
 *** Working with stub and test matchers
 *** Working with random ports

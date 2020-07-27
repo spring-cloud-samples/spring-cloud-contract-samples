@@ -3,10 +3,10 @@ producer's perspective - the `input` part
   * In case of messaging there has to be some trigger that will result in producing an output message
   * Spring Cloud Contract accepts 3 situations
     ** Input message produces an output message
-    ** A method execution produces an output message
+    ** A method call produces an output message
     ** Input message doesn't produce any output message
   * In our situation we'll have a method produce an output. It's enough to pass the `input {}` method
-    and then the `triggeredBy` method. The `triggeredBy` method requires a String with a method execution.
+    and then the `triggeredBy` method. The `triggeredBy` method requires a String with a method call.
     So if in the base class we expect to have a method called `triggerSomeMessage()` that would trigger a message
     for tests, then we would write `input { triggeredBy("triggerSomeMessage()") }` to make this happen. Example:
 +
