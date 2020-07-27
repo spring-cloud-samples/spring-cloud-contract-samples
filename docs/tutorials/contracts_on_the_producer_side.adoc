@@ -7,7 +7,7 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer
-:version: 2.4.0-M1
+:version: 2.4.0-SNAPSHOT
 
 = Contracts on the Producer Side {version}
 

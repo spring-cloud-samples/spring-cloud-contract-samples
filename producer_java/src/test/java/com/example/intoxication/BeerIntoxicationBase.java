@@ -1,9 +1,10 @@
 package com.example.intoxication;
 
 //remove::start[]
-import io.restassured.module.mockmvc.RestAssuredMockMvc;
-//remove::end[]
 
+import io.restassured.config.EncoderConfig;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import static com.example.intoxication.DrunkLevel.SOBER;
 import static com.example.intoxication.DrunkLevel.TIPSY;
 import static com.example.intoxication.DrunkLevel.WASTED;
 
+//remove::end[]
+
 /**
  * Tests for the scenario based stub
  */
@@ -29,6 +32,8 @@ public abstract class BeerIntoxicationBase {
 	@BeforeEach
 	public void setup() {
 		//remove::start[]
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.webAppContextSetup(this.webApplicationContext);
 		//remove::end[]
 	}

@@ -9,7 +9,7 @@ buildscript {
 
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
-		//remove::start[]
+		// remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
 		// tag::test_dep_in_plugin[]
 		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
@@ -34,7 +34,7 @@ repositories {
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 apply plugin: "io.spring.dependency-management"
-//remove::start[]
+// remove::start[]
 apply plugin: 'spring-cloud-contract'
 // remove::end[]
 apply plugin: 'maven-publish'
@@ -51,7 +51,7 @@ dependencies {
 
 	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
 	testImplementation('javax.inject:javax.inject:1')
-	//remove::start[]
+	// remove::start[]
 	// tag::verifier_dep[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
@@ -64,7 +64,7 @@ dependencies {
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
 
-//remove::start[]
+// remove::start[]
 contracts {
 	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'

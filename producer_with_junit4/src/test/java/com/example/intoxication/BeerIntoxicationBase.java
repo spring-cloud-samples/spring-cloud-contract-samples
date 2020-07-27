@@ -2,7 +2,9 @@ package com.example.intoxication;
 
 //remove::start[]
 
+import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
@@ -35,6 +37,8 @@ public abstract class BeerIntoxicationBase {
 
 	@Before
 	public void setup() {
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.webAppContextSetup(this.webApplicationContext);
 	}
 

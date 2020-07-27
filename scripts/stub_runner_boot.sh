@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # tag::download[]
-VERSION="2.4.0-M1"
+VERSION="2.4.0-SNAPSHOT"
 URL="https://repo1.maven.org/maven2/org/springframework/cloud/spring-cloud-contract-stub-runner-boot/${VERSION}/spring-cloud-contract-stub-runner-boot-${VERSION}.jar"
 JAR_NAME="stub-runner-boot-${VERSION}"
 JAR_LOCATION="target/${JAR_NAME}.jar"
