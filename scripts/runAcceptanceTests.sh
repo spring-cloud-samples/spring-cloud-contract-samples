@@ -5,7 +5,7 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-export ROOT=`pwd`
+export ROOT=$(pwd)
 export CI="${CI:-false}"
 
 source "${ROOT}"/scripts/clean.sh
@@ -13,27 +13,31 @@ source "${ROOT}"/scripts/clean.sh
 trap 'clean && clearDocker' EXIT
 
 function startDockerCompose() {
-    pushd "${ROOT}"/docker
-    docker-compose pull
-    docker-compose up -d
-    popd
+	pushd "${ROOT}"/docker
+	docker-compose pull
+	docker-compose up -d
+	popd
 }
 
 clean
 
-. ${ROOT}/scripts/runMavenBuilds.sh
+export SKIP_BUILD="${SKIP_BUILD:-false}"
 
-. ${ROOT}/scripts/runManual.sh
+if [[ "${SKIP_BUILD}" != "true" ]]; then
+	. ${ROOT}/scripts/runMavenBuilds.sh
 
-. ${ROOT}/scripts/runGradleBuilds.sh
+	. ${ROOT}/scripts/runManual.sh
+
+	. ${ROOT}/scripts/runGradleBuilds.sh
+fi
 
 export SKIP_COMPATIBILITY="${SKIP_COMPATIBILITY:-false}"
 
 if [[ "${SKIP_COMPATIBILITY}" != "true" ]]; then
 	echo -e "\n\nWill run compatibility build\n\n"
 	startDockerCompose
-  # TODO: Go back to snapshots one day
-  export CURRENT_BOOT_VERSION="2.4.0-SNAPSHOT"
+	# TODO: Go back to snapshots one day
+	export CURRENT_BOOT_VERSION="2.4.0-SNAPSHOT"
 	. ${ROOT}/scripts/runCompatibilityBuild.sh
 fi
 
