@@ -38,7 +38,7 @@
 		<dependency>
 			<groupId>com.google.protobuf</groupId>
 			<artifactId>protobuf-java</artifactId>
-			<version>3.6.1</version>
+			<version>3.12.4</version>
 		</dependency>
 
 		<dependency>
@@ -91,7 +91,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.2.0</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
@@ -110,7 +110,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
+				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<id>generate-proto</id>

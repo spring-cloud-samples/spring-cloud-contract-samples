@@ -8,7 +8,7 @@ buildscript {
 	}
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
-		classpath "au.com.dius:pact-jvm-provider-gradle_2.12:3.5.23"
+		classpath "au.com.dius:pact-jvm-provider-gradle:4.0.10"
 	}
 }
 

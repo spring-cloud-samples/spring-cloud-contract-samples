@@ -16,7 +16,6 @@ import org.springframework.web.reactive.function.client.WebClient
  * @author Arthur Kazemi<bidadh@gmail.com>
  * @since 2019-01-13 18:47
  */
-@EnableWebFlux
 @Configuration
 @EnableConfigurationProperties(WebFluxProperties::class)
 class WebConfig : WebFluxConfigurer {
