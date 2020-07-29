@@ -6,7 +6,6 @@ import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
 import org.junit.jupiter.api.BeforeEach;
-
 //remove::end[]
 
 public abstract class BeerStuffBase {

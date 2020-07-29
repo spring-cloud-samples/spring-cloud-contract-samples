@@ -1,13 +1,11 @@
 package com.example
 
+//remove::start[]
 import io.restassured.config.EncoderConfig
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig
-import spock.lang.Specification
-
-//remove::start[]
-
 //remove::end[]
+import spock.lang.Specification
 
 abstract class BeerRestBase extends Specification {
 	//remove::start[]

@@ -11,8 +11,10 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+//remove::start[]
 import org.springframework.cloud.contract.stubrunner.junit.StubRunnerExtension;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
+//remove::end[]
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -21,8 +23,6 @@ import org.springframework.util.StringUtils;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//remove::start[]
-//remove::end[]
 
 /**
  * @author Marcin Grzejszczak
@@ -57,10 +57,12 @@ public class BeerControllerRouterFunctionTest extends AbstractTest {
 		return true;
 	}
 
+	//remove::start[]
 	@BeforeEach
 	public void setupPort() {
 		this.beerController.port = rule.findStubUrl("beer-api-producer-routerfunction-webtestclient").getPort();
 	}
+	//remove::end[]
 
 	//remove::end[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {

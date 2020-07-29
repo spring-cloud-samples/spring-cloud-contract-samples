@@ -1,9 +1,8 @@
 package com.example;
 
-//remove::start[]
-
 import java.util.Random;
 
+//remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
@@ -15,9 +14,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-
 //remove::end[]
+
+//remove::start[]
 @ExtendWith(RestDocumentationExtension.class)
+//remove::end[]
 public abstract class BeerRestBase {
 	//remove::start[]
 

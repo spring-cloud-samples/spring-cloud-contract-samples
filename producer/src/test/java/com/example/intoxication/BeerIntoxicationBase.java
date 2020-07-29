@@ -1,10 +1,10 @@
 package com.example.intoxication;
 
 //remove::start[]
-
 import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
+//remove::end[]
 import org.junit.jupiter.api.BeforeEach;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import static com.example.intoxication.DrunkLevel.SOBER;
 import static com.example.intoxication.DrunkLevel.TIPSY;
 import static com.example.intoxication.DrunkLevel.WASTED;
 
-//remove::end[]
 
 /**
  * Tests for the scenario based stub
