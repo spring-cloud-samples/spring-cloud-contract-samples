@@ -25,20 +25,20 @@ function clean() {
 function bootVersion() {
 	local minor="${1}"
 	# FOR LATEST
-	#BOOT_VERSION="\$( curl https://repo.spring.io/libs-snapshot-local/org/springframework/boot/spring-boot-starter/maven-metadata.xml | sed -ne '/<latest>/s#\s*<[^>]*>\s*##gp')"
-	curl --silent https://repo.spring.io/libs-snapshot-local/org/springframework/boot/spring-boot-starter/maven-metadata.xml | grep "<version>${minor}." | tail -1 | sed -ne '/<version>/s#\s*<[^>]*>\s*##gp' | xargs
+	#BOOT_VERSION="\$( curl https://repo.spring.io/snapshot/org/springframework/boot/spring-boot-starter/maven-metadata.xml | sed -ne '/<latest>/s#\s*<[^>]*>\s*##gp')"
+	curl --silent https://repo.spring.io/snapshot/org/springframework/boot/spring-boot-starter/maven-metadata.xml | grep "<version>${minor}." | tail -1 | sed -ne '/<version>/s#\s*<[^>]*>\s*##gp' | xargs
 }
 
 function contractVersion() {
 	local minor="${1}"
-	#BOOT_VERSION="\$( curl https://repo.spring.io/libs-snapshot-local/org/springframework/cloud/spring-cloud-starter-contract-verifier/maven-metadata.xml | sed -ne '/<latest>/s#\s*<[^>]*>\s*##gp')"
-	curl --silent https://repo.spring.io/libs-snapshot-local/org/springframework/cloud/spring-cloud-starter-contract-verifier/maven-metadata.xml | grep "<version>${minor}." | tail -1 | sed -ne '/<version>/s#\s*<[^>]*>\s*##gp' | xargs
+	#BOOT_VERSION="\$( curl https://repo.spring.io/snapshot/org/springframework/cloud/spring-cloud-starter-contract-verifier/maven-metadata.xml | sed -ne '/<latest>/s#\s*<[^>]*>\s*##gp')"
+	curl --silent https://repo.spring.io/snapshot/org/springframework/cloud/spring-cloud-starter-contract-verifier/maven-metadata.xml | grep "<version>${minor}." | tail -1 | sed -ne '/<version>/s#\s*<[^>]*>\s*##gp' | xargs
 }
 
 function cloudVersion() {
 	local minor="${1}"
-	#BOOT_VERSION="\$( curl https://repo.spring.io/libs-snapshot-local/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml | sed -ne '/<latest>/s#\s*<[^>]*>\s*##gp')"
-	curl --silent https://repo.spring.io/libs-snapshot-local/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml | grep "<version>${minor}." | tail -1 | sed -ne '/<version>/s#\s*<[^>]*>\s*##gp' | xargs
+	#BOOT_VERSION="\$( curl https://repo.spring.io/snapshot/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml | sed -ne '/<latest>/s#\s*<[^>]*>\s*##gp')"
+	curl --silent https://repo.spring.io/snapshot/org/springframework/cloud/spring-cloud-dependencies/maven-metadata.xml | grep "<version>${minor}." | tail -1 | sed -ne '/<version>/s#\s*<[^>]*>\s*##gp' | xargs
 }
 
 CURRENT_BOOT_VERSION="${CURRENT_BOOT_VERSION:-}"

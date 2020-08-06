@@ -61,6 +61,7 @@
 				<module>producer_kotlin_ftw</module>
 				<module>producer_java</module>
 				<module>producer_kafka</module>
+				<module>producer_camel</module>
 				<module>consumer</module>
 				<module>consumer_proto</module>
 				<module>consumer_pact_stubrunner</module>
@@ -74,6 +75,7 @@
 				<module>consumer_kotlin_ftw</module>
 				<module>consumer_kafka</module>
 				<module>consumer_with_secured_webflux</module>
+				<module>consumer_camel</module>
 			</modules>
 		</profile>
 		<profile>

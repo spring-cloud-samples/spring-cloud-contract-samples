@@ -1,0 +1,13 @@
+label: negative
+input:
+    messageFrom: seda:person
+    messageBody:
+        age: 17
+    messageHeaders:
+        contentType: application/json
+outputMessage:
+    sentTo: "seda:verifications"
+    body:
+        eligible: false
+    headers:
+        contentType: application/json
