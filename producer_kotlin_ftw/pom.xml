@@ -22,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud-contract.version>2.2.4.BUILD-SNAPSHOT</spring-cloud-contract.version>
-		<spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
+		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
 		<!-- Needs to align the version to what's there in Contract -->
 		<kotlin.version>1.3.72</kotlin.version>
 	</properties>
