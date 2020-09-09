@@ -198,8 +198,6 @@ task stubsJar(type: Jar) {
 }
 // we need the tests to pass to build the stub jar
 stubsJar.dependsOn(test)
-// we want to disable the default Spring Cloud Contract stub jar generation
-verifierStubsJar.enabled = false
 
 artifacts {
 	archives stubsJar

@@ -66,6 +66,14 @@ test {
 	}
 }
 
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+}
+
 task stopBroker(type:Exec) {
 	workingDir '../docker'
 
