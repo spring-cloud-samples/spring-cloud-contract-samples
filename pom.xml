@@ -62,6 +62,7 @@
 				<module>producer_java</module>
 				<module>producer_kafka</module>
 				<module>producer_camel</module>
+				<module>producer_graphql</module>
 				<module>consumer</module>
 				<module>consumer_proto</module>
 				<module>consumer_pact_stubrunner</module>
@@ -108,21 +109,28 @@
 				<module>producer_with_webtestclient_restdocs</module>
 				<module>producer_with_dsl_restdocs</module>
 				<module>producer_with_spock</module>
+				<module>producer_with_junit4</module>
 				<module>producer_with_xml</module>
 				<module>producer_with_latest_2_2_features</module>
 				<module>producer_kotlin_ftw</module>
+				<module>producer_java</module>
 				<module>producer_kafka</module>
+				<module>producer_camel</module>
+				<module>producer_graphql</module>
 				<module>consumer</module>
 				<module>consumer_proto</module>
 				<module>consumer_pact_stubrunner</module>
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
+				<module>consumer_with_junit4</module>
 				<module>consumer_security</module>
 				<module>consumer_with_latest_2_2_features</module>
+				<module>consumer_java</module>
 				<module>consumer_kotlin_ftw</module>
 				<module>consumer_kafka</module>
 				<module>consumer_with_secured_webflux</module>
+				<module>consumer_camel</module>
 			</modules>
 		</profile>
 		<profile>

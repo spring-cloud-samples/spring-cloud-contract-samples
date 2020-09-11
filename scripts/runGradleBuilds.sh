@@ -101,7 +101,7 @@ function build_gradle() {
     build producer_java
     build producer_kotlin_ftw
     build producer_kafka
-    build producer_pact
+    build producer_graphql
     waitPids
     kill_java
 
