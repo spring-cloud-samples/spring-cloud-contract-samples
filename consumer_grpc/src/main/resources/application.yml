@@ -1,0 +1,9 @@
+spring:
+  application.name: beer-api-consumer-grpc
+server.port: ${PORT:8081}
+logging:
+  level:
+#    org.springframework.cloud: debug
+#    io.grpc: debug
+#    com.github.tomakehurst.wiremock: debug
+#    wiremock: debug

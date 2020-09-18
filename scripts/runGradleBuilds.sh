@@ -102,6 +102,7 @@ function build_gradle() {
     build producer_kotlin_ftw
     build producer_kafka
     build producer_graphql
+    build producer_grpc
     waitPids
     kill_java
 
@@ -125,6 +126,7 @@ function build_gradle() {
     build consumer_kafka
     build consumer_with_secured_webflux
     build consumer_pact
+    build consumer_grpc
     waitPids
     kill_java
 }

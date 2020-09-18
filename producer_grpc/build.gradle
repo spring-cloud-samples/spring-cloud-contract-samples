@@ -1,0 +1,135 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		mavenLocal()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+		maven { url "https://repo.spring.io/release" }
+	}
+
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
+		//remove::start[]
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
+		// remove::end[]
+	}
+}
+
+plugins {
+	id "com.google.protobuf" version "0.8.13"
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: "io.spring.dependency-management"
+//remove::start[]
+apply plugin: 'spring-cloud-contract'
+// remove::end[]
+apply plugin: 'maven-publish'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url "https://repo.spring.io/release" }
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs += 'src/main/proto_gen'
+		}
+		proto {
+			srcDirs += 'src/main/resources/proto'
+		}
+	}
+}
+
+dependencies {
+	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
+}
+
+dependencies {
+	implementation 'net.devh:grpc-server-spring-boot-starter:2.10.1.RELEASE'
+	testImplementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
+	testImplementation 'com.asarkar.grpc:grpc-test:1.0.3'
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
+	// remove::start[]
+	// tag::verifier_dep[]
+	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	// end::verifier_dep[]
+	// remove::end[]
+}
+
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+}
+
+protobuf {
+	protoc {
+		artifact = "com.google.protobuf:protoc:3.12.3"
+	}
+	plugins {
+		grpc {
+			artifact = "io.grpc:protoc-gen-grpc-java:1.31.1"
+		}
+	}
+	generateProtoTasks {
+		ofSourceSet('main').each { task ->
+			task.builtins {
+				java {
+					outputSubDir = 'proto_gen'
+				}
+			}
+			task.plugins {
+				grpc {
+					outputSubDir = 'proto_gen'
+				}
+			}
+		}
+	}
+	generatedFilesBaseDir = "$projectDir/src/"
+}
+
+task cleanProtoGen {
+	doFirst {
+		delete("$projectDir/src/main/proto_gen")
+	}
+}
+
+clean.dependsOn cleanProtoGen
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		exceptionFormat = 'full'
+	}
+	afterSuite { desc, result ->
+		if (!desc.parent) {
+			println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+			boolean skipTests = Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
+			if (result.testCount == 0 && !skipTests) {
+				throw new IllegalStateException("No tests were found. Failing the build")
+			}
+		}
+	}
+}
+
+//remove::start[]
+contracts {
+	testFramework = "JUNIT5"
+	packageWithBaseClasses = 'com.example'
+	testMode = "CUSTOM"
+}
+// remove::end[]

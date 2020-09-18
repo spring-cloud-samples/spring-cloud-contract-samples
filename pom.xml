@@ -63,6 +63,7 @@
 				<module>producer_kafka</module>
 				<module>producer_camel</module>
 				<module>producer_graphql</module>
+				<module>producer_grpc</module>
 				<module>consumer</module>
 				<module>consumer_proto</module>
 				<module>consumer_pact_stubrunner</module>
@@ -77,6 +78,7 @@
 				<module>consumer_kafka</module>
 				<module>consumer_with_secured_webflux</module>
 				<module>consumer_camel</module>
+				<module>consumer_grpc</module>
 			</modules>
 		</profile>
 		<profile>
@@ -117,6 +119,7 @@
 				<module>producer_kafka</module>
 				<module>producer_camel</module>
 				<module>producer_graphql</module>
+				<module>producer_grpc</module>
 				<module>consumer</module>
 				<module>consumer_proto</module>
 				<module>consumer_pact_stubrunner</module>
@@ -131,6 +134,7 @@
 				<module>consumer_kafka</module>
 				<module>consumer_with_secured_webflux</module>
 				<module>consumer_camel</module>
+				<module>consumer_grpc</module>
 			</modules>
 		</profile>
 		<profile>
