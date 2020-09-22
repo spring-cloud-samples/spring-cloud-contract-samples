@@ -61,6 +61,9 @@
 				<module>producer_kotlin_ftw</module>
 				<module>producer_java</module>
 				<module>producer_kafka</module>
+				<module>producer_kafka_middleware</module>
+				<module>producer_rabbit_middleware</module>
+				<module>producer_jms_middleware</module>
 				<module>producer_camel</module>
 				<module>producer_graphql</module>
 				<module>producer_grpc</module>
@@ -76,6 +79,9 @@
 				<module>consumer_java</module>
 				<module>consumer_kotlin_ftw</module>
 				<module>consumer_kafka</module>
+				<module>consumer_kafka_middleware</module>
+				<module>consumer_rabbit_middleware</module>
+				<module>consumer_jms_middleware</module>
 				<module>consumer_with_secured_webflux</module>
 				<module>consumer_camel</module>
 				<module>consumer_grpc</module>
@@ -117,6 +123,9 @@
 				<module>producer_kotlin_ftw</module>
 				<module>producer_java</module>
 				<module>producer_kafka</module>
+				<module>producer_kafka_middleware</module>
+				<module>producer_rabbit_middleware</module>
+				<module>producer_jms_middleware</module>
 				<module>producer_camel</module>
 				<module>producer_graphql</module>
 				<module>producer_grpc</module>
@@ -132,6 +141,9 @@
 				<module>consumer_java</module>
 				<module>consumer_kotlin_ftw</module>
 				<module>consumer_kafka</module>
+				<module>consumer_kafka_middleware</module>
+				<module>consumer_rabbit_middleware</module>
+				<module>consumer_jms_middleware</module>
 				<module>consumer_with_secured_webflux</module>
 				<module>consumer_camel</module>
 				<module>consumer_grpc</module>

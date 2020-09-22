@@ -1,0 +1,388 @@
+September 22, 2020 at 1:15:28 PM CEST[DispatchThread: [com.ibm.mq.jmqi.remote.impl.RemoteSession[:/371db535][connectionId=414D5143514D31202020202020202020C1DC695F0B65ED22]]] com.ibm.msg.client.jms.internal.JmsProviderExceptionListener
+An exception has been delivered to the connection's exception listener: '
+                       Message : com.ibm.msg.client.jms.DetailedJMSException: JMSWMQ1107: A problem with this connection has occurred.
+An error has occurred with the IBM MQ JMS connection.
+Use the linked exception to determine the cause of this error.
+                         Class : class com.ibm.msg.client.jms.DetailedJMSException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.reasonToException(Reason.java:595)
+                               : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:215)
+                               : com.ibm.msg.client.wmq.internal.WMQConnection.consumer(WMQConnection.java:857)
+                               : com.ibm.mq.jmqi.remote.api.RemoteHconn.callEventHandler(RemoteHconn.java:3027)
+                               : com.ibm.mq.jmqi.remote.api.RemoteHconn.driveEventsEH(RemoteHconn.java:720)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteDispatchThread.processHconn(RemoteDispatchThread.java:684)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteDispatchThread.run(RemoteDispatchThread.java:223)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueItem.runTask(WorkQueueItem.java:319)
+                               : com.ibm.msg.client.commonservices.workqueue.SimpleWorkQueueItem.runItem(SimpleWorkQueueItem.java:99)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueItem.run(WorkQueueItem.java:343)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueManager.runWorkQueueItem(WorkQueueManager.java:312)
+                               : com.ibm.msg.client.commonservices.j2se.workqueue.WorkQueueManagerImplementation$ThreadPoolWorker.run(WorkQueueManagerImplementation.java:1227)
+     Caused by [1] --> Message : com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed with compcode '2' ('MQCC_FAILED') reason '2009' ('MQRC_CONNECTION_BROKEN').
+                         Class : class com.ibm.mq.MQException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:203)
+                               : com.ibm.msg.client.wmq.internal.WMQConnection.consumer(WMQConnection.java:857)
+                               : com.ibm.mq.jmqi.remote.api.RemoteHconn.callEventHandler(RemoteHconn.java:3027)
+                               : com.ibm.mq.jmqi.remote.api.RemoteHconn.driveEventsEH(RemoteHconn.java:720)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteDispatchThread.processHconn(RemoteDispatchThread.java:684)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteDispatchThread.run(RemoteDispatchThread.java:223)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueItem.runTask(WorkQueueItem.java:319)
+                               : com.ibm.msg.client.commonservices.workqueue.SimpleWorkQueueItem.runItem(SimpleWorkQueueItem.java:99)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueItem.run(WorkQueueItem.java:343)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueManager.runWorkQueueItem(WorkQueueManager.java:312)
+                               : com.ibm.msg.client.commonservices.j2se.workqueue.WorkQueueManagerImplementation$ThreadPoolWorker.run(WorkQueueManagerImplementation.java:1227)
+'.
+
+EXPLANATION:
+null
+
+ACTION:
+Review the exception details for further information.
+--------------------------------------------------------------------
+September 22, 2020 at 1:16:38 PM CEST[DispatchThread: [com.ibm.mq.jmqi.remote.impl.RemoteSession[:/243ed748][connectionId=414D5143514D3120202020202020202004DD695F0B7F8023]]] com.ibm.msg.client.jms.internal.JmsProviderExceptionListener
+An exception has been delivered to the connection's exception listener: '
+                       Message : com.ibm.msg.client.jms.DetailedJMSException: JMSWMQ1107: A problem with this connection has occurred.
+An error has occurred with the IBM MQ JMS connection.
+Use the linked exception to determine the cause of this error.
+                         Class : class com.ibm.msg.client.jms.DetailedJMSException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.reasonToException(Reason.java:595)
+                               : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:215)
+                               : com.ibm.msg.client.wmq.internal.WMQConnection.consumer(WMQConnection.java:857)
+                               : com.ibm.mq.jmqi.remote.api.RemoteHconn.callEventHandler(RemoteHconn.java:3027)
+                               : com.ibm.mq.jmqi.remote.api.RemoteHconn.driveEventsEH(RemoteHconn.java:720)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteDispatchThread.processHconn(RemoteDispatchThread.java:684)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteDispatchThread.run(RemoteDispatchThread.java:223)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueItem.runTask(WorkQueueItem.java:319)
+                               : com.ibm.msg.client.commonservices.workqueue.SimpleWorkQueueItem.runItem(SimpleWorkQueueItem.java:99)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueItem.run(WorkQueueItem.java:343)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueManager.runWorkQueueItem(WorkQueueManager.java:312)
+                               : com.ibm.msg.client.commonservices.j2se.workqueue.WorkQueueManagerImplementation$ThreadPoolWorker.run(WorkQueueManagerImplementation.java:1227)
+     Caused by [1] --> Message : com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed with compcode '2' ('MQCC_FAILED') reason '2009' ('MQRC_CONNECTION_BROKEN').
+                         Class : class com.ibm.mq.MQException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:203)
+                               : com.ibm.msg.client.wmq.internal.WMQConnection.consumer(WMQConnection.java:857)
+                               : com.ibm.mq.jmqi.remote.api.RemoteHconn.callEventHandler(RemoteHconn.java:3027)
+                               : com.ibm.mq.jmqi.remote.api.RemoteHconn.driveEventsEH(RemoteHconn.java:720)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteDispatchThread.processHconn(RemoteDispatchThread.java:684)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteDispatchThread.run(RemoteDispatchThread.java:223)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueItem.runTask(WorkQueueItem.java:319)
+                               : com.ibm.msg.client.commonservices.workqueue.SimpleWorkQueueItem.runItem(SimpleWorkQueueItem.java:99)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueItem.run(WorkQueueItem.java:343)
+                               : com.ibm.msg.client.commonservices.workqueue.WorkQueueManager.runWorkQueueItem(WorkQueueManager.java:312)
+                               : com.ibm.msg.client.commonservices.j2se.workqueue.WorkQueueManagerImplementation$ThreadPoolWorker.run(WorkQueueManagerImplementation.java:1227)
+'.
+
+EXPLANATION:
+null
+
+ACTION:
+Review the exception details for further information.
+--------------------------------------------------------------------
+September 22, 2020 at 1:18:37 PM CEST[DefaultMessageListenerContainer-1] com.ibm.msg.client.jms.internal.JmsProviderExceptionListener
+An exception has been delivered to the connection's exception listener: '
+                       Message : com.ibm.msg.client.jms.DetailedJMSException: JMSWMQ1107: A problem with this connection has occurred.
+An error has occurred with the IBM MQ JMS connection.
+Use the linked exception to determine the cause of this error.
+                         Class : class com.ibm.msg.client.jms.DetailedJMSException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.reasonToException(Reason.java:595)
+                               : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:215)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:217)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:156)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.getMsg(WMQConsumerShadow.java:1858)
+                               : com.ibm.msg.client.wmq.internal.WMQSyncConsumerShadow.receiveInternal(WMQSyncConsumerShadow.java:228)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.receive(WMQConsumerShadow.java:1461)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.receive(WMQMessageConsumer.java:674)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receiveInboundMessage(JmsMessageConsumerImpl.java:1051)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receive(JmsMessageConsumerImpl.java:667)
+                               : com.ibm.mq.jms.MQMessageConsumer.receive(MQMessageConsumer.java:209)
+                               : org.springframework.jms.support.destination.JmsDestinationAccessor.receiveFromConsumer(JmsDestinationAccessor.java:132)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveMessage(AbstractPollingMessageListenerContainer.java:418)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:303)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:257)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1189)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1179)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1076)
+                               : java.lang.Thread.run(Thread.java:830)
+     Caused by [1] --> Message : com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed with compcode '2' ('MQCC_FAILED') reason '2009' ('MQRC_CONNECTION_BROKEN').
+                         Class : class com.ibm.mq.MQException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:203)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:217)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:156)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.getMsg(WMQConsumerShadow.java:1858)
+                               : com.ibm.msg.client.wmq.internal.WMQSyncConsumerShadow.receiveInternal(WMQSyncConsumerShadow.java:228)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.receive(WMQConsumerShadow.java:1461)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.receive(WMQMessageConsumer.java:674)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receiveInboundMessage(JmsMessageConsumerImpl.java:1051)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receive(JmsMessageConsumerImpl.java:667)
+                               : com.ibm.mq.jms.MQMessageConsumer.receive(MQMessageConsumer.java:209)
+                               : org.springframework.jms.support.destination.JmsDestinationAccessor.receiveFromConsumer(JmsDestinationAccessor.java:132)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveMessage(AbstractPollingMessageListenerContainer.java:418)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:303)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:257)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1189)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1179)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1076)
+                               : java.lang.Thread.run(Thread.java:830)
+'.
+
+EXPLANATION:
+null
+
+ACTION:
+Review the exception details for further information.
+--------------------------------------------------------------------
+September 22, 2020 1:19:35 PM CEST[DefaultMessageListenerContainer-1] com.ibm.msg.client.jms.internal.JmsProviderExceptionListener
+An exception has been delivered to the connection's exception listener: '
+                       Message : com.ibm.msg.client.jms.DetailedJMSException: JMSWMQ1107: A problem with this connection has occurred.
+An error has occurred with the IBM MQ JMS connection.
+Use the linked exception to determine the cause of this error.
+                         Class : class com.ibm.msg.client.jms.DetailedJMSException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.reasonToException(Reason.java:595)
+                               : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:215)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:217)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:156)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.getMsg(WMQConsumerShadow.java:1858)
+                               : com.ibm.msg.client.wmq.internal.WMQSyncConsumerShadow.receiveInternal(WMQSyncConsumerShadow.java:228)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.receive(WMQConsumerShadow.java:1461)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.receive(WMQMessageConsumer.java:674)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receiveInboundMessage(JmsMessageConsumerImpl.java:1051)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receive(JmsMessageConsumerImpl.java:667)
+                               : com.ibm.mq.jms.MQMessageConsumer.receive(MQMessageConsumer.java:209)
+                               : org.springframework.jms.support.destination.JmsDestinationAccessor.receiveFromConsumer(JmsDestinationAccessor.java:132)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveMessage(AbstractPollingMessageListenerContainer.java:418)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:303)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:257)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1189)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1179)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1076)
+                               : java.lang.Thread.run(Thread.java:748)
+     Caused by [1] --> Message : com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed with compcode '2' ('MQCC_FAILED') reason '2009' ('MQRC_CONNECTION_BROKEN').
+                         Class : class com.ibm.mq.MQException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:203)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:217)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:156)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.getMsg(WMQConsumerShadow.java:1858)
+                               : com.ibm.msg.client.wmq.internal.WMQSyncConsumerShadow.receiveInternal(WMQSyncConsumerShadow.java:228)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.receive(WMQConsumerShadow.java:1461)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.receive(WMQMessageConsumer.java:674)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receiveInboundMessage(JmsMessageConsumerImpl.java:1051)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receive(JmsMessageConsumerImpl.java:667)
+                               : com.ibm.mq.jms.MQMessageConsumer.receive(MQMessageConsumer.java:209)
+                               : org.springframework.jms.support.destination.JmsDestinationAccessor.receiveFromConsumer(JmsDestinationAccessor.java:132)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveMessage(AbstractPollingMessageListenerContainer.java:418)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:303)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:257)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1189)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1179)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1076)
+                               : java.lang.Thread.run(Thread.java:748)
+'.
+
+EXPLANATION:
+null
+
+ACTION:
+Review the exception details for further information.
+--------------------------------------------------------------------
+September 22, 2020 1:22:10 PM CEST[DefaultMessageListenerContainer-1] com.ibm.msg.client.jms.internal.JmsProviderExceptionListener
+An exception has been delivered to the connection's exception listener: '
+                       Message : com.ibm.msg.client.jms.DetailedJMSException: JMSWMQ1107: A problem with this connection has occurred.
+An error has occurred with the IBM MQ JMS connection.
+Use the linked exception to determine the cause of this error.
+                         Class : class com.ibm.msg.client.jms.DetailedJMSException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.reasonToException(Reason.java:595)
+                               : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:215)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:217)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:156)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.getMsg(WMQConsumerShadow.java:1858)
+                               : com.ibm.msg.client.wmq.internal.WMQSyncConsumerShadow.receiveInternal(WMQSyncConsumerShadow.java:228)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.receive(WMQConsumerShadow.java:1461)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.receive(WMQMessageConsumer.java:674)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receiveInboundMessage(JmsMessageConsumerImpl.java:1051)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receive(JmsMessageConsumerImpl.java:667)
+                               : com.ibm.mq.jms.MQMessageConsumer.receive(MQMessageConsumer.java:209)
+                               : org.springframework.jms.support.destination.JmsDestinationAccessor.receiveFromConsumer(JmsDestinationAccessor.java:132)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveMessage(AbstractPollingMessageListenerContainer.java:418)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:303)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:257)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1189)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1179)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1076)
+                               : java.lang.Thread.run(Thread.java:748)
+     Caused by [1] --> Message : com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed with compcode '2' ('MQCC_FAILED') reason '2009' ('MQRC_CONNECTION_BROKEN').
+                         Class : class com.ibm.mq.MQException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:203)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:217)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.checkJmqiCallSuccess(WMQMessageConsumer.java:156)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.getMsg(WMQConsumerShadow.java:1858)
+                               : com.ibm.msg.client.wmq.internal.WMQSyncConsumerShadow.receiveInternal(WMQSyncConsumerShadow.java:228)
+                               : com.ibm.msg.client.wmq.internal.WMQConsumerShadow.receive(WMQConsumerShadow.java:1461)
+                               : com.ibm.msg.client.wmq.internal.WMQMessageConsumer.receive(WMQMessageConsumer.java:674)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receiveInboundMessage(JmsMessageConsumerImpl.java:1051)
+                               : com.ibm.msg.client.jms.internal.JmsMessageConsumerImpl.receive(JmsMessageConsumerImpl.java:667)
+                               : com.ibm.mq.jms.MQMessageConsumer.receive(MQMessageConsumer.java:209)
+                               : org.springframework.jms.support.destination.JmsDestinationAccessor.receiveFromConsumer(JmsDestinationAccessor.java:132)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveMessage(AbstractPollingMessageListenerContainer.java:418)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.doReceiveAndExecute(AbstractPollingMessageListenerContainer.java:303)
+                               : org.springframework.jms.listener.AbstractPollingMessageListenerContainer.receiveAndExecute(AbstractPollingMessageListenerContainer.java:257)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1189)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1179)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1076)
+                               : java.lang.Thread.run(Thread.java:748)
+'.
+
+EXPLANATION:
+null
+
+ACTION:
+Review the exception details for further information.
+--------------------------------------------------------------------
+September 22, 2020 1:22:10 PM CEST[DefaultMessageListenerContainer-2] com.ibm.msg.client.jms.internal.JmsProviderExceptionListener
+The exception is ignored as no exception listener is registered: '
+                       Message : com.ibm.msg.client.jms.DetailedJMSException: JMSWMQ1107: A problem with this connection has occurred.
+An error has occurred with the IBM MQ JMS connection.
+Use the linked exception to determine the cause of this error.
+                         Class : class com.ibm.msg.client.jms.DetailedJMSException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.reasonToException(Reason.java:595)
+                               : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:215)
+                               : com.ibm.msg.client.wmq.internal.WMQSession.connect(WMQSession.java:452)
+                               : com.ibm.msg.client.wmq.internal.WMQSession.<init>(WMQSession.java:352)
+                               : com.ibm.msg.client.wmq.internal.WMQConnection.createSession(WMQConnection.java:961)
+                               : com.ibm.msg.client.jms.internal.JmsConnectionImpl.createSession(JmsConnectionImpl.java:869)
+                               : com.ibm.mq.jms.MQConnection.createSession(MQConnection.java:337)
+                               : sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)
+                               : sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+                               : sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+                               : java.lang.reflect.Method.invoke(Method.java:498)
+                               : org.springframework.jms.connection.SingleConnectionFactory$SharedConnectionInvocationHandler.invoke(SingleConnectionFactory.java:660)
+                               : com.sun.proxy.$Proxy108.createSession(null:-1)
+                               : org.springframework.jms.support.JmsAccessor.createSession(JmsAccessor.java:208)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer.access$1500(DefaultMessageListenerContainer.java:126)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.initResourcesIfNecessary(DefaultMessageListenerContainer.java:1213)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1188)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1179)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1076)
+                               : java.lang.Thread.run(Thread.java:748)
+     Caused by [1] --> Message : com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed with compcode '2' ('MQCC_FAILED') reason '2009' ('MQRC_CONNECTION_BROKEN').
+                         Class : class com.ibm.mq.MQException
+                         Stack : com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:203)
+                               : com.ibm.msg.client.wmq.internal.WMQSession.connect(WMQSession.java:452)
+                               : com.ibm.msg.client.wmq.internal.WMQSession.<init>(WMQSession.java:352)
+                               : com.ibm.msg.client.wmq.internal.WMQConnection.createSession(WMQConnection.java:961)
+                               : com.ibm.msg.client.jms.internal.JmsConnectionImpl.createSession(JmsConnectionImpl.java:869)
+                               : com.ibm.mq.jms.MQConnection.createSession(MQConnection.java:337)
+                               : sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)
+                               : sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+                               : sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+                               : java.lang.reflect.Method.invoke(Method.java:498)
+                               : org.springframework.jms.connection.SingleConnectionFactory$SharedConnectionInvocationHandler.invoke(SingleConnectionFactory.java:660)
+                               : com.sun.proxy.$Proxy108.createSession(null:-1)
+                               : org.springframework.jms.support.JmsAccessor.createSession(JmsAccessor.java:208)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer.access$1500(DefaultMessageListenerContainer.java:126)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.initResourcesIfNecessary(DefaultMessageListenerContainer.java:1213)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1188)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1179)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1076)
+                               : java.lang.Thread.run(Thread.java:748)
+     Caused by [2] --> Message : com.ibm.mq.jmqi.JmqiException: CC=2;RC=2009;AMQ9204: Connection to host 'localhost(32875)' rejected. [1=com.ibm.mq.jmqi.JmqiException[CC=2;RC=2009;AMQ9213: A communications error for 'TCP' occurred. [1=java.net.SocketException[Connection reset],4=TCP,5=sockInStream.read]],3=localhost(32875),5=RemoteTCPConnection.receive]
+                         Class : class com.ibm.mq.jmqi.JmqiException
+                         Stack : com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13588)
+                               : com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.access$100(RemoteFAP.java:13125)
+                               : com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1430)
+                               : com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1389)
+                               : com.ibm.mq.ese.jmqi.InterceptedJmqiImpl.jmqiConnect(InterceptedJmqiImpl.java:377)
+                               : com.ibm.mq.ese.jmqi.ESEJMQI.jmqiConnect(ESEJMQI.java:562)
+                               : com.ibm.msg.client.wmq.internal.WMQSession.connect(WMQSession.java:409)
+                               : com.ibm.msg.client.wmq.internal.WMQSession.<init>(WMQSession.java:352)
+                               : com.ibm.msg.client.wmq.internal.WMQConnection.createSession(WMQConnection.java:961)
+                               : com.ibm.msg.client.jms.internal.JmsConnectionImpl.createSession(JmsConnectionImpl.java:869)
+                               : com.ibm.mq.jms.MQConnection.createSession(MQConnection.java:337)
+                               : sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)
+                               : sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+                               : sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+                               : java.lang.reflect.Method.invoke(Method.java:498)
+                               : org.springframework.jms.connection.SingleConnectionFactory$SharedConnectionInvocationHandler.invoke(SingleConnectionFactory.java:660)
+                               : com.sun.proxy.$Proxy108.createSession(null:-1)
+                               : org.springframework.jms.support.JmsAccessor.createSession(JmsAccessor.java:208)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer.access$1500(DefaultMessageListenerContainer.java:126)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.initResourcesIfNecessary(DefaultMessageListenerContainer.java:1213)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1188)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1179)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1076)
+                               : java.lang.Thread.run(Thread.java:748)
+     Caused by [3] --> Message : com.ibm.mq.jmqi.JmqiException: CC=2;RC=2009;AMQ9213: A communications error for 'TCP' occurred. [1=java.net.SocketException[Connection reset],4=TCP,5=sockInStream.read]
+                         Class : class com.ibm.mq.jmqi.JmqiException
+                         Stack : com.ibm.mq.jmqi.remote.impl.RemoteTCPConnection.receive(RemoteTCPConnection.java:1902)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnection.receiveTSH(RemoteConnection.java:3282)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnection.initSess(RemoteConnection.java:1405)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnection.connect(RemoteConnection.java:981)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getNewConnection(RemoteConnectionSpecification.java:567)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSessionFromNewConnection(RemoteConnectionSpecification.java:246)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSession(RemoteConnectionSpecification.java:154)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnectionPool.getSession(RemoteConnectionPool.java:127)
+                               : com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13328)
+                               : com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.access$100(RemoteFAP.java:13125)
+                               : com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1430)
+                               : com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1389)
+                               : com.ibm.mq.ese.jmqi.InterceptedJmqiImpl.jmqiConnect(InterceptedJmqiImpl.java:377)
+                               : com.ibm.mq.ese.jmqi.ESEJMQI.jmqiConnect(ESEJMQI.java:562)
+                               : com.ibm.msg.client.wmq.internal.WMQSession.connect(WMQSession.java:409)
+                               : com.ibm.msg.client.wmq.internal.WMQSession.<init>(WMQSession.java:352)
+                               : com.ibm.msg.client.wmq.internal.WMQConnection.createSession(WMQConnection.java:961)
+                               : com.ibm.msg.client.jms.internal.JmsConnectionImpl.createSession(JmsConnectionImpl.java:869)
+                               : com.ibm.mq.jms.MQConnection.createSession(MQConnection.java:337)
+                               : sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)
+                               : sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+                               : sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+                               : java.lang.reflect.Method.invoke(Method.java:498)
+                               : org.springframework.jms.connection.SingleConnectionFactory$SharedConnectionInvocationHandler.invoke(SingleConnectionFactory.java:660)
+                               : com.sun.proxy.$Proxy108.createSession(null:-1)
+                               : org.springframework.jms.support.JmsAccessor.createSession(JmsAccessor.java:208)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer.access$1500(DefaultMessageListenerContainer.java:126)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.initResourcesIfNecessary(DefaultMessageListenerContainer.java:1213)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1188)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1179)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1076)
+                               : java.lang.Thread.run(Thread.java:748)
+     Caused by [4] --> Message : java.net.SocketException: Connection reset
+                         Class : class java.net.SocketException
+                         Stack : java.net.SocketInputStream.read(SocketInputStream.java:210)
+                               : java.net.SocketInputStream.read(SocketInputStream.java:141)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteTCPConnection.receive(RemoteTCPConnection.java:1891)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnection.receiveTSH(RemoteConnection.java:3282)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnection.initSess(RemoteConnection.java:1405)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnection.connect(RemoteConnection.java:981)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getNewConnection(RemoteConnectionSpecification.java:567)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSessionFromNewConnection(RemoteConnectionSpecification.java:246)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSession(RemoteConnectionSpecification.java:154)
+                               : com.ibm.mq.jmqi.remote.impl.RemoteConnectionPool.getSession(RemoteConnectionPool.java:127)
+                               : com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13328)
+                               : com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.access$100(RemoteFAP.java:13125)
+                               : com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1430)
+                               : com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1389)
+                               : com.ibm.mq.ese.jmqi.InterceptedJmqiImpl.jmqiConnect(InterceptedJmqiImpl.java:377)
+                               : com.ibm.mq.ese.jmqi.ESEJMQI.jmqiConnect(ESEJMQI.java:562)
+                               : com.ibm.msg.client.wmq.internal.WMQSession.connect(WMQSession.java:409)
+                               : com.ibm.msg.client.wmq.internal.WMQSession.<init>(WMQSession.java:352)
+                               : com.ibm.msg.client.wmq.internal.WMQConnection.createSession(WMQConnection.java:961)
+                               : com.ibm.msg.client.jms.internal.JmsConnectionImpl.createSession(JmsConnectionImpl.java:869)
+                               : com.ibm.mq.jms.MQConnection.createSession(MQConnection.java:337)
+                               : sun.reflect.NativeMethodAccessorImpl.invoke0(NativeMethodAccessorImpl.java:-2)
+                               : sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+                               : sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+                               : java.lang.reflect.Method.invoke(Method.java:498)
+                               : org.springframework.jms.connection.SingleConnectionFactory$SharedConnectionInvocationHandler.invoke(SingleConnectionFactory.java:660)
+                               : com.sun.proxy.$Proxy108.createSession(null:-1)
+                               : org.springframework.jms.support.JmsAccessor.createSession(JmsAccessor.java:208)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer.access$1500(DefaultMessageListenerContainer.java:126)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.initResourcesIfNecessary(DefaultMessageListenerContainer.java:1213)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.invokeListener(DefaultMessageListenerContainer.java:1188)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.executeOngoingLoop(DefaultMessageListenerContainer.java:1179)
+                               : org.springframework.jms.listener.DefaultMessageListenerContainer$AsyncMessageListenerInvoker.run(DefaultMessageListenerContainer.java:1076)
+                               : java.lang.Thread.run(Thread.java:748)
+'.
+
+EXPLANATION:
+An attempt was made to deliver an exception to the connections exception listener but a listener has not been registered.
+
+ACTION:
+An exception listener must be registered with the connection to receive its exceptions.
+--------------------------------------------------------------------

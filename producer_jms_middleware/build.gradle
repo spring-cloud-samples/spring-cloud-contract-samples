@@ -1,0 +1,88 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		mavenLocal()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+		maven { url "https://repo.spring.io/release" }
+	}
+
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
+
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
+
+	}
+}
+
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url "https://repo.spring.io/release" }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: "io.spring.dependency-management"
+
+apply plugin: 'spring-cloud-contract'
+
+apply plugin: 'maven-publish'
+
+dependencies {
+  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
+}
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.boot:spring-boot-starter-activemq")
+	implementation("com.ibm.mq:mq-jms-spring-boot-starter:2.3.4")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.testcontainers:junit-jupiter:1.14.3")
+
+	// tag::verifier_dep[]
+	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	// end::verifier_dep[]
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
+}
+
+
+contracts {
+	baseClassForTests = "com.example.BaseClass"
+}
+
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		exceptionFormat = 'full'
+	}
+	afterSuite { desc, result ->
+		if (!desc.parent) {
+			println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+			boolean skipTests = Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
+			if (result.testCount == 0 && !skipTests) {
+				throw new IllegalStateException("No tests were found. Failing the build")
+			}
+		}
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+}
