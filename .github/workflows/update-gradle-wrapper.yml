@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - run: cd common && ./gradlew clean build publishToMavenLocal
+
       - name: Update Gradle Wrapper
         uses: gradle-update/update-gradle-wrapper-action@v1
         with:
