@@ -5,9 +5,6 @@ spring:
         # remove::start[]
         destination: verifications
         # remove::end[]
-    cloud:
-      function:
-        definition: output
 server.port: ${PORT:8080}
 logging:
   level:
