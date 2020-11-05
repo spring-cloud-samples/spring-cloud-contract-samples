@@ -1,5 +1,7 @@
 package com.example;
 
+
+//remove::start[]
 import javax.annotation.Nullable;
 import javax.net.ssl.SSLException;
 
@@ -41,15 +43,15 @@ import org.springframework.util.StringUtils;
 @SpringBootTest(webEnvironment = WebEnvironment.NONE, classes = GrpcTests.TestConfiguration.class, properties = {
 		"grpc.client.beerService.address=static://localhost:5432", "grpc.client.beerService.negotiationType=TLS"
 })
-// @org.junit.Ignore
+// remove::end[]
 public class GrpcTests {
+	//remove::start[]
 
 	@GrpcClient(value = "beerService", interceptorNames = "fixedStatusSendingClientInterceptor")
 	BeerServiceGrpc.BeerServiceBlockingStub beerServiceBlockingStub;
 
 	int port;
 
-	//remove::start[]
 	@RegisterExtension
 	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example", "beer-api-producer-grpc")
@@ -57,8 +59,6 @@ public class GrpcTests {
 //			.withPort(5432)
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL)
 			.withHttpServerStubConfigurer(MyWireMockConfigurer.class);
-
-	// remove::end[]
 
 	@BeforeAll
 	public static void beforeClass() {
@@ -69,9 +69,7 @@ public class GrpcTests {
 
 	@BeforeEach
 	public void setupPort() {
-		//remove::start[]
 		this.port = rule.findStubUrl("beer-api-producer-grpc").getPort();
-		// remove::end[]
 	}
 
 	private static boolean atLeast300() {
@@ -84,26 +82,21 @@ public class GrpcTests {
 		return true;
 	}
 
-	// remove::end[]
 	// tag::tests[]
 	@Test
 	public void should_give_me_a_beer_when_im_old_enough() throws Exception {
-		//remove::start[]
 		Response response = beerServiceBlockingStub.check(PersonToCheck.newBuilder().setAge(23).build());
 
 		BDDAssertions.then(response.getStatus()).isEqualTo(Response.BeerCheckStatus.OK);
-		// remove::end[]
 	}
 
 	@Test
 	public void should_reject_a_beer_when_im_too_young() throws Exception {
-		//remove::start[]
 		Response response = beerServiceBlockingStub.check(PersonToCheck.newBuilder().setAge(17).build());
 		// TODO: If someone knows how to do this properly for default responses that would be helpful
 		response = response == null ? Response.newBuilder().build() : response;
 
 		BDDAssertions.then(response.getStatus()).isEqualTo(Response.BeerCheckStatus.NOT_OK);
-		// remove::end[]
 	}
 	// end::tests[]
 
@@ -202,4 +195,6 @@ public class GrpcTests {
 			};
 		}
 	}
+	//remove::end[]
 }
+
