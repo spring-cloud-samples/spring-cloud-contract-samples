@@ -5,7 +5,7 @@ For further reference, please consider the following sections:
 
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.1.10.RELEASE/maven-plugin/)
-* [Jersey](https://docs.spring.io/spring-boot/docs/2.4.0-SNAPSHOT/reference/htmlsingle/#boot-features-jersey)
+* [Jersey](https://docs.spring.io/spring-boot/docs/2.4.0-RC1/reference/htmlsingle/#boot-features-jersey)
 
 ### Guides
 The following guides illustrate how to use some features concretely:
