@@ -16,6 +16,7 @@
 
 package com.example;
 
+// remove::start[]
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,10 +35,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-// remove::start[]
 import org.springframework.cloud.contract.verifier.converter.YamlContract;
 import org.springframework.cloud.contract.verifier.messaging.MessageVerifier;
-// remove::end[]
 import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier;
 import org.springframework.cloud.contract.verifier.messaging.internal.ContractVerifierMessage;
 import org.springframework.cloud.contract.verifier.messaging.internal.ContractVerifierMessaging;
@@ -58,12 +57,12 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = { TestConfig.class, Application.class })
-// remove::start[]
 @Testcontainers
 @AutoConfigureMessageVerifier
-// remove::end[]
 @ActiveProfiles("test")
+// remove::end[]
 public abstract class BaseClass {
+	// remove::start[]
 
 	@Container static KafkaContainer kafka = new KafkaContainer();
 
@@ -74,12 +73,16 @@ public abstract class BaseClass {
 
 	@Autowired
 	Controller controller;
+	// remove::end[]
 
 	public void trigger() {
+		// remove::start[]
 		this.controller.sendFoo("example");
+		// remove::end[]
 	}
 }
 
+// remove::start[]
 @EnableKafka
 @Configuration
 class TestConfig {
@@ -145,3 +148,4 @@ class KafkaMessageVerifier implements MessageVerifier<Message<?>> {
 
 	}
 }
+// remove::end[]
