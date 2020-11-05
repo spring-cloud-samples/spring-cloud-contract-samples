@@ -1,7 +1,6 @@
 package com.example;
 
 //remove::start[]
-
 import javax.inject.Inject;
 
 import org.junit.runner.RunWith;
@@ -14,18 +13,16 @@ import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureM
 import org.springframework.cloud.stream.binder.test.TestChannelBinderConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-//remove::end[]
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-//remove::start[]
 @AutoConfigureMessageVerifier
 @ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 //remove::end[]
 public abstract class BeerMessagingBase {
 	//remove::start[]
 	@Inject MessageVerifier messaging;
-	//remove::end[]
 	@Autowired PersonCheckingService personCheckingService;
+	//remove::end[]
 
 	public void clientIsOldEnough() {
 		//remove::start[]

@@ -1,5 +1,6 @@
 package com.example;
 
+//remove::start[]
 import java.util.Random;
 
 import io.restassured.config.EncoderConfig;
@@ -17,6 +18,7 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(MockitoJUnitRunner.class)
+//remove::end[]
 public abstract class BeerRestBase {
 	//remove::start[]
 	@Mock PersonCheckingService personCheckingService;
