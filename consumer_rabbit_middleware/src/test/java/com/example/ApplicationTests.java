@@ -16,6 +16,7 @@
 
 package com.example;
 
+// remove::start[]
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -39,7 +40,6 @@ import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-// remove::start[]
 import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
@@ -47,19 +47,18 @@ import org.springframework.cloud.contract.verifier.converter.YamlContract;
 import org.springframework.cloud.contract.verifier.messaging.MessageVerifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-// remove::end[]
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = { TestConfig.class, Application.class })
-// remove::start[]
 @AutoConfigureStubRunner(ids = "com.example:beer-api-producer-rabbit-middleware", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 @Testcontainers
-// remove::end[]
 @ActiveProfiles("test")
+// remove::end[]
 public class ApplicationTests {
 
+	// remove::start[]
 	@Container static RabbitMQContainer rabbit = new RabbitMQContainer();
 
 	@DynamicPropertySource
@@ -68,7 +67,6 @@ public class ApplicationTests {
 		registry.add("spring.rabbitmq.port", rabbit::getAmqpPort);
 	}
 
-	// remove::start[]
 	@Autowired
 	StubTrigger trigger;
 	@Autowired
@@ -84,9 +82,9 @@ public class ApplicationTests {
 		});
 	}
 	// remove::end[]
-
 }
 
+// remove::start[]
 @Configuration
 class TestConfig {
 
@@ -127,3 +125,4 @@ class TestConfig {
 		};
 	}
 }
+// remove::end[]
