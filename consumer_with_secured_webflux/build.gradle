@@ -105,10 +105,39 @@ test {
 	}
 }
 
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			from components.java
+			artifact bootJar
+			artifact verifierStubsJar
+
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
 		}
 	}
 }
+
+// https://github.com/jfrog/build-info/issues/198
+task fixPom {
+    doLast {
+        File file = new File("$buildDir/publications/mavenJava/pom-default.xml")
+        def text = file.text
+        def pattern = "(?s)(<dependencyManagement>.+?<dependencies>)(.+?)(</dependencies>.+?</dependencyManagement>)"
+        def matcher = text =~ pattern
+        if (matcher.find()) {
+            text = text.replaceFirst(pattern, "")
+            def firstDeps = matcher.group(2)
+            text = text.replaceFirst(pattern, '$1$2' + firstDeps + '$3')
+        }
+        file.write(text)
+    }
+}
+generatePomFileForMavenJavaPublication.finalizedBy fixPom

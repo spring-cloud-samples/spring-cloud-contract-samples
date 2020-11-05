@@ -1,6 +1,5 @@
 spring:
     application.name: beer-api-producer
-    cloud.function.definition: output
     cloud.stream.bindings.output-out-0:
         # remove::start[]
         destination: verifications

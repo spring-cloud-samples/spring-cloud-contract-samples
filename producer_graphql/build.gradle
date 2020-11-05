@@ -81,7 +81,7 @@ test {
 
 publishing {
 	publications {
-		maven(MavenPublication) {
+		mavenJava(MavenPublication) {
 			// other configuration
 			artifact verifierStubsJar
 		}

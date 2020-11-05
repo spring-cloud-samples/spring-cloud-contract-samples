@@ -39,10 +39,20 @@ test {
 	}
 }
 
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			from components.java
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
 		}
 	}
 }
