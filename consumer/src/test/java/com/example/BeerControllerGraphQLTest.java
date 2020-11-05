@@ -52,6 +52,8 @@ public class BeerControllerGraphQLTest extends AbstractTest {
 			+ "\"operationName\":\"queryName\"\n"
 			+ "}";
 
+
+	//remove::start[]
 	@Test
 	public void should_send_a_graphql_request() throws Exception {
 		ResponseEntity<String> responseEntity = new RestTemplate()
@@ -63,4 +65,5 @@ public class BeerControllerGraphQLTest extends AbstractTest {
 		BDDAssertions.then(responseEntity.getStatusCodeValue()).isEqualTo(200);
 
 	}
+	//remove::end[]
 }
