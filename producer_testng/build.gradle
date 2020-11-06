@@ -67,6 +67,7 @@ contracts {
 }
 // remove::end[]
 
+//remove::start[]
 contractTest {
 	useTestNG()
 	testLogging {
@@ -82,6 +83,7 @@ contractTest {
 		}
 	}
 }
+// remove::end[]
 
 publishing {
 	publications {
