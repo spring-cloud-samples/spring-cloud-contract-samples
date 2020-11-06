@@ -6,12 +6,12 @@ buildscript {
 		maven { url "https://repo.spring.io/milestone" }
 		maven { url "https://repo.spring.io/release" }
 	}
-
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
 		//remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
 		// remove::end[]
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
 	}
 }
 
@@ -19,8 +19,9 @@ plugins {
 	id "com.google.protobuf" version "0.8.13"
 }
 
+apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
-apply plugin: "io.spring.dependency-management"
+apply plugin: 'io.spring.dependency-management'
 //remove::start[]
 apply plugin: 'spring-cloud-contract'
 // remove::end[]
@@ -28,7 +29,7 @@ apply plugin: 'maven-publish'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -47,11 +48,21 @@ sourceSets {
 			srcDirs += 'src/main/resources/proto'
 		}
 	}
+	test {
+		java {
+			srcDirs += 'build/generated-test-sources/contractTest/'
+		}
+		resources {
+			srcDirs += 'build/generated-test-resources/contractTest/'
+		}
+	}
 }
 
-dependencies {
-	implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
+ext {
+	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
 }
+
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
 
 dependencies {
 	implementation 'net.devh:grpc-server-spring-boot-starter:2.10.1.RELEASE'
@@ -67,43 +78,11 @@ dependencies {
 	// remove::end[]
 }
 
-
-
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			artifact bootJar
-			artifact verifierStubsJar
-
-			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
-			versionMapping {
-				usage("java-api") {
-					fromResolutionOf("runtimeClasspath")
-				}
-				usage("java-runtime") {
-					fromResolutionResult()
-				}
-			}
-		}
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
 }
-
-// https://github.com/jfrog/build-info/issues/198
-task fixPom {
-    doLast {
-        File file = new File("$buildDir/publications/mavenJava/pom-default.xml")
-        def text = file.text
-        def pattern = "(?s)(<dependencyManagement>.+?<dependencies>)(.+?)(</dependencies>.+?</dependencyManagement>)"
-        def matcher = text =~ pattern
-        if (matcher.find()) {
-            text = text.replaceFirst(pattern, "")
-            def firstDeps = matcher.group(2)
-            text = text.replaceFirst(pattern, '$1$2' + firstDeps + '$3')
-        }
-        file.write(text)
-    }
-}
-generatePomFileForMavenJavaPublication.finalizedBy fixPom
 
 protobuf {
 	protoc {
@@ -139,7 +118,20 @@ task cleanProtoGen {
 
 clean.dependsOn cleanProtoGen
 
+//remove::start[]
+contracts {
+	testFramework = "JUNIT5"
+	packageWithBaseClasses = 'com.example'
+	testMode = "CUSTOM"
+}
+// remove::end[]
+
+generateContractTests {
+	dependsOn("generateProto")
+}
+
 test {
+	dependsOn("generateContractTests")
 	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
@@ -155,10 +147,21 @@ test {
 	}
 }
 
-//remove::start[]
-contracts {
-	testFramework = "JUNIT5"
-	packageWithBaseClasses = 'com.example'
-	testMode = "CUSTOM"
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifact bootJar
+			artifact verifierStubsJar
+
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
+		}
+	}
 }
-// remove::end[]

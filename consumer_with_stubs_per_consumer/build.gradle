@@ -8,13 +8,18 @@ buildscript {
 	}
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
 	}
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}]"
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'maven-publish'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -24,15 +29,11 @@ repositories {
 	maven { url "https://repo.spring.io/release" }
 }
 
-apply plugin: 'groovy'
-apply plugin: 'org.springframework.boot'
-apply plugin: "io.spring.dependency-management"
-apply plugin: 'maven-publish'
-
-dependencies {
-  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
+ext {
+	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
 }
 
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}]"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -48,6 +49,12 @@ dependencies {
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
 
 test {
@@ -66,12 +73,10 @@ test {
 	}
 }
 
-
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifact bootJar
-			artifact verifierStubsJar
 
 			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
 			versionMapping {
@@ -85,20 +90,3 @@ publishing {
 		}
 	}
 }
-
-// https://github.com/jfrog/build-info/issues/198
-task fixPom {
-    doLast {
-        File file = new File("$buildDir/publications/mavenJava/pom-default.xml")
-        def text = file.text
-        def pattern = "(?s)(<dependencyManagement>.+?<dependencies>)(.+?)(</dependencies>.+?</dependencyManagement>)"
-        def matcher = text =~ pattern
-        if (matcher.find()) {
-            text = text.replaceFirst(pattern, "")
-            def firstDeps = matcher.group(2)
-            text = text.replaceFirst(pattern, '$1$2' + firstDeps + '$3')
-        }
-        file.write(text)
-    }
-}
-generatePomFileForMavenJavaPublication.finalizedBy fixPom

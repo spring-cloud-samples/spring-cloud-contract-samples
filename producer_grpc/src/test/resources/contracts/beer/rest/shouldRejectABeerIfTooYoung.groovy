@@ -1,8 +1,7 @@
 package contracts.beer.rest
 
-
 import org.springframework.cloud.contract.spec.Contract
-import org.springframework.cloud.contract.verifier.http.ContractVerifierHttpMetadata
+import org.springframework.cloud.contract.verifier.http.ContractVerifierHttpMetaData
 
 Contract.make {
 	description("""
@@ -38,7 +37,7 @@ then:
 	}
 	metadata([
 			"verifierHttp": [
-					"protocol": ContractVerifierHttpMetadata.Protocol.H2_PRIOR_KNOWLEDGE.toString()
+					"protocol": ContractVerifierHttpMetaData.Protocol.H2_PRIOR_KNOWLEDGE.toString()
 			]
 	])
 }

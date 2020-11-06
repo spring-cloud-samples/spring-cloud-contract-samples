@@ -13,27 +13,25 @@ buildscript {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
 		//remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
-		//remove::end[]
+		// remove::end[]
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
 	}
 }
 
-
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
-
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'org.springframework.boot'
-apply plugin: "io.spring.dependency-management"
+apply plugin: 'io.spring.dependency-management'
 //remove::start[]
 apply plugin: 'spring-cloud-contract'
-//remove::end[]
+// remove::end[]
 apply plugin: 'maven-publish'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -42,6 +40,12 @@ repositories {
 	maven { url "https://repo.spring.io/milestone" }
 	maven { url "https://repo.spring.io/release" }
 }
+
+ext {
+	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
+}
+
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
 
 dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion" // Required for Kotlin integration
@@ -52,14 +56,44 @@ dependencies {
 
 	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
 	testImplementation('javax.inject:javax.inject:1')
-
 	//remove::start[]
+	// tag::verifier_dep[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
-	//remove::end[]
+	// end::verifier_dep[]
+	// remove::end[]
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+compileKotlin {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '1.11'
+	}
+}
+
+compileTestKotlin {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '1.11'
+	}
+}
+
+// IMPORTANT!
+sourceSets {
+    test.java.srcDirs += new File(project.buildDir, "generated-test-source").toString()
+}
+
+//remove::start[]
+compileTestGroovy.enabled = false
+//remove::end[]
 
 //remove::start[]
 contracts {
@@ -69,7 +103,7 @@ contracts {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
 	}
 }
-//remove::end[]
+// remove::end[]
 
 test {
 	useJUnitPlatform()
@@ -86,7 +120,6 @@ test {
 		}
 	}
 }
-
 
 publishing {
 	publications {
@@ -106,47 +139,3 @@ publishing {
 		}
 	}
 }
-
-// https://github.com/jfrog/build-info/issues/198
-task fixPom {
-    doLast {
-        File file = new File("$buildDir/publications/mavenJava/pom-default.xml")
-        def text = file.text
-        def pattern = "(?s)(<dependencyManagement>.+?<dependencies>)(.+?)(</dependencies>.+?</dependencyManagement>)"
-        def matcher = text =~ pattern
-        if (matcher.find()) {
-            text = text.replaceFirst(pattern, "")
-            def firstDeps = matcher.group(2)
-            text = text.replaceFirst(pattern, '$1$2' + firstDeps + '$3')
-        }
-        file.write(text)
-    }
-}
-generatePomFileForMavenJavaPublication.finalizedBy fixPom
-
-dependencies {
-  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
-}
-
-compileKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '1.8'
-	}
-}
-
-compileTestKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '1.8'
-	}
-}
-
-// IMPORTANT!
-sourceSets {
-    test.java.srcDirs += new File(project.buildDir, "generated-test-source").toString()
-}
-
-//remove::start[]
-compileTestGroovy.enabled = false
-//remove::end[]

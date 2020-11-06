@@ -6,19 +6,26 @@ buildscript {
 		maven { url "https://repo.spring.io/milestone" }
 		maven { url "https://repo.spring.io/release" }
 	}
-
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
-
+		//remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
-
+		// remove::end[]
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
 	}
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+//remove::start[]
+apply plugin: 'spring-cloud-contract'
+// remove::end[]
+apply plugin: 'maven-publish'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -28,17 +35,11 @@ repositories {
 	maven { url "https://repo.spring.io/release" }
 }
 
-apply plugin: 'groovy'
-apply plugin: 'org.springframework.boot'
-apply plugin: "io.spring.dependency-management"
-
-apply plugin: 'spring-cloud-contract'
-
-apply plugin: 'maven-publish'
-
-dependencies {
-  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
+ext {
+	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
 }
+
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -48,20 +49,24 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.testcontainers:junit-jupiter:1.14.3")
-
+	//remove::start[]
 	// tag::verifier_dep[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
-
-	// for compatibility
-	testImplementation('org.junit.jupiter:junit-jupiter-engine')
+	// remove::end[]
 }
 
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
 
+//remove::start[]
 contracts {
 	baseClassForTests = "com.example.BaseClass"
 }
-
+// remove::end[]
 
 test {
 	useJUnitPlatform()
@@ -78,7 +83,6 @@ test {
 		}
 	}
 }
-
 
 publishing {
 	publications {
@@ -98,20 +102,3 @@ publishing {
 		}
 	}
 }
-
-// https://github.com/jfrog/build-info/issues/198
-task fixPom {
-    doLast {
-        File file = new File("$buildDir/publications/mavenJava/pom-default.xml")
-        def text = file.text
-        def pattern = "(?s)(<dependencyManagement>.+?<dependencies>)(.+?)(</dependencies>.+?</dependencyManagement>)"
-        def matcher = text =~ pattern
-        if (matcher.find()) {
-            text = text.replaceFirst(pattern, "")
-            def firstDeps = matcher.group(2)
-            text = text.replaceFirst(pattern, '$1$2' + firstDeps + '$3')
-        }
-        file.write(text)
-    }
-}
-generatePomFileForMavenJavaPublication.finalizedBy fixPom

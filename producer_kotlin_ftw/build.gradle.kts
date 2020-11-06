@@ -20,7 +20,7 @@ buildscript {
 
 plugins {
 	id("org.springframework.boot")
-	id("io.spring.dependency-management") version "1.0.9.RELEASE"
+	id("io.spring.dependency-management") version "1.0.10.RELEASE"
 	// remove::start[]
 	id("spring-cloud-contract")
 	// remove::end[]
@@ -32,7 +32,7 @@ plugins {
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 // tag::deps_repos[]
 repositories {
@@ -112,6 +112,6 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "1.8"
+		jvmTarget = "1.11"
 	}
 }
