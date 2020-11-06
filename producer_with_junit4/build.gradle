@@ -86,7 +86,7 @@ publish.dependsOn("publishStubsToScm")
 publishToMavenLocal.dependsOn("publishStubsToScm")
 // remove::end[]
 
-test {
+contractTest {
 	testLogging {
 		exceptionFormat = 'full'
 	}

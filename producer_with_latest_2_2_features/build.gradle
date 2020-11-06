@@ -71,7 +71,7 @@ contracts {
 }
 // remove::end[]
 
-test {
+contractTest {
 	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'

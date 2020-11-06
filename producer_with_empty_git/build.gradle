@@ -100,7 +100,8 @@ publishToMavenLocal.dependsOn("publishStubsToScm")
 // end::plugin[]
 // remove::end[]
 
-test {
+//remove::start[]
+contractTest {
 	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
@@ -115,6 +116,7 @@ test {
 		}
 	}
 }
+// remove::end[]
 
 publishing {
 	publications {

@@ -67,7 +67,7 @@ contracts {
 }
 // remove::end[]
 
-test {
+contractTest {
 	useTestNG()
 	testLogging {
 		exceptionFormat = 'full'

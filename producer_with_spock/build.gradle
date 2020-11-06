@@ -83,7 +83,7 @@ contracts {
 }
 // remove::end[]
 
-test {
+contractTest {
 	testLogging {
 		exceptionFormat = 'full'
 	}

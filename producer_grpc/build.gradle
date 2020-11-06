@@ -48,14 +48,6 @@ sourceSets {
 			srcDirs += 'src/main/resources/proto'
 		}
 	}
-	test {
-		java {
-			srcDirs += 'build/generated-test-sources/contractTest/'
-		}
-		resources {
-			srcDirs += 'build/generated-test-resources/contractTest/'
-		}
-	}
 }
 
 ext {
@@ -130,7 +122,7 @@ generateContractTests {
 	dependsOn("generateProto")
 }
 
-test {
+contractTest {
 	dependsOn("generateContractTests")
 	useJUnitPlatform()
 	testLogging {
