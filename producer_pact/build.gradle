@@ -102,7 +102,10 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifact bootJar
+			
+			// remove::start[]
 			artifact verifierStubsJar
+			// remove::end[]
 
 			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
 			versionMapping {
