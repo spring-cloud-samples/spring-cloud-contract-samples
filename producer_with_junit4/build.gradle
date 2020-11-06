@@ -61,6 +61,9 @@ dependencies {
 	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
 	// end::test_dep[]
 	// remove::end[]
+	testImplementation("org.junit.vintage:junit-vintage-engine") {
+		exclude group: 'org.hamcrest', module: 'hamcrest-core'
+	}
 }
 
 dependencyManagement {
