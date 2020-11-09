@@ -85,9 +85,7 @@ contracts {
 	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 }
-// remove::end[]
 
-//remove::start[]
 contractTest {
 	useJUnitPlatform()
 	testLogging {

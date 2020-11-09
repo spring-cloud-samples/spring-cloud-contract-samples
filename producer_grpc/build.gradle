@@ -116,7 +116,6 @@ contracts {
 	packageWithBaseClasses = 'com.example'
 	testMode = "CUSTOM"
 }
-// remove::end[]
 
 generateContractTests {
 	dependsOn("generateProto")
@@ -138,6 +137,7 @@ contractTest {
 		}
 	}
 }
+// remove::end[]
 
 publishing {
 	publications {
