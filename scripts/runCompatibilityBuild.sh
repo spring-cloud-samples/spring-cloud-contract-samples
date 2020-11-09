@@ -100,15 +100,18 @@ function build_all_projects() {
 	build producer_advanced "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_pact "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_kafka "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
-	build producer_kotlin "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
-	build producer_kotlin_ftw "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
+	# TODO: Uses Kotlin - we need to fix this
+	# build producer_kotlin "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
+	# TODO: Uses Kotlin - we need to fix this
+	# build producer_kotlin_ftw "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build consumer_pact "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	build producer_proto "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_router_function "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_security "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_testng "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_webflux "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
-	build producer_webflux_security "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
+	# TODO: Uses Kotlin - we need to fix this
+	# build producer_webflux_security "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_webflux_webtestclient "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_with_dsl_restdocs "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_with_empty_git "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
@@ -127,7 +130,8 @@ function build_all_projects() {
 	build consumer "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	build consumer_java "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	build consumer_kafka "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
-	build consumer_kotlin_ftw "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
+	# TODO: Uses Kotlin - we need to fix this
+	# build consumer_kotlin_ftw "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	build consumer_pact "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	build consumer_pact_stubrunner "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	build consumer_proto "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
