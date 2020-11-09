@@ -81,7 +81,6 @@ contracts {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
 	}
 }
-// remove::end[]
 
 contractTest {
 	useJUnitPlatform()
@@ -99,6 +98,7 @@ contractTest {
 	}
 	enabled = !oldProducerTrainEnabled
 }
+// remove::end[]
 
 publishing {
 	publications {

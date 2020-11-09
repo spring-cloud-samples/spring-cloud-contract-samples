@@ -69,7 +69,6 @@ contracts {
 	testFramework = "JUNIT5"
 	failOnInProgress = false
 }
-// remove::end[]
 
 contractTest {
 	useJUnitPlatform()
@@ -77,6 +76,7 @@ contractTest {
 		exceptionFormat = 'full'
 	}
 }
+// remove::end[]
 
 publishing {
 	publications {
