@@ -12,6 +12,10 @@ buildscript {
 	}
 }
 
+plugins {
+	id "com.google.protobuf" version "0.8.13"
+}
+
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
