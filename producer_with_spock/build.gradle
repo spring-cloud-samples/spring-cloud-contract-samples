@@ -81,7 +81,6 @@ contracts {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
 	}
 }
-// remove::end[]
 
 contractTest {
 	testLogging {
@@ -97,6 +96,7 @@ contractTest {
 		}
 	}
 }
+// remove::end[]
 
 publishing {
 	publications {
