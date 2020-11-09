@@ -46,16 +46,16 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
+	//remove::start[]
 	contractTestImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
 	contractTestImplementation('javax.inject:javax.inject:1')
-	//remove::start[]
 	// tag::verifier_dep[]
 	contractTestImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
-	// remove::end[]
 
 	// for compatibility
 	contractTestImplementation('org.junit.jupiter:junit-jupiter-engine')
+	// remove::end[]
 }
 
 dependencyManagement {
