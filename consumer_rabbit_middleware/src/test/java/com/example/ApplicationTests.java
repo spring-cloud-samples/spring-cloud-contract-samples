@@ -51,7 +51,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = { TestConfig.class, Application.class })
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = { TestConfig.class, Application.class }, properties = "stubrunner.amqp.mockConnection=false")
 @AutoConfigureStubRunner(ids = "com.example:beer-api-producer-rabbit-middleware", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 @Testcontainers
 @ActiveProfiles("test")
@@ -92,7 +92,7 @@ class TestConfig {
 
 	@Bean
 	MessageVerifier<Message> testMessageVerifier(RabbitTemplate rabbitTemplate) {
-		return new MessageVerifier<Message>() {
+		return new MessageVerifier<>() {
 			@Override
 			public Message receive(String destination, long timeout, TimeUnit timeUnit, @Nullable YamlContract contract) {
 				return null;
