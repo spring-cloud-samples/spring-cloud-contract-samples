@@ -20,7 +20,7 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 		//remove::start[]
 		//tag::impl[]
 		boolean shouldGetBeer = personToCheck.age >= 20;
-		this.source.send("output-out-0", new Verification(shouldGetBeer));
+		this.source.send("verifications", new Verification(shouldGetBeer));
 		return shouldGetBeer;
 		//end::impl[]
 		//remove::end[return]
