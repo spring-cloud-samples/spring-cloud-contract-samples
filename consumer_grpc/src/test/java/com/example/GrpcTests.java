@@ -41,7 +41,7 @@ import org.springframework.util.StringUtils;
  * @author Marcin Grzejszczak
  */
 @SpringBootTest(webEnvironment = WebEnvironment.NONE, classes = GrpcTests.TestConfiguration.class, properties = {
-		"grpc.client.beerService.address=static://localhost:5432", "grpc.client.beerService.negotiationType=TLS"
+		"grpc.client.beerService.address=static://localhost:5433", "grpc.client.beerService.negotiationType=TLS"
 })
 // remove::end[]
 public class GrpcTests {
@@ -56,7 +56,7 @@ public class GrpcTests {
 	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example", "beer-api-producer-grpc")
 			// With WireMock PlainText mode
-//			.withPort(5432)
+//			.withPort(5433)
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL)
 			.withHttpServerStubConfigurer(MyWireMockConfigurer.class);
 
@@ -105,7 +105,7 @@ public class GrpcTests {
 		@Override
 		public WireMockConfiguration configure(WireMockConfiguration httpStubConfiguration, HttpServerStubConfiguration httpServerStubConfiguration) {
 			return httpStubConfiguration
-					.httpsPort(5432);
+					.httpsPort(5433);
 		}
 	}
 
