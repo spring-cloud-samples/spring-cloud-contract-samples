@@ -93,14 +93,15 @@ class TestConfig {
 
 	@Bean
 	ContractVerifierMessaging<Message> jmsContractVerifierMessaging(JmsMessageVerifier messageVerifier) {
-		return new ContractVerifierMessaging<Message>(messageVerifier) {
+		return new ContractVerifierMessaging<>(messageVerifier) {
 
 			@Override
 			protected ContractVerifierMessage convert(Message receive) {
 				if (receive == null) {
 					return null;
 				}
-				return new ContractVerifierMessage(receive.getPayload(), receive.getHeaders());
+				return new ContractVerifierMessage(receive.getPayload(), receive
+						.getHeaders());
 			}
 
 		};

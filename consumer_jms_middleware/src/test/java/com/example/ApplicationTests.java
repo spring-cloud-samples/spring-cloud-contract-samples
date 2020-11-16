@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nullable;
 import javax.jms.JMSException;
+import javax.jms.Message;
 
 import org.assertj.core.api.BDDAssertions;
 import org.awaitility.Awaitility;
@@ -41,7 +42,6 @@ import org.springframework.cloud.contract.verifier.messaging.MessageVerifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.messaging.Message;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -92,26 +92,27 @@ public class ApplicationTests {
 class TestConfig {
 
 	@Bean
-	MessageVerifier<Message<?>> standaloneMessageVerifier(JmsTemplate jmsTemplate) {
-		return new MessageVerifier<Message<?>>() {
+	MessageVerifier<Message> standaloneMessageVerifier(JmsTemplate jmsTemplate) {
+		return new MessageVerifier<>() {
 			@Override
-			public Message<?> receive(String destination, long timeout, TimeUnit timeUnit, @Nullable YamlContract contract) {
+			public Message receive(String destination, long timeout, TimeUnit timeUnit, @Nullable YamlContract contract) {
 				return null;
 			}
 
 			@Override
-			public Message<?> receive(String destination, YamlContract contract) {
+			public Message receive(String destination, YamlContract contract) {
 				return null;
 			}
 
 			@Override
-			public void send(Message<?> message, String destination, @Nullable YamlContract contract) {
+			public void send(Message message, String destination, @Nullable YamlContract contract) {
 			}
 
 			@Override
 			public <T> void send(T payload, Map<String, Object> headers, String destination, @Nullable YamlContract contract) {
 				jmsTemplate.send(destination, session -> {
-					javax.jms.Message message = session.createTextMessage(payload.toString());
+					Message message = session
+							.createTextMessage(payload.toString());
 					headers.forEach((s, o) -> {
 						try {
 							message.setStringProperty(s, o.toString());
