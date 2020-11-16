@@ -47,15 +47,13 @@ import org.springframework.cloud.contract.verifier.messaging.internal.ContractVe
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {TestConfig.class, Application.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {TestConfig.class, Application.class}, properties = "stubrunner.amqp.mockConnection=false")
 @Testcontainers
 @AutoConfigureMessageVerifier
-@ActiveProfiles("test")
 // remove::end[]
 public abstract class BaseClass {
 
