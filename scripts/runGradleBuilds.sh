@@ -138,7 +138,6 @@ function build_gradle() {
     build consumer_jms_middleware
 #    TODO: Uses Kotlin - we need to fix this
 #    build consumer_with_secured_webflux
-    build consumer_pact
     build consumer_grpc
     waitPids
     kill_java
