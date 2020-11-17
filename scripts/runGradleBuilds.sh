@@ -114,6 +114,8 @@ function build_gradle() {
     kill_java
 
     build consumer
+#    TODO: Uses Kotlin - we need to fix this
+#    build consumer_kotlin
     build consumer_proto
     build consumer_pact_stubrunner
     build consumer_with_stubs_per_consumer
