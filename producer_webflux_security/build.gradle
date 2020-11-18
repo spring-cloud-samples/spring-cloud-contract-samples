@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.4.0'
+		kotlinVersion = '1.4.10'
 	}
 	repositories {
 		mavenCentral()
@@ -105,14 +105,14 @@ task keygen(type:Exec) {
 compileKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '1.11'
+		jvmTarget = '11'
 	}
 }
 
 compileTestKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '1.11'
+		jvmTarget = '11'
 	}
 }
 

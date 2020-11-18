@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.4.0'
+		kotlinVersion = '1.4.10'
 	}
 	repositories {
 		mavenCentral()
@@ -20,7 +20,6 @@ buildscript {
 	}
 }
 
-apply plugin: 'groovy'
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'org.springframework.boot'
@@ -76,25 +75,16 @@ dependencyManagement {
 compileKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '1.11'
+		jvmTarget = '11'
 	}
 }
 
 compileTestKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '1.11'
+		jvmTarget = '11'
 	}
 }
-
-// IMPORTANT!
-sourceSets {
-    test.java.srcDirs += new File(project.buildDir, "generated-test-source").toString()
-}
-
-//remove::start[]
-compileTestGroovy.enabled = false
-//remove::end[]
 
 //remove::start[]
 contracts {
