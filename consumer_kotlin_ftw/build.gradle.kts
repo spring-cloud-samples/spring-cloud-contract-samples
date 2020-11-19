@@ -6,8 +6,8 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.10.RELEASE"
 	id("maven-publish")
 	// aligned with Gradle
-	kotlin("jvm") version "1.4.0"
-	kotlin("plugin.spring") version "1.4.0"
+	kotlin("jvm") version "1.4.10"
+	kotlin("plugin.spring") version "1.4.10"
 }
 
 group = "com.example"
@@ -56,27 +56,47 @@ dependencies {
 }
 // end::deps[]
 
-tasks.withType<Test> {
-	useJUnitPlatform()
-	systemProperty("spring.profiles.active", "gradle")
-	testLogging {
-		exceptionFormat = TestExceptionFormat.FULL
+tasks {
+	contractTest {
+		useJUnitPlatform()
+		systemProperty("spring.profiles.active", "gradle")
+		testLogging {
+			exceptionFormat = TestExceptionFormat.FULL
+		}
+		afterSuite(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
+			if (desc.parent == null) {
+				if (result.testCount == 0L) {
+					throw IllegalStateException("No tests were found. Failing the build")
+				}
+				else {
+					println("Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)")
+				}
+			} else { /* Nothing to do here */ }
+		}))
 	}
-	afterSuite(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
-		if (desc.parent == null) {
-			if (result.testCount == 0L) {
-				throw IllegalStateException("No tests were found. Failing the build")
-			}
-			else {
-				println("Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)")
-			}
-		} else { /* Nothing to do here */ }
-	}))
 }
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "1.11"
+		jvmTarget = "11"
+	}
+}
+
+publishing {
+	publications {
+		create<MavenPublication>("mavenJava") {
+			artifact(tasks.named("bootJar"))
+
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
+		}
 	}
 }

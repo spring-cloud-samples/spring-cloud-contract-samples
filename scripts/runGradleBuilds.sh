@@ -72,8 +72,7 @@ function build_gradle() {
     waitPids
     kill_java
 
-#    TODO: Uses Kotlin - we need to fix this
-#    build producer_webflux_security
+    build producer_webflux_security
     build producer_with_git
     build producer_with_empty_git
     build producer_yaml
@@ -84,8 +83,7 @@ function build_gradle() {
     kill_java
 
     build producer_proto
-#    TODO: Uses Kotlin - we need to fix this
-#    build producer_kotlin
+    build producer_kotlin
     build producer_with_stubs_per_consumer
     build producer_with_external_contracts
     build producer_with_restdocs
@@ -104,8 +102,7 @@ function build_gradle() {
     build producer_with_latest_2_2_features
     build producer_with_latest_3_0_features_gradle
     build producer_java
-#    TODO: Uses Kotlin - we need to fix this
-#    build producer_kotlin_ftw
+    build producer_kotlin_ftw
     build producer_kafka
     build producer_kafka_middleware
     build producer_rabbit_middleware
@@ -116,8 +113,7 @@ function build_gradle() {
     kill_java
 
     build consumer
-#    TODO: Uses Kotlin - we need to fix this
-#    build consumer_kotlin
+    build consumer_kotlin
     build consumer_proto
     build consumer_pact_stubrunner
     build consumer_with_stubs_per_consumer
@@ -134,14 +130,12 @@ function build_gradle() {
     kill_java
 
     build consumer_java
-#    TODO: Uses Kotlin - we need to fix this
-#    build consumer_kotlin_ftw
+    build consumer_kotlin_ftw
     build consumer_kafka
     build consumer_kafka_middleware
     build consumer_rabbit_middleware
     build consumer_jms_middleware
-#    TODO: Uses Kotlin - we need to fix this
-#    build consumer_with_secured_webflux
+    build consumer_with_secured_webflux
     build consumer_grpc
     waitPids
     kill_java

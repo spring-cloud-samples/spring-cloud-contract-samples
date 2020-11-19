@@ -10,7 +10,6 @@ buildscript {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
 		//remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
-		classpath "org.springframework.cloud:spring-cloud-contract-pact:${findProperty('verifierVersion') ?: verifierVersion}"
 		// remove::end[]
 		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
 	}
@@ -54,6 +53,7 @@ dependencies {
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
 	// remove::end[]
+	testImplementation("org.springframework.cloud:spring-cloud-contract-pact")
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')
