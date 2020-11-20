@@ -10,6 +10,7 @@ buildscript {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
 		//remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
+		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
 		// remove::end[]
 		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
 	}
