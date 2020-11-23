@@ -119,7 +119,8 @@ function build_gradle() {
 	# FIXME: KOTLIN
     # build consumer_kotlin
     build consumer_proto
-    build consumer_pact_stubrunner
+#    FIXME
+#    build consumer_pact_stubrunner
     build consumer_with_stubs_per_consumer
     build consumer_with_restdocs
     waitPids
