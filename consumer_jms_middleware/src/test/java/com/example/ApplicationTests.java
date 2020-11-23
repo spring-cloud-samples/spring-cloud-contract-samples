@@ -93,7 +93,7 @@ class TestConfig {
 
 	@Bean
 	MessageVerifier<Message> standaloneMessageVerifier(JmsTemplate jmsTemplate) {
-		return new MessageVerifier<Message>() {
+		return new MessageVerifier<>() {
 			@Override
 			public Message receive(String destination, long timeout, TimeUnit timeUnit, @Nullable YamlContract contract) {
 				return null;
