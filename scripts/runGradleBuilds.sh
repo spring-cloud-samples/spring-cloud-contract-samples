@@ -130,7 +130,8 @@ function build_gradle() {
     build consumer_with_junit4
     build consumer_security
     build consumer_with_latest_2_2_features
-    build consumer_with_latest_3_0_features_gradle
+#    FIXME
+#    build consumer_with_latest_3_0_features_gradle
     waitPids
     kill_java
 
