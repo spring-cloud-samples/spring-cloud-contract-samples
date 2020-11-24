@@ -89,6 +89,22 @@ contractTest {
 }
 // remove::end[]
 
+test {
+	useJUnitPlatform()
+	testLogging {
+		exceptionFormat = 'full'
+	}
+	afterSuite { desc, result ->
+		if (!desc.parent) {
+			println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+			boolean skipTests = Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
+			if (result.testCount == 0 && !skipTests) {
+				throw new IllegalStateException("No tests were found. Failing the build")
+			}
+		}
+	}
+}
+
 //remove::start[]
 // tag::stubsjar[]
 // we want to override the default Spring Cloud Contract behaviour and generate JAR in a custom way
