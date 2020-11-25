@@ -91,7 +91,7 @@ sourceSets {
 compileTestGroovy.enabled = false
 //remove::end[]
 
-contractTest {
+test {
 	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'

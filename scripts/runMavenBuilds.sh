@@ -27,15 +27,15 @@ function build_maven() {
     if [[ "${BUILD_COMMON}" == "true" ]]; then
         echo -e "\n\nInstalling common\n\n"
         cd ${ROOT}/common
-        ./mvnw clean install -U
+        ./mvnw clean install -U -B
     fi
     cd ${ROOT}
 
     echo -e "\n\nBuilding everything skipping tests? [${SKIP_TESTS}] after prepare for workshops? [${PREPARE_FOR_WORKSHOPS}]\n\n"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./mvnw clean install -Ptest -U -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+        ./mvnw clean install -Ptest -U -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else
-        ./mvnw clean install -Ptest -U
+        ./mvnw clean install -Ptest -U -B
     fi
     if [[ "${CI}" == "true" ]]; then
         echo "Skipping high mem projects for CI build"
@@ -43,11 +43,11 @@ function build_maven() {
     fi
     echo -e "Running the high memory requirement projects"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./mvnw clean install -Phighmem -pl producer_java -U -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
-        ./mvnw clean install -Phighmem -pl consumer_java -U -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+        ./mvnw clean install -Phighmem -pl producer_java -U -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+        ./mvnw clean install -Phighmem -pl consumer_java -U -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else
-        ./mvnw clean install -Phighmem -U -pl producer_java
-        ./mvnw clean install -Phighmem -U -pl consumer_java
+        ./mvnw clean install -Phighmem -U -B -pl producer_java
+        ./mvnw clean install -Phighmem -U -B -pl consumer_java
     fi
 }
 
