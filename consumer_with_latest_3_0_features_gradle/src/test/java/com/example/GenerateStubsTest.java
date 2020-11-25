@@ -23,7 +23,7 @@ public class GenerateStubsTest {
 	@RegisterExtension
 	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example","beer-api-producer-latest", "0.0.1-SNAPSHOT")
-			.repoRoot("stubs://file://" + System.getenv("ROOT") + "/producer_with_latest_3_0_features/src/contractTest/resources/contracts/beer/in_progress")
+			.repoRoot("stubs://file://" + System.getenv("ROOT") + "/producer_with_latest_3_0_features_gradle/src/contractTest/resources/contracts/beer/in_progress")
 			.stubsMode(StubRunnerProperties.StubsMode.REMOTE)
 			.withGenerateStubs(true);
 	//remove::end[]
