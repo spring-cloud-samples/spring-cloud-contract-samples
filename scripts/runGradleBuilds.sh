@@ -71,7 +71,8 @@ function build_gradle() {
     waitPids
     kill_java
 
-	build producer_webflux_security
+	# FIXME: KOTLIN
+    # build producer_webflux_security
     build producer_with_git
     build producer_with_empty_git
     build producer_yaml
