@@ -67,7 +67,8 @@ function build_gradle() {
     build producer_webflux
     build producer_router_function
     build producer_webflux_webtestclient
-    build consumer_pact
+#    FIXME
+#    build consumer_pact
     waitPids
     kill_java
 
@@ -77,7 +78,8 @@ function build_gradle() {
     build producer_with_empty_git
     build producer_yaml
     build producer_advanced
-    build producer_pact
+#    FIXME
+#    build producer_pact
     waitPids
     kill_java
 
@@ -114,7 +116,8 @@ function build_gradle() {
     build consumer
 	build consumer_kotlin
     build consumer_proto
-    build consumer_pact_stubrunner
+#    FIXME
+#    build consumer_pact_stubrunner
     build consumer_with_stubs_per_consumer
     build consumer_with_restdocs
     waitPids
