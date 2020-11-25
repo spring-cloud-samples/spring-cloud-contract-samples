@@ -36,7 +36,7 @@ public class GenerateStubsWithFindProducerTest {
 			.downloadStub("com.example:some-artifact-id:0.0.1")
 			.downloadStub("com.example:some-other-artifact-id")
 			.repoRoot("stubs://file://" + System.getenv("ROOT")
-					+ "/producer_with_latest_3_0_features/src/contractTest/resources/contracts")
+					+ "/producer_with_latest_3_0_features_gradle/src/contractTest/resources/contracts")
 			.withProperties(contractProperties())
 			.stubsMode(StubRunnerProperties.StubsMode.REMOTE).withGenerateStubs(true);
 
