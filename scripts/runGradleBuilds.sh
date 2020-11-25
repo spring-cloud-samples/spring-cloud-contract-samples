@@ -141,7 +141,8 @@ function build_gradle() {
     build consumer_kafka_middleware
     build consumer_rabbit_middleware
     build consumer_jms_middleware
-    build consumer_with_secured_webflux
+#   FIXME: KOTLIN
+#    build consumer_with_secured_webflux
     build consumer_grpc
     waitPids
     kill_java
