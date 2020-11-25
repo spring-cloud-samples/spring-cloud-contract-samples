@@ -116,7 +116,8 @@ function build_gradle() {
     kill_java
 
     build consumer
-	build consumer_kotlin
+#   FIXME: KOTLIN
+#	build consumer_kotlin
     build consumer_proto
 #    FIXME
 #    build consumer_pact_stubrunner
