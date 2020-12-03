@@ -88,6 +88,7 @@ tasks.withType<Delete> {
 	}
 }
 
+// remove::start[]
 tasks {
   contractTest {
   	useJUnitPlatform()
@@ -107,8 +108,9 @@ tasks {
 	  }))
   }
 }
+// remove::end[]
 
-tasks.withType<KotlinCompile> {
+tasks.withType<KotlinCompile>().configureEach {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "11"
@@ -119,6 +121,10 @@ publishing {
 	publications {
 		create<MavenPublication>("mavenJava") {
 			artifact(tasks.named("bootJar"))
+
+			// remove::start[]
+			artifact(tasks.named("verifierStubsJar"))
+			// remove::end[]
 
 			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
 			versionMapping {

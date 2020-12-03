@@ -33,7 +33,7 @@ class GlobalSecurityConfig {
   @Bean
   fun publicKey(): RSAPublicKey {
     var publicKey = String(FileCopyUtils.copyToByteArray(resource.inputStream))
-    publicKey = publicKey.replace("\\n".toRegex(), "").replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "")
+    publicKey = publicKey.replace("[\\r\\n]".toRegex(), "").replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "")
     val kf = KeyFactory.getInstance("RSA")
     val keySpecX509 = X509EncodedKeySpec(Base64.getDecoder().decode(publicKey))
 
