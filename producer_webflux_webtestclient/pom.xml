@@ -79,7 +79,7 @@
 		<spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>2.2.6.BUILD-SNAPSHOT</spring-cloud-contract.version>
 		<!-- example of using 4.x version of rest assured -->
-		<rest-assured.version>4.0.0</rest-assured.version>
+		<rest-assured.version>4.3.2</rest-assured.version>
 	</properties>
 
 	<build>
