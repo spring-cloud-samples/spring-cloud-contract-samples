@@ -22,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
+		<spring-cloud.version>Hoxton.SR9</spring-cloud.version>
 		<pact-jvm-provider.version>3.5.23</pact-jvm-provider.version>
 		<pact-jvm-provider-maven-plugin.version>4.0.10</pact-jvm-provider-maven-plugin.version>
 	</properties>

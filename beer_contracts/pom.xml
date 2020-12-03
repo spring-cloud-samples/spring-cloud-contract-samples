@@ -19,7 +19,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
+		<spring-cloud.version>Hoxton.SR9</spring-cloud.version>
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
 	</properties>
