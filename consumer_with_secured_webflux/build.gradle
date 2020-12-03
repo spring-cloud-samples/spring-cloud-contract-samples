@@ -19,7 +19,6 @@ buildscript {
 
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
-apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'maven-publish'
@@ -68,28 +67,12 @@ dependencyManagement {
 	}
 }
 
-compileKotlin {
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 	kotlinOptions {
 		freeCompilerArgs = ['-Xjsr305=strict']
 		jvmTarget = '11'
 	}
 }
-
-compileTestKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '11'
-	}
-}
-
-// IMPORTANT!
-sourceSets {
-    test.java.srcDirs += new File(project.buildDir, "generated-test-source").toString()
-}
-
-//remove::start[]
-compileTestGroovy.enabled = false
-//remove::end[]
 
 test {
 	useJUnitPlatform()

@@ -12,7 +12,7 @@ plugins {
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_11
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 // tag::deps_repos[]
 repositories {
@@ -57,7 +57,7 @@ dependencies {
 // end::deps[]
 
 tasks {
-	contractTest {
+	test {
 		useJUnitPlatform()
 		systemProperty("spring.profiles.active", "gradle")
 		testLogging {
@@ -76,7 +76,7 @@ tasks {
 	}
 }
 
-tasks.withType<KotlinCompile> {
+tasks.withType<KotlinCompile>().configureEach {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "11"
