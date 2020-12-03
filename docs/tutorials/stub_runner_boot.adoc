@@ -7,7 +7,7 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-with-stubs-per-consumer
-:version: 2.2.4.BUILD-SNAPSHOT
+:version: 2.2.6.BUILD-SNAPSHOT
 
 = Stub Runner Boot {version}
 

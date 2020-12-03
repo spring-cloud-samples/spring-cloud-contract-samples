@@ -1,7 +1,7 @@
 :toc: left
 :toclevels: 8
 :nofooter:
-:version: 2.2.4.BUILD-SNAPSHOT
+:version: 2.2.6.BUILD-SNAPSHOT
 
 = Spring Cloud Contract Samples {version}
 
