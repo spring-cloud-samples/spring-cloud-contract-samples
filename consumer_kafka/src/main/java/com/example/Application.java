@@ -33,6 +33,8 @@ import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
 import org.springframework.kafka.listener.SeekToCurrentErrorHandler;
 import org.springframework.kafka.support.converter.RecordMessageConverter;
 import org.springframework.kafka.support.converter.StringJsonMessageConverter;
+import org.springframework.util.backoff.BackOff;
+import org.springframework.util.backoff.FixedBackOff;
 
 /**
  *
@@ -57,7 +59,7 @@ public class Application {
 		ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		configurer.configure(factory, kafkaConsumerFactory);
 		factory.setErrorHandler(new SeekToCurrentErrorHandler(
-				new DeadLetterPublishingRecoverer(template), 3)); // dead-letter after 3 tries
+				new DeadLetterPublishingRecoverer(template), new FixedBackOff(3L, 3L))); // dead-letter after 3 tries
 		return factory;
 	}
 
