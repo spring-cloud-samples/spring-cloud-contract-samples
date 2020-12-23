@@ -1,6 +1,8 @@
 package com.ideabaker.samples.scc.security.consumerwebflux.config
 
 import org.slf4j.LoggerFactory
+import org.springframework.boot.autoconfigure.web.reactive.WebFluxProperties
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpHeaders
@@ -15,6 +17,7 @@ import org.springframework.web.reactive.function.client.WebClient
  * @since 2019-01-13 18:47
  */
 @Configuration
+@EnableConfigurationProperties(WebFluxProperties::class)
 class WebConfig : WebFluxConfigurer {
   private val logger = LoggerFactory.getLogger(WebConfig::class.java)
 

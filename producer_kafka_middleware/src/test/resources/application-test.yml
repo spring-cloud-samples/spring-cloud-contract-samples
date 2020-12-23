@@ -1,0 +1,7 @@
+spring:
+  kafka:
+    consumer:
+      properties:
+        "key.serializer": "org.springframework.kafka.support.serializer.JsonSerializer"
+        "key.deserializer": "org.springframework.kafka.support.serializer.JsonDeserializer"
+      group-id: groupId

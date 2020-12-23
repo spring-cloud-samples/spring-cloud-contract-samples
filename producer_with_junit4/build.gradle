@@ -1,0 +1,125 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		mavenLocal()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+		maven { url "https://repo.spring.io/release" }
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
+		//remove::start[]
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
+		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
+		// remove::end[]
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
+	}
+}
+
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+//remove::start[]
+apply plugin: 'spring-cloud-contract'
+// remove::end[]
+apply plugin: 'maven-publish'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url "https://repo.spring.io/release" }
+}
+
+ext {
+	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
+}
+
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+
+dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("junit:junit")
+	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
+	testImplementation('javax.inject:javax.inject:1')
+	//remove::start[]
+	// tag::verifier_dep[]
+	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	// end::verifier_dep[]
+	// tag::test_dep[]
+	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
+	// end::test_dep[]
+	// remove::end[]
+	testImplementation("org.junit.vintage:junit-vintage-engine") {
+		exclude group: 'org.hamcrest', module: 'hamcrest-core'
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+//remove::start[]
+contracts {
+	testFramework = "JUNIT"
+	packageWithBaseClasses = 'com.example'
+	baseClassMappings {
+		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
+	}
+}
+
+/*
+In this scenario we want to publish stubs to SCM whenever
+the `publish` task is executed
+*/
+publish.dependsOn("publishStubsToScm")
+publishToMavenLocal.dependsOn("publishStubsToScm")
+
+contractTest {
+	testLogging {
+		exceptionFormat = 'full'
+	}
+	afterSuite { desc, result ->
+		if (!desc.parent) {
+			println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+			boolean skipTests = Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
+			if (result.testCount == 0 && !skipTests) {
+				throw new IllegalStateException("No tests were found. Failing the build")
+			}
+		}
+	}
+}
+// remove::end[]
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifact bootJar
+			
+			// remove::start[]
+			artifact verifierStubsJar
+			// remove::end[]
+
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
+		}
+	}
+}

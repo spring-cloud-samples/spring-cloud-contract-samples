@@ -5,7 +5,7 @@
 
 	<groupId>com.example</groupId>
 	<artifactId>beer-api-producer-jaxrs</artifactId>
-	<version>0.0.1.BUILD-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Producer With JaxRS</name>
@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.6.RELEASE</version>
+		<version>2.4.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -33,6 +33,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- For compatibility -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- spring cloud contract test dependencies -->
 		<!-- remove::start[] -->
@@ -49,9 +55,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-		<spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>2.2.6.BUILD-SNAPSHOT</spring-cloud-contract.version>
+		<java.version>11</java.version>
+		<spring-cloud.version>2020.0.0-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>3.0.1-SNAPSHOT</spring-cloud-contract.version>
 	</properties>
 
 	<build>
@@ -76,6 +82,7 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<testFramework>JUNIT5</testFramework>
 					<testMode>JAXRSCLIENT</testMode>
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
 				</configuration>
@@ -90,7 +97,7 @@
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>springcloudcontract-snapshots</name>
-			<url>https://springcloudcontract.jfrog.io/springcloudcontract/libs-snapshot-local</url>
+			<url>https://springcloudcontract.jfrog.io/springcloudcontract/snapshot</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -111,7 +118,7 @@
 		<repository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/libs-snapshot-local</url>
+			<url>https://repo.spring.io/snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -119,7 +126,7 @@
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/libs-milestone-local</url>
+			<url>https://repo.spring.io/milestone</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -137,7 +144,7 @@
 		<pluginRepository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/libs-snapshot-local</url>
+			<url>https://repo.spring.io/snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -145,7 +152,7 @@
 		<pluginRepository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/libs-milestone-local</url>
+			<url>https://repo.spring.io/milestone</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -153,7 +160,7 @@
 		<pluginRepository>
 			<id>spring-plugin-snapshots</id>
 			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/plugins-snapshot-local</url>
+			<url>https://repo.spring.io/snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -161,7 +168,7 @@
 		<pluginRepository>
 			<id>spring-plugin-milestones</id>
 			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/plugins-release-local</url>
+			<url>https://repo.spring.io/release</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>

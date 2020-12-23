@@ -2,7 +2,7 @@ package com.example.intoxication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.json.JacksonTester;
 
 /**
@@ -12,7 +12,7 @@ public abstract class AbstractTest {
 
 	public JacksonTester<Person> json;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		ObjectMapper objectMappper = new ObjectMapper();
 		// Possibly configure the mapper

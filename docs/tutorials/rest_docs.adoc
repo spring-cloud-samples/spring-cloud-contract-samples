@@ -7,7 +7,7 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-restdocs
-:version: 2.2.6.BUILD-SNAPSHOT
+:version: 2.4.0
 
 = Spring Cloud Contract with Rest Docs {version}
 
@@ -174,6 +174,7 @@ setup, you must set up the plugin configuration as follows:
 .Gradle
 ----
 contracts {
+	testFramework = "JUNIT5"
     packageWithBaseClasses = 'com.example'
 }
 task stubsJar(type: Jar) {
@@ -197,8 +198,6 @@ task stubsJar(type: Jar) {
 }
 // we need the tests to pass to build the stub jar
 stubsJar.dependsOn(test)
-// we want to disable the default Spring Cloud Contract stub jar generation
-verifierStubsJar.enabled = false
 
 artifacts {
 	archives stubsJar
@@ -216,8 +215,8 @@ contains:
 * The stubs, under
 `META-INF/${project.group}/${project.name}/${project.version}/mappings`.
 
-An example for `com.example:beer-producer:0.0.1.BUILD-SNAPSHOT` would be
-`META-INF/com.example/beer-producer/0.0.1.BUILD-SNAPSHOT/contracts`.
+An example for `com.example:beer-producer:0.0.1-SNAPSHOT` would be
+`META-INF/com.example/beer-producer/0.0.1-SNAPSHOT/contracts`.
 
 ==== Writing Your First Rest Docs Test
 
@@ -600,7 +599,6 @@ include::snippets/solutions.adoc[]
 
 [source,java]
 ----
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerControllerTests.Config.class)
 @AutoConfigureRestDocs(outputDir = "target/snippets")
 @AutoConfigureMockMvc
@@ -612,7 +610,7 @@ public class ProducerControllerTests {
 
 	private JacksonTester<PersonToCheck> json;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		ObjectMapper objectMappper = new ObjectMapper();
 		// Possibly configure the mapper
@@ -657,7 +655,6 @@ public class ProducerControllerTests {
 
 [source,java]
 ----
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerControllerTests.Config.class)
 @AutoConfigureRestDocs(outputDir = "target/snippets")
 @AutoConfigureMockMvc
@@ -669,7 +666,7 @@ public class ProducerControllerTests {
 
 	private JacksonTester<PersonToCheck> json;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		ObjectMapper objectMappper = new ObjectMapper();
 		// Possibly configure the mapper

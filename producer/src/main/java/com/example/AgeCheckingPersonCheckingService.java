@@ -1,7 +1,6 @@
 package com.example;
 
-import org.springframework.cloud.stream.messaging.Source;
-import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,9 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 
-	private final Source source;
+	private final StreamBridge source;
 
-	public AgeCheckingPersonCheckingService(Source source) {
+	public AgeCheckingPersonCheckingService(StreamBridge source) {
 		this.source = source;
 	}
 
@@ -21,7 +20,7 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 		//remove::start[]
 		//tag::impl[]
 		boolean shouldGetBeer = personToCheck.age >= 20;
-		this.source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.send("verifications", new Verification(shouldGetBeer));
 		return shouldGetBeer;
 		//end::impl[]
 		//remove::end[return]

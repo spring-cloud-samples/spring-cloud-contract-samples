@@ -1,3 +1,5 @@
 0000000000000000000000000000000000000000 5c5c21c41060f5b168144ee9f29be8a2006152b0 Marcin Grzejszczak <mgrzejszczak@pivotal.io> 1522245185 +0200	commit (initial): Initial commit
 5c5c21c41060f5b168144ee9f29be8a2006152b0 5c5c21c41060f5b168144ee9f29be8a2006152b0 Marcin Grzejszczak <mgrzejszczak@pivotal.io> 1542551556 +0100	reset: moving to HEAD
 5c5c21c41060f5b168144ee9f29be8a2006152b0 f83a13ef05d1318cdc8a2cb48c13108c11fb1794 Marcin Grzejszczak <mgrzejszczak@pivotal.io> 1542551589 +0100	commit: Moved snapshot to build snapshot
+f83a13ef05d1318cdc8a2cb48c13108c11fb1794 f83a13ef05d1318cdc8a2cb48c13108c11fb1794 Marcin Grzejszczak <marcin.grzejszczak@gmail.com> 1593172453 +0200	reset: moving to HEAD
+f83a13ef05d1318cdc8a2cb48c13108c11fb1794 a78da88fa111cb245b8d48b25945a56cffb04580 Marcin Grzejszczak <marcin.grzejszczak@gmail.com> 1593172511 +0200	commit: Migrating to SNAPSHOT instead of BUILD-SNAPSHOT

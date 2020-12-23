@@ -1,8 +1,8 @@
 package com.example;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -14,7 +14,6 @@ import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -24,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author Marcin Grzejszczak
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
@@ -33,10 +31,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer:+:stubs:8090")
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.REMOTE,
 		repositoryRoot = "git://${ROOT}/target/contract_git/",
-		ids = { "com.example:beer-api-producer-git:0.0.1.BUILD-SNAPSHOT"})
+		ids = { "com.example:beer-api-producer-git:0.0.1-SNAPSHOT"})
 //remove::end[]
 @DirtiesContext
-//@org.junit.Ignore
+//@org.junit.jupiter.api.Disabled
+@DisabledIfEnvironmentVariable(named = "SKIP_COMPATIBILITY_TESTS", matches = "true")
 public class BeerControllerGitTest extends AbstractTest {
 
 	@Autowired MockMvc mockMvc;
@@ -45,7 +44,7 @@ public class BeerControllerGitTest extends AbstractTest {
 	//remove::start[]
 	@StubRunnerPort("beer-api-producer-git") int producerPort;
 
-	@Before
+	@BeforeEach
 	public void setupPort() {
 		this.beerController.port = this.producerPort;
 	}

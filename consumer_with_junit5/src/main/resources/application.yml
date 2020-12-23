@@ -1,9 +1,0 @@
-spring:
-  application.name: beer-api-consumer-junit5
-  # remove::start[]
-  cloud.stream.bindings.input.destination: verifications
-  # remove::end[]
-server.port: ${PORT:8081}
-logging:
-  level:
-    org.springframework.cloud: debug

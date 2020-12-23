@@ -7,7 +7,7 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer
-:version: 2.2.6.BUILD-SNAPSHOT
+:version: 2.4.0
 
 = Contracts Representing Scenarios (Stateful Stubs) {version}
 
@@ -425,6 +425,7 @@ following snippet (for both Maven and Gradle):
 .Gradle
 ----
 contracts {
+	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 	baseClassMappings {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
@@ -456,7 +457,7 @@ test for each folder in which you store your contracts. The name of the test
 class is the name of that folder. Each of the contracts is a single test inside that test
 class. If you check out the generated `IntoxicationTest`, you can seee that it got
 annotated with `@FixMethodOrder(MethodSorters.NAME_ASCENDING)` in order to ensure
-that the tests are run sequentially.
+that the tests are executed sequentially.
 
 Now we can fix the broken tests by providing the missing implementation.
 
@@ -484,7 +485,7 @@ Let's start by writing the missing implementation of the `MockResponseProvider`
 `current` one and create the `Response`.
 
 We need to maintain state between the tests. If you try to store the state in a field in
-a base class, you lose it between test runs, because JUnit is reinitializing all
+a base class, you lose it between test executions, because JUnit is reinitializing all
 the fields. We can fix that by setting up a small Spring Context to be reused. The
 following example shows what that annotation might look like:
 +
@@ -500,7 +501,7 @@ why we need to set it up by using the following notation:
 ----
     @Autowired WebApplicationContext webApplicationContext;
 
-    @Before
+    @BeforeEach
     public void setup() {
         RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
     }

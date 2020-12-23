@@ -1,0 +1,108 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		mavenLocal()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+		maven { url "https://repo.spring.io/release" }
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
+		//remove::start[]
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
+		// remove::end[]
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
+	}
+}
+
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+//remove::start[]
+apply plugin: 'spring-cloud-contract'
+// remove::end[]
+apply plugin: 'maven-publish'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url "https://repo.spring.io/release" }
+}
+
+ext {
+	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
+}
+
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:7.1.0'
+	implementation 'com.graphql-java-kickstart:graphiql-spring-boot-starter:7.1.0'
+
+	//remove::start[]
+	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
+	// remove::end[]
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+//remove::start[]
+contracts {
+	testMode = "EXPLICIT"
+	baseClassForTests = "com.example.BaseClass"
+}
+// remove::end[]
+
+//remove::start[]
+contractTest {
+	useJUnitPlatform()
+	testLogging {
+		exceptionFormat = 'full'
+	}
+	afterSuite { desc, result ->
+		if (!desc.parent) {
+			println "Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+			boolean skipTests = Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
+			if (result.testCount == 0 && !skipTests) {
+				throw new IllegalStateException("No tests were found. Failing the build")
+			}
+		}
+	}
+}
+// remove::end[]
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			
+			// remove::start[]
+			artifact verifierStubsJar
+			// remove::end[]
+
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
+		}
+	}
+}
+
+bootJar.enabled = false

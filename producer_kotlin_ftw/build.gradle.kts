@@ -12,27 +12,24 @@ buildscript {
     }
         
     dependencies {
-		// remove::start[]
-        classpath("org.springframework.cloud:spring-cloud-contract-spec-kotlin:$verifierVersion")
-		// remove::end[]
     }
 }
 
 plugins {
 	id("org.springframework.boot")
-	id("io.spring.dependency-management") version "1.0.7.RELEASE"
+	id("io.spring.dependency-management") version "1.0.10.RELEASE"
 	// remove::start[]
-	id("spring-cloud-contract")
+	id("org.springframework.cloud.contract")
 	// remove::end[]
 	id("maven-publish")
 	// Kotlin version needs to be aligned with Gradle
-	kotlin("jvm") version "1.3.72"
-	kotlin("plugin.spring") version "1.3.72"
+	kotlin("jvm") version "1.4.10"
+	kotlin("plugin.spring") version "1.4.10"
 }
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 // tag::deps_repos[]
 repositories {
@@ -70,12 +67,16 @@ dependencies {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 		exclude(group = "junit", module = "junit")
 	}
+
+	// for compatibility
+	testImplementation("org.junit.jupiter:junit-jupiter-engine")
 }
 // end::deps[]
 
 // remove::start[]
 // tag::contract_dsl[]
 contracts {
+	testFramework.set(org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5)
 	packageWithBaseClasses.set("com.example.fraud")
 }
 // end::contract_dsl[]
@@ -87,27 +88,53 @@ tasks.withType<Delete> {
 	}
 }
 
-tasks.withType<Test> {
-	useJUnitPlatform()
-	systemProperty("spring.profiles.active", "gradle")
-	testLogging {
-		exceptionFormat = TestExceptionFormat.FULL
-	}
-	afterSuite(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
-		if (desc.parent == null) {
-			if (result.testCount == 0L) {
-				throw IllegalStateException("No tests were found. Failing the build")
-			}
-			else {
-				println("Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)")
-			}
-		} else { /* Nothing to do here */ }
-	}))
+// remove::start[]
+tasks {
+  contractTest {
+  	useJUnitPlatform()
+  	systemProperty("spring.profiles.active", "gradle")
+  	testLogging {
+  		exceptionFormat = TestExceptionFormat.FULL
+  	}
+  	afterSuite(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
+	  	if (desc.parent == null) {
+		  	if (result.testCount == 0L) {
+			  	throw IllegalStateException("No tests were found. Failing the build")
+			  }
+			  else {
+				  println("Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)")
+			  }
+		  } else { /* Nothing to do here */ }
+	  }))
+  }
 }
+// remove::end[]
 
-tasks.withType<KotlinCompile> {
+tasks.withType<KotlinCompile>().configureEach {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "1.8"
+		jvmTarget = "11"
+	}
+}
+
+publishing {
+	publications {
+		create<MavenPublication>("mavenJava") {
+			artifact(tasks.named("bootJar"))
+
+			// remove::start[]
+			artifact(tasks.named("verifierStubsJar"))
+			// remove::end[]
+
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
+		}
 	}
 }

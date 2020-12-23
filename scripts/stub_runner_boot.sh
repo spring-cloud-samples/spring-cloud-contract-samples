@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # tag::download[]
-URL="https://dl.bintray.com/marcingrzejszczak/maven/stub-runner-boot-1.1.0.RELEASE.jar"
-VERSION="1.1.0.RELEASE"
+VERSION="2.2.5.RELEASE"
+URL="https://repo1.maven.org/maven2/org/springframework/cloud/spring-cloud-contract-stub-runner-boot/${VERSION}/spring-cloud-contract-stub-runner-boot-${VERSION}.jar"
 JAR_NAME="stub-runner-boot-${VERSION}"
 JAR_LOCATION="target/${JAR_NAME}.jar"
 

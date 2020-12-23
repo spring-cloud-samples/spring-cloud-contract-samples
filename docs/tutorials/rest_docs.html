@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Spring Cloud Contract with Rest Docs 2.2.6.BUILD-SNAPSHOT</title>
+<title>Spring Cloud Contract with Rest Docs 2.4.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Spring Cloud Contract with Rest Docs 2.2.6.BUILD-SNAPSHOT</h1>
+<h1>Spring Cloud Contract with Rest Docs 2.4.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -809,6 +809,7 @@ setup, you must set up the plugin configuration as follows:
 <div class="title">Gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">contracts {
+	testFramework = "JUNIT5"
     packageWithBaseClasses = 'com.example'
 }
 task stubsJar(type: Jar) {
@@ -832,8 +833,6 @@ task stubsJar(type: Jar) {
 }
 // we need the tests to pass to build the stub jar
 stubsJar.dependsOn(test)
-// we want to disable the default Spring Cloud Contract stub jar generation
-verifierStubsJar.enabled = false
 
 artifacts {
 	archives stubsJar
@@ -853,8 +852,8 @@ contains:
 <code>META-INF/${project.group}/${project.name}/${project.version}/mappings</code>.</p>
 </div>
 <div class="paragraph">
-<p>An example for <code>com.example:beer-producer:0.0.1.BUILD-SNAPSHOT</code> would be
-<code>META-INF/com.example/beer-producer/0.0.1.BUILD-SNAPSHOT/contracts</code>.</p>
+<p>An example for <code>com.example:beer-producer:0.0.1-SNAPSHOT</code> would be
+<code>META-INF/com.example/beer-producer/0.0.1-SNAPSHOT/contracts</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1179,7 +1178,7 @@ producer&#8217;s perspective - the <code>input</code> part</p>
 <p>Input message produces an output message</p>
 </li>
 <li>
-<p>A method call produces an output message</p>
+<p>A method execution produces an output message</p>
 </li>
 <li>
 <p>Input message doesn&#8217;t produce any output message</p>
@@ -1189,7 +1188,7 @@ producer&#8217;s perspective - the <code>input</code> part</p>
 </li>
 <li>
 <p>In our situation we&#8217;ll have a method produce an output. It&#8217;s enough to pass the <code>input {}</code> method
-and then the <code>triggeredBy</code> method. The <code>triggeredBy</code> method requires a String with a method call.
+and then the <code>triggeredBy</code> method. The <code>triggeredBy</code> method requires a String with a method execution.
 So if in the base class we expect to have a method called <code>triggerSomeMessage()</code> that would trigger a message
 for tests, then we would write <code>input { triggeredBy("triggerSomeMessage()") }</code> to make this happen. Example:</p>
 <div class="listingblock">
@@ -1295,6 +1294,7 @@ the setup related to messaging and Spring Cloud Contract.</p>
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
 ...
 }</code></pre>
@@ -1310,11 +1310,12 @@ abstraction (it allows to send and receive messages from e.g. Spring Cloud Strea
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
     @Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name
@@ -1736,7 +1737,7 @@ a message to be received.</p>
 <li>
 <p>We have to configure the <code>destination</code>, so the actual name of a queue / topic on which we will be
 listening. To do that you have to set in the <code>src/main/resources/application.yml</code> the property
-<code>spring.cloud.stream.bindings.input.destination: verifications</code>. That means that the we&#8217;ll use the
+<code>spring.cloud.stream.bindings.input-in-0.destination: verifications</code>. That means that the we&#8217;ll use the
 <code>input</code> channel (so the channel in the <code>Sink</code> interface) to listen to messages coming from a
 destination called <code>verifications</code>.</p>
 </li>
@@ -2256,9 +2257,13 @@ public abstract class BeerRestBase {
 	@Mock PersonCheckingService personCheckingService;
 	@InjectMocks ProducerController producerController;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.standaloneSetup(producerController);
 	}
 
@@ -2284,11 +2289,12 @@ public abstract class BeerRestBase {
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
 	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name
@@ -2311,7 +2317,7 @@ public abstract class BeerMessagingBase {
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		boolean shouldGetBeer = personToCheck.age &gt;= 20;
-		this.source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.send("output-out-0", new Verification(shouldGetBeer));
 		return shouldGetBeer;</code></pre>
 </div>
 </div>
@@ -2352,7 +2358,7 @@ public class ProducerControllerTests {
 
 	private JacksonTester&lt;PersonToCheck&gt; json;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		ObjectMapper objectMappper = new ObjectMapper();
 		// Possibly configure the mapper
@@ -2410,7 +2416,7 @@ public class ProducerControllerTests {
 
 	private JacksonTester&lt;PersonToCheck&gt; json;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		ObjectMapper objectMappper = new ObjectMapper();
 		// Possibly configure the mapper

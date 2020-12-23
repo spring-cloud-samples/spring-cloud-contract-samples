@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.3.72'
+		kotlinVersion = '1.4.10'
 	}
 	repositories {
 		mavenCentral()
@@ -13,27 +13,25 @@ buildscript {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
 		//remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
-		//remove::end[]
+		// remove::end[]
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
 		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
 	}
 }
 
-
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
-
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'org.springframework.boot'
-apply plugin: "io.spring.dependency-management"
+apply plugin: 'io.spring.dependency-management'
 //remove::start[]
 apply plugin: 'spring-cloud-contract'
-//remove::end[]
+// remove::end[]
 apply plugin: 'maven-publish'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -43,6 +41,12 @@ repositories {
 	maven { url "https://repo.spring.io/release" }
 }
 
+ext {
+	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
+}
+
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+
 dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion" // Required for Kotlin integration
 	implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion" // Required for Kotlin integration
@@ -50,23 +54,44 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
-	testImplementation("org.springframework.cloud:spring-cloud-stream-test-support")
-
+	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
+	testImplementation('javax.inject:javax.inject:1')
 	//remove::start[]
+	// tag::verifier_dep[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
-	//remove::end[]
+	// end::verifier_dep[]
+	// remove::end[]
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '11'
+	}
 }
 
 //remove::start[]
 contracts {
+	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 	baseClassMappings {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
 	}
 }
-//remove::end[]
+// remove::end[]
 
-test {
+//remove::start[]
+contractTest {
+	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
 	}
@@ -80,30 +105,26 @@ test {
 		}
 	}
 }
+// remove::end[]
 
-dependencies {
-  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
-}
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifact bootJar
+			
+			// remove::start[]
+			artifact verifierStubsJar
+			// remove::end[]
 
-compileKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '1.8'
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
+		}
 	}
 }
-
-compileTestKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '1.8'
-	}
-}
-
-// IMPORTANT!
-sourceSets {
-    test.java.srcDirs += new File(project.buildDir, "generated-test-source").toString()
-}
-
-//remove::start[]
-compileTestGroovy.enabled = false
-//remove::end[]

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 set -o errexit
 set -o errtrace
@@ -67,7 +67,8 @@ function build_gradle() {
     build producer_webflux
     build producer_router_function
     build producer_webflux_webtestclient
-    build consumer_pact
+#    FIXME
+#    build consumer_pact
     waitPids
     kill_java
 
@@ -76,7 +77,8 @@ function build_gradle() {
     build producer_with_empty_git
     build producer_yaml
     build producer_advanced
-    build producer_pact
+#    FIXME
+#    build producer_pact
     waitPids
     kill_java
 
@@ -91,38 +93,51 @@ function build_gradle() {
     build producer_with_webtestclient_restdocs
     build producer_with_dsl_restdocs
     build producer_with_spock
-    build producer_with_junit5
+    build producer_with_junit4
     build producer_with_xml
     waitPids
     kill_java
 
     build producer_security
     build producer_with_latest_2_2_features
+    build producer_with_latest_3_0_features_gradle
     build producer_java
     build producer_kotlin_ftw
     build producer_kafka
+    build producer_kafka_middleware
+    build producer_rabbit_middleware
+    build producer_jms_middleware
+    build producer_graphql
+    build producer_grpc
     waitPids
     kill_java
 
     build consumer
+    build consumer_kotlin
     build consumer_proto
-    build consumer_pact_stubrunner
+#    FIXME
+#    build consumer_pact_stubrunner
     build consumer_with_stubs_per_consumer
     build consumer_with_restdocs
     waitPids
     kill_java
 
     build consumer_with_discovery
-    build consumer_with_junit5
+    build consumer_with_junit4
     build consumer_security
     build consumer_with_latest_2_2_features
+    build consumer_with_latest_3_0_features_gradle
     waitPids
     kill_java
 
     build consumer_java
     build consumer_kotlin_ftw
     build consumer_kafka
+    build consumer_kafka_middleware
+    build consumer_rabbit_middleware
+    build consumer_jms_middleware
     build consumer_with_secured_webflux
+    build consumer_grpc
     waitPids
     kill_java
 }
@@ -142,3 +157,4 @@ cat <<'EOF'
 EOF
 
 build_gradle
+echo -e "\n\nFinished Gradle build!!!\n\n"

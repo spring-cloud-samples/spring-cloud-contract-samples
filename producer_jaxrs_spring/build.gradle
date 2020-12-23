@@ -18,7 +18,7 @@ buildscript {
 println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
 
 group = 'com.example'
-version = '0.0.1.BUILD-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
 
 repositories {
 	mavenCentral()
@@ -49,16 +49,22 @@ dependencies {
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
 	// remove::end[]
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
 
 // remove::start[]
 contracts {
+	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 	testMode = "JAXRSCLIENT"
 }
 // remove::end[]
 
-test {
+//remove::start[]
+contractTest {
+	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
 	}
@@ -72,3 +78,44 @@ test {
 		}
 	}
 }
+// remove::end[]
+
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifact bootJar
+			
+			// remove::start[]
+			artifact verifierStubsJar
+			// remove::end[]
+
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
+		}
+	}
+}
+
+// https://github.com/jfrog/build-info/issues/198
+task fixPom {
+    doLast {
+        File file = new File("$buildDir/publications/mavenJava/pom-default.xml")
+        def text = file.text
+        def pattern = "(?s)(<dependencyManagement>.+?<dependencies>)(.+?)(</dependencies>.+?</dependencyManagement>)"
+        def matcher = text =~ pattern
+        if (matcher.find()) {
+            text = text.replaceFirst(pattern, "")
+            def firstDeps = matcher.group(2)
+            text = text.replaceFirst(pattern, '$1$2' + firstDeps + '$3')
+        }
+        file.write(text)
+    }
+}
+generatePomFileForMavenJavaPublication.finalizedBy fixPom

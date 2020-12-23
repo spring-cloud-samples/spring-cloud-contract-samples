@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Contracts on the Producer Side 2.2.6.BUILD-SNAPSHOT</title>
+<title>Contracts on the Producer Side 2.4.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Contracts on the Producer Side 2.2.6.BUILD-SNAPSHOT</h1>
+<h1>Contracts on the Producer Side 2.4.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -1251,7 +1251,7 @@ is the Spring Cloud Contract plugin. Let&#8217;s add it to the producer&#8217;s 
 <div class="ulist">
 <ul>
 <li>
-<p>The coordinates of the plugin are: <code>org.springframework.cloud:spring-cloud-contract-gradle-plugin:$2.2.6.BUILD-SNAPSHOT</code></p>
+<p>The coordinates of the plugin are: <code>org.springframework.cloud:spring-cloud-contract-gradle-plugin:$2.4.0</code></p>
 </li>
 <li>
 <p>For this tutorial we&#8217;re using latest snapshot versions that you can reference via the Maven&#8217;s
@@ -1473,7 +1473,7 @@ a message to be received.</p>
 <li>
 <p>We have to configure the <code>destination</code>, so the actual name of a queue / topic on which we will be
 listening. To do that you have to set in the <code>src/main/resources/application.yml</code> the property
-<code>spring.cloud.stream.bindings.input.destination: verifications</code>. That means that the we&#8217;ll use the
+<code>spring.cloud.stream.bindings.input-in-0.destination: verifications</code>. That means that the we&#8217;ll use the
 <code>input</code> channel (so the channel in the <code>Sink</code> interface) to listen to messages coming from a
 destination called <code>verifications</code>.</p>
 </li>
@@ -1637,6 +1637,7 @@ have a base class with fully qualified name equal to X)</p>
 <div class="title">Gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">contracts {
+	testFramework = "JUNIT5"
     packageWithBaseClasses = 'com.example'
 }</code></pre>
 </div>
@@ -1675,7 +1676,7 @@ producer&#8217;s perspective - the <code>input</code> part</p>
 <p>Input message produces an output message</p>
 </li>
 <li>
-<p>A method call produces an output message</p>
+<p>A method execution produces an output message</p>
 </li>
 <li>
 <p>Input message doesn&#8217;t produce any output message</p>
@@ -1685,7 +1686,7 @@ producer&#8217;s perspective - the <code>input</code> part</p>
 </li>
 <li>
 <p>In our situation we&#8217;ll have a method produce an output. It&#8217;s enough to pass the <code>input {}</code> method
-and then the <code>triggeredBy</code> method. The <code>triggeredBy</code> method requires a String with a method call.
+and then the <code>triggeredBy</code> method. The <code>triggeredBy</code> method requires a String with a method execution.
 So if in the base class we expect to have a method called <code>triggerSomeMessage()</code> that would trigger a message
 for tests, then we would write <code>input { triggeredBy("triggerSomeMessage()") }</code> to make this happen. Example:</p>
 <div class="listingblock">
@@ -1814,7 +1815,7 @@ producerController</code>. Mockito will inject any mocks for us via the construc
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Mock PersonCheckingService personCheckingService;
     @InjectMocks ProducerController producerController;
 
-    @Before
+    @BeforeEach
     public void setup() {
         given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
     }</code></pre>
@@ -1846,7 +1847,11 @@ if the person to check is older or is 20 then the method <code>shouldGetBeer</co
 <li>
 <p>Now we need to configure <a href="http://rest-assured.io/">RestAssured</a> that is used by Spring Cloud Contract
 to send requests. In our case we want to profit from MockMvc. In order to set the <code>ProducerController</code>
-with RestAssured it&#8217;s enough to call <code>RestAssuredMockMvc.standaloneSetup(producerController);</code></p>
+with RestAssured it&#8217;s enough to call <code>
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
+		RestAssuredMockMvc.standaloneSetup(producerController);</code></p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(MockitoJUnitRunner.class)
@@ -1855,10 +1860,14 @@ public abstract class BeerRestBase {
     @Mock PersonCheckingService personCheckingService;
     @InjectMocks ProducerController producerController;
 
-    @Before
+    @BeforeEach
     public void setup() {
         given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
-        RestAssuredMockMvc.standaloneSetup(producerController);
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
+		RestAssuredMockMvc.standaloneSetup(producerController);
     }
 
     private TypeSafeMatcher&lt;PersonToCheck&gt; oldEnough() {
@@ -1904,6 +1913,7 @@ the setup related to messaging and Spring Cloud Contract.</p>
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
 ...
 }</code></pre>
@@ -1919,11 +1929,12 @@ abstraction (it allows to send and receive messages from e.g. Spring Cloud Strea
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
     @Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name
@@ -2066,7 +2077,7 @@ it as you wish - the current version is just to show you an example.
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">package docs;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.contract.spec.Contract;
@@ -2084,8 +2095,9 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collection;
 import java.util.regex.Pattern;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@RunWith(SpringRunner.class)
+@SpringJUnitConfig
 public class GenerateAdocsFromContractsTests {
 
 	// TODO: Can be parametrized
@@ -2605,9 +2617,13 @@ public abstract class BeerRestBase {
 	@Mock PersonCheckingService personCheckingService;
 	@InjectMocks ProducerController producerController;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.standaloneSetup(producerController);
 	}
 
@@ -2633,11 +2649,12 @@ public abstract class BeerRestBase {
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
 	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name
@@ -2660,7 +2677,7 @@ public abstract class BeerMessagingBase {
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		boolean shouldGetBeer = personToCheck.age &gt;= 20;
-		this.source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.send("output-out-0", new Verification(shouldGetBeer));
 		return shouldGetBeer;</code></pre>
 </div>
 </div>

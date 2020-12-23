@@ -1,0 +1,23 @@
+= Examples
+
+.GraphQL query
+```graphql
+query queryName($personName: String!) {
+  personToCheck(name: $personName) {
+    name
+    age
+  }
+}
+```
+
+.variables
+```json
+{
+  "personName" : "Old Enough"
+}
+```
+
+.json
+```
+
+```

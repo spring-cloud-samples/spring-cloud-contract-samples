@@ -1,7 +1,7 @@
 package com.example;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.json.JacksonTester;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ public abstract class AbstractTest {
 
 	public JacksonTester<Person> json;
 
-	@Before
+	@BeforeEach
 	public void setup() throws IOException {
 		ObjectMapper objectMappper = new ObjectMapper();
 		// Possibly configure the mapper

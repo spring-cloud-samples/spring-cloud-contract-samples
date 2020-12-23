@@ -12,8 +12,8 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.client.ClientConfig;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 
 import static org.springframework.util.SocketUtils.findAvailableTcpPort;
 
@@ -27,7 +27,7 @@ public class BeerRestBase {
 
 	private static Client client;
 
-	@BeforeClass
+	@BeforeAll
 	public static void setupTest() throws Exception {
 		int port = findAvailableTcpPort(10000);
 		URI baseUri = UriBuilder.fromUri("http://localhost").port(port).build();
@@ -58,7 +58,7 @@ public class BeerRestBase {
 		}
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void cleanupTest() {
 		if (client != null) {
 			client.close();

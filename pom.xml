@@ -7,7 +7,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>spring-cloud-contract-samples</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.1.BUILD-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 
 	<name>Spring Cloud Contract Samples</name>
 	<description>Spring Cloud Contract Samples</description>
@@ -55,25 +55,37 @@
 				<module>producer_with_webtestclient_restdocs</module>
 				<module>producer_with_dsl_restdocs</module>
 				<module>producer_with_spock</module>
-				<module>producer_with_junit5</module>
+				<module>producer_with_junit4</module>
 				<module>producer_with_xml</module>
 				<module>producer_with_latest_2_2_features</module>
 				<module>producer_kotlin_ftw</module>
 				<module>producer_java</module>
 				<module>producer_kafka</module>
+				<module>producer_kafka_middleware</module>
+				<module>producer_rabbit_middleware</module>
+				<module>producer_jms_middleware</module>
+				<module>producer_camel</module>
+				<module>producer_graphql</module>
+				<module>producer_grpc</module>
 				<module>consumer</module>
 				<module>consumer_proto</module>
 				<module>consumer_pact_stubrunner</module>
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
-				<module>consumer_with_junit5</module>
+				<module>consumer_with_junit4</module>
 				<module>consumer_security</module>
 				<module>consumer_with_latest_2_2_features</module>
 				<module>consumer_java</module>
 				<module>consumer_kotlin_ftw</module>
 				<module>consumer_kafka</module>
+				<module>consumer_kafka_middleware</module>
+				<module>consumer_rabbit_middleware</module>
+				<module>consumer_jms_middleware</module>
 				<module>consumer_with_secured_webflux</module>
+				<module>consumer_camel</module>
+				<module>consumer_grpc</module>
+				<module>consumer_kotlin</module>
 			</modules>
 		</profile>
 		<profile>
@@ -106,21 +118,37 @@
 				<module>producer_with_webtestclient_restdocs</module>
 				<module>producer_with_dsl_restdocs</module>
 				<module>producer_with_spock</module>
+				<module>producer_with_junit4</module>
 				<module>producer_with_xml</module>
 				<module>producer_with_latest_2_2_features</module>
 				<module>producer_kotlin_ftw</module>
+				<module>producer_java</module>
 				<module>producer_kafka</module>
+				<module>producer_kafka_middleware</module>
+				<module>producer_rabbit_middleware</module>
+				<module>producer_jms_middleware</module>
+				<module>producer_camel</module>
+				<module>producer_graphql</module>
+				<module>producer_grpc</module>
 				<module>consumer</module>
 				<module>consumer_proto</module>
 				<module>consumer_pact_stubrunner</module>
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
+				<module>consumer_with_junit4</module>
 				<module>consumer_security</module>
 				<module>consumer_with_latest_2_2_features</module>
+				<module>consumer_java</module>
 				<module>consumer_kotlin_ftw</module>
 				<module>consumer_kafka</module>
+				<module>consumer_kafka_middleware</module>
+				<module>consumer_rabbit_middleware</module>
+				<module>consumer_jms_middleware</module>
 				<module>consumer_with_secured_webflux</module>
+				<module>consumer_camel</module>
+				<module>consumer_grpc</module>
+				<module>consumer_kotlin</module>
 			</modules>
 		</profile>
 		<profile>

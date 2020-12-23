@@ -62,6 +62,7 @@ and for Gradle:
 [source,groovy]
 ----
 contracts {
+	testFramework = "JUNIT5"
     contractsMode = "LOCAL"
     contractDependency {
         stringNotation = "com.example:beer-contracts"

@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableBinding(Sink.class)
 public class ClientApplication {
 
 	public static void main(String[] args) {

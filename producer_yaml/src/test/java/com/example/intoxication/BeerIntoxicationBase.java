@@ -1,17 +1,17 @@
 package com.example.intoxication;
 
 //remove::start[]
+import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
 //remove::end[]
+import org.junit.jupiter.api.BeforeEach;
 
-import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.context.WebApplicationContext;
 
 import static com.example.intoxication.DrunkLevel.DRUNK;
@@ -19,18 +19,20 @@ import static com.example.intoxication.DrunkLevel.SOBER;
 import static com.example.intoxication.DrunkLevel.TIPSY;
 import static com.example.intoxication.DrunkLevel.WASTED;
 
+
 /**
  * Tests for the scenario based stub
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = BeerIntoxicationBase.Config.class)
 public abstract class BeerIntoxicationBase {
 
 	@Autowired WebApplicationContext webApplicationContext;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		//remove::start[]
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.webAppContextSetup(this.webApplicationContext);
 		//remove::end[]
 	}

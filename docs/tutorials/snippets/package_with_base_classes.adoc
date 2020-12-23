@@ -20,6 +20,7 @@
 .Gradle
 ----
 contracts {
+	testFramework = "JUNIT5"
     packageWithBaseClasses = 'com.example'
 }
 ----

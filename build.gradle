@@ -117,6 +117,10 @@ task removeTextFromFiles() {
                     // only related to java
                     newString.append(line.replace("//", "")).append("\n")
                     return
+                } else if (line.contains("//@org.junit.jupiter.api.Disabled")) {
+                    // only related to java
+                    newString.append(line.replace("//", "")).append("\n")
+                    return
                 }
                 if (!remove) {
                     if (line.contains("remove::start")) {

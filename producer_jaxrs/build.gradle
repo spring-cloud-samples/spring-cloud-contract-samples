@@ -6,19 +6,26 @@ buildscript {
 		maven { url "https://repo.spring.io/milestone" }
 		maven { url "https://repo.spring.io/release" }
 	}
-
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
-		// remove::start[]
+		//remove::start[]
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
 		// remove::end[]
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
 	}
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+//remove::start[]
+apply plugin: 'spring-cloud-contract'
+// remove::end[]
+apply plugin: 'maven-publish'
 
 group = 'com.example'
-version = '0.0.1.BUILD-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -28,37 +35,48 @@ repositories {
 	maven { url "https://repo.spring.io/release" }
 }
 
-apply plugin: 'groovy'
-apply plugin: 'org.springframework.boot'
-apply plugin: "io.spring.dependency-management"
-// remove::start[]
-apply plugin: 'spring-cloud-contract'
-// remove::end[]
-apply plugin: 'maven-publish'
-
-dependencies {
-  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
+ext {
+	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
 }
 
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-jersey")
 	implementation("org.springframework.boot:spring-boot-starter-jetty")
-	// remove::start[]
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
+	testImplementation('javax.inject:javax.inject:1')
+	//remove::start[]
 	// tag::verifier_dep[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
+	// tag::test_dep[]
+	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
+	// end::test_dep[]
 	// remove::end[]
 }
 
-// remove::start[]
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+//remove::start[]
 contracts {
+	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 	testMode = "JAXRSCLIENT"
 }
 // remove::end[]
 
-test {
+//remove::start[]
+contractTest {
+	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
 	}
@@ -68,6 +86,29 @@ test {
 			boolean skipTests = Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
 			if (result.testCount == 0 && !skipTests) {
 				throw new IllegalStateException("No tests were found. Failing the build")
+			}
+		}
+	}
+}
+// remove::end[]
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifact bootJar
+			
+			// remove::start[]
+			artifact verifierStubsJar
+			// remove::end[]
+
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
 			}
 		}
 	}

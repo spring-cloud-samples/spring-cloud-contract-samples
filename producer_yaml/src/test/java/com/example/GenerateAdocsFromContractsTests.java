@@ -1,12 +1,11 @@
 package com.example;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.contract.spec.Contract;
 import org.springframework.cloud.contract.verifier.util.ContractVerifierDslConverter;
 import org.springframework.core.io.Resource;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,8 +17,9 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collection;
 import java.util.regex.Pattern;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@RunWith(SpringRunner.class)
+@SpringJUnitConfig
 public class GenerateAdocsFromContractsTests {
 
 	// TODO: Can be parametrized

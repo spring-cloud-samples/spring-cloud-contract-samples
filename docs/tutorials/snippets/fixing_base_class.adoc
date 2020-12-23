@@ -19,7 +19,7 @@ public abstract class BeerRestBase {
     @Mock PersonCheckingService personCheckingService;
     @InjectMocks ProducerController producerController;
 
-    @Before
+    @BeforeEach
     public void setup() {
         given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
     }
@@ -44,7 +44,11 @@ public abstract class BeerRestBase {
 if the person to check is older or is 20 then the method `shouldGetBeer` method will return `true`.
   * Now we need to configure http://rest-assured.io/[RestAssured] that is used by Spring Cloud Contract
 to send requests. In our case we want to profit from MockMvc. In order to set the `ProducerController`
-with RestAssured it's enough to call `RestAssuredMockMvc.standaloneSetup(producerController);`
+with RestAssured it's enough to call `
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
+		RestAssuredMockMvc.standaloneSetup(producerController);`
 +
 [source,java]
 ----
@@ -54,10 +58,14 @@ public abstract class BeerRestBase {
     @Mock PersonCheckingService personCheckingService;
     @InjectMocks ProducerController producerController;
 
-    @Before
+    @BeforeEach
     public void setup() {
         given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
-        RestAssuredMockMvc.standaloneSetup(producerController);
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
+		RestAssuredMockMvc.standaloneSetup(producerController);
     }
 
     private TypeSafeMatcher<PersonToCheck> oldEnough() {

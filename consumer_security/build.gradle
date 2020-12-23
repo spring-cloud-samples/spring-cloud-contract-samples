@@ -8,13 +8,18 @@ buildscript {
 	}
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
 	}
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}]"
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'maven-publish'
 
 group = 'com.example'
-version = '0.0.1.BUILD-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -24,15 +29,11 @@ repositories {
 	maven { url "https://repo.spring.io/release" }
 }
 
-apply plugin: 'groovy'
-apply plugin: 'org.springframework.boot'
-apply plugin: "io.spring.dependency-management"
-apply plugin: 'maven-publish'
-
-dependencies {
-  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
+ext {
+	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
 }
 
+println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}]"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -44,9 +45,19 @@ dependencies {
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 	// end::stubrunner[]
 	// remove::end[]
+
+	// for compatibility
+	testImplementation('org.junit.jupiter:junit-jupiter-engine')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
 
 test {
+	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
 	}
@@ -56,6 +67,24 @@ test {
 			boolean skipTests = Boolean.parseBoolean(project.findProperty('SKIP_TESTS') ?: "false")
 			if (result.testCount == 0 && !skipTests) {
 				throw new IllegalStateException("No tests were found. Failing the build")
+			}
+		}
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifact bootJar
+
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
 			}
 		}
 	}

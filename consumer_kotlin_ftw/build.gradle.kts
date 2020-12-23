@@ -3,16 +3,16 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 	id("org.springframework.boot")
-	id("io.spring.dependency-management") version "1.0.9.RELEASE"
+	id("io.spring.dependency-management") version "1.0.10.RELEASE"
 	id("maven-publish")
 	// aligned with Gradle
-	kotlin("jvm") version "1.3.72"
-	kotlin("plugin.spring") version "1.3.72"
+	kotlin("jvm") version "1.4.10"
+	kotlin("plugin.spring") version "1.4.10"
 }
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 // tag::deps_repos[]
 repositories {
@@ -50,30 +50,53 @@ dependencies {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 		exclude(group = "junit", module = "junit")
 	}
+
+	// for compatibility
+	testImplementation("org.junit.jupiter:junit-jupiter-engine")
 }
 // end::deps[]
 
-tasks.withType<Test> {
-	useJUnitPlatform()
-	systemProperty("spring.profiles.active", "gradle")
-	testLogging {
-		exceptionFormat = TestExceptionFormat.FULL
+tasks {
+	test {
+		useJUnitPlatform()
+		systemProperty("spring.profiles.active", "gradle")
+		testLogging {
+			exceptionFormat = TestExceptionFormat.FULL
+		}
+		afterSuite(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
+			if (desc.parent == null) {
+				if (result.testCount == 0L) {
+					throw IllegalStateException("No tests were found. Failing the build")
+				}
+				else {
+					println("Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)")
+				}
+			} else { /* Nothing to do here */ }
+		}))
 	}
-	afterSuite(KotlinClosure2({ desc: TestDescriptor, result: TestResult ->
-		if (desc.parent == null) {
-			if (result.testCount == 0L) {
-				throw IllegalStateException("No tests were found. Failing the build")
-			}
-			else {
-				println("Results: (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)")
-			}
-		} else { /* Nothing to do here */ }
-	}))
 }
 
-tasks.withType<KotlinCompile> {
+tasks.withType<KotlinCompile>().configureEach {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "1.8"
+		jvmTarget = "11"
+	}
+}
+
+publishing {
+	publications {
+		create<MavenPublication>("mavenJava") {
+			artifact(tasks.named("bootJar"))
+
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
+		}
 	}
 }

@@ -11,7 +11,7 @@ buildscript {
 println "Cloud version [${findProperty('BOM_VERSION') ?: verifierVersion}]"
 
 group = 'com.example'
-version = '0.0.1.BUILD-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
 
 repositories {
 	mavenCentral()
@@ -33,15 +33,26 @@ dependencies {
 }
 
 test {
+	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
 	}
 }
 
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			from components.java
+			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
+			versionMapping {
+				usage("java-api") {
+					fromResolutionOf("runtimeClasspath")
+				}
+				usage("java-runtime") {
+					fromResolutionResult()
+				}
+			}
 		}
 	}
 }

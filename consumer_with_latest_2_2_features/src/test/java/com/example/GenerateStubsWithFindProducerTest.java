@@ -4,25 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.assertj.core.api.BDDAssertions;
-import org.junit.Assume;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import org.springframework.boot.test.context.SpringBootTest;
 // remove::start[]
-import org.springframework.cloud.contract.stubrunner.junit.StubRunnerRule;
+import org.springframework.cloud.contract.stubrunner.junit.StubRunnerExtension;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 // remove::end[]
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Marcin Grzejszczak
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 // @org.junit.Ignore
 public class GenerateStubsWithFindProducerTest {
@@ -34,8 +31,8 @@ public class GenerateStubsWithFindProducerTest {
 		return map;
 	}
 
-	@Rule
-	public StubRunnerRule rule = new StubRunnerRule()
+	@RegisterExtension
+	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example:some-artifact-id:0.0.1")
 			.downloadStub("com.example:some-other-artifact-id")
 			.repoRoot("stubs://file://" + System.getenv("ROOT")
@@ -45,12 +42,11 @@ public class GenerateStubsWithFindProducerTest {
 
 	// remove::end[]
 
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
-		Assume.assumeTrue("Spring Cloud Contract must be in version at least 2.2.0",
-				atLeast220());
-		Assume.assumeTrue("Env var OLD_PRODUCER_TRAIN must not be set",
-				StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")));
+		Assumptions.assumeTrue(atLeast220(), "Spring Cloud Contract must be in version at least 2.2.0");
+		Assumptions.assumeTrue(StringUtils.isEmpty(System.getenv("OLD_PRODUCER_TRAIN")),
+				"Env var OLD_PRODUCER_TRAIN must not be set");
 	}
 
 	private static boolean atLeast220() {
@@ -69,7 +65,7 @@ public class GenerateStubsWithFindProducerTest {
 	public void should_generate_a_stub_at_runtime_for_some_artifact_id()
 			throws Exception {
 		// remove::start[]
-		int port = this.rule.findStubUrl("some-artifact-id").getPort();
+		int port = rule.findStubUrl("some-artifact-id").getPort();
 
 		String object = new RestTemplate()
 				.getForObject("http://localhost:" + port + "/stuff", String.class);
@@ -82,7 +78,7 @@ public class GenerateStubsWithFindProducerTest {
 	public void should_generate_a_stub_at_runtime_for_some_other_artifact_id()
 			throws Exception {
 		// remove::start[]
-		int port = this.rule.findStubUrl("some-other-artifact-id").getPort();
+		int port = rule.findStubUrl("some-other-artifact-id").getPort();
 
 		String object = new RestTemplate()
 				.getForObject("http://localhost:" + port + "/stuff2", String.class);

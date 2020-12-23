@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Spring Cloud Contract Advanced 2.2.6.BUILD-SNAPSHOT</title>
+<title>Spring Cloud Contract Advanced 2.4.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Spring Cloud Contract Advanced 2.2.6.BUILD-SNAPSHOT</h1>
+<h1>Spring Cloud Contract Advanced 2.4.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -1303,7 +1303,7 @@ We want the port to be set automatically.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Value("${stubrunner.runningstubs.beer-api-producer-advanced.port}") int stubPort;
 
-@Before
+@BeforeEach
 public void setupPort() {
     controller.port = stubPort;
 }</code></pre>
@@ -1317,7 +1317,7 @@ public void setupPort() {
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Autowired StubFinder stubFinder;
 
-@Before
+@BeforeEach
 public void setupPort() {
     controller.port = stubFinder.findStubUrl("beer-api-producer-advanced").getPort();
 }</code></pre>
@@ -1428,6 +1428,7 @@ have a base class with fully qualified name equal to X)</p>
 <div class="title">Gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">contracts {
+	testFramework = "JUNIT5"
     packageWithBaseClasses = 'com.example'
 }</code></pre>
 </div>
@@ -1529,7 +1530,11 @@ standalone set up classes, as shown in the following code snippet:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">RestAssuredMockMvc.standaloneSetup(..., new BuyController(), ...);</code></pre>
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
+		RestAssuredMockMvc.standaloneSetup(..., new BuyController(), ...);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1998,9 +2003,13 @@ public abstract class BeerRestBase {
 	@Mock PersonCheckingService personCheckingService;
 	@InjectMocks ProducerController producerController;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.standaloneSetup(producerController);
 	}
 
@@ -2026,11 +2035,12 @@ public abstract class BeerRestBase {
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
 	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name
@@ -2053,7 +2063,7 @@ public abstract class BeerMessagingBase {
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		boolean shouldGetBeer = personToCheck.age &gt;= 20;
-		this.source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.send("output-out-0", new Verification(shouldGetBeer));
 		return shouldGetBeer;</code></pre>
 </div>
 </div>

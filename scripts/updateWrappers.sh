@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 set -o errexit
 set -o errtrace
@@ -6,7 +6,7 @@ set -o nounset
 set -o pipefail
 
 export ROOT="${ROOT:-`pwd`}"
-export WRAPPER_VERSION="${WRAPPER_VERSION:-6.0.1}"
+export WRAPPER_VERSION="${WRAPPER_VERSION:-6.7}"
 
 for d in consumer*
 do

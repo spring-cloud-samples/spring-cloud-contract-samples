@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Contracts Representing Scenarios (Stateful Stubs) 2.2.6.BUILD-SNAPSHOT</title>
+<title>Contracts Representing Scenarios (Stateful Stubs) 2.4.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Contracts Representing Scenarios (Stateful Stubs) 2.2.6.BUILD-SNAPSHOT</h1>
+<h1>Contracts Representing Scenarios (Stateful Stubs) 2.4.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -1013,7 +1013,7 @@ is the Spring Cloud Contract plugin. Let&#8217;s add it to the producer&#8217;s 
 <div class="ulist">
 <ul>
 <li>
-<p>The coordinates of the plugin are: <code>org.springframework.cloud:spring-cloud-contract-gradle-plugin:$2.2.6.BUILD-SNAPSHOT</code></p>
+<p>The coordinates of the plugin are: <code>org.springframework.cloud:spring-cloud-contract-gradle-plugin:$2.4.0</code></p>
 </li>
 <li>
 <p>For this tutorial we&#8217;re using latest snapshot versions that you can reference via the Maven&#8217;s
@@ -1240,6 +1240,7 @@ have a base class with fully qualified name equal to X)</p>
 <div class="title">Gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">contracts {
+	testFramework = "JUNIT5"
     packageWithBaseClasses = 'com.example'
 }</code></pre>
 </div>
@@ -1305,6 +1306,7 @@ following snippet (for both Maven and Gradle):</p>
 <div class="title">Gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-groovy" data-lang="groovy">contracts {
+	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 	baseClassMappings {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
@@ -1342,7 +1344,7 @@ test for each folder in which you store your contracts. The name of the test
 class is the name of that folder. Each of the contracts is a single test inside that test
 class. If you check out the generated <code>IntoxicationTest</code>, you can seee that it got
 annotated with <code>@FixMethodOrder(MethodSorters.NAME_ASCENDING)</code> in order to ensure
-that the tests are run sequentially.</p>
+that the tests are executed sequentially.</p>
 </div>
 <div class="paragraph">
 <p>Now we can fix the broken tests by providing the missing implementation.</p>
@@ -1376,7 +1378,7 @@ actions. That means that we can work with a fake instance of the <code>ResponseP
 </div>
 <div class="paragraph">
 <p>We need to maintain state between the tests. If you try to store the state in a field in
-a base class, you lose it between test runs, because JUnit is reinitializing all
+a base class, you lose it between test executions, because JUnit is reinitializing all
 the fields. We can fix that by setting up a small Spring Context to be reused. The
 following example shows what that annotation might look like:</p>
 </div>
@@ -1396,7 +1398,7 @@ why we need to set it up by using the following notation:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">    @Autowired WebApplicationContext webApplicationContext;
 
-    @Before
+    @BeforeEach
     public void setup() {
         RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
     }</code></pre>
@@ -1487,7 +1489,7 @@ it as you wish - the current version is just to show you an example.
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">package docs;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.contract.spec.Contract;
@@ -1505,8 +1507,9 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collection;
 import java.util.regex.Pattern;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@RunWith(SpringRunner.class)
+@SpringJUnitConfig
 public class GenerateAdocsFromContractsTests {
 
 	// TODO: Can be parametrized
@@ -2026,9 +2029,13 @@ public abstract class BeerRestBase {
 	@Mock PersonCheckingService personCheckingService;
 	@InjectMocks ProducerController producerController;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		given(personCheckingService.shouldGetBeer(argThat(oldEnough()))).willReturn(true);
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.standaloneSetup(producerController);
 	}
 
@@ -2054,11 +2061,12 @@ public abstract class BeerRestBase {
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
+@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
 	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		// let's clear any remaining messages
 		// output == destination or channel name
@@ -2081,7 +2089,7 @@ public abstract class BeerMessagingBase {
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">		boolean shouldGetBeer = personToCheck.age &gt;= 20;
-		this.source.output().send(MessageBuilder.withPayload(new Verification(shouldGetBeer)).build());
+		this.source.send("output-out-0", new Verification(shouldGetBeer));
 		return shouldGetBeer;</code></pre>
 </div>
 </div>
@@ -2258,7 +2266,7 @@ enum DrunkLevel {
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 //remove::end[]
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -2276,15 +2284,16 @@ import static com.example.intoxication.DrunkLevel.WASTED;
 /**
  * Tests for the scenario based stub
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = BeerIntoxicationBase.Config.class)
 public abstract class BeerIntoxicationBase {
 
 	@Autowired WebApplicationContext webApplicationContext;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		//remove::start[]
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.webAppContextSetup(this.webApplicationContext);
 		//remove::end[]
 	}

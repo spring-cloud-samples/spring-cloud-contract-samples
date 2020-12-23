@@ -1,15 +1,20 @@
 package com.example
 
+import io.restassured.config.EncoderConfig
 import io.restassured.module.mockmvc.RestAssuredMockMvc
-import org.junit.Before
+import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig
+import org.junit.jupiter.api.BeforeEach
 import java.util.*
 
 abstract class BeerRestBase {
     internal var producerController = ProducerController(oldEnough())
     internal var statsController = StatsController(statsService())
 
-    @Before
+    @BeforeEach
     fun setup() {
+        val encoderConfig: EncoderConfig = EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)
+        val restAssuredConf: RestAssuredMockMvcConfig = RestAssuredMockMvcConfig().encoderConfig(encoderConfig)
+        RestAssuredMockMvc.config = restAssuredConf
         RestAssuredMockMvc.standaloneSetup(this.producerController, this.statsController)
     }
 

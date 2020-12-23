@@ -1,8 +1,8 @@
 package com.example;
 
 import org.assertj.core.api.BDDAssertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -10,14 +10,12 @@ import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRun
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Client used (with small adaptation) in a SC contract blog post
  *
  * @author Marcin Grzejszczak
  */
-@RunWith(SpringRunner.class)
 //remove::start[]
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK,
 		properties = {"spring.application.name=foo-consumer"})
@@ -25,7 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true)
 //remove::end[]
-//@org.junit.Ignore
+//@org.junit.jupiter.api.Disabled
 public class FooControllerTest {
 
 	//remove::start[]

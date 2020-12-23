@@ -3,9 +3,8 @@ package com.example;
 import com.example.model.PersonToCheck;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -27,13 +26,11 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation;
 //remove::end[]
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 /**
  * @author Marcin Grzejszczak
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProducerControllerTests.Config.class)
 //remove::start[]
 @AutoConfigureRestDocs(outputDir = "target/snippets")
@@ -47,7 +44,7 @@ public class ProducerControllerTests {
 
 	private JacksonTester<PersonToCheck> json;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		ObjectMapper objectMappper = new ObjectMapper();
 		// Possibly configure the mapper

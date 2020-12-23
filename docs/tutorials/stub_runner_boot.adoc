@@ -7,7 +7,7 @@
 :images_folder: ../images
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-with-stubs-per-consumer
-:version: 2.2.6.BUILD-SNAPSHOT
+:version: 2.4.0
 
 = Stub Runner Boot {version}
 
@@ -61,7 +61,11 @@ In `BeerRestBase`, we need to add another controller to RestAssured, as follows:
 
 [source,java]
 ----
-RestAssuredMockMvc.standaloneSetup(..., new StoutController(), ...);
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
+		RestAssuredMockMvc.standaloneSetup(..., new StoutController(), ...);
 ----
 
 Let's install the stubs locally, as shown for both Maven and Gradle in the following

@@ -13,7 +13,7 @@
   a message to be received.
   * We have to configure the `destination`, so the actual name of a queue / topic on which we will be
   listening. To do that you have to set in the `src/main/resources/application.yml` the property
-  `spring.cloud.stream.bindings.input.destination: verifications`. That means that the we'll use the
+  `spring.cloud.stream.bindings.input-in-0.destination: verifications`. That means that the we'll use the
   `input` channel (so the channel in the `Sink` interface) to listen to messages coming from a
   destination called `verifications`.
   * Now that we have configured Spring Cloud Stream let's write the missing feature. If the `eligible` flag

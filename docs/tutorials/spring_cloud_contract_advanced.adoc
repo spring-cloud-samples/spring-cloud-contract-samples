@@ -8,7 +8,7 @@
 :where_are_contracts: the producer's code
 :producer_artifact: beer-api-producer-advanced
 :producer_project: producer_advanced
-:version: 2.2.6.BUILD-SNAPSHOT
+:version: 2.4.0
 
 = Spring Cloud Contract Advanced {version}
 
@@ -599,7 +599,7 @@ The following code shows an example of autowiring the field for
 ----
 @Value("${stubrunner.runningstubs.beer-api-producer-advanced.port}") int stubPort;
 
-@Before
+@BeforeEach
 public void setupPort() {
     controller.port = stubPort;
 }
@@ -612,7 +612,7 @@ The following code shows an example of using the `StubFinder` interface for
 ----
 @Autowired StubFinder stubFinder;
 
-@Before
+@BeforeEach
 public void setupPort() {
     controller.port = stubFinder.findStubUrl("beer-api-producer-advanced").getPort();
 }
@@ -650,7 +650,11 @@ standalone set up classes, as shown in the following code snippet:
 
 [source,java]
 ----
-RestAssuredMockMvc.standaloneSetup(..., new BuyController(), ...);
+
+		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
+		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
+		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
+		RestAssuredMockMvc.standaloneSetup(..., new BuyController(), ...);
 ----
 This time, we are not mocking in the base class, because we already did so in the
 previous tutorials. Instead, we try to make our tests pass as fast as possible.
