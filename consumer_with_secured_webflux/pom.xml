@@ -17,7 +17,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<kotlin.version>1.4.10</kotlin.version>
-		<spring-cloud.version>2020.0.0-SNAPSHOT</spring-cloud.version>
+		<spring-cloud.version>2020.0.1-SNAPSHOT</spring-cloud.version>
 	</properties>
 
 	<dependencies>
