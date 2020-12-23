@@ -47,7 +47,6 @@ dependencies {
 
 	// security
 	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.cloud:spring-cloud-security")
 	implementation("org.springframework.security:spring-security-config")
 	runtime("org.springframework.security:spring-security-jwt:${springSecurityJwtVersion}")
 	implementation("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}")
