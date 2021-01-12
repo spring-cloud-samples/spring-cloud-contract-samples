@@ -10,10 +10,6 @@ buildscript {
 
 println "Cloud version [${findProperty('BOM_VERSION') ?: verifierVersion}]"
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
 repositories {
 	mavenCentral()
 	mavenLocal()
@@ -22,8 +18,13 @@ repositories {
 	maven { url "https://repo.spring.io/release" }
 }
 
+apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 apply plugin: 'java-library'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
 
 dependencies {
   implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
