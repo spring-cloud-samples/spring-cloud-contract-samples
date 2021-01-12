@@ -47,8 +47,8 @@ dependencies {
 	implementation("org.springframework.kafka:spring-kafka")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.testcontainers:junit-jupiter:1.14.3")
-	testImplementation("org.testcontainers:kafka:1.14.3")
+	testImplementation("org.testcontainers:junit-jupiter:1.15.1")
+	testImplementation("org.testcontainers:kafka:1.15.1")
 	//remove::start[]
 	// tag::verifier_dep[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
