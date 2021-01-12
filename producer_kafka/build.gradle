@@ -46,8 +46,6 @@ dependencies {
 	implementation("org.springframework.kafka:spring-kafka")
 
 	testImplementation("org.springframework.kafka:spring-kafka-test")
-	// https://stackoverflow.com/questions/64669007/noclassdeffounderror-scala-math-ordering-with-spring-kafka-test-2-5-7/64697950
-	testImplementation("org.scala-lang:scala-library:2.12.11")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	//remove::start[]
 	// tag::verifier_dep[]
