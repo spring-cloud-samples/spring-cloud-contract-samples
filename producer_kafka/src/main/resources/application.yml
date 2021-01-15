@@ -2,4 +2,6 @@ spring:
   kafka:
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # key ser is only required because we are using string keys instead of spring-kafka default int keys
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
 logging.level.org.springframework.cloud.contract: debug
