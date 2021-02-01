@@ -42,4 +42,8 @@ public abstract class BaseClass {
 	public void trigger() {
 		this.controller.sendFoo("example");
 	}
+
+	public void triggerMessage() {
+		this.controller.sendFooAsMessage("example");
+	}
 }
