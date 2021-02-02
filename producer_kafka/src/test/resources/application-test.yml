@@ -2,7 +2,6 @@ spring:
   kafka:
     bootstrap-servers: ${spring.embedded.kafka.brokers}
     consumer:
-      properties:
-        "key.serializer": "org.springframework.kafka.support.serializer.JsonSerializer"
-        "key.deserializer": "org.springframework.kafka.support.serializer.JsonDeserializer"
       group-id: groupId
+      # key deser is only required because we are using string keys instead of spring-kafka default int keys
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

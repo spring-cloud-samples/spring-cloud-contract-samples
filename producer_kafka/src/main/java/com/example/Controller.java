@@ -16,16 +16,23 @@
 
 package com.example;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.common.Foo1;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.common.Foo1;
-
 /**
  * @author Gary Russell
+ * @author Chris Bono
  * @since 2.2.1
  */
 @RestController
@@ -37,6 +44,15 @@ public class Controller {
 	@PostMapping(path = "/send/foo/{what}")
 	public void sendFoo(@PathVariable String what) {
 		this.template.send("topic1", new Foo1(what));
+	}
+
+	@PostMapping(path = "/send/foo/message/{what}")
+	public void sendFooAsMessage(@PathVariable String what) {
+		Map<String, Object> headers = new HashMap<>();
+		headers.put("kafka_topic", "topic1");
+		headers.put("kafka_messageKey", "key-" + what);
+		Message<Foo1> message = MessageBuilder.createMessage(new Foo1(what), new MessageHeaders(headers));
+		this.template.send(message);
 	}
 
 }
