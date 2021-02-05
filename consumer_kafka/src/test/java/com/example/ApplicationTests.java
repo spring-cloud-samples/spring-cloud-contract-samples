@@ -45,7 +45,7 @@ public class ApplicationTests {
 	Application application;
 
 	@Test
-	public void contextLoads() {
+	public void consumesFooAsObject() {
 		this.trigger.trigger("trigger");
 
 		Awaitility.await().untilAsserted(() -> {
@@ -53,6 +53,20 @@ public class ApplicationTests {
 			BDDAssertions.then(this.application.storedFoo.getFoo()).contains("example");
 		});
 	}
+
+	@Test
+	public void consumesFooAsMessage() {
+		this.trigger.trigger("triggerMessage");
+
+		Awaitility.await().untilAsserted(() -> {
+			BDDAssertions.then(this.application.storedFooMessage).isNotNull();
+			BDDAssertions.then(this.application.storedFooMessage.getPayload().getFoo()).contains("example");
+			BDDAssertions.then(this.application.storedFooMessage.getHeaders().containsKey("kafka_receivedMessageKey"));
+			BDDAssertions.then(this.application.storedFooMessage.getHeaders().get("kafka_receivedMessageKey"))
+					.isEqualTo("key-example");
+		});
+	}
+
 	// remove::end[]
 
 }
