@@ -6,7 +6,7 @@
 
 	<groupId>com.example</groupId>
 	<artifactId>consumer-kotlin-ftw</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1.BUILD-SNAPSHOT</version>
 
 	<name>Consumer Kotlin FTW</name>
 	<description>Spring Cloud Contract Verifier Http Client Kotlin Sample</description>
