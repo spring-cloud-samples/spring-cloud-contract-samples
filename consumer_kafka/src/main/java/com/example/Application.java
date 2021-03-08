@@ -33,6 +33,7 @@ import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
 import org.springframework.kafka.listener.SeekToCurrentErrorHandler;
 import org.springframework.kafka.support.converter.RecordMessageConverter;
 import org.springframework.kafka.support.converter.StringJsonMessageConverter;
+import org.springframework.messaging.Message;
 import org.springframework.util.backoff.FixedBackOff;
 
 /**
@@ -68,14 +69,18 @@ public class Application {
 	}
 
 	Foo2 storedFoo;
+	
+	Message<Foo2> storedFooMessage;
 
 	@KafkaListener(id = "fooGroup", topics = "topic1")
-	public void listen(Foo2 foo) {
+	public void listen(Message<Foo2> fooMsg) {
+		Foo2 foo = fooMsg.getPayload();
 		logger.info("Received: " + foo);
 		if (foo.getFoo().startsWith("fail")) {
 			throw new RuntimeException("failed");
 		}
 		this.storedFoo = foo;
+		this.storedFooMessage = fooMsg;
 	}
 
 	@KafkaListener(id = "dltGroup", topics = "topic1.DLT")
