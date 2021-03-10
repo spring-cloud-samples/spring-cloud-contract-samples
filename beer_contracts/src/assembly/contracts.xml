@@ -17,11 +17,17 @@
 			<excludes>
 				<exclude>**/${project.build.directory}/**</exclude>
 				<exclude>**/mvnw</exclude>
+				<exclude>**/gradlew</exclude>
 				<exclude>**/mvnw.cmd</exclude>
+				<exclude>**/gradlew.bat</exclude>
+				<exclude>**/gradle.properties</exclude>
 				<exclude>**/.mvn/**</exclude>
+				<exclude>**/gradle/**</exclude>
+				<exclude>**/*.gradle</exclude>
 				<exclude>**/src/assembly/**</exclude>
 				<exclude>**/src/test/**</exclude>
 				<exclude>**/target/**</exclude>
+				<exclude>**/build/**</exclude>
 			</excludes>
 		</fileSet>
 	</fileSets>
