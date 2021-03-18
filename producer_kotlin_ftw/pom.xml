@@ -14,14 +14,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.2</version>
+		<version>2.4.3</version>
 		<relativePath/>
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
-		<spring-cloud-contract.version>3.0.2-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud-contract.version>3.0.3-SNAPSHOT</spring-cloud-contract.version>
 		<spring-cloud.version>2020.0.1-SNAPSHOT</spring-cloud.version>
 		<!-- Needs to align the version to what's there in Contract -->
 		<kotlin.version>1.4.10</kotlin.version>
