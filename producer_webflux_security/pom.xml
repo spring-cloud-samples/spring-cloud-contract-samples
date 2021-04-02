@@ -19,7 +19,7 @@
 		<kotlin.version>1.4.10</kotlin.version>
 		<spring-cloud.version>2020.0.3-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>3.0.3-SNAPSHOT</spring-cloud-contract.version>
-		<spring-web-test-client.version>3.3.0</spring-web-test-client.version>
+		<spring-web-test-client.version>4.3.3</spring-web-test-client.version>
 	</properties>
 
 	<dependencies>
