@@ -21,7 +21,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<spring-cloud-contract.version>2.2.7.BUILD-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud-contract.version>2.2.8.BUILD-SNAPSHOT</spring-cloud-contract.version>
 		<spring-cloud-dependencies.version>Hoxton.BUILD-SNAPSHOT</spring-cloud-dependencies.version>
 		<!-- We don't want to run tests -->
 		<skipTests>true</skipTests>
