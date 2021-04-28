@@ -1,0 +1,76 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: org.springframework.cloud:spring-cloud-dependencies
+    versions:
+    - ">= Hoxton.SR7.a, < Hoxton.SR7.999999"
+  - dependency-name: au.com.dius.pact.provider:maven
+    versions:
+    - 4.1.12
+    - 4.2.2
+    - 4.2.3
+  - dependency-name: au.com.dius.pact.consumer:junit5
+    versions:
+    - 4.1.12
+    - 4.2.2
+    - 4.2.3
+  - dependency-name: org.glassfish.jaxb:jaxb-runtime
+    versions:
+    - 3.0.0
+  - dependency-name: org.apache.camel:camel-test-spring
+    versions:
+    - 3.7.0
+    - 3.8.0
+  - dependency-name: org.apache.camel:camel-rabbitmq
+    versions:
+    - 3.7.0
+    - 3.8.0
+  - dependency-name: org.apache.camel:camel-xstream
+    versions:
+    - 3.7.0
+    - 3.8.0
+  - dependency-name: org.apache.camel:camel-jackson
+    versions:
+    - 3.7.0
+    - 3.8.0
+  - dependency-name: org.apache.camel.springboot:camel-spring-boot-starter
+    versions:
+    - 3.7.0
+    - 3.8.0
+  - dependency-name: org.springframework.cloud:spring-cloud-contract-maven-plugin
+    versions:
+    - 3.0.3-SNAPSHOT
+    - 3.0.3-SNAPSHOT
+  - dependency-name: org.springframework.cloud:spring-cloud-contract-pact
+    versions:
+    - 3.0.3-SNAPSHOT
+  - dependency-name: org.codehaus.groovy:groovy-all
+    versions:
+    - 3.0.7
+  - dependency-name: org.jetbrains.kotlin:kotlin-maven-plugin
+    versions:
+    - 1.4.21
+    - 1.4.31
+  - dependency-name: org.jetbrains.kotlin:kotlin-maven-allopen
+    versions:
+    - 1.4.21
+    - 1.4.31
+  - dependency-name: org.jetbrains.kotlin:kotlin-compiler
+    versions:
+    - 1.4.21
+    - 1.4.31
+  - dependency-name: org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure
+    versions:
+    - 2.4.2
+    - 2.4.3
+  - dependency-name: org.testcontainers:kafka
+    versions:
+    - 1.15.1
+  - dependency-name: org.testcontainers:rabbitmq
+    versions:
+    - 1.15.1
