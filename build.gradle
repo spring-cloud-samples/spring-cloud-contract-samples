@@ -1,21 +1,21 @@
 buildscript {
     repositories {
-        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+        classpath "org.asciidoctor:asciidoctor-gradle-jvm:3.3.2"
     }
 }
 
-apply plugin: 'org.asciidoctor.convert'
+apply plugin: "org.asciidoctor.jvm.convert"
 
 repositories {
     maven { url "https://repo.spring.io/release" }
-}
-
-dependencies {
-    asciidoctor "io.spring.asciidoctor:spring-asciidoctor-extensions:0.1.1.RELEASE"
+    maven { url "https://plugins.gradle.org/m2/" }
+    mavenCentral()
 }
 
 // Documentation tasks
@@ -25,7 +25,6 @@ asciidoctor {
         include 'index.adoc', 'workshops.adoc', 'tutorials/*'
     }
     outputDir = file('docs')
-    separateOutputDirs = false
     resources { }
     // TODO: Pass the version here
     attributes 'source-highlighter': 'prettify'
