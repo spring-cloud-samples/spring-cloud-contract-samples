@@ -3,7 +3,7 @@ plugins {
 	id 'org.springframework.boot'
 	id 'io.spring.dependency-management'
 	id 'maven-publish'
-	id "com.google.protobuf" version "0.8.13"
+	id 'com.google.protobuf'
 }
 
 group = 'com.example'

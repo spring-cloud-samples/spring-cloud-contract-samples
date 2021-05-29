@@ -6,7 +6,7 @@ plugins {
 	id 'org.springframework.cloud.contract'
 	//remove::end[]
 	id 'maven-publish'
-	id 'com.google.protobuf' version '0.8.13'
+	id 'com.google.protobuf'
 }
 
 group = 'com.example'

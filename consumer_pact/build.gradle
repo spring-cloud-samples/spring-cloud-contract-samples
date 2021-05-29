@@ -3,7 +3,7 @@ plugins {
 	id 'org.springframework.boot'
 	id 'io.spring.dependency-management'
 	id 'maven-publish'
-	id 'au.com.dius.pact' version '4.1.4'
+	id 'au.com.dius.pact'
 }
 
 group = 'com.example'
