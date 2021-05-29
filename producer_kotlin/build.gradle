@@ -22,10 +22,10 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
+	set('springCloudVersion', "${BOM_VERSION}")
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}], Contract version [${verifierVersion}]"
 
 dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion" // Required for Kotlin integration

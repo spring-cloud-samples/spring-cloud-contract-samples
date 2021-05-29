@@ -19,10 +19,10 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
+	set('springCloudVersion', "${BOM_VERSION}")
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}]"
+println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}]"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")

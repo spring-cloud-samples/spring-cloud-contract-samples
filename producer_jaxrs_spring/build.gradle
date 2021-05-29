@@ -8,7 +8,7 @@ plugins {
 	id 'maven-publish'
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}], Contract version [${verifierVersion}]"
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
+  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${BOM_VERSION}"))
 }
 
 

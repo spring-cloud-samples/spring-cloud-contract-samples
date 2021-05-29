@@ -33,10 +33,10 @@ sourceSets {
 }
 
 ext {
-	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
+	set('springCloudVersion', "${BOM_VERSION}")
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}], Contract version [${verifierVersion}]"
 
 dependencies {
 	implementation 'net.devh:grpc-server-spring-boot-starter:2.10.1.RELEASE'

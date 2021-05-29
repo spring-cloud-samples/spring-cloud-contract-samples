@@ -18,11 +18,11 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
+	set('springCloudVersion', "${BOM_VERSION}")
 	set('camelVersion', "3.3.0")
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}]"
+println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}]"
 
 dependencies {
 	implementation("org.apache.camel.springboot:camel-spring-boot-starter:${camelVersion}")
