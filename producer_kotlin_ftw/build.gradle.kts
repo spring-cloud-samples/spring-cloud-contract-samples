@@ -1,20 +1,6 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-buildscript {
-	val verifierVersion: String by extra
-    repositories {
-		mavenCentral()
-		mavenLocal()
-		maven { url = uri("https://repo.spring.io/release") }
-		maven { url = uri("https://repo.spring.io/milestone") }
-		maven { url = uri("https://repo.spring.io/snapshot") }
-    }
-        
-    dependencies {
-    }
-}
-
 plugins {
 	id("org.springframework.boot")
 	id("io.spring.dependency-management") version "1.0.10.RELEASE"

@@ -1,33 +1,13 @@
-buildscript {
-	ext {
-		kotlinVersion = '1.4.10'
-	}
-	repositories {
-		mavenCentral()
-		mavenLocal()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
-		maven { url "https://repo.spring.io/release" }
-	}
-	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
-		//remove::start[]
-		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
-		// remove::end[]
-		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
-		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
-	}
+plugins {
+	id 'org.jetbrains.kotlin.jvm'
+	id 'org.jetbrains.kotlin.plugin.spring'
+	id 'org.springframework.boot'
+	id 'io.spring.dependency-management'
+	//remove::start[]
+	id 'org.springframework.cloud.contract'
+	//remove::end[]
+	id 'maven-publish'
 }
-
-apply plugin: 'kotlin'
-apply plugin: 'kotlin-spring'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-//remove::start[]
-apply plugin: 'spring-cloud-contract'
-// remove::end[]
-apply plugin: 'maven-publish'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'

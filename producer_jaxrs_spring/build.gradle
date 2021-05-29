@@ -1,18 +1,11 @@
-buildscript {
-	repositories {
-		mavenCentral()
-		mavenLocal()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
-		maven { url "https://repo.spring.io/release" }
-	}
-
-	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
-		// remove::start[]
-		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
-		// remove::end[]
-	}
+plugins {
+	id 'groovy'
+	id 'org.springframework.boot'
+	id 'io.spring.dependency-management'
+	//remove::start[]
+	id 'org.springframework.cloud.contract'
+	//remove::end[]
+	id 'maven-publish'
 }
 
 println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
@@ -27,14 +20,6 @@ repositories {
 	maven { url "https://repo.spring.io/milestone" }
 	maven { url "https://repo.spring.io/release" }
 }
-
-apply plugin: 'groovy'
-apply plugin: 'org.springframework.boot'
-apply plugin: "io.spring.dependency-management"
-// remove::start[]
-apply plugin: 'spring-cloud-contract'
-// remove::end[]
-apply plugin: 'maven-publish'
 
 dependencies {
   implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
