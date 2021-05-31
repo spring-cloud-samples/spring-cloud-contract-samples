@@ -1,23 +1,10 @@
-buildscript {
-	repositories {
-		mavenCentral()
-		mavenLocal()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
-		maven { url "https://repo.spring.io/release" }
-	}
-	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
-		classpath "au.com.dius.pact.provider:gradle:4.1.4"
-		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
-	}
+plugins {
+	id 'groovy'
+	id 'org.springframework.boot'
+	id 'io.spring.dependency-management'
+	id 'maven-publish'
+	id 'au.com.dius.pact'
 }
-
-apply plugin: 'groovy'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'maven-publish'
-apply plugin: 'au.com.dius.pact'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -32,10 +19,10 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
+	set('springCloudVersion', "${BOM_VERSION}")
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}]"
+println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}]"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")

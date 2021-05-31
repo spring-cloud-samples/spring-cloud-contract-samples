@@ -7,13 +7,9 @@ pluginManagement {
         maven { url = uri("https://repo.spring.io/snapshot") }
         gradlePluginPortal()
     }
-    resolutionStrategy {
+    plugins {
         val bootVersion: String by settings
-        eachPlugin {
-            if (requested.id.id == "org.springframework.boot") {
-                useModule("org.springframework.boot:spring-boot-gradle-plugin:$bootVersion")
-            }
-        }
+        id("org.springframework.boot") version bootVersion
     }
 }
 rootProject.name = "consumer-kotlin-ftw-gradle"

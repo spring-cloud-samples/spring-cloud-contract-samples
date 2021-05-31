@@ -8,7 +8,7 @@ buildscript {
 	}
 }
 
-println "Cloud version [${findProperty('BOM_VERSION') ?: verifierVersion}]"
+println "Cloud version [${BOM_VERSION}]"
 
 repositories {
 	mavenCentral()
@@ -27,7 +27,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 dependencies {
-  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.findProperty('BOM_VERSION') ?: BOM_VERSION}"))
+  implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${BOM_VERSION}"))
 }
 
 dependencies {

@@ -1,28 +1,12 @@
-buildscript {
-	repositories {
-		mavenCentral()
-		mavenLocal()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
-		maven { url "https://repo.spring.io/release" }
-	}
-	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:${findProperty('bootVersion') ?: bootVersion}"
-		//remove::start[]
-		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${findProperty('verifierVersion') ?: verifierVersion}"
-		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
-		// remove::end[]
-		classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
-	}
+plugins {
+	id 'groovy'
+	id 'org.springframework.boot'
+	id 'io.spring.dependency-management'
+	//remove::start[]
+	id 'org.springframework.cloud.contract'
+	//remove::end[]
+	id 'maven-publish'
 }
-
-apply plugin: 'groovy'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-//remove::start[]
-apply plugin: 'spring-cloud-contract'
-// remove::end[]
-apply plugin: 'maven-publish'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -37,10 +21,10 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "${project.findProperty('BOM_VERSION') ?: BOM_VERSION}")
+	set('springCloudVersion', "${BOM_VERSION}")
 }
 
-println "Boot Version [${findProperty('bootVersion') ?: bootVersion}], Cloud version [${findProperty('BOM_VERSION') ?: BOM_VERSION}], Contract version [${findProperty('verifierVersion') ?: verifierVersion}]"
+println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}], Contract version [${verifierVersion}]"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
