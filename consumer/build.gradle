@@ -38,7 +38,7 @@ dependencies {
 	// end::stubrunner[]
 	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
 	// remove::end[]
-
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
