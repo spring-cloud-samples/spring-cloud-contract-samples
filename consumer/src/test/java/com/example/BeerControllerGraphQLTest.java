@@ -24,12 +24,10 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 public class BeerControllerGraphQLTest extends AbstractTest {
 
-	//remove::start[]
 	@RegisterExtension
 	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example","beer-api-producer-graphql")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
-	//remove::end[]
 
 	@BeforeAll
 	public static void beforeClass() {
@@ -53,7 +51,6 @@ public class BeerControllerGraphQLTest extends AbstractTest {
 			+ "}";
 
 
-	//remove::start[]
 	@Test
 	public void should_send_a_graphql_request() throws Exception {
 		ResponseEntity<String> responseEntity = new RestTemplate()
@@ -65,5 +62,4 @@ public class BeerControllerGraphQLTest extends AbstractTest {
 		BDDAssertions.then(responseEntity.getStatusCodeValue()).isEqualTo(200);
 
 	}
-	//remove::end[]
 }

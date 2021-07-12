@@ -16,7 +16,7 @@
 
 package com.example.loan;
 
-// remove::start[]
+
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -29,21 +29,19 @@ import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.getForObject
-// remove::end[]
 
-// tag::autoconfigure_stubrunner[]
-// remove::start[]
+
+
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @AutoConfigureStubRunner(ids = ["com.example:producer-kotlin-ftw"],
 		repositoryRoot = "stubs://classpath:contractsAtRuntime/",
 		stubsMode = StubRunnerProperties.StubsMode.LOCAL,
 		generateStubs = true)
-// remove::end[]
 class GoodbyeWorldTests {
-// end::autoconfigure_stubrunner[]
 
-// remove::start[]
+
+
 	@StubRunnerPort("producer-kotlin-ftw")
 	var port: Int? = null
 
@@ -54,5 +52,4 @@ class GoodbyeWorldTests {
 		// then:
 		assertThat(response).isEqualTo("Goodbye World!")
 	}
-// remove::end[]
 }

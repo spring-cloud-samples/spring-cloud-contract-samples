@@ -19,12 +19,12 @@ public class ProducerController {
 			consumes="application/json;charset=UTF-8",
 			produces="application/json;charset=UTF-8")
 	public Response check(@RequestBody PersonToCheck personToCheck) {
-		//remove::start[]
+		
 		if (this.personCheckingService.shouldGetBeer(personToCheck)) {
 			return new Response(BeerCheckStatus.OK);
 		}
 		return new Response(BeerCheckStatus.NOT_OK);
-		//remove::end[return]
+		
 	}
 	
 }

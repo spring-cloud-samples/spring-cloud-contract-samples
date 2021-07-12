@@ -16,7 +16,7 @@
 
 package com.example;
 
-// remove::start[]
+
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -50,10 +50,9 @@ import org.springframework.test.context.DynamicPropertySource;
 @AutoConfigureStubRunner(ids = "com.example:beer-api-producer-jms-middleware", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 @Testcontainers
 @ActiveProfiles("test")
-// remove::end[]
 public class ApplicationTests {
 
-	// remove::start[]
+	
 	@Container
 	static GenericContainer ibmMq = new GenericContainer("ibmcom/mq:9.1.2.0")
 			.withEnv("LICENSE", "accept")
@@ -84,10 +83,9 @@ public class ApplicationTests {
 			BDDAssertions.then(this.application.storedFoo.getFoo()).contains("example");
 		});
 	}
-	// remove::end[]
 }
 
-// remove::start[]
+
 @Configuration
 class TestConfig {
 
@@ -127,4 +125,3 @@ class TestConfig {
 		};
 	}
 }
-// remove::end[]

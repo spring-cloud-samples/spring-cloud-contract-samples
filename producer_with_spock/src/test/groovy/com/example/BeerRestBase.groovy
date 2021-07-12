@@ -1,14 +1,12 @@
 package com.example
 
-//remove::start[]
 import io.restassured.config.EncoderConfig
 import io.restassured.module.mockmvc.RestAssuredMockMvc
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig
-//remove::end[]
+
 import spock.lang.Specification
 
 abstract class BeerRestBase extends Specification {
-	//remove::start[]
 	PersonCheckingService personCheckingService = Mock(PersonCheckingService)
 	StatsService statsService = Mock(StatsService)
 	ProducerController producerController = new ProducerController(personCheckingService)
@@ -22,5 +20,4 @@ abstract class BeerRestBase extends Specification {
 		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.standaloneSetup(producerController, statsController)
 	}
-	//remove::end[]
 }

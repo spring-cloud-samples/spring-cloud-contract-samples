@@ -36,9 +36,7 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("io.rest-assured:spring-web-test-client:${springWebTestClientVersion}")
 	testImplementation("io.projectreactor:reactor-test")
-	//remove::start[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-	// remove::end[]
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')

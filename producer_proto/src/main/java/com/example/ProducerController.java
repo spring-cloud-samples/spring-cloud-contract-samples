@@ -19,12 +19,12 @@ public class ProducerController {
 			consumes="application/x-protobuf",
 			produces="application/x-protobuf")
 	public Beer.Response check(@RequestBody Beer.PersonToCheck personToCheck) {
-		//remove::start[]
+		
 		if (this.personCheckingService.shouldGetBeer(personToCheck)) {
 			return Beer.Response.newBuilder().setStatus(Beer.Response.BeerCheckStatus.OK).build();
 		}
 		return Beer.Response.newBuilder().setStatus(Beer.Response.BeerCheckStatus.NOT_OK).build();
-		//remove::end[return]
+		
 	}
 	
 }

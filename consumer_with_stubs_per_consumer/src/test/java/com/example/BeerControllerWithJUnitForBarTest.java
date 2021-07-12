@@ -31,22 +31,20 @@ public class BeerControllerWithJUnitForBarTest extends AbstractTest {
 
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
-	//remove::start[]
-	// tag::rule[]
+	
 	@RegisterExtension
 	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example","beer-api-producer-with-stubs-per-consumer")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL)
 			.withStubPerConsumer(true)
 			.withConsumerName("bar-consumer");
-	// end::rule[]
-	// tag::setup[]
+	
+	
 	@BeforeEach
 	public void setupPort() {
 		this.beerController.port = rule.findStubUrl("beer-api-producer-with-stubs-per-consumer").getPort();
 	}
-	// end::setup[]
-	//remove::end[]
+	
 
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")

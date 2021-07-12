@@ -8,7 +8,6 @@ import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class BeerRestBase {
-	//remove::start[]
 	ProducerController producerController = new ProducerController(oldEnough());
 	StatsController statsController = new StatsController(statsService());
 
@@ -27,5 +26,4 @@ public abstract class BeerRestBase {
 	private StatsService statsService() {
 		return name -> new Random().nextInt();
 	}
-	//remove::end[]
 }

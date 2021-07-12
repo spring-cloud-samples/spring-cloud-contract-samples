@@ -22,12 +22,12 @@ public class ProducerController {
 			consumes="application/json",
 			produces="application/json")
 	public Response check(@RequestBody PersonToCheck personToCheck) {
-		//remove::start[]
+		
 		if (this.personCheckingService.shouldGetBeer(personToCheck)) {
 			return new Response(BeerCheckStatus.OK);
 		}
 		return new Response(BeerCheckStatus.NOT_OK);
-		//remove::end[return]
+		
 	}
 	
 }

@@ -1,16 +1,14 @@
 package com.example;
 
-//remove::start[]
 
 import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
 import org.testng.annotations.BeforeTest;
 
-//remove::end[]
+
 
 public abstract class BeerStuffBase {
-	//remove::start[]
 
 	@BeforeTest
 	public void setup() {
@@ -19,5 +17,4 @@ public abstract class BeerStuffBase {
 		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.standaloneSetup(new StuffController());
 	}
-	//remove::end[]
 }

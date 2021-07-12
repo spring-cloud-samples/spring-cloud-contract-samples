@@ -28,11 +28,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("com.google.protobuf:protobuf-java:3.6.1")
 
-	//remove::start[]
-	// tag::stubrunner[]
+	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-	// end::stubrunner[]
-	// remove::end[]
+	
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')

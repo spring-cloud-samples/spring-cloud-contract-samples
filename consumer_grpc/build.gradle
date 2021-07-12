@@ -29,11 +29,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation 'net.devh:grpc-client-spring-boot-starter:2.10.1.RELEASE'
 
-	//remove::start[]
-	// tag::stubrunner[]
+	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-	// end::stubrunner[]
-	// remove::end[]
+	
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')

@@ -16,7 +16,7 @@
 
 package com.example;
 
-// remove::start[]
+
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -54,10 +54,9 @@ import org.springframework.test.context.DynamicPropertySource;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {TestConfig.class, Application.class}, properties = "stubrunner.amqp.mockConnection=false")
 @Testcontainers
 @AutoConfigureMessageVerifier
-// remove::end[]
 public abstract class BaseClass {
 
-	// remove::start[]
+	
 	@Container
 	static RabbitMQContainer rabbit = new RabbitMQContainer();
 
@@ -69,15 +68,14 @@ public abstract class BaseClass {
 	@Autowired
 	Controller controller;
 
-	// remove::end[]
 	public void trigger() {
-		// remove::start[]
+		
 		this.controller.sendFoo("example");
-		// remove::end[]
+		
 	}
 }
 
-// remove::start[]
+
 @Configuration
 class TestConfig {
 
@@ -161,4 +159,3 @@ class RabbitMessageVerifier implements MessageVerifier<Message> {
 
 	}
 }
-// remove::end[]

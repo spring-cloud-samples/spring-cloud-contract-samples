@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class BuyController {
 
-	//remove::start[]
-	//tag::impl[]
+	
 	@PostMapping(value = "/buy",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -24,8 +23,7 @@ class BuyController {
 		}
 		return () ->new Response(Status.NOT_OK, "You're drunk [" + person.name + "]. Go home!");
 	}
-	//end::impl[]
-	//remove::end[]
+	
 }
 
 class Person {

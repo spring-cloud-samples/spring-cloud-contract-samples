@@ -16,19 +16,16 @@ import org.springframework.http.ResponseEntity;
  *
  * @author Marcin Grzejszczak
  */
-//remove::start[]
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK,
 		properties = {"spring.application.name=foo-consumer"})
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true)
-//remove::end[]
+
 //@org.junit.jupiter.api.Disabled
 public class FooControllerTest {
 
-	//remove::start[]
 	@StubRunnerPort("beer-api-producer-with-stubs-per-consumer")
-	//remove::end[]
 	int producerPort;
 
 	@Test

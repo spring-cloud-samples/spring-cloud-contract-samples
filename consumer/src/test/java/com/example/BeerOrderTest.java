@@ -39,12 +39,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext
 public class BeerOrderTest extends AbstractTest {
 
-	//remove::start[]
 	@RegisterExtension
 	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example", "beer-api-producer-xml")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
-	//remove::end[]
 
 	@BeforeAll
 	public static void beforeClass() {
@@ -58,16 +56,14 @@ public class BeerOrderTest extends AbstractTest {
 	@Autowired
 	BeerController beerController;
 
-	//remove::start[]
 	@BeforeEach
 	public void setupPort() {
 		this.beerController.port = rule.findStubUrl("beer-api-producer-xml").getPort();
 	}
-	//remove::end[]
 
 	@Test
 	public void shouldProcessBeerOrder() throws Exception {
-		//remove::start[]
+		
 		XmlMapper xmlMapper = new XmlMapper();
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/order")
 				.contentType(MediaType.APPLICATION_XML)
@@ -75,12 +71,12 @@ public class BeerOrderTest extends AbstractTest {
 						.writeValueAsString(new BeerOrder(new BigDecimal("123"), Arrays
 								.asList("abc", "def", "ghi")))))
 				.andExpect(status().isOk());
-		//remove::end[]
+		
 	}
 
 	@Test
 	public void shouldCancelBeerOrder() throws Exception {
-		//remove::start[]
+		
 		XmlMapper xmlMapper = new XmlMapper();
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/cancelOrder")
 				.contentType(MediaType.APPLICATION_XML)
@@ -88,7 +84,7 @@ public class BeerOrderTest extends AbstractTest {
 						.writeValueAsString(new BeerOrder(new BigDecimal("123"), Arrays
 								.asList("abc", "def", "ghi")))))
 				.andExpect(status().isOk());
-		//remove::end[]
+		
 	}
 
 

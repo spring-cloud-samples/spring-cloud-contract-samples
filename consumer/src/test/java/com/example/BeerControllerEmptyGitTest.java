@@ -36,13 +36,11 @@ public class BeerControllerEmptyGitTest extends AbstractTest {
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
 
-	//remove::start[]
 	@RegisterExtension
 	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example","beer-api-producer-empty-git", "0.0.1-SNAPSHOT")
 			.repoRoot("git://" + System.getenv("ROOT") + "/target/contract_empty_git/")
 			.stubsMode(StubRunnerProperties.StubsMode.REMOTE);
-	//remove::end[]
 
 	@BeforeAll
 	public static void beforeClass() {
@@ -52,9 +50,9 @@ public class BeerControllerEmptyGitTest extends AbstractTest {
 
 	@BeforeEach
 	public void setupPort() {
-		//remove::start[]
+		
 		this.beerController.port = rule.findStubUrl("beer-api-producer-empty-git").getPort();
-		// remove::end[]
+		
 	}
 
 	private static boolean atLeast210() {
@@ -66,26 +64,25 @@ public class BeerControllerEmptyGitTest extends AbstractTest {
 		return true;
 	}
 
-	//remove::end[]
-	//tag::tests[]
+	
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
-		//remove::start[]
+		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(this.json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("THERE YOU GO"));
-		//remove::end[]
+		
 	}
 
 	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
-		//remove::start[]
+		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(this.json.write(new Person("marcin", 17)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST"));
-		//remove::end[]
+		
 	}
-	//end::tests[]
+	
 }

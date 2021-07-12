@@ -26,14 +26,10 @@ println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}]"
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	//remove::start[]
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-	// remove::end[]
 
-	//remove::start[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
-	// remove::end[]
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')

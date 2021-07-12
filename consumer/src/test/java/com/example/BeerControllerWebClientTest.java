@@ -20,19 +20,16 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-//remove::start[]
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer-webflux")
-//remove::end[]
+
 @DirtiesContext
 //@org.junit.jupiter.api.Disabled
 public class BeerControllerWebClientTest extends AbstractTest {
 
-	//remove::start[]
 	@StubRunnerPort("beer-api-producer-webflux") int producerPort;
 
-	//remove::end[]
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
-		//remove::start[]
+		
 		WebTestClient.bindToServer()
 				.build()
 				.post()
@@ -43,11 +40,11 @@ public class BeerControllerWebClientTest extends AbstractTest {
 				.expectStatus().is2xxSuccessful()
 				.expectBody(WebClientResponse.class)
 				.isEqualTo(new WebClientResponse(WebClientResponseStatus.OK));
-		//remove::end[]
+		
 	}
 
 	@Test public void should_reject_a_beer_when_im_too_young() throws Exception {
-		//remove::start[]
+		
 		WebTestClient.bindToServer()
 				.build()
 				.post()
@@ -58,7 +55,7 @@ public class BeerControllerWebClientTest extends AbstractTest {
 				.expectStatus().is2xxSuccessful()
 				.expectBody(WebClientResponse.class)
 				.isEqualTo(new WebClientResponse(WebClientResponseStatus.NOT_OK));
-		//remove::end[]
+		
 	}
 }
 

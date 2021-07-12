@@ -16,7 +16,7 @@
 
 package com.example;
 
-// remove::start[]
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -60,9 +60,8 @@ import org.springframework.test.context.DynamicPropertySource;
 @Testcontainers
 @AutoConfigureMessageVerifier
 @ActiveProfiles("test")
-// remove::end[]
 public abstract class BaseClass {
-	// remove::start[]
+	
 
 	@Container static KafkaContainer kafka = new KafkaContainer();
 
@@ -73,16 +72,15 @@ public abstract class BaseClass {
 
 	@Autowired
 	Controller controller;
-	// remove::end[]
 
 	public void trigger() {
-		// remove::start[]
+		
 		this.controller.sendFoo("example");
-		// remove::end[]
+		
 	}
 }
 
-// remove::start[]
+
 @EnableKafka
 @Configuration
 class TestConfig {
@@ -148,4 +146,3 @@ class KafkaMessageVerifier implements MessageVerifier<Message<?>> {
 
 	}
 }
-// remove::end[]

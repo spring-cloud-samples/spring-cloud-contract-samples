@@ -14,7 +14,7 @@ group = "com.example"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
-// tag::deps_repos[]
+
 repositories {
 	mavenCentral()
 	mavenLocal()
@@ -22,9 +22,9 @@ repositories {
 	maven { url = uri("https://repo.spring.io/milestone") }
 	maven { url = uri("https://repo.spring.io/snapshot") }
 }
-// end::deps_repos[]
 
-// tag::dep_mgmt[]
+
+
 dependencyManagement {
 
 	val BOM_VERSION: String by project
@@ -33,9 +33,9 @@ dependencyManagement {
 		mavenBom("org.springframework.cloud:spring-cloud-dependencies:$BOM_VERSION")
 	}
 }
-// end::dep_mgmt[]
 
-// tag::deps[]
+
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -54,7 +54,7 @@ dependencies {
 	// for compatibility
 	testImplementation("org.junit.jupiter:junit-jupiter-engine")
 }
-// end::deps[]
+
 
 tasks {
 	test {

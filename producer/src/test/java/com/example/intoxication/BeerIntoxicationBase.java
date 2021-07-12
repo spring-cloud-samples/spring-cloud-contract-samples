@@ -1,10 +1,9 @@
 package com.example.intoxication;
 
-//remove::start[]
 import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
-//remove::end[]
+
 import org.junit.jupiter.api.BeforeEach;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +29,11 @@ public abstract class BeerIntoxicationBase {
 
 	@BeforeEach
 	public void setup() {
-		//remove::start[]
+		
 		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
 		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.webAppContextSetup(this.webApplicationContext);
-		//remove::end[]
+		
 	}
 
 	@Configuration
@@ -50,14 +49,14 @@ public abstract class BeerIntoxicationBase {
 		}
 	}
 
-	//tag::mock[]
+	
 	static class MockResponseProvider implements ResponseProvider {
 
 		private DrunkLevel previous = SOBER;
 		private DrunkLevel current = SOBER;
 
 		@Override public Response thereYouGo(Customer personToCheck) {
-			//remove::start[]
+			
 			if ("marcin".equals(personToCheck.name)) {
 				 switch (this.current) {
 				 case SOBER:
@@ -76,9 +75,9 @@ public abstract class BeerIntoxicationBase {
 					 throw new UnsupportedOperationException("You can't handle it");
 				 }
 			}
-			//remove::end[]
+			
 			return new Response(this.previous, this.current);
 		}
 	}
-	//end::mock[]
+	
 }

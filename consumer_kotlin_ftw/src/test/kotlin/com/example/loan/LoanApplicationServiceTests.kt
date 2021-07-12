@@ -16,7 +16,7 @@
 
 package com.example.loan
 
-// remove::start[]
+
 import java.io.File
 import java.net.URI
 import java.nio.file.Files
@@ -42,19 +42,17 @@ import org.springframework.http.RequestEntity
 import org.springframework.http.ResponseEntity
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.web.client.RestTemplate
-// remove::end[]
 
-// tag::autoconfigure_stubrunner[]
-// remove::start[]
+
+
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @AutoConfigureStubRunner(ids = ["com.example:producer-kotlin-ftw:+:stubs:6565"],
 		stubsMode = StubRunnerProperties.StubsMode.LOCAL)
-// remove::end[]
 class LoanApplicationServiceTests {
-// end::autoconfigure_stubrunner[]
 
-// remove::start[]
+
+
 	@Autowired
 	lateinit var service: LoanApplicationService
 
@@ -69,7 +67,7 @@ class LoanApplicationServiceTests {
 		assertThat(loanApplication?.rejectionReason).isNull()
 	}
 
-	// tag::client_tdd[]
+	
 	@Test
 	fun shouldBeRejectedDueToAbnormalLoanAmount() {
 		// given:
@@ -81,7 +79,7 @@ class LoanApplicationServiceTests {
 				.isEqualTo(LoanApplicationStatus.LOAN_APPLICATION_REJECTED)
 		assertThat(loanApplication?.rejectionReason).isEqualTo("Amount too high")
 	}
-	// end::client_tdd[]
+	
 
 	@Test
 	fun shouldSuccessfullyGetAllFrauds() {
@@ -167,11 +165,9 @@ class LoanApplicationServiceTests {
 		// and:
 		assertThat(exchange.body?.message).isEqualTo("Don't worry Tim you're not a fraud")
 	}
-	// remove::end[]
 
 }
 
-// remove::start[]
+
 data class FraudCheckRequest(@JsonProperty("name") val name: String)
 data class FraudCheckResponse(@JsonProperty("result") val message: String)
-// remove::end[]

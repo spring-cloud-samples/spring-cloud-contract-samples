@@ -30,12 +30,10 @@ dependencies {
 
 	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
 	testImplementation('javax.inject:javax.inject:1')
-	//remove::start[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 	testImplementation("com.example:beer-api-producer-restdocs:0.0.1-SNAPSHOT:stubs") {
 		transitive = false
 	}
-	// remove::end[]
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')

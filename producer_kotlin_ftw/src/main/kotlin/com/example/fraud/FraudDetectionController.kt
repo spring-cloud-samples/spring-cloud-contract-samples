@@ -29,18 +29,18 @@ class FraudDetectionController {
 
 	private val maxAmount = BigDecimal("5000")
 
-	// tag::server_api[]
+	
 	@PutMapping("/fraudcheck")
 	fun fraudCheck(@RequestBody fraudCheck: FraudCheck): FraudCheckResult {
-		// end::server_api[]
-		// tag::new_impl[]
+		
+		
 		if (amountGreaterThanThreshold(fraudCheck)) {
 			return FraudCheckResult(FraudCheckStatus.FRAUD, "Amount too high")
 		}
-		// end::new_impl[]
-		// tag::initial_impl[]
+		
+		
 		return FraudCheckResult(FraudCheckStatus.OK)
-		// end::initial_impl[]
+		
 	}
 
 	fun amountGreaterThanThreshold(fraudCheck: FraudCheck): Boolean {

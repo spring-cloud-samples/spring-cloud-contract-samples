@@ -32,9 +32,7 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438")
-	//remove::start[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-	// remove::end[]
 }
 
 dependencyManagement {

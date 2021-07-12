@@ -19,11 +19,11 @@ public class AgeCheckingPersonCheckingService implements PersonCheckingService {
 
 	@Override
 	public Boolean shouldGetBeer(PersonToCheck personToCheck) {
-		//remove::start[]
+		
 		boolean shouldGetBeer = personToCheck.age >= 20;
 		this.source.send("output-out-0", new Verification(shouldGetBeer));
 		return shouldGetBeer;
-		//remove::end[return]
+		
 	}
 
 }

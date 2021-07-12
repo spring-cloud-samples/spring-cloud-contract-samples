@@ -16,7 +16,7 @@
 
 package com.example.loan
 
-// remove::start[]
+
 import com.example.loan.model.Client
 import com.example.loan.model.LoanApplication
 import com.example.loan.model.LoanApplicationStatus
@@ -30,17 +30,15 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties
 import org.springframework.test.context.junit.jupiter.SpringExtension
-// remove::end[]
 
-// remove::start[]
+
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE, properties = ["server.context-path=/app"])
 @AutoConfigureStubRunner(ids = ["com.example:producer-kotlin-ftw:+:stubs:6565"],
 		stubsMode = StubRunnerProperties.StubsMode.LOCAL)
-// remove::end[]
 class LoanApplicationServiceContextPathTests {
 
-// remove::start[]
+
 	@Autowired
 	lateinit var service: LoanApplicationService
 
@@ -67,6 +65,5 @@ class LoanApplicationServiceContextPathTests {
 				.isEqualTo(LoanApplicationStatus.LOAN_APPLICATION_REJECTED)
 		assertThat(loanApplication?.rejectionReason).isEqualTo("Amount too high")
 	}
-	// remove::end[]
 
 }

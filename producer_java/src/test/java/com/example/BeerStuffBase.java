@@ -1,15 +1,13 @@
 package com.example;
 
-//remove::start[]
 
 import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
 import org.junit.jupiter.api.BeforeEach;
-//remove::end[]
+
 
 public abstract class BeerStuffBase {
-	//remove::start[]
 
 	@BeforeEach
 	public void setup() {
@@ -18,5 +16,4 @@ public abstract class BeerStuffBase {
 		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.standaloneSetup(new StuffController());
 	}
-	//remove::end[]
 }

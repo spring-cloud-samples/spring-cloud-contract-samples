@@ -33,14 +33,14 @@ class IntoxicationController {
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response gimmeABeer(@RequestBody Person person) {
-		//remove::start[]
+		
 		return this.restTemplate.exchange(
 				RequestEntity
 						.post(URI.create("http://localhost:" + this.port + "/beer"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class).getBody();
-		//remove::end[return]
+		
 	}
 }
 

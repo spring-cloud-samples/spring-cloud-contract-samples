@@ -16,16 +16,15 @@
 
 package com.example.fraud;
 
-// remove::start[]
+
 import io.restassured.config.EncoderConfig
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig
 import org.junit.jupiter.api.BeforeEach;
-// remove::end[]
 
 open class BinaryBase {
 
-// remove::start[]
+
 	@BeforeEach
 	fun setUp() {
 		val encoderConfig: EncoderConfig = EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false)
@@ -33,5 +32,4 @@ open class BinaryBase {
 		RestAssuredMockMvc.config = restAssuredConf
 		RestAssuredMockMvc.standaloneSetup(TestController());
 	}
-// remove::end[]
 }

@@ -16,7 +16,7 @@
 
 package com.example;
 
-// remove::start[]
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -55,10 +55,9 @@ import org.springframework.test.context.DynamicPropertySource;
 @AutoConfigureStubRunner(ids = "com.example:beer-api-producer-rabbit-middleware", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 @Testcontainers
 @ActiveProfiles("test")
-// remove::end[]
 public class ApplicationTests {
 
-	// remove::start[]
+	
 	@Container static RabbitMQContainer rabbit = new RabbitMQContainer();
 
 	@DynamicPropertySource
@@ -81,10 +80,9 @@ public class ApplicationTests {
 			BDDAssertions.then(this.application.storedFoo.getFoo()).contains("example");
 		});
 	}
-	// remove::end[]
 }
 
-// remove::start[]
+
 @Configuration
 class TestConfig {
 
@@ -125,4 +123,3 @@ class TestConfig {
 		};
 	}
 }
-// remove::end[]

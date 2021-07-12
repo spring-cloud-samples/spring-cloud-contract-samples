@@ -2,9 +2,7 @@ plugins {
 	id 'groovy'
 	id 'org.springframework.boot'
 	id 'io.spring.dependency-management'
-	//remove::start[]
 	id 'org.springframework.cloud.contract'
-	//remove::end[]
 	id 'maven-publish'
 }
 
@@ -29,25 +27,22 @@ dependencies {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-jersey")
 	implementation("org.springframework.boot:spring-boot-starter-jetty")
-	// remove::start[]
-	// tag::verifier_dep[]
+	
+	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
-	// end::verifier_dep[]
-	// remove::end[]
+	
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
 
-// remove::start[]
+
 contracts {
 	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 	testMode = "JAXRSCLIENT"
 }
-// remove::end[]
 
-//remove::start[]
 contractTest {
 	useJUnitPlatform()
 	testLogging {
@@ -63,7 +58,6 @@ contractTest {
 		}
 	}
 }
-// remove::end[]
 
 
 publishing {
@@ -71,9 +65,7 @@ publishing {
 		mavenJava(MavenPublication) {
 			artifact bootJar
 			
-			// remove::start[]
 			artifact verifierStubsJar
-			// remove::end[]
 
 			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
 			versionMapping {

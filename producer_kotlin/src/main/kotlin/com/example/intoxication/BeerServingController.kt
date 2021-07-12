@@ -26,7 +26,7 @@ interface ResponseProvider {
 }
 
 class Customer {
-    //remove::start[]
+    
     var name: String = ""
 
     constructor(name: String) {
@@ -34,7 +34,7 @@ class Customer {
     }
 
     constructor() {}
-    //remove::end[]
+    
 }
 
 class Response(var previousStatus: DrunkLevel, var currentStatus: DrunkLevel)

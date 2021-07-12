@@ -1,6 +1,5 @@
 package com.example.intoxication;
 
-//remove::start[]
 
 import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -21,17 +20,15 @@ import static com.example.intoxication.DrunkLevel.SOBER;
 import static com.example.intoxication.DrunkLevel.TIPSY;
 import static com.example.intoxication.DrunkLevel.WASTED;
 
-//remove::end[]
+
 
 /**
  * Tests for the scenario based stub
  */
-//remove::start[]
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BeerIntoxicationBase.Config.class)
-//remove::end[]
+
 public abstract class BeerIntoxicationBase {
-	//remove::start[]
 	@Autowired
 	WebApplicationContext webApplicationContext;
 
@@ -57,7 +54,7 @@ public abstract class BeerIntoxicationBase {
 		}
 	}
 
-	//tag::mock[]
+	
 	static class MockResponseProvider implements ResponseProvider {
 
 		private DrunkLevel previous = SOBER;
@@ -86,6 +83,5 @@ public abstract class BeerIntoxicationBase {
 			return new Response(this.previous, this.current);
 		}
 	}
-	//end::mock[]
-	//remove::end[]
+	
 }

@@ -24,9 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ClientApplication.class, webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-//remove::start[]
 @AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")
-//remove::end[]
+
 @DirtiesContext
 public class BeerControllerClasspathTest extends AbstractTest {
 
