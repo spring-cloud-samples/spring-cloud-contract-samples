@@ -56,10 +56,10 @@ class LoanApplicationService {
 		val httpHeaders = HttpHeaders()
 		httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 
-		// tag::client_call_server[]
+		
 		val response = restTemplate.exchange("http://localhost:$port/fraudcheck",
 				HttpMethod.PUT, HttpEntity(request, httpHeaders), FraudServiceResponse::class.java)
-		// end::client_call_server[]
+		
 
 		return response.body
 	}

@@ -1,15 +1,13 @@
 package com.example;
 
-//remove::start[]
 
 import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
-//remove::end[]
+
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class BeerRestBase {
-	//remove::start[]
 
 	ProducerController producerController = new ProducerController(oldEnough());
 
@@ -29,5 +27,4 @@ public abstract class BeerRestBase {
 	private SomeService someServiceStub() {
 		return () -> "OK";
 	}
-	//remove::end[]
 }

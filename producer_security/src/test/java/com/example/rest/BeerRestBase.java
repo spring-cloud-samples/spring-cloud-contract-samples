@@ -1,6 +1,5 @@
 package com.example.rest;
 
-//remove::start[]
 
 import com.example.ProducerApplication;
 import com.example.security.UserDetails;
@@ -17,10 +16,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest(classes = { ProducerApplication.class,
 		BeerRestBase.Config.class }, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-// remove::end[]
 public abstract class BeerRestBase {
 
-	//remove::start[]
 	@Autowired
 	private WebApplicationContext context;
 
@@ -50,6 +47,5 @@ public abstract class BeerRestBase {
 		}
 
 	}
-	// remove::end[]
 
 }

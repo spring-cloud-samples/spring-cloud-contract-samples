@@ -16,16 +16,15 @@
 
 package com.example.fraud;
 
-// remove::start[]
+
 import io.restassured.config.EncoderConfig
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig
 import org.junit.jupiter.api.BeforeEach;
-// remove::end[]
 
 open class MultipartBase {
 
-// remove::start[]
+
 	@BeforeEach
 	fun setUp() {
 		// https://github.com/spring-cloud/spring-cloud-contract/issues/1428
@@ -34,5 +33,4 @@ open class MultipartBase {
 		RestAssuredMockMvc.config = restAssuredConf
 		RestAssuredMockMvc.standaloneSetup(TestController())
 	}
-// remove::end[]
 }

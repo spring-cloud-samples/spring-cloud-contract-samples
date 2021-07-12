@@ -9,9 +9,9 @@ public abstract class BeerRestBase {
 
 	@BeforeEach
 	public void setup() {
-		//remove::start[]
+		
 		RestAssuredWebTestClient.webTestClient(WebTestClient.bindToRouterFunction(
 			new ProducerConfiguration(personToCheck -> personToCheck.age >= 20).route()).build());
-		// remove::end[]
+		
 	}
 }

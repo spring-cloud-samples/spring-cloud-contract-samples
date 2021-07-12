@@ -17,28 +17,25 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Marcin Grzejszczak
  */
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
-//remove::start[]
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true,
 		consumerName = "foo-consumer")
-//remove::end[]
+
 @DirtiesContext
 //@org.junit.jupiter.api.Disabled
 @DisabledIfEnvironmentVariable(named = "SKIP_COMPATIBILITY_TESTS", matches = "true")
 public class BeerVerificationListenerWithConsumerNameTest extends AbstractTest {
 
-	//remove::start[]
 	@Autowired StubTrigger stubTrigger;
-	//remove::end[]
 	@Autowired BeerVerificationListener listener;
 
 	@Test public void should_increase_the_eligible_counter_when_verification_was_accepted() throws Exception {
 		int initialCounter = this.listener.eligibleCounter.get();
 
-		//remove::start[]
+		
 		this.stubTrigger.trigger("accepted_verification");
-		//remove::end[]
+		
 
 		then(this.listener.eligibleCounter.get()).isGreaterThan(initialCounter);
 	}
@@ -46,9 +43,9 @@ public class BeerVerificationListenerWithConsumerNameTest extends AbstractTest {
 	@Test public void should_increase_the_noteligible_counter_when_verification_was_rejected() throws Exception {
 		int initialCounter = this.listener.notEligibleCounter.get();
 
-		//remove::start[]
+		
 		this.stubTrigger.trigger("rejected_verification");
-		//remove::end[]
+		
 
 		then(this.listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
 	}

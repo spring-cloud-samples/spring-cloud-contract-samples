@@ -10,10 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import org.springframework.boot.test.context.SpringBootTest;
-// remove::start[]
+
 import org.springframework.cloud.contract.stubrunner.junit.StubRunnerExtension;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
-// remove::end[]
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 // @org.junit.Ignore
 public class GenerateStubsWithFindProducerTest {
 
-	// remove::start[]
+	
 	static Map<String, String> contractProperties() {
 		Map<String, String> map = new HashMap<>();
 		map.put("stubs.find-producer", "true");
@@ -40,7 +39,6 @@ public class GenerateStubsWithFindProducerTest {
 			.withProperties(contractProperties())
 			.stubsMode(StubRunnerProperties.StubsMode.REMOTE).withGenerateStubs(true);
 
-	// remove::end[]
 
 	@BeforeAll
 	public static void beforeClass() {
@@ -60,32 +58,32 @@ public class GenerateStubsWithFindProducerTest {
 		return true;
 	}
 
-	// tag::tests[]
+	
 	@Test
 	public void should_generate_a_stub_at_runtime_for_some_artifact_id()
 			throws Exception {
-		// remove::start[]
+		
 		int port = rule.findStubUrl("some-artifact-id").getPort();
 
 		String object = new RestTemplate()
 				.getForObject("http://localhost:" + port + "/stuff", String.class);
 
 		BDDAssertions.then(object).isEqualTo("artifactId");
-		// remove::end[]
+		
 	}
 
 	@Test
 	public void should_generate_a_stub_at_runtime_for_some_other_artifact_id()
 			throws Exception {
-		// remove::start[]
+		
 		int port = rule.findStubUrl("some-other-artifact-id").getPort();
 
 		String object = new RestTemplate()
 				.getForObject("http://localhost:" + port + "/stuff2", String.class);
 
 		BDDAssertions.then(object).isEqualTo("artifactId2");
-		// remove::end[]
+		
 	}
-	// end::tests[]
+	
 
 }

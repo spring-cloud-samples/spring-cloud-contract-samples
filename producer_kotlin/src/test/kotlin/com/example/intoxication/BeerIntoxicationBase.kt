@@ -13,12 +13,11 @@ import org.springframework.web.context.WebApplicationContext
 /**
  * Tests for the scenario based stub
  */
- // remove::start[]
+ 
 @SpringBootTest(classes = arrayOf(BeerIntoxicationBase.Config::class))
-// remove::end[]
 abstract class BeerIntoxicationBase {
 
-    // remove::start[]
+    
     @Autowired
     internal var webApplicationContext: WebApplicationContext? = null
 
@@ -68,5 +67,5 @@ abstract class BeerIntoxicationBase {
             return Response(this.previous, this.current)
         }
     }
-    // remove::end[]
+    
 }

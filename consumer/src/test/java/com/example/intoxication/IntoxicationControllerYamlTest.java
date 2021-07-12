@@ -29,9 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-//remove::start[]
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer-yaml")
-//remove::end[]
+
 @DirtiesContext
 //@org.junit.jupiter.api.Disabled
 public class IntoxicationControllerYamlTest extends AbstractTest {
@@ -39,33 +38,31 @@ public class IntoxicationControllerYamlTest extends AbstractTest {
 	@Autowired MockMvc mockMvc;
 	@Autowired IntoxicationController intoxicationController;
 
-	//remove::start[]
 	@StubRunnerPort("beer-api-producer-yaml") int producerPort;
 
 	@BeforeEach
 	public void setupPort() {
 		this.intoxicationController.port = this.producerPort;
 	}
-	//remove::end[]
 
 	@Test public void should_eventually_get_completely_wasted() throws Exception {
-		//remove::start[]
+		
 		sendARequestAndExpectStatuses(SOBER, TIPSY);
 		sendARequestAndExpectStatuses(TIPSY, DRUNK);
 		sendARequestAndExpectStatuses(DRUNK, WASTED);
-		//remove::end[]
+		
 	}
 
 	private void sendARequestAndExpectStatuses(DrunkLevel previousStatus, DrunkLevel currentStatus) throws Exception {
-		//remove::start[]
-		//tag::test[]
+		
+		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/wasted")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(this.json.write(new Person("marcin")).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().json("{\"previousStatus\":\"" + previousStatus.name() +
 						"\",\"currentStatus\":\"" + currentStatus.name() + "\"}"));
-		//end::test[]
-		//remove::end[]
+		
+		
 	}
 }

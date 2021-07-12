@@ -40,8 +40,8 @@ class BeerController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/beer", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String gimmeABeer(@RequestBody Person person) {
-		//remove::start[]
-		// tag::controller[]
+		
+		
 		String token = OLD_ENOUGH_TOKEN;
 		if (person.getAge() < 21) {
 			token = TOO_YOUNG_TOKEN;
@@ -57,8 +57,8 @@ class BeerController {
 		default:
 			return "GET LOST";
 		}
-		// end::controller[]
-		//remove::end[return]
+		
+		
 	}
 
 }

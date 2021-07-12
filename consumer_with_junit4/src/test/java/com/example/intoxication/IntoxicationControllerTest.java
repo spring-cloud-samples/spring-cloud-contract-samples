@@ -34,9 +34,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-// remove::start[]
+
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "com.example:beer-api-producer-junit4")
-// remove::end[]
 @DirtiesContext
 public class IntoxicationControllerTest {
 
@@ -46,7 +45,7 @@ public class IntoxicationControllerTest {
 	@Autowired
 	IntoxicationController intoxicationController;
 
-	// remove::start[]
+	
 	@StubRunnerPort("beer-api-producer-junit4")
 	int producerPort;
 
@@ -59,27 +58,26 @@ public class IntoxicationControllerTest {
 		// Possibly configure the mapper
 		JacksonTester.initFields(this, objectMappper);
 	}
-	// remove::end[]
 
 	@Test
 	public void should_eventually_get_completely_wasted() throws Exception {
-		// remove::start[]
+		
 		sendARequestAndExpectStatuses(SOBER, TIPSY);
 		sendARequestAndExpectStatuses(TIPSY, DRUNK);
 		sendARequestAndExpectStatuses(DRUNK, WASTED);
-		// remove::end[]
+		
 	}
 
 	private void sendARequestAndExpectStatuses(DrunkLevel previousStatus, DrunkLevel currentStatus) throws Exception {
-		// remove::start[]
-		// tag::test[]
+		
+		
 		this.mockMvc
 				.perform(MockMvcRequestBuilders.post("/wasted").contentType(MediaType.APPLICATION_JSON)
 						.content(json.write(new Person("marcin")).getJson()))
 				.andExpect(status().isOk()).andExpect(content().json("{\"previousStatus\":\"" + previousStatus.name()
 						+ "\",\"currentStatus\":\"" + currentStatus.name() + "\"}"));
-		// end::test[]
-		// remove::end[]
+		
+		
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.example;
 
-//remove::start[]
 import javax.inject.Inject;
 
 import org.junit.runner.RunWith;
@@ -17,22 +16,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = ProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
 @ImportAutoConfiguration(TestChannelBinderConfiguration.class)
-//remove::end[]
+
 public abstract class BeerMessagingBase {
-	//remove::start[]
 	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
-	//remove::end[]
 
 	public void clientIsOldEnough() {
-		//remove::start[]
+		
 		this.personCheckingService.shouldGetBeer(new PersonToCheck(25));
-		//remove::end[]
+		
 	}
 
 	public void clientIsTooYoung() {
-		//remove::start[]
+		
 		this.personCheckingService.shouldGetBeer(new PersonToCheck(5));
-		//remove::end[]
+		
 	}
 }

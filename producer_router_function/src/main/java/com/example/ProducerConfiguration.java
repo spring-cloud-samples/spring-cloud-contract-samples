@@ -20,7 +20,7 @@ public class ProducerConfiguration {
 		this.personCheckingService = personCheckingService;
 	}
 
-	// remove::start[]
+	
     @Bean
     public RouterFunction<ServerResponse> route() {
 		return RouterFunctions.route(RequestPredicates.POST("/check")
@@ -38,7 +38,6 @@ public class ProducerConfiguration {
 		})
 		.flatMap(res -> ServerResponse.ok().bodyValue(res));
 	}
-	// remove::end[]
 	
 }
 

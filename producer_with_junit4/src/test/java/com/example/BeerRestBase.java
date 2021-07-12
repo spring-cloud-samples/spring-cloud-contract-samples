@@ -1,6 +1,5 @@
 package com.example;
 
-//remove::start[]
 import java.util.Random;
 
 import io.restassured.config.EncoderConfig;
@@ -18,9 +17,8 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(MockitoJUnitRunner.class)
-//remove::end[]
+
 public abstract class BeerRestBase {
-	//remove::start[]
 	@Mock PersonCheckingService personCheckingService;
 	@Mock StatsService statsService;
 	@InjectMocks ProducerController producerController;
@@ -40,5 +38,4 @@ public abstract class BeerRestBase {
 	private ArgumentMatcher<PersonToCheck> oldEnough() {
 		return argument -> argument.age >= 20;
 	}
-	//remove::end[]
 }

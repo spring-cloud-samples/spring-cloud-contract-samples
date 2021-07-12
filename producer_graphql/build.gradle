@@ -2,9 +2,7 @@ plugins {
 	id 'groovy'
 	id 'org.springframework.boot'
 	id 'io.spring.dependency-management'
-	//remove::start[]
 	id 'org.springframework.cloud.contract'
-	//remove::end[]
 	id 'maven-publish'
 }
 
@@ -30,9 +28,7 @@ dependencies {
 	implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:7.1.0'
 	implementation 'com.graphql-java-kickstart:graphiql-spring-boot-starter:7.1.0'
 
-	//remove::start[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
-	// remove::end[]
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')
@@ -44,14 +40,11 @@ dependencyManagement {
 	}
 }
 
-//remove::start[]
 contracts {
 	testMode = "EXPLICIT"
 	baseClassForTests = "com.example.BaseClass"
 }
-// remove::end[]
 
-//remove::start[]
 contractTest {
 	useJUnitPlatform()
 	testLogging {
@@ -67,15 +60,12 @@ contractTest {
 		}
 	}
 }
-// remove::end[]
 
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			
-			// remove::start[]
 			artifact verifierStubsJar
-			// remove::end[]
 
 			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
 			versionMapping {

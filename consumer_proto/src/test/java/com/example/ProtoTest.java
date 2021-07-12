@@ -27,13 +27,11 @@ public class ProtoTest {
 
 	int port;
 
-	//remove::start[]
 	@RegisterExtension
 	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example", "beer-api-producer-proto")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
 
-	// remove::end[]
 
 	@BeforeAll
 	public static void beforeClass() {
@@ -44,9 +42,9 @@ public class ProtoTest {
 
 	@BeforeEach
 	public void setupPort() {
-		//remove::start[]
+		
 		this.port = rule.findStubUrl("beer-api-producer-proto").getPort();
-		// remove::end[]
+		
 	}
 
 	private static boolean atLeast210() {
@@ -60,22 +58,21 @@ public class ProtoTest {
 		return true;
 	}
 
-	// remove::end[]
-	// tag::tests[]
+	
 	@Test
 	public void should_give_me_a_beer_when_im_old_enough() throws Exception {
-		//remove::start[]
+		
 		Beer.Response response = this.restTemplate.postForObject(
 				"http://localhost:" + this.port + "/check",
 				Beer.PersonToCheck.newBuilder().setAge(23).build(), Beer.Response.class);
 
 		BDDAssertions.then(response.getStatus()).isEqualTo(Beer.Response.BeerCheckStatus.OK);
-		// remove::end[]
+		
 	}
 
 	@Test
 	public void should_reject_a_beer_when_im_too_young() throws Exception {
-		//remove::start[]
+		
 		Beer.Response response = this.restTemplate.postForObject(
 				"http://localhost:" + this.port + "/check",
 				Beer.PersonToCheck.newBuilder().setAge(17).build(), Beer.Response.class);
@@ -83,8 +80,8 @@ public class ProtoTest {
 		response = response == null ? Beer.Response.newBuilder().build() : response;
 
 		BDDAssertions.then(response.getStatus()).isEqualTo(Beer.Response.BeerCheckStatus.NOT_OK);
-		// remove::end[]
+		
 	}
-	// end::tests[]
+	
 
 }

@@ -32,12 +32,10 @@ dependencies {
 	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
 	testImplementation('javax.inject:javax.inject:1')
 	testImplementation("org.springframework.boot:spring-boot-starter-webflux")
-	//remove::start[]
-	// tag::stubrunner[]
+	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-	// end::stubrunner[]
+	
 	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
-	// remove::end[]
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')

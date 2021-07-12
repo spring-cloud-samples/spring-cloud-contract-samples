@@ -1,6 +1,5 @@
 package com.example;
 
-//remove::start[]
 import net.devh.boot.grpc.server.config.GrpcServerProperties;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,8 @@ import org.springframework.context.annotation.Import;
 		properties = {
 				"grpc.server.port=0"
 		})
-//remove::end[]
+
 public abstract class BeerRestBase {
-	//remove::start[]
 
 	@Autowired
 	GrpcServerProperties properties;
@@ -45,7 +43,6 @@ public abstract class BeerRestBase {
 		}
 	}
 
-	//remove::end[]
 }
 
 

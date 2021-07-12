@@ -4,9 +4,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot")
 	id("io.spring.dependency-management") version "1.0.10.RELEASE"
-	// remove::start[]
+	
 	id("org.springframework.cloud.contract")
-	// remove::end[]
 	id("maven-publish")
 	// Kotlin version needs to be aligned with Gradle
 	kotlin("jvm") version "1.4.10"
@@ -17,7 +16,7 @@ group = "com.example"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
-// tag::deps_repos[]
+
 repositories {
 	mavenCentral()
 	mavenLocal()
@@ -25,9 +24,9 @@ repositories {
 	maven { url = uri("https://repo.spring.io/milestone") }
 	maven { url = uri("https://repo.spring.io/snapshot") }
 }
-// end::deps_repos[]
 
-// tag::dep_mgmt[]
+
+
 dependencyManagement {
 
 	val BOM_VERSION: String by project
@@ -36,19 +35,18 @@ dependencyManagement {
 		mavenBom("org.springframework.cloud:spring-cloud-dependencies:$BOM_VERSION")
 	}
 }
-// end::dep_mgmt[]
 
-// tag::deps[]
+
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	
-	// remove::start[]
+	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	testImplementation("org.springframework.cloud:spring-cloud-contract-spec-kotlin")
-	// remove::end[]
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 		exclude(group = "junit", module = "junit")
@@ -57,16 +55,15 @@ dependencies {
 	// for compatibility
 	testImplementation("org.junit.jupiter:junit-jupiter-engine")
 }
-// end::deps[]
 
-// remove::start[]
-// tag::contract_dsl[]
+
+
+
 contracts {
 	testFramework.set(org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5)
 	packageWithBaseClasses.set("com.example.fraud")
 }
-// end::contract_dsl[]
-// remove::end[]
+
 
 tasks.withType<Delete> {
 	doFirst {
@@ -74,7 +71,7 @@ tasks.withType<Delete> {
 	}
 }
 
-// remove::start[]
+
 tasks {
   contractTest {
   	useJUnitPlatform()
@@ -94,7 +91,6 @@ tasks {
 	  }))
   }
 }
-// remove::end[]
 
 tasks.withType<KotlinCompile>().configureEach {
 	kotlinOptions {
@@ -108,9 +104,7 @@ publishing {
 		create<MavenPublication>("mavenJava") {
 			artifact(tasks.named("bootJar"))
 
-			// remove::start[]
 			artifact(tasks.named("verifierStubsJar"))
-			// remove::end[]
 
 			// https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
 			versionMapping {

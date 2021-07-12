@@ -33,9 +33,9 @@ dependencies {
 	testImplementation("org.awaitility:awaitility:3.1.6")
 	testImplementation("org.testcontainers:junit-jupiter:1.15.1")
 
-	// tag::verifier_dep[]
+	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-	// end::verifier_dep[]
+	
 
 
 	// for compatibility

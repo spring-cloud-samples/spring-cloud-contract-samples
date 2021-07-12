@@ -1,8 +1,7 @@
 package com.example.intoxication
 
-//remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc
-//remove::end[]
+
 import spock.lang.Specification
 
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,9 +26,9 @@ abstract class BeerIntoxicationBase extends Specification {
 	WebApplicationContext webApplicationContext
 
 	def setup() {
-		//remove::start[]
+		
 		RestAssuredMockMvc.webAppContextSetup(webApplicationContext)
-		//remove::end[]
+		
 	}
 
 	@Configuration
@@ -47,7 +46,7 @@ abstract class BeerIntoxicationBase extends Specification {
 		}
 	}
 
-	//tag::mock[]
+	
 	static class MockResponseProvider implements ResponseProvider {
 
 		private DrunkLevel previous = SOBER
@@ -55,7 +54,7 @@ abstract class BeerIntoxicationBase extends Specification {
 
 		@Override
 		Response thereYouGo(Customer personToCheck) {
-			//remove::start[]
+			
 			if ("marcin".equals(personToCheck.name)) {
 				switch (current) {
 					case SOBER:
@@ -74,9 +73,9 @@ abstract class BeerIntoxicationBase extends Specification {
 						throw new UnsupportedOperationException("You can't handle it")
 				}
 			}
-			//remove::end[]
+			
 			return new Response(previous, current)
 		}
 	}
-	//end::mock[]
+	
 }

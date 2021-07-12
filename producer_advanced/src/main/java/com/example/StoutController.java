@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class StoutController {
 
-	//remove::start[]
 	@GetMapping("/stout")
 	String stout() {
 		return "STOUT";
 	}
-	//remove::end[]
 }

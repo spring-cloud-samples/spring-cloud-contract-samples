@@ -31,23 +31,21 @@ public class BeerControllerWithJUnitTest extends AbstractTest {
 
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
-	//remove::start[]
-	// tag::rule[]
+	
 	@RegisterExtension
 	static StubRunnerExtension rule = new StubRunnerExtension()
 			.repoRoot("pact://http://localhost:8085")
 			.downloadStub("com.example","beer-api-producer-pact")
 			.stubsMode(StubRunnerProperties.StubsMode.REMOTE);
 	// end:rule[]
-	//tag::setup[]
+	
 	@BeforeEach
 	public void setupPort() {
 		this.beerController.port = rule.findStubUrl("beer-api-producer-pact").getPort();
 	}
-	// end::setup[]
-	//remove::end[]
+	
 
-	//tag::tests[]
+	
 	@Test public void should_give_me_a_beer_when_im_old_enough() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -63,5 +61,5 @@ public class BeerControllerWithJUnitTest extends AbstractTest {
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST"));
 	}
-	//end::tests[]
+	
 }

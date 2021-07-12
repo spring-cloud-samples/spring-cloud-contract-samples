@@ -2,9 +2,7 @@ plugins {
 	id 'groovy'
 	id 'org.springframework.boot'
 	id 'io.spring.dependency-management'
-	//remove::start[]
 	id 'org.springframework.cloud.contract'
-	//remove::end[]
 	id 'maven-publish'
 }
 
@@ -33,11 +31,9 @@ dependencies {
 
 	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
 	testImplementation('javax.inject:javax.inject:1')
-	//remove::start[]
 	testImplementation("org.springframework.restdocs:spring-restdocs-webtestclient")
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	testImplementation("org.springframework.cloud:spring-cloud-contract-wiremock")
-	// remove::end[]
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')
@@ -49,15 +45,12 @@ dependencyManagement {
 	}
 }
 
-//remove::start[]
 contracts {
 	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 }
-// remove::end[]
 
 
-//remove::start[]
 contractTest {
 	useJUnitPlatform()
 	testLogging {
@@ -73,7 +66,6 @@ contractTest {
 		}
 	}
 }
-// remove::end[]
 
 test {
 	useJUnitPlatform()
@@ -91,8 +83,7 @@ test {
 	}
 }
 
-//remove::start[]
-// tag::stubsjar[]
+
 // we want to override the default Spring Cloud Contract behaviour and generate JAR in a custom way
 task stubsJar(type: Jar) {
 	archiveClassifier = "stubs"
@@ -123,8 +114,7 @@ publishing {
 		}
 	}
 }
-// end::stubsjar[]
-// remove::end[]
+
 
 clean.doFirst {
 	delete 'target/'

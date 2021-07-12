@@ -35,7 +35,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("classrule")
-// tag::wiremock_test1[]
+
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class WiremockForDocsClassRuleTests {
@@ -63,8 +63,8 @@ public class WiremockForDocsClassRuleTests {
 	@Autowired
 	private Service service;
 
-	// end::wiremock_test1[]
-	// tag::wiremock_test2[]
+	
+	
 	@BeforeEach
 	public void setup() {
 		this.service.setBase("http://localhost:" + wiremock.port());
@@ -81,4 +81,4 @@ public class WiremockForDocsClassRuleTests {
 	}
 
 }
-// end::wiremock_test2[]
+

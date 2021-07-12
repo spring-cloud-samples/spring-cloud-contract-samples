@@ -22,9 +22,9 @@ public class BeerServingController {
 			consumes="application/json",
 			produces="application/json")
 	public Response check(@RequestBody Customer customer) {
-		//remove::start[]
+		
 		return this.responseProvider.thereYouGo(customer);
-		//remove::end[return]
+		
 	}
 	
 }
@@ -34,7 +34,6 @@ interface ResponseProvider {
 }
 
 class Customer {
-	//remove::start[]
 	public String name;
 
 	public Customer(String name) {
@@ -43,7 +42,6 @@ class Customer {
 
 	public Customer() {
 	}
-	//remove::end[]
 }
 
 class Response {

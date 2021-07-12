@@ -1,8 +1,7 @@
 package com.example;
 
-//remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-//remove::end[]
+
 import org.junit.jupiter.api.BeforeEach;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +17,10 @@ public abstract class BeerRestBase {
 	@Autowired
 	WebApplicationContext context;
 
-	//remove::start[]
 	@BeforeEach
 	public void setup() {
 		RestAssuredMockMvc.webAppContextSetup(this.context);
 	}
-	// remove::end[]
 
 	@Configuration
 	@EnableAutoConfiguration

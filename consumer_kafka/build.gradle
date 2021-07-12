@@ -31,11 +31,9 @@ dependencies {
 	testImplementation("org.springframework.kafka:spring-kafka-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.awaitility:awaitility:3.1.6")
-	//remove::start[]
-	// tag::verifier_dep[]
+	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-	// end::verifier_dep[]
-	// remove::end[]
+	
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')

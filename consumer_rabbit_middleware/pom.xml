@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.5-SNAPSHOT</version>
+		<version>2.6.0-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -62,22 +62,20 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- spring cloud contract test dependencies -->
-		<!-- remove::start[] -->
-		<!-- tag::verifier_dep[] -->
+		
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- end::verifier_dep[] -->
-		<!-- remove::end[] -->
+		
 	</dependencies>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
-		<spring-cloud.version>2020.0.3-SNAPSHOT</spring-cloud.version>
+		<spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
 	</properties>
 
 	<build>

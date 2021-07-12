@@ -12,31 +12,27 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
-//remove::start[]
 import org.springframework.cloud.contract.wiremock.restdocs.SpringCloudContractRestDocs;
 import org.springframework.cloud.contract.wiremock.restdocs.WireMockRestDocs;
-//remove::end[]
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-//remove::start[]
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
-//remove::end[]
+
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-//remove::start[]
-//remove::end[]
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 /**
  * @author Marcin Grzejszczak
  */
 @SpringBootTest(classes = ProducerControllerTests.Config.class)
-//remove::start[]
 @AutoConfigureRestDocs(outputDir = "target/snippets")
-//remove::end[]
+
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 @DirtiesContext
@@ -56,7 +52,7 @@ public class ProducerControllerTests {
 	@Test
 	public void should_grant_a_beer_when_person_is_old_enough() throws Exception {
 		PersonToCheck personToCheck = new PersonToCheck(34);
-		//remove::start[]
+		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/check")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(this.json.write(personToCheck).getJson()))
@@ -67,13 +63,13 @@ public class ProducerControllerTests {
 						.stub("shouldGrantABeerIfOldEnough"))
 				.andDo(MockMvcRestDocumentation.document("shouldGrantABeerIfOldEnough",
 						SpringCloudContractRestDocs.dslContract()));
-		//remove::end[]
+		
 	}
 
 	@Test
 	public void should_reject_a_beer_when_person_is_too_young() throws Exception {
 		PersonToCheck personToCheck = new PersonToCheck(10);
-		//remove::start[]
+		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/check")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(this.json.write(personToCheck).getJson()))
@@ -84,7 +80,7 @@ public class ProducerControllerTests {
 						.stub("shouldRejectABeerIfTooYoung"))
 				.andDo(MockMvcRestDocumentation.document("shouldRejectABeerIfTooYoung",
 						SpringCloudContractRestDocs.dslContract()));
-		//remove::end[]
+		
 	}
 
 	@Configuration
@@ -95,7 +91,7 @@ public class ProducerControllerTests {
 		PersonCheckingService personCheckingService() {
 			return personToCheck -> personToCheck.age >= 20;
 		}
-		//remove::end[]
+		
 
 		@Bean
 		ProducerController producerController(PersonCheckingService service) {

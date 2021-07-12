@@ -14,14 +14,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.5-SNAPSHOT</version>
+		<version>2.6.0-SNAPSHOT</version>
 		<relativePath/>
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
-		<spring-cloud.version>2020.0.3-SNAPSHOT</spring-cloud.version>
+		<spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
 		<!-- Aligned with Gradle -->
 		<kotlin.version>1.4.10</kotlin.version>
 	</properties>
@@ -54,8 +54,7 @@
 			<artifactId>httpclient</artifactId>
 		</dependency>
 
-		<!-- tag::stub_runner[] -->
-		<!-- remove::start[] -->
+		
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
@@ -66,7 +65,7 @@
 			<artifactId>spring-cloud-contract-spec-kotlin</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- end::stub_runner[] -->
+		
 		
 		<!-- for easier testing of multipart -->
 		<dependency>
@@ -74,9 +73,8 @@
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- remove::end[] -->
 	</dependencies>
-	<!-- tag::contract_bom[] -->
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -88,7 +86,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<!-- end::contract_bom[] -->
+	
 
 	<build>
 		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>

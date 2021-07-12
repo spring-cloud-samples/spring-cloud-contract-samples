@@ -19,7 +19,7 @@ package fraud
 import org.springframework.cloud.contract.spec.ContractDsl.Companion.contract
 import org.springframework.cloud.contract.spec.internal.HttpStatus
 
-// tag::contract[]
+
 contract {
 	request {
 		method = PUT
@@ -42,4 +42,4 @@ contract {
 		}
 	}
 }
-// end::contract[]
+

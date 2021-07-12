@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Contracts Representing Scenarios (Stateful Stubs) 2.4.5-SNAPSHOT</title>
+<title>Contracts Representing Scenarios (Stateful Stubs) 2.6.0-SNAPSHOT</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -493,7 +493,7 @@ $(addBlockSwitches);
 
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Contracts Representing Scenarios (Stateful Stubs) 2.4.5-SNAPSHOT</h1>
+<h1>Contracts Representing Scenarios (Stateful Stubs) 2.6.0-SNAPSHOT</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -1013,7 +1013,7 @@ is the Spring Cloud Contract plugin. Let&#8217;s add it to the producer&#8217;s 
 <div class="ulist">
 <ul>
 <li>
-<p>The coordinates of the plugin are: <code>org.springframework.cloud:spring-cloud-contract-gradle-plugin:$2.4.5-SNAPSHOT</code></p>
+<p>The coordinates of the plugin are: <code>org.springframework.cloud:spring-cloud-contract-gradle-plugin:$2.6.0-SNAPSHOT</code></p>
 </li>
 <li>
 <p>For this tutorial we&#8217;re using latest snapshot versions that you can reference via the Maven&#8217;s
@@ -1620,24 +1620,24 @@ public class GenerateAdocsFromContractsTests {
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test
 	public void should_give_me_a_beer_when_im_old_enough() throws Exception {
-		//remove::start[]
+		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(this.json.write(new Person("marcin", 22)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("THERE YOU GO"));
-		//remove::end[]
+		
 	}
 
 	@Test
 	public void should_reject_a_beer_when_im_too_young() throws Exception {
-		//remove::start[]
+		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/beer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(this.json.write(new Person("marcin", 17)).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().string("GET LOST"));
-		//remove::end[]
+		
 	}</code></pre>
 </div>
 </div>
@@ -1907,9 +1907,9 @@ then:
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">	@Test public void should_increase_the_eligible_counter_when_verification_was_accepted() throws Exception {
 		int initialCounter = this.listener.eligibleCounter.get();
 
-		//remove::start[]
+		
 		this.stubTrigger.trigger("accepted_verification");
-		//remove::end[]
+		
 
 		then(this.listener.eligibleCounter.get()).isGreaterThan(initialCounter);
 	}
@@ -1917,9 +1917,9 @@ then:
 	@Test public void should_increase_the_noteligible_counter_when_verification_was_rejected() throws Exception {
 		int initialCounter = this.listener.notEligibleCounter.get();
 
-		//remove::start[]
+		
 		this.stubTrigger.trigger("rejected_verification");
-		//remove::end[]
+		
 
 		then(this.listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
 	}</code></pre>
@@ -2215,14 +2215,14 @@ class IntoxicationController {
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response gimmeABeer(@RequestBody Person person) throws MalformedURLException {
-		//remove::start[]
+		
 		return this.restTemplate.exchange(
 				RequestEntity
 						.post(URI.create("http://localhost:" + this.port + "/beer"))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(person),
 				Response.class).getBody();
-		//remove::end[return]
+		
 	}
 }
 
@@ -2262,9 +2262,8 @@ enum DrunkLevel {
 <div class="content">
 <pre class="prettyprint highlight"><code class="language-java" data-lang="java">package com.example.intoxication;
 
-//remove::start[]
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-//remove::end[]
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
@@ -2291,11 +2290,11 @@ public abstract class BeerIntoxicationBase {
 
 	@BeforeEach
 	public void setup() {
-		//remove::start[]
+		
 		EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
 		RestAssuredMockMvc.config = new RestAssuredMockMvcConfig().encoderConfig(encoderConfig);
 		RestAssuredMockMvc.webAppContextSetup(this.webApplicationContext);
-		//remove::end[]
+		
 	}
 
 	@Configuration
@@ -2311,14 +2310,14 @@ public abstract class BeerIntoxicationBase {
 		}
 	}
 
-	//tag::mock[]
+	
 	static class MockResponseProvider implements ResponseProvider {
 
 		private DrunkLevel previous = SOBER;
 		private DrunkLevel current = SOBER;
 
 		@Override public Response thereYouGo(Customer personToCheck) {
-			//remove::start[]
+			
 			if ("marcin".equals(personToCheck.name)) {
 				 switch (this.current) {
 				 case SOBER:
@@ -2337,11 +2336,11 @@ public abstract class BeerIntoxicationBase {
 					 throw new UnsupportedOperationException("You can't handle it");
 				 }
 			}
-			//remove::end[]
+			
 			return new Response(this.previous, this.current);
 		}
 	}
-	//end::mock[]
+	
 }</code></pre>
 </div>
 </div>

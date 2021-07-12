@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.5-SNAPSHOT</version>
+		<version>2.6.0-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -22,14 +22,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
-		<spring-cloud.version>2020.0.3-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>3.0.4-SNAPSHOT</spring-cloud-contract.version>
-		<!-- remove::start[] -->
-		<!-- tag::skip_jar[] -->
+		<spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>3.1.0-SNAPSHOT</spring-cloud-contract.version>
+		
 		<!-- we don't want the verifier to do a jar for us -->
 		<spring.cloud.contract.verifier.skip>true</spring.cloud.contract.verifier.skip>
-		<!-- end::skip_jar[] -->
-		<!-- remove::end[] -->
+		
 	</properties>
 
 	<dependencies>
@@ -76,7 +74,6 @@
 
 
 		<!-- spring cloud contract test dependencies -->
-		<!-- remove::start[] -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
@@ -92,7 +89,6 @@
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- remove::end[] -->
 	</dependencies>
 
 	<build>
@@ -109,7 +105,6 @@
 			</plugin>
 
 			<!-- SPRING CLOUD CONTRACT -->
-			<!-- remove::start[] -->
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
@@ -120,7 +115,7 @@
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
 				</configuration>
 			</plugin>
-			<!-- tag::assembly[] -->
+			
 			<!-- we want the assembly plugin to generate the JAR -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -142,9 +137,8 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- end::assembly[] -->
+			
 			<!-- SPRING CLOUD CONTRACT -->
-			<!-- remove::end[] -->
 		</plugins>
 	</build>
 

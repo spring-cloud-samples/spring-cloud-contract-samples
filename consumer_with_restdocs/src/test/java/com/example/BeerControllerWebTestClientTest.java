@@ -32,12 +32,10 @@ public class BeerControllerWebTestClientTest extends AbstractTest {
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
 
-	//remove::start[]
 	@RegisterExtension
 	static StubRunnerExtension rule = new StubRunnerExtension()
 			.downloadStub("com.example","beer-api-producer-webtestclient-restdocs")
 			.stubsMode(StubRunnerProperties.StubsMode.LOCAL);
-	//remove::end[]
 
 	@BeforeAll
 	public static void beforeClass() {
@@ -47,9 +45,9 @@ public class BeerControllerWebTestClientTest extends AbstractTest {
 
 	@BeforeEach
 	public void setupPort() {
-		//remove::start[]
+		
 		this.beerController.port = rule.findStubUrl("beer-api-producer-webtestclient-restdocs").getPort();
-		// remove::end[]
+		
 	}
 
 	private static boolean atLeast210() {
