@@ -22,6 +22,8 @@ repositories {
 
 ext {
 	set('springCloudVersion', "${BOM_VERSION}")
+	// Not necessary in Boot 2.6 - Boot 2.5 takes in json-path 2.5 that has a regression
+	set('json-path.version', '2.6.0')
 	// example of using 4.x version of rest assured
 	set('rest-assured.version', '4.0.0')
 	set('restAssuredVersion', '4.0.0')

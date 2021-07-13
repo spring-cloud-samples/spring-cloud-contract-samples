@@ -22,6 +22,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud-contract.version>3.0.4-SNAPSHOT</spring-cloud-contract.version>
+		<!-- Not necessary in Boot 2.6 - Boot 2.5 takes in json-path 2.5 that has a regression -->
+		<json-path.version>2.6.0</json-path.version>
 	</properties>
 
 	<dependencies>
