@@ -72,20 +72,20 @@
 
 
 		<!-- spring cloud contract test dependencies -->
-		
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 	</dependencies>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
-		<kotlin.version>1.4.10</kotlin.version>
+		<kotlin.version>1.5.21</kotlin.version>
 		<spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>3.1.0-SNAPSHOT</spring-cloud-contract.version>
 	</properties>
@@ -169,7 +169,7 @@
 			</plugin>
 
 			<!-- SPRING CLOUD CONTRACT -->
-			
+
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
@@ -186,7 +186,7 @@
 					</baseClassMappings>
 				</configuration>
 			</plugin>
-			
+
 
 		</plugins>
 	</build>
