@@ -26,7 +26,7 @@
 		<json-path.version>2.6.0</json-path.version>
 		<spring-cloud.version>2020.0.4-SNAPSHOT</spring-cloud.version>
 		<!-- Needs to align the version to what's there in Contract -->
-		<kotlin.version>1.4.10</kotlin.version>
+		<kotlin.version>1.4.32</kotlin.version>
 	</properties>
 
 	<dependencies>

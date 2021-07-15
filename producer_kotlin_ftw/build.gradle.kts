@@ -9,8 +9,8 @@ plugins {
 	// remove::end[]
 	id("maven-publish")
 	// Kotlin version needs to be aligned with Gradle
-	kotlin("jvm") version "1.4.10"
-	kotlin("plugin.spring") version "1.4.10"
+	kotlin("jvm") version "1.4.32"
+	kotlin("plugin.spring") version "1.4.32"
 }
 
 group = "com.example"
