@@ -97,7 +97,7 @@
 		<!-- Not necessary in Boot 2.6 - Boot 2.5 takes in json-path 2.5 that has a regression -->
 		<json-path.version>2.6.0</json-path.version>
 		<!-- example of using 4.x version of rest assured -->
-		<rest-assured.version>4.0.0</rest-assured.version>
+		<rest-assured.version>4.4.0</rest-assured.version>
 	</properties>
 
 	<build>
