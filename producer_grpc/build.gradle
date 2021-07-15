@@ -32,6 +32,8 @@ sourceSets {
 
 ext {
 	set('springCloudVersion', "${BOM_VERSION}")
+	// Not necessary in Boot 2.6 - Boot 2.5 takes in json-path 2.5 that has a regression
+	set('json-path.version', '2.6.0')
 }
 
 println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}], Contract version [${verifierVersion}]"

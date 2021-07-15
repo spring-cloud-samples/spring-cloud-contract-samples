@@ -69,21 +69,21 @@
 
 
 		<!-- spring cloud contract test dependencies -->
-		
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>com.example</groupId>
 			<artifactId>beer-common</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 	</dependencies>
 
 	<properties>
@@ -93,7 +93,7 @@
 		<spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>3.1.0-SNAPSHOT</spring-cloud-contract.version>
 		<!-- example of using 4.x version of rest assured -->
-		<rest-assured.version>4.0.0</rest-assured.version>
+		<rest-assured.version>4.4.0</rest-assured.version>
 	</properties>
 
 	<build>
@@ -110,7 +110,7 @@
 			</plugin>
 
 			<!-- SPRING CLOUD CONTRACT -->
-			
+
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
@@ -130,7 +130,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			
+
 
 		</plugins>
 	</build>
