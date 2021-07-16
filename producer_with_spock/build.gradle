@@ -46,9 +46,6 @@ dependencies {
 	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
 	// end::test_dep[]
 	// remove::end[]
-
-	// for compatibility
-	testImplementation('org.junit.jupiter:junit-jupiter-engine')
 }
 
 dependencyManagement {
@@ -67,6 +64,7 @@ contracts {
 }
 
 contractTest {
+	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
 	}
