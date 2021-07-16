@@ -111,14 +111,6 @@
 		</plugins>
 	</build>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>springcloudcontract-snapshots</name>
-			<url>https://springcloudcontract.jfrog.io/springcloudcontract/snapshot</url>
-		</snapshotRepository>
-	</distributionManagement>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

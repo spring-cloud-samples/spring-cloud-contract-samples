@@ -23,7 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
-		<pact-jvm-provider-maven.version>4.0.10</pact-jvm-provider-maven.version>
+		<pact-jvm-provider-maven.version>4.2.7</pact-jvm-provider-maven.version>
 	</properties>
 
 	<dependencies>
@@ -84,8 +84,8 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>au.com.dius</groupId>
-				<artifactId>pact-jvm-provider-maven</artifactId>
+				<groupId>au.com.dius.pact.provider</groupId>
+				<artifactId>maven</artifactId>
 				<version>${pact-jvm-provider-maven.version}</version>
 				<configuration>
 					<pactBrokerUrl>http://localhost:8085</pactBrokerUrl>

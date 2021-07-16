@@ -74,7 +74,7 @@
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>3.1.0-SNAPSHOT</spring-cloud-contract.version>
-		<pact-jvm-provider-maven.version>4.0.10</pact-jvm-provider-maven.version>
+		<pact-jvm-provider-maven.version>4.2.7</pact-jvm-provider-maven.version>
 	</properties>
 
 	<build>
@@ -118,8 +118,8 @@
 			<!-- SPRING CLOUD CONTRACT -->
 
 			<plugin>
-				<groupId>au.com.dius</groupId>
-				<artifactId>pact-jvm-provider-maven</artifactId>
+				<groupId>au.com.dius.pact.provider</groupId>
+				<artifactId>maven</artifactId>
 				<version>${pact-jvm-provider-maven.version}</version>
 				<configuration>
 					<pactBrokerUrl>http://localhost:8085</pactBrokerUrl>
@@ -128,14 +128,6 @@
 
 		</plugins>
 	</build>
-
-	<distributionManagement>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>springcloudcontract-snapshots</name>
-			<url>https://springcloudcontract.jfrog.io/springcloudcontract/snapshot</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<dependencyManagement>
 		<dependencies>
