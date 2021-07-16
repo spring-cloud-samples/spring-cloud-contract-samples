@@ -62,6 +62,7 @@ contracts {
 }
 
 contractTest {
+	useJUnitPlatform()
 	testLogging {
 		exceptionFormat = 'full'
 	}
