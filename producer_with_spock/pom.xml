@@ -185,17 +185,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<dependencies>
-					<dependency>
-						<groupId>org.junit.jupiter</groupId>
-						<artifactId>junit-jupiter-engine</artifactId>
-						<version>${junit-jupiter.version}</version>
-					</dependency>
-				</dependencies>
 				<configuration>
 					<detail>true</detail>
 					<includes>
 						<include>**/*Test.*</include>
+						<include>**/*Tests.*</include>
 						<include>**/*Spec.*</include>
 					</includes>
 					<failIfNoTests>true</failIfNoTests>
