@@ -24,9 +24,9 @@
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>3.1.0-SNAPSHOT</spring-cloud-contract.version>
-		<spring-security-jwt.version>1.0.10.RELEASE</spring-security-jwt.version>
-		<spring-security-oauth2.version>2.3.5.RELEASE</spring-security-oauth2.version>
-		<spring-security-oauth2-autoconfigure.version>2.6.0-SNAPSHOT</spring-security-oauth2-autoconfigure.version>
+		<spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
+		<spring-security-oauth2.version>2.5.1.RELEASE</spring-security-oauth2.version>
+		<spring-security-oauth2-autoconfigure.version>2.5.2</spring-security-oauth2-autoconfigure.version>
 	</properties>
 
 	<dependencies>
