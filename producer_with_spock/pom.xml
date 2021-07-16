@@ -243,7 +243,7 @@
 								</goals>
 								<configuration>
 									<target>
-										<fileset id="contract.test.files" dir="target/surefire-reports/"
+										<fileset id="contract.test.files" dir="${project.build.directory}/surefire-reports/"
 												 includes="**/*.IntoxicationSpec.txt,**/*.MessagingSpec.txt,**/*.RestSpec.txt">
 										</fileset>
 										<fail message="All contract tests were not executed.">
