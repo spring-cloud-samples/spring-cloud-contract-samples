@@ -33,7 +33,7 @@ dependencies {
 	implementation("org.apache.camel:camel-xstream:${camelVersion}")
 	implementation("org.apache.camel:camel-rabbitmq:${camelVersion}")
 
-	testImplementation("org.apache.camel:camel-test-spring:${camelVersion}")
+	testImplementation("org.apache.camel:camel-test-spring-junit5:${camelVersion}")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 }
@@ -45,7 +45,6 @@ dependencyManagement {
 }
 
 contracts {
-	testFramework = "JUNIT"
 	baseClassForTests = 'com.example.demo.BaseClass'
 }
 

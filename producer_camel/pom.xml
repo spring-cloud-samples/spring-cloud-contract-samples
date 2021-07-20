@@ -9,7 +9,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>beer-api-producer-camel</name>
+	<name>Producer with Camel</name>
 	<description>Producer with Camel</description>
 
 	<parent>
@@ -58,7 +58,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test-spring</artifactId>
+			<artifactId>camel-test-spring-junit5</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
 		<!-- spring cloud contract test dependencies -->
@@ -87,7 +87,6 @@
 				<extensions>true</extensions>
 				<configuration>
 					<baseClassForTests>com.example.demo.BaseClass</baseClassForTests>
-					<testFramework>JUNIT</testFramework>
 				</configuration>
 			</plugin>
 		</plugins>
