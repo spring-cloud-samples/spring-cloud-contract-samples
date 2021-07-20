@@ -211,6 +211,7 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<!-- I DON'T KNOW WHY IT'S NOT WORKING :( 
 	<profiles>
 		<profile>
 			<id>gmaven-test-compilation</id>
@@ -252,6 +253,7 @@
 			</build>
 		</profile>
 	</profiles>
+	-->
 
 	<repositories>
 		<repository>
