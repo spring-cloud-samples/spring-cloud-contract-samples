@@ -28,7 +28,7 @@
 		<json-path.version>2.6.0</json-path.version>
 		<spring-security-jwt.version>1.0.10.RELEASE</spring-security-jwt.version>
 		<spring-security-oauth2.version>2.3.5.RELEASE</spring-security-oauth2.version>
-		<spring-security-oauth2-autoconfigure.version>2.5.3</spring-security-oauth2-autoconfigure.version>
+		<spring-security-oauth2-autoconfigure.version>2.5.2</spring-security-oauth2-autoconfigure.version>
 	</properties>
 
 	<dependencies>
