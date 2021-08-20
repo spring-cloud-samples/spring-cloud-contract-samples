@@ -55,7 +55,7 @@ public abstract class BaseClass {
 
 	
 	@Container
-	static GenericContainer ibmMq = new GenericContainer("ibmcom/mq:9.1.2.0")
+	static GenericContainer ibmMq = new GenericContainer("ibmcom/mq:9.1.3.0")
 			.withEnv("LICENSE", "accept")
 			.withEnv("MQ_QMGR_NAME", "QM1")
 			.withExposedPorts(1414, 9443);
