@@ -16,15 +16,12 @@
 
 package com.example;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nullable;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.BDDAssertions;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
@@ -51,7 +48,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = { TestConfig.class, Application.class }, properties = "stubrunner.amqp.mockConnection=false")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {TestConfig.class, Application.class}, properties = "stubrunner.amqp.mockConnection=false")
 @AutoConfigureStubRunner(ids = "com.example:beer-api-producer-rabbit-middleware", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 @Testcontainers
 @ActiveProfiles("test")
@@ -77,7 +74,7 @@ public class ApplicationTests {
 
 		Awaitility.await().untilAsserted(() -> {
 			BDDAssertions.then(this.application.storedFoo).isNotNull();
-			BDDAssertions.then(this.application.storedFoo.getFoo()).contains("example");
+			BDDAssertions.then(this.application.storedFoo.getFoo()).isEqualTo("example");
 		});
 	}
 }
@@ -103,7 +100,7 @@ class TestConfig {
 
 			@Override
 			public void send(Message message, String destination, @Nullable YamlContract contract) {
-					rabbitTemplate.send(destination, message);
+				rabbitTemplate.send(destination, message);
 			}
 
 			@Override
@@ -112,12 +109,12 @@ class TestConfig {
 				MessageProperties messageProperties = new MessageProperties();
 				newHeaders.forEach(messageProperties::setHeader);
 				log.info("Sending a message to destination [{}] with routing key", destination);
-				try {
-					Message message = MessageBuilder.withBody(new ObjectMapper().writeValueAsBytes(payload)).andProperties(messageProperties).build();
+				if (payload instanceof String) {
+					String json = (String) payload;
+					Message message = MessageBuilder.withBody(json.getBytes(StandardCharsets.UTF_8)).andProperties(messageProperties).build();
 					send(message, destination, contract);
-				}
-				catch (JsonProcessingException e) {
-					throw new IllegalStateException(e);
+				} else {
+					throw new IllegalStateException("Payload is not a String");
 				}
 			}
 		};
