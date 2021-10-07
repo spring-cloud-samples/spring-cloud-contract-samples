@@ -25,7 +25,7 @@
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>3.1.0-SNAPSHOT</spring-cloud-contract.version>
-		<camel.version>3.11.2</camel.version>
+		<camel.version>3.12.0</camel.version>
 	</properties>
 
 	<dependencies>
