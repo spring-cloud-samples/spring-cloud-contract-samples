@@ -24,7 +24,7 @@
 		<spring-cloud-contract.version>3.1.1-SNAPSHOT</spring-cloud-contract.version>
 		<spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
 		<!-- Needs to align the version to what's there in Contract -->
-		<kotlin.version>1.5.30</kotlin.version>
+		<kotlin.version>1.6.0</kotlin.version>
 	</properties>
 
 	<dependencies>
