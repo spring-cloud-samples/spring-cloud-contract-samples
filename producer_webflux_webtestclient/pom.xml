@@ -90,8 +90,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
-		<spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>3.1.1-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud.version>2021.0.1.SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>3.1.2-SNAPSHOT</spring-cloud-contract.version>
 		<!-- example of using 4.x version of rest assured -->
 		<rest-assured.version>4.4.0</rest-assured.version>
 	</properties>
