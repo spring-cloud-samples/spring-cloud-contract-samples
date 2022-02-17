@@ -23,7 +23,7 @@
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.1.SNAPSHOT</spring-cloud.version>
 		<!-- Aligned with Gradle -->
-		<kotlin.version>1.6.0</kotlin.version>
+		<kotlin.version>1.6.10</kotlin.version>
 	</properties>
 
 	<dependencies>
