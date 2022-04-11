@@ -29,7 +29,7 @@ import org.springframework.web.client.RestTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+// tag::wiremock_test[]
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 public class WiremockForDocsMockServerApplicationTests {
@@ -52,4 +52,4 @@ public class WiremockForDocsMockServerApplicationTests {
 	}
 
 }
-
+// end::wiremock_test[]
