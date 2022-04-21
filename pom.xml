@@ -33,7 +33,6 @@
 				<module>common</module>
 				<module>wiremock</module>
 				<module>wiremock-native</module>
-				<module>wiremock-jetty</module>
 				<module>wiremock-tomcat</module>
 				<module>wiremock-undertow</module>
 				<module>wiremock-undertow-ssl</module>
@@ -103,7 +102,6 @@
 				<module>beer_contracts</module>
 				<module>wiremock</module>
 				<module>wiremock-native</module>
-				<module>wiremock-jetty</module>
 				<module>wiremock-tomcat</module>
 				<module>wiremock-undertow</module>
 				<module>wiremock-undertow-ssl</module>
