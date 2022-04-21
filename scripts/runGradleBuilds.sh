@@ -122,7 +122,7 @@ function build_gradle() {
     waitPids
     kill_java
 
-    build consumer_with_discovery
+    # build consumer_with_discovery
     build consumer_with_junit4
     build consumer_security
     build consumer_with_latest_2_2_features
