@@ -19,6 +19,7 @@ package com.example;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.TimeUnit;
@@ -98,7 +99,7 @@ class KafkaMessageVerifier implements MessageVerifier<Message<?>> {
 
 	private final Map<String, Message> broker = new ConcurrentHashMap<>();
 
-	private final CyclicBarrier cyclicBarrier = new CyclicBarrier(1);
+	private final CyclicBarrier cyclicBarrier = new CyclicBarrier(2);
 
 	@Override
 	public Message receive(String destination, long timeout, TimeUnit timeUnit, @Nullable YamlContract contract) {
@@ -106,12 +107,16 @@ class KafkaMessageVerifier implements MessageVerifier<Message<?>> {
 		if (message != null) {
 			return message;
 		}
+		await(timeout, timeUnit);
+		return message(destination);
+	}
+
+	private void await(long timeout, TimeUnit timeUnit) {
 		try {
 			cyclicBarrier.await(timeout, timeUnit);
 		} catch (Exception e) {
 
 		}
-		return message(destination);
 	}
 
 	private Message message(String destination) {
@@ -124,16 +129,18 @@ class KafkaMessageVerifier implements MessageVerifier<Message<?>> {
 	}
 
 	@KafkaListener(id = "listener", topicPattern = ".*")
-	public void listen(ConsumerRecord payload, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+	public void listen(ConsumerRecord payload, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) throws BrokenBarrierException, InterruptedException {
 		log.info("Got a message from a topic [" + topic + "]");
 		Map<String, Object> headers = new HashMap<>();
 		new DefaultKafkaHeaderMapper().toHeaders(payload.headers(), headers);
 		broker.put(topic, MessageBuilder.createMessage(payload.value(), new MessageHeaders(headers)));
+		cyclicBarrier.await();
+		cyclicBarrier.reset();
 	}
 
 	@Override
 	public Message receive(String destination, YamlContract contract) {
-		return receive(destination, 1, TimeUnit.SECONDS, contract);
+		return receive(destination, 5, TimeUnit.SECONDS, contract);
 	}
 
 	@Override
