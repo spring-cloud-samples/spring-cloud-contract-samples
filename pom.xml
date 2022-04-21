@@ -40,8 +40,8 @@
 				<module>beer_contracts</module>
 				<module>producer</module>
 				<module>producer_testng</module>
-				<module>producer_jaxrs</module>
-				<module>producer_jaxrs_spring</module>
+				<!-- <module>producer_jaxrs</module> -->
+				<!-- <module>producer_jaxrs_spring</module> -->
 				<module>producer_webflux</module>
 				<module>producer_webflux_webtestclient</module>
 				<module>producer_webflux_security</module>
@@ -69,7 +69,7 @@
 				<module>producer_kafka</module>
 				<module>producer_kafka_middleware</module>
 				<module>producer_rabbit_middleware</module>
-				<module>producer_jms_middleware</module>
+				<!-- <module>producer_jms_middleware</module> -->
 				<module>producer_camel</module>
 				<module>producer_graphql</module>
 				<module>producer_grpc</module>
@@ -87,7 +87,7 @@
 				<module>consumer_kafka</module>
 				<module>consumer_kafka_middleware</module>
 				<module>consumer_rabbit_middleware</module>
-				<module>consumer_jms_middleware</module>
+				<!-- <module>consumer_jms_middleware</module> -->
 				<module>consumer_with_secured_webflux</module>
 				<module>consumer_camel</module>
 				<module>consumer_grpc</module>
@@ -109,8 +109,8 @@
 				<module>wiremock-undertow-ssl</module>
 				<module>producer</module>
 				<module>producer_testng</module>
-				<module>producer_jaxrs</module>
-				<module>producer_jaxrs_spring</module>
+				<!-- <module>producer_jaxrs</module>
+				<module>producer_jaxrs_spring</module> -->
 				<module>producer_webflux</module>
 				<module>producer_webflux_webtestclient</module>
 				<module>producer_webflux_security</module>
@@ -138,7 +138,7 @@
 				<module>producer_kafka</module>
 				<module>producer_kafka_middleware</module>
 				<module>producer_rabbit_middleware</module>
-				<module>producer_jms_middleware</module>
+				<!-- <module>producer_jms_middleware</module> -->
 				<module>producer_camel</module>
 				<module>producer_graphql</module>
 				<module>producer_grpc</module>
@@ -156,7 +156,7 @@
 				<module>consumer_kafka</module>
 				<module>consumer_kafka_middleware</module>
 				<module>consumer_rabbit_middleware</module>
-				<module>consumer_jms_middleware</module>
+				<!-- <module>consumer_jms_middleware</module> -->
 				<module>consumer_with_secured_webflux</module>
 				<module>consumer_camel</module>
 				<module>consumer_grpc</module>
