@@ -38,7 +38,7 @@ dependencies {
 	
 	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
 	
-	testImplementation ("io.rest-assured:spring-web-test-client:$restAssuredVersion")
+	testImplementation ("io.rest-assured:spring-web-test-client")
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')
