@@ -7,7 +7,7 @@ import com.example.beerapiproducerjaxrs.ProducerWithJaxRsApplication;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server;
 
 @SpringBootTest(classes = {ProducerWithJaxRsApplication.class},
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
