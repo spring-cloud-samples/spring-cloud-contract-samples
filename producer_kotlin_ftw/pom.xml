@@ -89,7 +89,7 @@
 					<args>
 						<arg>-Xjsr305=strict</arg>
 					</args>
-					<jvmTarget>1.8</jvmTarget>
+					<jvmTarget>17</jvmTarget>
 				</configuration>
 			</plugin>
 			<plugin>

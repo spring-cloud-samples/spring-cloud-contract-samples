@@ -32,6 +32,7 @@
 			<modules>
 				<module>common</module>
 				<module>wiremock</module>
+				<module>wiremock-for-contract-docs</module>
 				<module>wiremock-native</module>
 				<module>wiremock-tomcat</module>
 				<module>wiremock-undertow</module>
@@ -101,6 +102,7 @@
 			<modules>
 				<module>beer_contracts</module>
 				<module>wiremock</module>
+				<module>wiremock-for-contract-docs</module>
 				<module>wiremock-native</module>
 				<module>wiremock-tomcat</module>
 				<module>wiremock-undertow</module>
