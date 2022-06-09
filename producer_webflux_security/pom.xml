@@ -15,11 +15,11 @@
 	<description>Secured SCC Producer Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<kotlin.version>1.6.21</kotlin.version>
 		<spring-cloud.version>2022.0.0-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>4.0.0-SNAPSHOT</spring-cloud-contract.version>
-		<spring-web-test-client.version>4.4.0</spring-web-test-client.version>
+		<rest-assured.version>5.1.1-SNAPSHOT</rest-assured.version>
 	</properties>
 
 	<dependencies>
@@ -76,7 +76,6 @@
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>spring-web-test-client</artifactId>
-			<version>${spring-web-test-client.version}</version>
 			<scope>test</scope>
 			<optional>true</optional>
 		</dependency>
@@ -231,6 +230,11 @@
 	</build>
 
 	<repositories>
+		<repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots />
+        </repository>
 		<repository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>

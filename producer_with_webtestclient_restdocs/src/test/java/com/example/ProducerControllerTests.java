@@ -17,6 +17,7 @@ import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.cloud.contract.wiremock.restdocs.SpringCloudContractRestDocs;
 import org.springframework.cloud.contract.wiremock.restdocs.WireMockWebTestClient;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -30,18 +31,19 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  */
 @SpringBootTest(classes = ProducerControllerTests.Config.class)
 @AutoConfigureRestDocs(outputDir = "target/snippets")
-
-@AutoConfigureWebTestClient
-@AutoConfigureJsonTesters
+// @AutoConfigureWebTestClient
 @DirtiesContext
 public class ProducerControllerTests {
 
-	@Autowired private WebTestClient webTestClient;
+	@Autowired private ApplicationContext context;
+	
+	WebTestClient webTestClient;
 
 	private JacksonTester<PersonToCheck> json;
 
 	@BeforeEach
 	public void setup() {
+		this.webTestClient = WebTestClient.bindToApplicationContext(context).build(); 
 		ObjectMapper objectMappper = new ObjectMapper();
 		// Possibly configure the mapper
 		JacksonTester.initFields(this, objectMappper);
@@ -58,8 +60,7 @@ public class ProducerControllerTests {
 				.expectBody().jsonPath("$.status").value(Matchers.equalTo("OK"))
 				.consumeWith(WireMockWebTestClient.verify()
 						.jsonPath("$[?(@.age >= 20)]")
-						.contentType(MediaType.valueOf("application/json"))
-						.stub("shouldGrantABeerIfOldEnough"))
+						.contentType(MediaType.valueOf("application/json")))
 				.consumeWith(WebTestClientRestDocumentation.document("shouldGrantABeerIfOldEnough",
 						SpringCloudContractRestDocs.dslContract()));
 		
@@ -76,8 +77,7 @@ public class ProducerControllerTests {
 				.expectBody().jsonPath("$.status").value(Matchers.equalTo("NOT_OK"))
 				.consumeWith(WireMockWebTestClient.verify()
 						.jsonPath("$[?(@.age < 20)]")
-						.contentType(MediaType.valueOf("application/json"))
-						.stub("shouldRejectABeerIfTooYoung"))
+						.contentType(MediaType.valueOf("application/json")))
 				.consumeWith(WebTestClientRestDocumentation.document("shouldRejectABeerIfTooYoung",
 						SpringCloudContractRestDocs.dslContract()));
 		

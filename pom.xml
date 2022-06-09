@@ -46,13 +46,13 @@
 				<module>producer_webflux_webtestclient</module>
 				<module>producer_webflux_security</module>
 				<module>producer_router_function</module>
-				<module>consumer_pact</module>
+				<!-- <module>consumer_pact</module> -->
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
-				<module>producer_pact</module>
+				<!-- <module>producer_pact</module> -->
 				<module>producer_proto</module>
 				<module>producer_kotlin</module>
-				<module>producer_security</module>
+				<!-- <module>producer_security</module> -->
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_git</module>
 				<module>producer_with_empty_git</module>
@@ -115,13 +115,13 @@
 				<module>producer_webflux_webtestclient</module>
 				<module>producer_webflux_security</module>
 				<module>producer_router_function</module>
-				<module>consumer_pact</module>
+				<!-- <module>consumer_pact</module> -->
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
-				<module>producer_pact</module>
+				<!-- <module>producer_pact</module> -->
 				<module>producer_proto</module>
 				<module>producer_kotlin</module>
-				<module>producer_security</module>
+				<!-- <module>producer_security</module> -->
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_git</module>
 				<module>producer_with_empty_git</module>

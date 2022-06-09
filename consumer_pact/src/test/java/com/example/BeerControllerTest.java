@@ -26,7 +26,7 @@ public class BeerControllerTest {
 	BeerController controller = new BeerController(new RestTemplate());
 
 	@Pact(consumer="beer-api-consumer-pact")
-	public RequestResponsePact beerNotOk(PactDslWithProvider builder) {
+	public V4Pact beerNotOk(PactBuilder builder) {
 		return builder
 				.given("")
 					.uponReceiving("Represents a successful scenario of getting a beer")

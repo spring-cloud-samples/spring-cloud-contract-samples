@@ -59,8 +59,7 @@ public class ProducerControllerTests {
 				.andExpect(jsonPath("$.status").value("OK"))
 				.andDo(WireMockRestDocs.verify()
 						.jsonPath("$[?(@.age >= 20)]")
-						.contentType(MediaType.valueOf("application/json"))
-						.stub("shouldGrantABeerIfOldEnough"))
+						.contentType(MediaType.valueOf("application/json")))
 				.andDo(MockMvcRestDocumentation.document("shouldGrantABeerIfOldEnough",
 						SpringCloudContractRestDocs.dslContract()));
 		
@@ -76,8 +75,7 @@ public class ProducerControllerTests {
 				.andExpect(jsonPath("$.status").value("NOT_OK"))
 				.andDo(WireMockRestDocs.verify()
 						.jsonPath("$[?(@.age < 20)]")
-						.contentType(MediaType.valueOf("application/json"))
-						.stub("shouldRejectABeerIfTooYoung"))
+						.contentType(MediaType.valueOf("application/json")))
 				.andDo(MockMvcRestDocumentation.document("shouldRejectABeerIfTooYoung",
 						SpringCloudContractRestDocs.dslContract()));
 		
