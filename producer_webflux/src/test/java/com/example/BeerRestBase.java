@@ -10,12 +10,12 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
+// tag::annotations[]
 @SpringBootTest(classes = BeerRestBase.Config.class,
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
 		properties = "server.port=0")
 public abstract class BeerRestBase {
-
+// end::annotations[]
 
 	@LocalServerPort int port;
 
@@ -26,7 +26,7 @@ public abstract class BeerRestBase {
 		
 	}
 
-	
+	// tag::config[]
 	@Configuration
 	@EnableAutoConfiguration
 	static class Config {
@@ -41,6 +41,6 @@ public abstract class BeerRestBase {
 			return new ProducerController(personCheckingService());
 		}
 	}
-	
+	// end::config[]
 
 }

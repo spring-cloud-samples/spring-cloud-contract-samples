@@ -90,7 +90,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- SPRING CLOUD CONTRACT -->
+			<!-- tag::pact_dependency[] -->
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
@@ -115,7 +115,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<!-- SPRING CLOUD CONTRACT -->
+			<!-- end::pact_dependency[]-->
 
 			<plugin>
 				<groupId>au.com.dius.pact.provider</groupId>

@@ -31,8 +31,10 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	// tag::pact_dependency[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 	testImplementation("org.springframework.cloud:spring-cloud-contract-pact")
+	// end::pact_dependency[]
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')

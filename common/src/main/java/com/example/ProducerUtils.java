@@ -11,7 +11,7 @@ import org.springframework.cloud.contract.spec.internal.ServerDslProperty;
  *
  * @author Marcin Grzejszczak
  */
-
+//tag::impl[]
 public class ProducerUtils {
 
 	/**
@@ -38,3 +38,4 @@ public class ProducerUtils {
 		return new ServerDslProperty( PatternUtils.ok(), "OK");
 	}
 }
+//end::impl[]

@@ -35,8 +35,9 @@ dependencies {
 	testImplementation('javax.inject:javax.inject:1')
 	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
-	
+	// tag::pact_dependency[]
 	testImplementation("org.springframework.cloud:spring-cloud-contract-pact")
+	// end::pact_dependency[]
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')
@@ -48,6 +49,7 @@ dependencyManagement {
 	}
 }
 
+// tag::pact_dependency[]
 contracts {
 	testFramework = "JUNIT5"
 	contractDependency {
@@ -60,6 +62,7 @@ contracts {
 		repositoryUrl = "pact://http://localhost:8085"
 	}
 }
+// end::pact_dependency[]
 
 contractTest {
 	useJUnitPlatform()
