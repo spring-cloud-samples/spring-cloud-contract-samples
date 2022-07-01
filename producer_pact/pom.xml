@@ -115,7 +115,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<!-- end::pact_dependency[]-->
+			<!-- end::pact_dependency[] -->
 
 			<plugin>
 				<groupId>au.com.dius.pact.provider</groupId>

@@ -45,7 +45,7 @@ dependencyManagement {
 	}
 }
 
-
+// tag::plugin[]
 contracts {
 	testFramework = "JUNIT5"
 		// Base package for generated tests
@@ -76,6 +76,7 @@ contracts {
 		}
 	}
 }
+// end::plugin[]
 
 publish.dependsOn("publishStubsToScm")
 publishToMavenLocal.dependsOn("publishStubsToScm")
