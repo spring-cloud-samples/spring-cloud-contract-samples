@@ -6,6 +6,19 @@ plugins {
 	id 'maven-publish'
 }
 
+/*
+buildscript {
+	repositories {
+		...
+	}
+	dependencies {
+		// tag::test_dep_in_plugin[]
+		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
+		// end::test_dep_in_plugin[]
+	}
+}
+*/
+
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
@@ -35,12 +48,12 @@ dependencies {
 	}
 	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream', classifier: 'test-binder')
 	testImplementation('javax.inject:javax.inject:1')
-	
+	// tag::verifier_dep[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
-	
-	
+	// end::verifier_dep[]
+	// tag::test_dep[]
 	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
-	
+	// end::test_dep[]
 }
 
 dependencyManagement {

@@ -53,16 +53,14 @@ public class IntoxicationControllerTest extends AbstractTest {
 	}
 
 	private void sendARequestAndExpectStatuses(DrunkLevel previousStatus, DrunkLevel currentStatus) throws Exception {
-		
-		
+		//tag::test[]
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/wasted")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(this.json.write(new Person("marcin")).getJson()))
 				.andExpect(status().isOk())
 				.andExpect(content().json("{\"previousStatus\":\"" + previousStatus.name() +
 						"\",\"currentStatus\":\"" + currentStatus.name() + "\"}"));
-		
-		
+		//end::test[]
 	}
 }
 

@@ -91,7 +91,7 @@
 			</plugin>
 
 			<!-- SPRING CLOUD CONTRACT -->
-			
+			<!-- tag::plugin[] -->
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
@@ -141,7 +141,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+			<!-- end::plugin[] -->
 			<!-- SPRING CLOUD CONTRACT -->
 
 		</plugins>

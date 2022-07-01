@@ -108,7 +108,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
+			<!-- tag::gmavenplus-setup[] -->
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
@@ -149,11 +149,11 @@
 						<type>pom</type>
 					</dependency>
 				</dependencies>
-				
+				<!-- end::gmavenplus-setup[] -->
 			</plugin>
 
 			<!-- SPRING CLOUD CONTRACT -->
-			
+			<!-- tag::test_dep_in_plugin[] -->
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
@@ -179,9 +179,9 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			
+			<!-- end::test_dep_in_plugin[] -->
 
-			
+			<!-- tag::spock-surefire-setup[] -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -195,7 +195,7 @@
 					<failIfNoTests>true</failIfNoTests>
 				</configuration>
 			</plugin>
-			
+			<!-- end::spock-surefire-setup[] -->
 		</plugins>
 	</build>
 

@@ -24,10 +24,12 @@
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.0-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>4.0.0-SNAPSHOT</spring-cloud-contract.version>
-		
+
+		<!-- tag::skip_jar[] -->
 		<!-- we don't want the verifier to do a jar for us -->
 		<spring.cloud.contract.verifier.skip>true</spring.cloud.contract.verifier.skip>
-		
+		<!-- end::skip_jar[] -->
+
 	</properties>
 
 	<dependencies>
@@ -115,7 +117,8 @@
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
 				</configuration>
 			</plugin>
-			
+
+			<!-- tag::assembly[] -->
 			<!-- we want the assembly plugin to generate the JAR -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -137,7 +140,8 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+			<!-- end::assembly[] -->
+
 			<!-- SPRING CLOUD CONTRACT -->
 		</plugins>
 	</build>

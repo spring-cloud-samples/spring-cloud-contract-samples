@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  *
  * @author Marcin Grzejszczak
  */
-
+//tag::impl[]
 public class PatternUtils {
 
 	public static String tooYoung() {
@@ -45,4 +45,4 @@ public class PatternUtils {
 		
 	}
 }
-
+//end::impl[]

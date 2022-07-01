@@ -22,15 +22,13 @@ class BeerVerificationListener implements Consumer<BeerVerificationListener.Veri
 	@Override
 	public void accept(Verification verification) {
 		log.info("Received new verification");
-		
-		
+		//tag::listener[]
 		if (verification.eligible) {
 			this.eligibleCounter.incrementAndGet();
 		} else {
 			this.notEligibleCounter.incrementAndGet();
 		}
-		
-		
+		//end::listener[]
 	}
 
 	public static class Verification {

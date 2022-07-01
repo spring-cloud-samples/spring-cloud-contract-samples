@@ -11,7 +11,7 @@ import org.springframework.cloud.contract.spec.internal.ClientDslProperty;
  *
  * @author Marcin Grzejszczak
  */
-
+//tag::impl[]
 public class ConsumerUtils {
 	/**
 	 * Consumer side property. By using the {@link ClientDslProperty}
@@ -42,4 +42,4 @@ public class ConsumerUtils {
 	}
 
 }
-
+//end::impl[]
