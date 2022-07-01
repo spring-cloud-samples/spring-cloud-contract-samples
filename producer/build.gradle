@@ -6,6 +6,19 @@ plugins {
 	id 'maven-publish'
 }
 
+/*
+buildscript {
+	repositories {
+		...
+	}
+	dependencies {
+		// tag::test_dep_in_plugin[]
+		classpath "com.example:beer-common:0.0.1-SNAPSHOT"
+		// end::test_dep_in_plugin[]
+	}
+}
+*/
+
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
