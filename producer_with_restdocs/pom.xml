@@ -117,7 +117,8 @@
 					<packageWithBaseClasses>com.example</packageWithBaseClasses>
 				</configuration>
 			</plugin>
-			
+
+			<!-- tag::assembly[] -->
 			<!-- we want the assembly plugin to generate the JAR -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -139,6 +140,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- end::assembly[] -->
 			
 			<!-- SPRING CLOUD CONTRACT -->
 		</plugins>
