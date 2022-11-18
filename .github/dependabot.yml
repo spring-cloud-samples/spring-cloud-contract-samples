@@ -46,9 +46,6 @@ updates:
     versions:
     - 3.1.2-SNAPSHOT
     - 3.1.2-SNAPSHOT
-  - dependency-name: org.springframework.cloud:spring-cloud-contract-pact
-    versions:
-    - 3.1.2-SNAPSHOT
   - dependency-name: org.codehaus.groovy:groovy-all
     versions:
     - 3.0.7

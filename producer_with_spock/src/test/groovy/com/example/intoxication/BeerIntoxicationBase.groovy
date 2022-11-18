@@ -1,7 +1,8 @@
 package com.example.intoxication
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc
-
+import org.junit.jupiter.api.Disabled
+import spock.lang.Ignore
 import spock.lang.Specification
 
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,6 +21,7 @@ import static com.example.intoxication.DrunkLevel.WASTED
  * Tests for the scenario based stub
  */
 @SpringBootTest(classes =  Config)
+@Ignore("Spring Spock is broken")
 abstract class BeerIntoxicationBase extends Specification {
 
 	@Autowired

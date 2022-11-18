@@ -5,6 +5,7 @@ import java.net.URI;
 import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -22,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Marcin Grzejszczak
  */
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
+@Disabled("TODO: Need to update the GraphQL example")
 public class BeerControllerGraphQLTest extends AbstractTest {
 
 	@RegisterExtension

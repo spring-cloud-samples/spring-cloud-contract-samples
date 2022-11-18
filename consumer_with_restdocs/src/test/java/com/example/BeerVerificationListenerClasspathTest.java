@@ -4,10 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.cloud.stream.binder.test.TestChannelBinderConfiguration;
 
 
 import static org.assertj.core.api.BDDAssertions.then;
@@ -15,9 +18,9 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Marcin Grzejszczak
  */
-@SpringBootTest(classes = ClientApplication.class, webEnvironment = WebEnvironment.NONE)
+@SpringBootTest(classes = {ClientApplication.class, BeerVerificationListenerClasspathTest.Config.class},
+		webEnvironment = WebEnvironment.NONE)
 @AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs")
-
 @DisabledIfEnvironmentVariable(named = "SKIP_COMPATIBILITY_TESTS", matches = "true")
 public class BeerVerificationListenerClasspathTest extends AbstractTest {
 
@@ -44,5 +47,11 @@ public class BeerVerificationListenerClasspathTest extends AbstractTest {
 		
 
 		then(this.listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
+	}
+
+	@TestConfiguration
+	@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
+	static class Config {
+
 	}
 }

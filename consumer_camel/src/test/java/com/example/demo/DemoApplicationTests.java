@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.test.annotation.DirtiesContext;
@@ -28,6 +29,8 @@ public class DemoApplicationTests {
 	@Autowired CamelContext camelContext;
 	ObjectMapper objectMapper = new ObjectMapper();
 
+	@Autowired StubTrigger stubTrigger;
+
 	// consumer -> seda:person
 	// 	producers -> seda:person -> person -> verifications -> seda:verifications
 	// consumer -> seda:verifications
@@ -39,8 +42,7 @@ public class DemoApplicationTests {
 
 	@Test
 	public void should_trigger_a_negative_verification() throws Exception {
-		this.producerTemplate.sendBodyAndHeader("seda:person", new Person(17),
-				"contentType", "application/json");
+		stubTrigger.trigger("negative");
 
 		String string =
 				this.consumerTemplate.receiveBody("seda:verifications", String.class);
@@ -51,8 +53,7 @@ public class DemoApplicationTests {
 
 	@Test
 	public void should_trigger_a_positive_verification() throws Exception {
-		this.producerTemplate.sendBodyAndHeader("seda:person", new Person(25),
-				"contentType", "application/json");
+		stubTrigger.trigger("positive");
 
 		String string =
 				this.consumerTemplate.receiveBody("seda:verifications", String.class);

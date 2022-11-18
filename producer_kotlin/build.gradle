@@ -56,6 +56,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 }
 
 contracts {
+	contractsDslDir = file("src/test/resources/contracts")
 	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 	baseClassMappings {

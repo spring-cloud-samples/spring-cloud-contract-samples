@@ -44,6 +44,7 @@ dependencyManagement {
 }
 
 contracts {
+	contractsDslDir = file("src/test/resources/contracts")
 	testFramework = "JUNIT5"
 	// We want to pick contracts from a Git repository
 	contractDependency {

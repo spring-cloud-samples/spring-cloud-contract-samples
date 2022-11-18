@@ -40,10 +40,11 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.verifier.converter.YamlContract;
-import org.springframework.cloud.contract.verifier.messaging.MessageVerifier;
+import org.springframework.cloud.contract.verifier.messaging.MessageVerifierReceiver;
 import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier;
 import org.springframework.cloud.contract.verifier.messaging.internal.ContractVerifierMessage;
 import org.springframework.cloud.contract.verifier.messaging.internal.ContractVerifierMessaging;
+import org.springframework.cloud.contract.verifier.messaging.noop.NoOpStubMessages;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
@@ -86,14 +87,14 @@ class TestConfig {
 
 	@Bean
 	ContractVerifierMessaging<Message> rabbitContractVerifierMessaging(RabbitMessageVerifier messageVerifier) {
-		return new ContractVerifierMessaging<Message>(messageVerifier) {
+		return new ContractVerifierMessaging<>(new NoOpStubMessages<>(), messageVerifier) {
 
 			@Override
-			protected ContractVerifierMessage convert(Message receive) {
-				if (receive == null) {
+			protected ContractVerifierMessage convert(Message message) {
+				if (message == null) {
 					return null;
 				}
-				return new ContractVerifierMessage(receive.getPayload(), receive.getHeaders());
+				return new ContractVerifierMessage(message.getPayload(), message.getHeaders());
 			}
 
 		};
@@ -122,7 +123,7 @@ class TestConfig {
 
 }
 
-class RabbitMessageVerifier implements MessageVerifier<Message> {
+class RabbitMessageVerifier implements MessageVerifierReceiver<Message> {
 
 	private static final Logger log = LoggerFactory.getLogger(RabbitMessageVerifier.class);
 
@@ -149,13 +150,4 @@ class RabbitMessageVerifier implements MessageVerifier<Message> {
 		return receive(destination, 1, TimeUnit.SECONDS, contract);
 	}
 
-	@Override
-	public void send(Message message, String destination, @Nullable YamlContract contract) {
-
-	}
-
-	@Override
-	public void send(Object payload, Map headers, String destination, @Nullable YamlContract contract) {
-
-	}
 }

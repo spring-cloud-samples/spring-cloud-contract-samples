@@ -1,7 +1,0 @@
-spring:
-  kafka:
-    bootstrap-servers: ${spring.embedded.kafka.brokers}
-    consumer:
-      group-id: groupId
-      # key deser is only required because we are using string keys instead of spring-kafka default int keys
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

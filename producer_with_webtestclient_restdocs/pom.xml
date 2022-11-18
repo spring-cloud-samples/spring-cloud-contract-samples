@@ -27,7 +27,7 @@
 		
 		<!-- we don't want the verifier to do a jar for us -->
 		<spring.cloud.contract.verifier.skip>true</spring.cloud.contract.verifier.skip>
-		<rest-assured.version>5.1.1-SNAPSHOT</rest-assured.version>
+		<rest-assured.version>5.2.0</rest-assured.version>
 
 	</properties>
 

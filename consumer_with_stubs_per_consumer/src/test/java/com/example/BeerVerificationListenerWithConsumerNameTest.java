@@ -4,11 +4,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
+import org.springframework.cloud.stream.binder.test.TestChannelBinderConfiguration;
 import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.BDDAssertions.then;
@@ -16,14 +19,12 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Marcin Grzejszczak
  */
-@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK, classes = {BeerVerificationListenerWithConsumerNameTest.Config.class, ClientApplication.class})
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL,
 		ids = "com.example:beer-api-producer-with-stubs-per-consumer",
 		stubsPerConsumer = true,
 		consumerName = "foo-consumer")
-
 @DirtiesContext
-//@org.junit.jupiter.api.Disabled
 @DisabledIfEnvironmentVariable(named = "SKIP_COMPATIBILITY_TESTS", matches = "true")
 public class BeerVerificationListenerWithConsumerNameTest extends AbstractTest {
 
@@ -48,5 +49,11 @@ public class BeerVerificationListenerWithConsumerNameTest extends AbstractTest {
 		
 
 		then(this.listener.notEligibleCounter.get()).isGreaterThan(initialCounter);
+	}
+
+	@TestConfiguration
+	@ImportAutoConfiguration(TestChannelBinderConfiguration.class)
+	static class Config {
+
 	}
 }

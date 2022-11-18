@@ -96,15 +96,12 @@ function build_all_projects() {
 	build producer_jaxrs "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_jaxrs_spring "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_webflux "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
-	build consumer_pact "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	build producer_advanced "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
-	build producer_pact "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_kafka "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	# TODO: Uses Kotlin - we need to fix this
 	# build producer_kotlin "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	# TODO: Uses Kotlin - we need to fix this
 	# build producer_kotlin_ftw "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
-	build consumer_pact "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	build producer_proto "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_router_function "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
 	build producer_security "${producerBootVersion}" "${producerCloudVersion}" "${producerVerifierVersion}"
@@ -132,8 +129,6 @@ function build_all_projects() {
 	build consumer_kafka "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	# TODO: Uses Kotlin - we need to fix this
 	# build consumer_kotlin_ftw "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
-	build consumer_pact "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
-	build consumer_pact_stubrunner "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	build consumer_proto "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	build consumer_security "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"
 	build consumer_with_discovery "${consumerBootVersion}" "${consumerCloudVersion}" "${consumerVerifierVersion}"

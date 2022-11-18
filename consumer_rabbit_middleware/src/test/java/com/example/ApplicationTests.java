@@ -44,8 +44,10 @@ import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRun
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.cloud.contract.verifier.converter.YamlContract;
 import org.springframework.cloud.contract.verifier.messaging.MessageVerifier;
+import org.springframework.cloud.contract.verifier.messaging.MessageVerifierSender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -88,17 +90,9 @@ class TestConfig {
 	private static final Logger log = LoggerFactory.getLogger(TestConfig.class);
 
 	@Bean
-	MessageVerifier<Message> testMessageVerifier(RabbitTemplate rabbitTemplate) {
-		return new MessageVerifier<>() {
-			@Override
-			public Message receive(String destination, long timeout, TimeUnit timeUnit, @Nullable YamlContract contract) {
-				return null;
-			}
-
-			@Override
-			public Message receive(String destination, YamlContract contract) {
-				return null;
-			}
+	@Primary
+	MessageVerifierSender<Message> testMessageVerifier(RabbitTemplate rabbitTemplate) {
+		return new MessageVerifierSender<>() {
 
 			@Override
 			public void send(Message message, String destination, @Nullable YamlContract contract) {

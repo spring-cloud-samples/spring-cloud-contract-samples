@@ -29,11 +29,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
-import org.springframework.kafka.listener.SeekToCurrentErrorHandler;
 import org.springframework.kafka.support.converter.RecordMessageConverter;
 import org.springframework.kafka.support.converter.StringJsonMessageConverter;
-import org.springframework.util.backoff.FixedBackOff;
 
 /**
  *
@@ -57,8 +54,6 @@ public class Application {
 			KafkaTemplate<Object, Object> template) {
 		ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		configurer.configure(factory, kafkaConsumerFactory);
-		factory.setErrorHandler(new SeekToCurrentErrorHandler(
-				new DeadLetterPublishingRecoverer(template), new FixedBackOff(5000L, 3))); // dead-letter after 3 tries
 		return factory;
 	}
 

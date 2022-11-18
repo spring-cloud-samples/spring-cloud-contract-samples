@@ -1,10 +1,6 @@
 label: negative
 input:
-    messageFrom: seda:person
-    messageBody:
-        age: 17
-    messageHeaders:
-        contentType: application/json
+    triggeredBy: "triggerMessage(17)"
 outputMessage:
     sentTo: "seda:verifications"
     body:

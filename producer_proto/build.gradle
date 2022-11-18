@@ -62,6 +62,7 @@ task generateProto {
 compileJava.dependsOn(generateProto)
 
 contracts {
+	contractsDslDir = file("src/test/resources/contracts")
 	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 }

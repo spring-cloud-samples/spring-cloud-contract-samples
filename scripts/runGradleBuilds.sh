@@ -67,8 +67,6 @@ function build_gradle() {
     build producer_webflux
     build producer_router_function
     build producer_webflux_webtestclient
-#    FIXME
-#    build consumer_pact
     waitPids
     kill_java
 
@@ -77,8 +75,6 @@ function build_gradle() {
     build producer_with_empty_git
     build producer_yaml
     build producer_advanced
-#    FIXME
-#    build producer_pact
     waitPids
     kill_java
 
@@ -102,21 +98,22 @@ function build_gradle() {
     build producer_with_latest_2_2_features
     build producer_with_latest_3_0_features_gradle
     build producer_java
-    build producer_kotlin_ftw
+    # https://github.com/rest-assured/rest-assured/pull/1652
+#    build producer_kotlin_ftw
     build producer_kafka
     build producer_kafka_middleware
     build producer_rabbit_middleware
 #    build producer_jms_middleware
-    build producer_graphql
-    build producer_grpc
+ # TODO: Migrate to Spring GraphQL
+#    build producer_graphql
+# TODO:  Java 17??
+#    build producer_grpc
     waitPids
     kill_java
 
     build consumer
     build consumer_kotlin
     build consumer_proto
-#    FIXME
-#    build consumer_pact_stubrunner
     build consumer_with_stubs_per_consumer
     build consumer_with_restdocs
     waitPids
@@ -131,13 +128,15 @@ function build_gradle() {
     kill_java
 
     build consumer_java
-    build consumer_kotlin_ftw
+    # https://github.com/rest-assured/rest-assured/pull/1652
+#    build consumer_kotlin_ftw
     build consumer_kafka
     build consumer_kafka_middleware
     build consumer_rabbit_middleware
 #    build consumer_jms_middleware
     build consumer_with_secured_webflux
-    build consumer_grpc
+    # TODO:  Java 17??
+#    build consumer_grpc
     waitPids
     kill_java
 }

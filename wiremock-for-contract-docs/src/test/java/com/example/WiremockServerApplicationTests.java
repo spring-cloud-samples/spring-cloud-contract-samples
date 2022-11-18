@@ -18,9 +18,8 @@ package com.example;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.http.Fault;
-import org.apache.http.MalformedChunkCodingException;
-import org.apache.http.NoHttpResponseException;
-import org.apache.http.client.ClientProtocolException;
+import org.apache.hc.core5.http.MalformedChunkCodingException;
+import org.apache.hc.core5.http.NoHttpResponseException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -74,7 +73,7 @@ public class WiremockServerApplicationTests {
 		wiremock.stubFor(get(urlEqualTo("/resource"))
 				.willReturn(aResponse().withFault(Fault.RANDOM_DATA_THEN_CLOSE)));
 
-		assertThatThrownBy(() -> this.service.go()).hasCauseInstanceOf(ClientProtocolException.class);
+		assertThatThrownBy(() -> this.service.go()).hasCauseInstanceOf(NoHttpResponseException.class);
 	}
 
 	@Test

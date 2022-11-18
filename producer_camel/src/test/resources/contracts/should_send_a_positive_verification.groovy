@@ -3,13 +3,7 @@ import org.springframework.cloud.contract.spec.Contract
 Contract.make {
 	label("positive")
 	input {
-		messageFrom("seda:person")
-		messageBody([
-		        age: 25
-		])
-		messageHeaders {
-			messagingContentType(applicationJson())
-		}
+		triggeredBy("triggerMessage(25)")
 	}
 	outputMessage {
 		sentTo("seda:verifications")

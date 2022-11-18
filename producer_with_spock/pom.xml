@@ -112,12 +112,14 @@
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
-				<version>2.0.0</version>
+				<version>1.13.0</version>
 				<executions>
 					<execution>
 						<goals>
-							<goal>compileTests</goal>
+							<goal>addSources</goal>
 							<goal>addTestSources</goal>
+							<goal>compile</goal>
+							<goal>compileTests</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -140,15 +142,6 @@
 						</testSource>
 					</testSources>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.codehaus.groovy</groupId>
-						<artifactId>groovy-all</artifactId>
-						<version>${groovy.version}</version>
-						<scope>runtime</scope>
-						<type>pom</type>
-					</dependency>
-				</dependencies>
 				<!-- end::gmavenplus-setup[] -->
 			</plugin>
 
