@@ -2063,7 +2063,6 @@ public abstract class BeerRestBase {
 @AutoConfigureMessageVerifier
 @ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
-	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
 	@BeforeEach

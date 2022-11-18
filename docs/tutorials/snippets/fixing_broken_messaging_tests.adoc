@@ -27,7 +27,6 @@ abstraction (it allows to send and receive messages from e.g. Spring Cloud Strea
 @AutoConfigureMessageVerifier
 @ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
-    @Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
 	@BeforeEach

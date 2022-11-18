@@ -2103,7 +2103,7 @@ to <code>verifications</code> - this is the queue / topic we&#8217;d like to rec
 </li>
 <li>
 <p>We&#8217;re trying to do TDD so let&#8217;s move to <code>BeerMessagingBase</code> test class. The first thing we need to do is to
-add the <code>@AutoConfigureMessageVerifier</code> annotation on the test class. That will configure
+add the <code>@AutoConfigureMessageVerifierReceiver</code> annotation on the test class. That will configure
 the setup related to messaging and Spring Cloud Contract.</p>
 <div class="listingblock">
 <div class="content">
@@ -2119,7 +2119,7 @@ public abstract class BeerMessagingBase {
 </li>
 <li>
 <p>We need to prepare some setup for our tests. To do that we&#8217;ll need to clear any remaining
-messages that could break our tests. To do that we&#8217;ll use the Spring Cloud Contract <code>MessageVerifier</code>
+messages that could break our tests. To do that we&#8217;ll use the Spring Cloud Contract <code>MessageVerifierReceiver</code>
 abstraction (it allows to send and receive messages from e.g. Spring Cloud Stream, Sprig Integration, Apache Camel.)</p>
 <div class="listingblock">
 <div class="content">
@@ -2128,7 +2128,6 @@ abstraction (it allows to send and receive messages from e.g. Spring Cloud Strea
 @AutoConfigureMessageVerifier
 @ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
-    @Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
 	@BeforeEach
@@ -2936,7 +2935,6 @@ public abstract class BeerRestBase {
 @AutoConfigureMessageVerifier
 @ImportAutoConfiguration(TestChannelBinderConfiguration.class)
 public abstract class BeerMessagingBase {
-	@Inject MessageVerifier messaging;
 	@Autowired PersonCheckingService personCheckingService;
 
 	@BeforeEach

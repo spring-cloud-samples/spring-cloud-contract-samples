@@ -19,8 +19,6 @@ import org.springframework.cloud.stream.binder.test.TestChannelBinderConfigurati
 @ImportAutoConfiguration(TestChannelBinderConfiguration)
 @Ignore("Spring Spock is broken")
 abstract class BeerMessagingBase extends Specification {
-	@Inject
-	MessageVerifier messaging
 	@Autowired
 	PersonCheckingService personCheckingService
 

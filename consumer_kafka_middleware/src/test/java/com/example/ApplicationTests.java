@@ -36,7 +36,8 @@ import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.cloud.contract.verifier.converter.YamlContract;
-import org.springframework.cloud.contract.verifier.messaging.MessageVerifier;
+import org.springframework.cloud.contract.verifier.messaging.MessageVerifierReceiver;
+import org.springframework.cloud.contract.verifier.messaging.MessageVerifierSender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -86,17 +87,8 @@ public class ApplicationTests {
 class TestConfig {
 
 	@Bean
-	MessageVerifier<Message<?>> standaloneMessageVerifier(KafkaTemplate kafkaTemplate) {
-		return new MessageVerifier<Message<?>>() {
-			@Override
-			public Message<?> receive(String destination, long timeout, TimeUnit timeUnit, @Nullable YamlContract contract) {
-				return null;
-			}
-
-			@Override
-			public Message<?> receive(String destination, YamlContract contract) {
-				return null;
-			}
+	MessageVerifierSender<Message<?>> standaloneMessageVerifier(KafkaTemplate kafkaTemplate) {
+		return new MessageVerifierSender<Message<?>>() {
 
 			@Override
 			public void send(Message<?> message, String destination, @Nullable YamlContract contract) {

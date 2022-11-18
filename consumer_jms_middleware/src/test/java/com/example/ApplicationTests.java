@@ -38,7 +38,7 @@ import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.cloud.contract.verifier.converter.YamlContract;
-import org.springframework.cloud.contract.verifier.messaging.MessageVerifier;
+import org.springframework.cloud.contract.verifier.messaging.MessageVerifierReceiver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
@@ -90,8 +90,8 @@ public class ApplicationTests {
 class TestConfig {
 
 	@Bean
-	MessageVerifier<Message> standaloneMessageVerifier(JmsTemplate jmsTemplate) {
-		return new MessageVerifier<>() {
+	MessageVerifierReceiver<Message> standaloneMessageVerifier(JmsTemplate jmsTemplate) {
+		return new MessageVerifierReceiver<>() {
 			@Override
 			public Message receive(String destination, long timeout, TimeUnit timeUnit, @Nullable YamlContract contract) {
 				return null;
