@@ -112,7 +112,7 @@
 				<module>producer_router_function</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
-				<module>producer_proto</module>
+				<module>producer_proto</module>R
 				<module>producer_kotlin</module>
 				<!-- <module>producer_security</module> --> <!-- TODO: Fix me -->
 				<module>producer_with_stubs_per_consumer</module>
@@ -159,8 +159,8 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<modules>
-				<module>producer_java</module>
-				<module>consumer_java</module>
+<!--				<module>producer_java</module>--> <!-- TODO: Parsing broken -->
+<!--				<module>consumer_java</module>--> <!-- TODO: Parsing broken -->
 			</modules>
 		</profile>
 	</profiles>

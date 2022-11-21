@@ -34,7 +34,7 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
-	testImplementation("io.rest-assured:spring-web-test-client:${springWebTestClientVersion}")
+	testImplementation("io.rest-assured:spring-web-test-client")
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 
@@ -51,7 +51,7 @@ dependencyManagement {
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 	kotlinOptions {
 		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '11'
+		jvmTarget = '17'
 	}
 }
 

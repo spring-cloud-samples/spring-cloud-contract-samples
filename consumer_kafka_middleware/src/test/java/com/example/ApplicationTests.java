@@ -88,7 +88,7 @@ class TestConfig {
 
 	@Bean
 	MessageVerifierSender<Message<?>> standaloneMessageVerifier(KafkaTemplate kafkaTemplate) {
-		return new MessageVerifierSender<Message<?>>() {
+		return new MessageVerifierSender<>() {
 
 			@Override
 			public void send(Message<?> message, String destination, @Nullable YamlContract contract) {

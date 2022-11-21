@@ -20,7 +20,6 @@ import java.nio.charset.StandardCharsets;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nullable;
 
@@ -43,11 +42,10 @@ import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.cloud.contract.verifier.converter.YamlContract;
-import org.springframework.cloud.contract.verifier.messaging.MessageVerifierReceiver;
 import org.springframework.cloud.contract.verifier.messaging.MessageVerifierSender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -90,29 +88,36 @@ class TestConfig {
 	private static final Logger log = LoggerFactory.getLogger(TestConfig.class);
 
 	@Bean
-	@Primary
-	MessageVerifierSender<Message> testMessageVerifier(RabbitTemplate rabbitTemplate) {
+	MessageVerifierSender<org.springframework.messaging.Message<?>> testMessageVerifier(RabbitTemplate rabbitTemplate) {
 		return new MessageVerifierSender<>() {
 
 			@Override
-			public void send(Message message, String destination, @Nullable YamlContract contract) {
-				rabbitTemplate.send(destination, message);
+			public void send(org.springframework.messaging.Message<?> message, String destination, @Nullable YamlContract contract) {
+				log.info("Sending a message to destination [{}]", destination);
+				rabbitTemplate.send(destination, toMessage(message));
 			}
 
 			@Override
 			public <T> void send(T payload, Map<String, Object> headers, String destination, @Nullable YamlContract contract) {
+				log.info("Sending a message to destination [{}]", destination);
+				send(org.springframework.messaging.support.MessageBuilder.withPayload(payload).copyHeaders(headers).build(), destination, contract);
+			}
+
+			private Message toMessage(org.springframework.messaging.Message<?> msg) {
+				Object payload = msg.getPayload();
+				MessageHeaders headers = msg.getHeaders();
 				Map<String, Object> newHeaders = headers != null ? new HashMap<>(headers) : new HashMap<>();
 				MessageProperties messageProperties = new MessageProperties();
 				newHeaders.forEach(messageProperties::setHeader);
-				log.info("Sending a message to destination [{}] with routing key", destination);
 				if (payload instanceof String) {
 					String json = (String) payload;
 					Message message = MessageBuilder.withBody(json.getBytes(StandardCharsets.UTF_8)).andProperties(messageProperties).build();
-					send(message, destination, contract);
+					return message;
 				} else {
 					throw new IllegalStateException("Payload is not a String");
 				}
 			}
 		};
+
 	}
 }

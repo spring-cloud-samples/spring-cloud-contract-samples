@@ -143,13 +143,4 @@ class KafkaMessageVerifier implements MessageVerifierReceiver<Message<?>> {
 		return receive(destination, 5, TimeUnit.SECONDS, contract);
 	}
 
-	@Override
-	public void send(Message message, String destination, @Nullable YamlContract contract) {
-
-	}
-
-	@Override
-	public void send(Object payload, Map headers, String destination, @Nullable YamlContract contract) {
-
-	}
 }

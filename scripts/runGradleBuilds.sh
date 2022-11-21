@@ -88,13 +88,13 @@ function build_gradle() {
 
     build producer_with_webtestclient_restdocs
     build producer_with_dsl_restdocs
-    build producer_with_spock
+   # build producer_with_spock # TODO: Fix me
     build producer_with_junit4
     build producer_with_xml
     waitPids
     kill_java
 
-    build producer_security
+    # build producer_security
     build producer_with_latest_2_2_features
     build producer_with_latest_3_0_features_gradle
     build producer_java

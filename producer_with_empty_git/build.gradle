@@ -45,6 +45,7 @@ dependencyManagement {
 
 // tag::plugin[]
 contracts {
+	contractsDslDir = file("src/test/resources/contracts")
 	testFramework = "JUNIT5"
 		// Base package for generated tests
 	basePackageForTests = "com.example"

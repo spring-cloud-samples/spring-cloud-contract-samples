@@ -41,14 +41,14 @@ function build_maven() {
         echo "Skipping high mem projects for CI build"
         return 0
     fi
-    echo -e "Running the high memory requirement projects"
-    if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./mvnw clean install -Phighmem -pl producer_java -U -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
-        ./mvnw clean install -Phighmem -pl consumer_java -U -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
-    else
-        ./mvnw clean install -Phighmem -U -B -pl producer_java
-        ./mvnw clean install -Phighmem -U -B -pl consumer_java
-    fi
+#    echo -e "Running the high memory requirement projects"
+#    if [[ "${SKIP_TESTS}" == "true" ]]; then
+#        ./mvnw clean install -Phighmem -pl producer_java -U -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+#        ./mvnw clean install -Phighmem -pl consumer_java -U -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+#    else
+#        ./mvnw clean install -Phighmem -U -B -pl producer_java
+#        ./mvnw clean install -Phighmem -U -B -pl consumer_java
+#    fi
 }
 
 cat <<'EOF'

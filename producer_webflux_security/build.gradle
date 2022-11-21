@@ -21,6 +21,7 @@ repositories {
 
 ext {
 	set('springCloudVersion', "${BOM_VERSION}")
+	set('rest-assured.version', "5.2.1")
 }
 
 println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}], Contract version [${verifierVersion}]"
@@ -38,7 +39,7 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
-	testImplementation("io.rest-assured:spring-web-test-client:${springWebTestClientVersion}")
+	testImplementation("io.rest-assured:spring-web-test-client")
 	testImplementation("io.projectreactor:reactor-test")
 	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
@@ -79,7 +80,7 @@ task keygen(type:Exec) {
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 	kotlinOptions {
 		freeCompilerArgs = ['-Xjsr305=strict']
-		jvmTarget = '11'
+		jvmTarget = '17'
 	}
 }
 
