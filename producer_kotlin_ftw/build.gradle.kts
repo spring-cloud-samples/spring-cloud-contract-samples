@@ -14,7 +14,7 @@ plugins {
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 
 repositories {
@@ -36,7 +36,7 @@ dependencyManagement {
 	}
 }
 
-
+extra["rest-assured.version"] = "5.2.1"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -60,6 +60,7 @@ dependencies {
 
 
 contracts {
+	contractsDslDir.set(file("src/test/resources/contracts"))
 	testFramework.set(org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5)
 	packageWithBaseClasses.set("com.example.fraud")
 }
@@ -95,7 +96,7 @@ tasks {
 tasks.withType<KotlinCompile>().configureEach {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "11"
+		jvmTarget = "17"
 	}
 }
 
