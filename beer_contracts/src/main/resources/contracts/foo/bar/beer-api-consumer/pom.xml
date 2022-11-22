@@ -23,6 +23,8 @@
 		<spring-cloud-contract.version>4.0.0-SNAPSHOT</spring-cloud-contract.version>
 		<spring-cloud-dependencies.version>2022.0.0-SNAPSHOT</spring-cloud-dependencies.version>
 		<skipTests>true</skipTests>
+		<!-- We don't want to compile any tests -->
+		<maven.test.skip>true</maven.test.skip>
 	</properties>
 
 	<dependencyManagement>

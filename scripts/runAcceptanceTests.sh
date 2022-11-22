@@ -10,14 +10,7 @@ export CI="${CI:-false}"
 
 source "${ROOT}"/scripts/clean.sh
 
-trap 'clean && clearDocker' EXIT
-
-function startDockerCompose() {
-	pushd "${ROOT}"/docker
-	docker-compose pull
-	docker-compose up -d
-	popd
-}
+trap 'clean' EXIT
 
 clean
 
@@ -35,9 +28,8 @@ export SKIP_COMPATIBILITY="${SKIP_COMPATIBILITY:-false}"
 
 if [[ "${SKIP_COMPATIBILITY}" != "true" ]]; then
 	echo -e "\n\nWill run compatibility build\n\n"
-	startDockerCompose
 	# TODO: Go back to snapshots one day
-	export CURRENT_BOOT_VERSION="2.4.0"
+	export CURRENT_BOOT_VERSION="2.7.5"
 	. ${ROOT}/scripts/runCompatibilityBuild.sh
 fi
 
@@ -75,7 +67,6 @@ EOF
 	export PREPARE_FOR_WORKSHOPS=true
 
 	clean
-	clearDocker
 
 	. ${ROOT}/scripts/runMavenBuilds.sh
 

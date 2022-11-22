@@ -98,9 +98,7 @@ function build_gradle() {
     build producer_with_latest_2_2_features
     build producer_with_latest_3_0_features_gradle
     build producer_java
-    # https://github.com/rest-assured/rest-assured/pull/1652
-#    build producer_kotlin_ftw
-    build producer_kafka
+    build producer_kotlin_ftw
     build producer_kafka_middleware
     build producer_rabbit_middleware
 #    build producer_jms_middleware
@@ -128,9 +126,7 @@ function build_gradle() {
     kill_java
 
     build consumer_java
-    # https://github.com/rest-assured/rest-assured/pull/1652
-#    build consumer_kotlin_ftw
-    build consumer_kafka
+    build consumer_kotlin_ftw
     build consumer_kafka_middleware
     build consumer_rabbit_middleware
 #    build consumer_jms_middleware
