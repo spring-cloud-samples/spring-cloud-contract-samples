@@ -113,11 +113,11 @@ function build_gradle() {
     build consumer_kotlin
     build consumer_proto
     build consumer_with_stubs_per_consumer
-    build consumer_with_restdocs
+#    build consumer_with_restdocs
     waitPids
     kill_java
 
-    # build consumer_with_discovery
+    build consumer_with_discovery
     build consumer_with_junit4
     build consumer_security
     build consumer_with_latest_2_2_features
