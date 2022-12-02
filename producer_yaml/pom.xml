@@ -47,11 +47,9 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-stream</artifactId>
-			<type>test-jar</type>
+			<artifactId>spring-cloud-stream-test-binder</artifactId>
 			<scope>test</scope>
-			<classifier>test-binder</classifier>
-		</dependency>
+		</dependency>	
 		<!-- For JDK 14 -->
 		<dependency>
 			<groupId>javax.inject</groupId>
