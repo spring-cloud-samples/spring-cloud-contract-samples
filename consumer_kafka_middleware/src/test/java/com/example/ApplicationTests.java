@@ -19,7 +19,6 @@ package com.example;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nullable;
 
@@ -36,12 +35,13 @@ import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.cloud.contract.verifier.converter.YamlContract;
-import org.springframework.cloud.contract.verifier.messaging.MessageVerifierReceiver;
 import org.springframework.cloud.contract.verifier.messaging.MessageVerifierSender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.kafka.support.converter.JsonMessageConverter;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
@@ -55,7 +55,7 @@ import org.springframework.test.context.DynamicPropertySource;
 @ActiveProfiles("test")
 public class ApplicationTests {
 
-	
+
 	@Container
 	static KafkaContainer kafka = new KafkaContainer();
 
@@ -79,7 +79,7 @@ public class ApplicationTests {
 			BDDAssertions.then(this.application.storedFoo.getFoo()).contains("example");
 		});
 	}
-	
+
 }
 
 
@@ -101,5 +101,22 @@ class TestConfig {
 				kafkaTemplate.send(MessageBuilder.createMessage(payload, new MessageHeaders(newHeaders)));
 			}
 		};
+	}
+
+	@Bean
+	@Primary
+	JsonMessageConverter noopMessageConverter() {
+		return new NoopJsonMessageConverter();
+	}
+}
+
+class NoopJsonMessageConverter extends JsonMessageConverter {
+
+	NoopJsonMessageConverter() {
+	}
+
+	@Override
+	protected Object convertPayload(Message<?> message) {
+		return message.getPayload();
 	}
 }

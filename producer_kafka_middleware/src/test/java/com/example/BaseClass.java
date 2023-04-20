@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nullable;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,9 +38,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.verifier.converter.YamlContract;
 import org.springframework.cloud.contract.verifier.messaging.MessageVerifierReceiver;
 import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier;
-import org.springframework.cloud.contract.verifier.messaging.internal.ContractVerifierMessage;
-import org.springframework.cloud.contract.verifier.messaging.internal.ContractVerifierMessaging;
-import org.springframework.cloud.contract.verifier.messaging.internal.ContractVerifierObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -51,20 +47,20 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = { TestConfig.class, Application.class })
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {TestConfig.class, Application.class})
 @Testcontainers
 @AutoConfigureMessageVerifier
 @ActiveProfiles("test")
 public abstract class BaseClass {
-	
 
-	@Container static KafkaContainer kafka = new KafkaContainer();
+
+	@Container
+	static KafkaContainer kafka = new KafkaContainer();
 
 	@DynamicPropertySource
 	static void kafkaProperties(DynamicPropertyRegistry registry) {
@@ -75,9 +71,9 @@ public abstract class BaseClass {
 	Controller controller;
 
 	public void trigger() {
-		
+
 		this.controller.sendFoo("example");
-		
+
 	}
 }
 
@@ -114,7 +110,8 @@ class KafkaMessageVerifier implements MessageVerifierReceiver<Message<?>> {
 	private void await(long timeout, TimeUnit timeUnit) {
 		try {
 			cyclicBarrier.await(timeout, timeUnit);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 
 		}
 	}
