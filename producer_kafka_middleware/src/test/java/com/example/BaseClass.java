@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2019 the original author or authors.
+ * Copyright 2013-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,16 +19,16 @@ package com.example;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -52,7 +52,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {TestConfig.class, Application.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {BaseClass.TestConfig.class, Application.class})
 @Testcontainers
 @AutoConfigureMessageVerifier
 @ActiveProfiles("test")
@@ -75,69 +75,59 @@ public abstract class BaseClass {
 		this.controller.sendFoo("example");
 
 	}
-}
 
 
-@EnableKafka
-@Configuration
-class TestConfig {
+	@EnableKafka
+	@Configuration
+	static class TestConfig {
 
-	@Bean
-	KafkaMessageVerifier kafkaTemplateMessageVerifier() {
-		return new KafkaMessageVerifier();
+		@Bean
+		KafkaMessageVerifier kafkaTemplateMessageVerifier() {
+			return new KafkaMessageVerifier();
+		}
+
 	}
 
-}
 
-class KafkaMessageVerifier implements MessageVerifierReceiver<Message<?>> {
+	static class KafkaMessageVerifier implements MessageVerifierReceiver<Message<?>> {
 
-	private static final Logger log = LoggerFactory.getLogger(KafkaMessageVerifier.class);
+		private static final Log LOG = LogFactory.getLog(KafkaMessageVerifier.class);
 
-	private final Map<String, Message> broker = new ConcurrentHashMap<>();
+		Map<String, BlockingQueue<Message<?>>> broker = new ConcurrentHashMap<>();
 
-	private final CyclicBarrier cyclicBarrier = new CyclicBarrier(2);
 
-	@Override
-	public Message receive(String destination, long timeout, TimeUnit timeUnit, @Nullable YamlContract contract) {
-		Message message = message(destination);
-		if (message != null) {
+		@Override
+		public Message receive(String destination, long timeout, TimeUnit timeUnit, @Nullable YamlContract contract) {
+			broker.putIfAbsent(destination, new ArrayBlockingQueue<>(1));
+			BlockingQueue<Message<?>> messageQueue = broker.get(destination);
+			Message<?> message;
+			try {
+				message = messageQueue.poll(timeout, timeUnit);
+			}
+			catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+			if (message != null) {
+				LOG.info("Removed a message from a topic [" + destination + "]");
+			}
 			return message;
 		}
-		await(timeout, timeUnit);
-		return message(destination);
-	}
 
-	private void await(long timeout, TimeUnit timeUnit) {
-		try {
-			cyclicBarrier.await(timeout, timeUnit);
+
+		@KafkaListener(id = "baristaContractTestListener", topicPattern = ".*")
+		public void listen(ConsumerRecord payload, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+			LOG.info("Got a message from a topic [" + topic + "]");
+			Map<String, Object> headers = new HashMap<>();
+			new DefaultKafkaHeaderMapper().toHeaders(payload.headers(), headers);
+			broker.putIfAbsent(topic, new ArrayBlockingQueue<>(1));
+			BlockingQueue<Message<?>> messageQueue = broker.get(topic);
+			messageQueue.add(MessageBuilder.createMessage(payload.value(), new MessageHeaders(headers)));
 		}
-		catch (Exception e) {
 
+		@Override
+		public Message receive(String destination, YamlContract contract) {
+			return receive(destination, 15, TimeUnit.SECONDS, contract);
 		}
-	}
 
-	private Message message(String destination) {
-		Message message = broker.get(destination);
-		if (message != null) {
-			broker.remove(destination);
-			log.info("Removed a message from a topic [" + destination + "]");
-		}
-		return message;
 	}
-
-	@KafkaListener(id = "listener", topicPattern = ".*")
-	public void listen(ConsumerRecord payload, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) throws BrokenBarrierException, InterruptedException {
-		log.info("Got a message from a topic [" + topic + "]");
-		Map<String, Object> headers = new HashMap<>();
-		new DefaultKafkaHeaderMapper().toHeaders(payload.headers(), headers);
-		broker.put(topic, MessageBuilder.createMessage(payload.value(), new MessageHeaders(headers)));
-		cyclicBarrier.await();
-		cyclicBarrier.reset();
-	}
-
-	@Override
-	public Message receive(String destination, YamlContract contract) {
-		return receive(destination, 5, TimeUnit.SECONDS, contract);
-	}
-
 }
