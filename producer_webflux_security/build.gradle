@@ -21,7 +21,6 @@ repositories {
 
 ext {
 	set('springCloudVersion', "${BOM_VERSION}")
-	set('rest-assured.version', "5.2.1")
 }
 
 println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}], Contract version [${verifierVersion}]"

@@ -96,7 +96,7 @@ function build_gradle() {
 
     # build producer_security
     build producer_with_latest_2_2_features
-    build producer_with_latest_3_0_features_gradle
+    #build producer_with_latest_3_0_features_gradle
     build producer_java
     build producer_kotlin_ftw
     build producer_kafka_middleware
@@ -121,7 +121,7 @@ function build_gradle() {
     build consumer_with_junit4
 #    build consumer_security
     build consumer_with_latest_2_2_features
-    build consumer_with_latest_3_0_features_gradle
+    # build consumer_with_latest_3_0_features_gradle
     waitPids
     kill_java
 

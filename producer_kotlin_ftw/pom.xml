@@ -14,18 +14,17 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.0.8</version>
 		<relativePath/>
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
-		<spring-cloud-contract.version>4.0.0-SNAPSHOT</spring-cloud-contract.version>
-		<spring-cloud.version>2022.0.0-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>4.0.4-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud.version>2022.0.4-SNAPSHOT</spring-cloud.version>
 		<!-- Needs to align the version to what's there in Contract -->
-		<kotlin.version>1.6.21</kotlin.version>
-		<rest-assured.version>5.2.1</rest-assured.version>
+		<kotlin.version>1.8.22</kotlin.version>
 	</properties>
 
 	<dependencies>
@@ -87,10 +86,7 @@
 				<artifactId>kotlin-maven-plugin</artifactId>
 				<version>${kotlin.version}</version>
 				<configuration>
-					<args>
-						<arg>-Xjsr305=strict</arg>
-					</args>
-					<jvmTarget>17</jvmTarget>
+					<jvmTarget>${java.version}</jvmTarget>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -226,14 +222,6 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-			<id>spring-releases</id>
-			<name>Spring Releases</name>
-			<url>https://repo.spring.io/release</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -248,14 +236,6 @@
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
 			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-releases</id>
-			<name>Spring Releases</name>
-			<url>https://repo.spring.io/release</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
