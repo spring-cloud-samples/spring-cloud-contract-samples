@@ -132,7 +132,7 @@ You can run Maven from the root folder once the "common" module has been install
 ./mvnw clean install -Ptest
 ----
 
-(or `./scripts/runMavenBuild.sh`). Then you can build normally
+(or `./scripts/runMavenBuilds.sh`). Then you can build normally
 
 [source,bash]
 ----
