@@ -37,7 +37,7 @@
 		<dependency>
 			<groupId>com.asarkar.grpc</groupId>
 			<artifactId>grpc-test</artifactId>
-			<version>1.0.3</version>
+			<version>1.2.2</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- For compatibility -->
