@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
 		<spring-cloud-contract.version>4.0.7-SNAPSHOT</spring-cloud-contract.version>
-		<spring-cloud-dependencies.version>2022.0.7-SNAPSHOT</spring-cloud-dependencies.version>
+		<spring-cloud-dependencies.version>2022.0.8-SNAPSHOT</spring-cloud-dependencies.version>
 		<skipTests>true</skipTests>
 	</properties>
 
