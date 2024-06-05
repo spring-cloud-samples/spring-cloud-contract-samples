@@ -45,18 +45,18 @@ dependencyManagement {
 }
 
 //create a single Jar with all dependencies
-task contracts(type: Jar) {
-    baseName = project.name
-    from "${project.rootDir}/src/main/resources/contracts/"
-    into "/"
-    exclude('**/target/**', '**/mvnw', '**/mvnw.cmd', '**/.mvn/**', '**/src/assembly/**', '**/src/test/**', '**/target/**', '**/*.gradle', '**/build/**',
-            '**/gradle/**', '**/gradlew', '**/gradlew.bat', '**/gradle.properties')
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact contracts
-        }
-    }
-}
+//task contracts(type: Jar) {
+//    baseName = project.name
+//    from "${project.rootDir}/src/main/resources/contracts/"
+//    into "/"
+//    exclude('**/target/**', '**/mvnw', '**/mvnw.cmd', '**/.mvn/**', '**/src/assembly/**', '**/src/test/**', '**/target/**', '**/*.gradle', '**/build/**',
+//            '**/gradle/**', '**/gradlew', '**/gradlew.bat', '**/gradle.properties')
+//}
+//
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            artifact contracts
+//        }
+//    }
+//}
