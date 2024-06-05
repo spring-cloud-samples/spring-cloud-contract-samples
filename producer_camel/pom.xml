@@ -147,13 +147,5 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-		<pluginRepository>
-			<id>spring-plugin-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/plugins-release-local</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
 	</pluginRepositories>
 </project>
