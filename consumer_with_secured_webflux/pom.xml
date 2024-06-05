@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>17</java.version>
-		<kotlin.version>1.6.0</kotlin.version>
+		<kotlin.version>1.8.22</kotlin.version>
 		<spring-cloud.version>2023.0.3-SNAPSHOT</spring-cloud.version>
 	</properties>
 
