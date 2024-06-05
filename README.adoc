@@ -69,10 +69,6 @@ The producer application stores the contracts in such way that every consumer ha
 own, delegated folder. Then on the consumer side by turning on the stubs per consumer
 feature only respective stubs for the given consumer will be used.
 
-=== producer_with_junit4
-
-The producer application using JUnit 5
-
 === Producer_with_latest_2_2_features
 
 The producer application using the latest, most notable features of Spring Cloud Contract 2.2

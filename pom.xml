@@ -59,7 +59,6 @@
 				<module>producer_with_webtestclient_restdocs</module>
 				<module>producer_with_dsl_restdocs</module>
 				<!--<module>producer_with_spock</module>--> <!-- Spock Spring is broken -->
-				<module>producer_with_junit4</module>
 				<module>producer_with_xml</module>
 				<module>producer_with_latest_2_2_features</module>
 				<module>producer_kotlin_ftw</module>
@@ -75,7 +74,6 @@
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
-				<module>consumer_with_junit4</module>
 				<!--<module>consumer_security</module>-->  <!-- TODO: Fix me -->
 				<module>consumer_with_latest_2_2_features</module>
 				<module>consumer_java</module>
@@ -123,7 +121,6 @@
 				<module>producer_with_webtestclient_restdocs</module>
 				<module>producer_with_dsl_restdocs</module>
 <!--				<module>producer_with_spock</module>--> <!-- TODO: Spock Spring is broken -->
-				<module>producer_with_junit4</module>
 				<module>producer_with_xml</module>
 				<module>producer_with_latest_2_2_features</module>
 				<module>producer_kotlin_ftw</module>
@@ -139,7 +136,6 @@
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
-				<module>consumer_with_junit4</module>
 				<!--<module>consumer_security</module>-->  <!-- TODO: Fix me -->
 				<module>consumer_with_latest_2_2_features</module>
 				<module>consumer_java</module>
