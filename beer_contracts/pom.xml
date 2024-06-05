@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-cloud.version>2023.0.3-SNAPSHOT</spring-cloud.version>
 		<java.version>17</java.version>
-		<maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+		<maven-jar-plugin.version>3.4.1</maven-jar-plugin.version>
 	</properties>
 
 	<!-- TO GENERATE THE DOCUMENTATION -->
@@ -34,12 +34,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- For compatibility -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
