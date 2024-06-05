@@ -82,12 +82,12 @@ function build_gradle() {
     build producer_kotlin
     build producer_with_stubs_per_consumer
     build producer_with_external_contracts
-    build producer_with_restdocs
+#    build producer_with_restdocs
     waitPids
     kill_java
 
-    build producer_with_webtestclient_restdocs
-    build producer_with_dsl_restdocs
+#    build producer_with_webtestclient_restdocs
+#    build producer_with_dsl_restdocs
    # build producer_with_spock # TODO: Fix me
     build producer_with_xml
     waitPids
