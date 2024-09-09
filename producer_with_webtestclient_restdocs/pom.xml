@@ -22,8 +22,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
-		<spring-cloud.version>2022.0.8-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>4.0.7-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud.version>2022.0.9-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>4.0.9-SNAPSHOT</spring-cloud-contract.version>
 		
 		<!-- we don't want the verifier to do a jar for us -->
 		<spring.cloud.contract.verifier.skip>true</spring.cloud.contract.verifier.skip>
