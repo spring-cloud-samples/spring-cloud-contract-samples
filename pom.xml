@@ -30,6 +30,15 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
+				<!-- standalone -->
+				<module>standalone/contracts</module>
+				<module>standalone/dsl/http-server</module>
+				<module>standalone/dsl/http-client</module>
+				<module>standalone/restdocs/http-server</module>
+				<module>standalone/restdocs/http-client</module>
+				<module>standalone/webclient/http-server</module>
+				<module>standalone/webclient/http-client</module>
+
 				<module>common</module>
 				<module>wiremock</module>
 				<module>wiremock-for-contract-docs</module>
@@ -93,6 +102,15 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<modules>
+				<!-- standalone -->
+				<module>standalone/contracts</module>
+				<module>standalone/dsl/http-server</module>
+				<module>standalone/dsl/http-client</module>
+				<module>standalone/restdocs/http-server</module>
+				<module>standalone/restdocs/http-client</module>
+				<module>standalone/webclient/http-server</module>
+				<module>standalone/webclient/http-client</module>
+
 				<module>beer_contracts</module>
 				<module>wiremock</module>
 				<module>wiremock-for-contract-docs</module>
@@ -147,16 +165,6 @@
 				<module>consumer_camel</module>
 <!--				<module>consumer_grpc</module>-->  <!-- TODO: Java 17?? -->
 				<module>consumer_kotlin</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>highmem</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<modules>
-				<module>producer_java</module>
-				<module>consumer_java</module>
 			</modules>
 		</profile>
 	</profiles>

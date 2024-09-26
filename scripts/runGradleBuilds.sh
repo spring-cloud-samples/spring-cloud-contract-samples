@@ -60,6 +60,15 @@ function build_gradle() {
     if [[ "${BUILD_COMMON}" == "true" ]]; then
         build common
     fi
+    # Standalone
+    build standalone/contracts
+    build standalone/dsl/http-server
+    build standalone/dsl/http-client
+    build standalone/restdocs/http-server
+    build standalone/restdocs/http-client
+    build standalone/webclient/http-server
+    build standalone/webclient/http-client
+
     build producer
     build producer_testng
 #    build producer_jaxrs
