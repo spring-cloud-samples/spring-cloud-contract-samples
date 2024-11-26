@@ -23,8 +23,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
-		<spring-cloud.version>2023.0.4-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>4.1.5-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud.version>2023.0.5-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>4.1.6-SNAPSHOT</spring-cloud-contract.version>
 		<camel.version>3.13.0</camel.version>
 	</properties>
 

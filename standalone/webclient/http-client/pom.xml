@@ -6,7 +6,7 @@
 
 	<groupId>com.example</groupId>
 	<artifactId>http-client-webclient</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 
 	<name>Spring Cloud Contract RestDocs Http WebClient Sample</name>
 	<description>Spring Cloud Contract RestDocs Http WebClient Sample</description>
@@ -21,7 +21,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
-		<spring-cloud-contract.version>4.1.5-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud-contract.version>4.1.6-SNAPSHOT</spring-cloud-contract.version>
 	</properties>
 
 	<dependencies>
