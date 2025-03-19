@@ -77,8 +77,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
 		<kotlin.version>1.8.22</kotlin.version>
-		<spring-cloud.version>2025.0.0-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>4.3.0-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud.version>2024.0.2-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>4.2.2-SNAPSHOT</spring-cloud-contract.version>
 	</properties>
 
 	<build>
