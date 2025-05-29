@@ -20,8 +20,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
-		<spring-cloud-contract.version>4.3.0-SNAPSHOT</spring-cloud-contract.version>
-		<spring-cloud-dependencies.version>2025.0.0-SNAPSHOT</spring-cloud-dependencies.version>
+		<spring-cloud-contract.version>4.3.1-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud-dependencies.version>2025.0.1-SNAPSHOT</spring-cloud-dependencies.version>
 		<skipTests>true</skipTests>
 		<!-- We don't want to compile any tests -->
 		<maven.test.skip>true</maven.test.skip>
