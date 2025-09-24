@@ -27,15 +27,15 @@ function build_maven() {
     if [[ "${BUILD_COMMON}" == "true" ]]; then
         echo -e "\n\nInstalling common\n\n"
         cd ${ROOT}/common
-        ./mvnw clean install -U -B
+        ./mvnw clean install -B
     fi
     cd ${ROOT}
 
     echo -e "\n\nBuilding everything skipping tests? [${SKIP_TESTS}] after prepare for workshops? [${PREPARE_FOR_WORKSHOPS}]\n\n"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./mvnw clean install -Ptest -U -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+        ./mvnw clean install -Ptest -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else
-        ./mvnw clean install -Ptest -U -B
+        ./mvnw clean install -Ptest -B
     fi
     if [[ "${CI}" == "true" ]]; then
         echo "Skipping high mem projects for CI build"
