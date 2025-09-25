@@ -16,7 +16,6 @@
 
 package com.example;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -24,8 +23,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nullable;
-
+import jakarta.annotation.Nullable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -42,7 +40,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.DefaultKafkaHeaderMapper;
+import org.springframework.kafka.support.JsonKafkaHeaderMapper;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
@@ -118,7 +116,7 @@ public abstract class BaseClass {
 		public void listen(ConsumerRecord payload, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 			LOG.info("Got a message from a topic [" + topic + "]");
 			Map<String, Object> headers = new HashMap<>();
-			new DefaultKafkaHeaderMapper().toHeaders(payload.headers(), headers);
+			new JsonKafkaHeaderMapper().toHeaders(payload.headers(), headers);
 			broker.putIfAbsent(topic, new ArrayBlockingQueue<>(1));
 			BlockingQueue<Message<?>> messageQueue = broker.get(topic);
 			messageQueue.add(MessageBuilder.createMessage(payload.value(), new MessageHeaders(headers)));

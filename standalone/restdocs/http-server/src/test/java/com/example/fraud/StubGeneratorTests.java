@@ -19,10 +19,9 @@ package com.example.fraud;
 import java.math.BigDecimal;
 
 import com.example.fraud.model.FraudCheck;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import tools.jackson.databind.json.JsonMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -31,7 +30,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.MediaType;
-
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -52,9 +50,9 @@ public class StubGeneratorTests {
 
 	@BeforeEach
 	public void setup() {
-		ObjectMapper objectMappper = new ObjectMapper();
+		JsonMapper jsonMapper = new JsonMapper();
 		// Possibly configure the mapper
-		JacksonTester.initFields(this, objectMappper);
+		JacksonTester.initFields(this, jsonMapper);
 	}
 
 	@Test
@@ -63,8 +61,8 @@ public class StubGeneratorTests {
 		fraudCheck.setClientId("1234567890");
 		fraudCheck.setLoanAmount(BigDecimal.valueOf(99999.0));
 		mockMvc.perform(MockMvcRequestBuilders.put("/fraudcheck")
-				.contentType(MediaType.valueOf("application/vnd.fraud.v1+json"))
-				.content(json.write(fraudCheck).getJson()))
+						.contentType(MediaType.valueOf("application/vnd.fraud.v1+json"))
+						.content(json.write(fraudCheck).getJson()))
 				.andExpect(jsonPath("$.fraudCheckStatus").value("FRAUD"))
 				.andExpect(jsonPath("$.rejectionReason").value("Amount too high"))
 				.andDo(verify().jsonPath("$.clientId")
@@ -79,8 +77,8 @@ public class StubGeneratorTests {
 		fraudCheck.setClientId("1234567890");
 		fraudCheck.setLoanAmount(BigDecimal.valueOf(123.123));
 		mockMvc.perform(MockMvcRequestBuilders.put("/fraudcheck")
-				.contentType(MediaType.valueOf("application/vnd.fraud.v1+json"))
-				.content(json.write(fraudCheck).getJson()))
+						.contentType(MediaType.valueOf("application/vnd.fraud.v1+json"))
+						.content(json.write(fraudCheck).getJson()))
 				.andExpect(jsonPath("$.fraudCheckStatus").value("OK"))
 				.andExpect(jsonPath("$.rejectionReason").doesNotExist())
 				.andDo(verify().jsonPath("$.clientId")

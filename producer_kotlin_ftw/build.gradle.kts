@@ -8,8 +8,8 @@ plugins {
 	id("org.springframework.cloud.contract")
 	id("maven-publish")
 	// Kotlin version needs to be aligned with Gradle
-	kotlin("jvm") version "1.8.22"
-	kotlin("plugin.spring") version "1.8.22"
+	kotlin("jvm") version "2.2.0"
+	kotlin("plugin.spring") version "2.2.0"
 }
 
 group = "com.example"

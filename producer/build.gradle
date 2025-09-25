@@ -46,7 +46,6 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation('org.springframework.cloud:spring-cloud-stream-test-binder')
-	testImplementation('javax.inject:javax.inject:1')
 	// tag::verifier_dep[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]

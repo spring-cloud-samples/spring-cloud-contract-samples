@@ -1,7 +1,7 @@
 package com.example;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import tools.jackson.databind.json.JsonMapper;
 
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.json.JacksonTester;
@@ -18,8 +18,8 @@ public abstract class AbstractTest {
 
 	@BeforeEach
 	public void setup() {
-		ObjectMapper objectMappper = new ObjectMapper();
+		JsonMapper objectMapper = new JsonMapper();
 		// Possibly configure the mapper
-		JacksonTester.initFields(this, objectMappper);
+		JacksonTester.initFields(this, objectMapper);
 	}
 }

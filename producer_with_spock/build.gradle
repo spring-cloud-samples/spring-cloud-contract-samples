@@ -29,7 +29,6 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
 	testImplementation('org.springframework.cloud:spring-cloud-stream-test-binder')
-	testImplementation('javax.inject:javax.inject:1')
 	testImplementation("org.spockframework:spock-core:$spockVersion")
 	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")

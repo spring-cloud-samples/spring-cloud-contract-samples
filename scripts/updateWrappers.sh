@@ -6,7 +6,7 @@ set -o nounset
 set -o pipefail
 
 export ROOT="${ROOT:-`pwd`}"
-export WRAPPER_VERSION="${WRAPPER_VERSION:-8.8}"
+export WRAPPER_VERSION="${WRAPPER_VERSION:-8.14.3}"
 
 for d in consumer*
 do

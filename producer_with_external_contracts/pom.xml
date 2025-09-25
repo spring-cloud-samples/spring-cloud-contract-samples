@@ -80,7 +80,7 @@
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
 				<version>${spring-cloud-contract.version}</version>
-				<extensions>true</extensions>
+<!--				<extensions>true</extensions>-->
 				<configuration>
 					<testFramework>JUNIT5</testFramework>
 					<baseClassMappings>
@@ -103,14 +103,24 @@
 					<!-- Base package for generated tests -->
 					<basePackageForTests>com.example</basePackageForTests>
 				</configuration>
-				<!-- this was added for testing purposes only -->
-				<dependencies>
-					<dependency>
-						<groupId>org.springframework.cloud</groupId>
-						<artifactId>spring-cloud-contract-verifier</artifactId>
-						<version>${spring-cloud-contract.version}</version>
-					</dependency>
-				</dependencies>
+				<executions>
+					<execution>
+						<id>fop</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>convert</goal>
+							<goal>generateTests</goal>
+							<goal>generateStubs</goal>
+						</goals>
+					</execution>
+				</executions><dependencies>
+
+				<dependency>
+					<groupId>org.apache.maven.resolver</groupId>
+					<artifactId>maven-resolver-connector-basic</artifactId>
+					<version>1.9.24</version>
+				</dependency>
+			</dependencies>
 			</plugin>
 			<!-- SPRING CLOUD CONTRACT -->
 

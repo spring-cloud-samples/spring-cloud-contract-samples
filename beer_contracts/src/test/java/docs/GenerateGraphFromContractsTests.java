@@ -13,10 +13,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.jackson.databind.json.JsonMapper;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -30,7 +30,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
  */
 @SpringJUnitConfig
 public class GenerateGraphFromContractsTests {
-	private final ObjectMapper mapper = new ObjectMapper();
+	private final JsonMapper mapper = new JsonMapper();
 
 	@Value("classpath:contracts") Resource contracts;
 

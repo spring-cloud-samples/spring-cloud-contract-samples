@@ -1,12 +1,12 @@
 package com.example.demo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.json.JsonMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,12 +24,17 @@ import org.springframework.test.annotation.DirtiesContext;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class DemoApplicationTests {
 
-	@Autowired ConsumerTemplate consumerTemplate;
-	@Autowired ProducerTemplate producerTemplate;
-	@Autowired CamelContext camelContext;
-	ObjectMapper objectMapper = new ObjectMapper();
+	@Autowired
+	ConsumerTemplate consumerTemplate;
+	@Autowired
+	ProducerTemplate producerTemplate;
+	@Autowired
+	CamelContext camelContext;
 
-	@Autowired StubTrigger stubTrigger;
+	JsonMapper objectMapper = new JsonMapper();
+
+	@Autowired
+	StubTrigger stubTrigger;
 
 	// consumer -> seda:person
 	// 	producers -> seda:person -> person -> verifications -> seda:verifications

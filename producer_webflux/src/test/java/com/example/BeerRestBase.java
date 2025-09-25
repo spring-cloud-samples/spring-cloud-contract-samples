@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.web.server.test.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,7 +17,8 @@ import org.springframework.context.annotation.Configuration;
 public abstract class BeerRestBase {
 // end::annotations[]
 
-	@LocalServerPort int port;
+	@LocalServerPort
+	int port;
 
 	@BeforeEach
 	public void setup() {
