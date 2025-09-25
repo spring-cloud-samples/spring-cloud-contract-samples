@@ -22,7 +22,6 @@ apply plugin: 'java-library'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
 
 dependencies {
   implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${BOM_VERSION}"))

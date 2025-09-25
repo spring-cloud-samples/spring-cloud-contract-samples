@@ -34,16 +34,16 @@ function build() {
     cd "${ROOT}/${folder}"
     if [[ "${PARALLEL}" == "true" ]]; then
         if [[ "${SKIP_TESTS}" == "true" ]]; then
-            ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies --console=plain &
+            ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --console=plain &
         else
-            ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies --console=plain &
+            ./gradlew clean build publishToMavenLocal  --stacktrace --console=plain &
         fi
         addPid "Building [${folder}]" $!
     else
         if [[ "${SKIP_TESTS}" == "true" ]]; then
-            ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies --console=plain
+            ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --console=plain
         else
-            ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies --console=plain
+            ./gradlew clean build publishToMavenLocal  --stacktrace --console=plain
         fi
     fi
     cd "${ROOT}"
@@ -53,15 +53,13 @@ function build_gradle() {
     clean
 
     cd "${ROOT}/beer_contracts"
-    ./mvnw clean install -U
+    ./mvnw clean install
 
     prepare_git
 
     if [[ "${BUILD_COMMON}" == "true" ]]; then
         build common
     fi
-    # Standalone
-    build standalone/contracts
     build standalone/dsl/http-server
     build standalone/dsl/http-client
     build standalone/restdocs/http-server
