@@ -30,7 +30,7 @@ function build_maven() {
     fi
     cd ${ROOT}
 
-    echo -e "\n\nBuilding everything skipping tests? [${SKIP_TESTS}] after prepare for workshops? [${PREPARE_FOR_WORKSHOPS}]\n\n"
+    echo -e "\n\nBuilding everything skipping tests? [${SKIP_TESTS}]\n\n"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
         ./mvnw clean install -Ptest -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true -U
     else
