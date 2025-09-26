@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 public class ProducerController {
@@ -17,7 +17,7 @@ public class ProducerController {
 		this.personCheckingService = personCheckingService;
 	}
 
-	@PostMapping(path = "/check", produces = APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(path = "/check", produces = APPLICATION_JSON_VALUE)
 	public Response check(Authentication authentication) {
 		
 		if (this.personCheckingService

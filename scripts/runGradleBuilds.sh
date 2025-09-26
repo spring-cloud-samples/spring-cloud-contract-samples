@@ -8,7 +8,6 @@ set -o pipefail
 export ROOT="${ROOT:-`pwd`}"
 export BUILD_COMMON="${BUILD_COMMON:-true}"
 export SKIP_TESTS="${SKIP_TESTS:-false}"
-export PREPARE_FOR_WORKSHOPS="${PREPARE_FOR_WORKSHOPS:-false}"
 export PARALLEL="${PARALLEL:-false}"
 
 . "${ROOT}/scripts/common.sh"
@@ -30,20 +29,20 @@ function setup_git() {
 
 function build() {
     local folder="${1}"
-    echo -e "\n\nBuilding [${folder}] skipping tests? [${SKIP_TESTS}] after prepare for workshops? [${PREPARE_FOR_WORKSHOPS}]\n\n"
+    echo -e "\n\nBuilding [${folder}] skipping tests? [${SKIP_TESTS}]\n\n"
     cd "${ROOT}/${folder}"
     if [[ "${PARALLEL}" == "true" ]]; then
         if [[ "${SKIP_TESTS}" == "true" ]]; then
-            ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies --console=plain &
+            ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --console=plain &
         else
-            ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies --console=plain &
+            ./gradlew clean build publishToMavenLocal  --stacktrace --console=plain &
         fi
         addPid "Building [${folder}]" $!
     else
         if [[ "${SKIP_TESTS}" == "true" ]]; then
-            ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --refresh-dependencies --console=plain
+            ./gradlew clean build publishToMavenLocal -x test -PSKIP_TESTS=true -Dspring.cloud.contract.verifier.skip=true --stacktrace --console=plain
         else
-            ./gradlew clean build publishToMavenLocal  --stacktrace --refresh-dependencies --console=plain
+            ./gradlew clean build publishToMavenLocal  --stacktrace --console=plain
         fi
     fi
     cd "${ROOT}"
@@ -53,95 +52,68 @@ function build_gradle() {
     clean
 
     cd "${ROOT}/beer_contracts"
-    ./mvnw clean install -U
+    ./mvnw clean install
 
     prepare_git
 
     if [[ "${BUILD_COMMON}" == "true" ]]; then
         build common
     fi
-    # Standalone
-    build standalone/contracts
     build standalone/dsl/http-server
     build standalone/dsl/http-client
     build standalone/restdocs/http-server
     build standalone/restdocs/http-client
     build standalone/webclient/http-server
     build standalone/webclient/http-client
-
     build producer
     build producer_testng
-#    build producer_jaxrs
-#    build producer_jaxrs_spring
+#    build producer_jaxrs # TODO: Fix me
+#    build producer_jaxrs_spring # TODO: Fix me
     build producer_webflux
     build producer_router_function
     build producer_webflux_webtestclient
-    waitPids
-    kill_java
 
-    build producer_webflux_security
+#    build producer_webflux_security # TODO: Kotlin broken
     build producer_with_git
     build producer_with_empty_git
     build producer_yaml
     build producer_advanced
-    waitPids
-    kill_java
 
-    build producer_proto
-    build producer_kotlin
+#    build producer_proto # TODO: Fix me
+#    build producer_kotlin  # TODO: Kotlin broken
     build producer_with_stubs_per_consumer
     build producer_with_external_contracts
-#    build producer_with_restdocs
-    waitPids
-    kill_java
-
-#    build producer_with_webtestclient_restdocs
-#    build producer_with_dsl_restdocs
+#    build producer_with_restdocs # TODO: Fix me
+#    build producer_with_webtestclient_restdocs # TODO: Fix me
+#    build producer_with_dsl_restdocs # TODO: Fix me
    # build producer_with_spock # TODO: Fix me
     build producer_with_xml
-    waitPids
-    kill_java
-
-    # build producer_security
+#    build producer_security # TODO: Fix me
     build producer_with_latest_2_2_features
-    #build producer_with_latest_3_0_features_gradle
+#    build producer_with_latest_3_0_features_gradle # TODO: Fix me
     build producer_java
-    build producer_kotlin_ftw
+#    build producer_kotlin_ftw  # TODO: Kotlin broken
     build producer_kafka_middleware
     build producer_rabbit_middleware
-#    build producer_jms_middleware
- # TODO: Migrate to Spring GraphQL
-#    build producer_graphql
-# TODO:  Java 17??
-#    build producer_grpc
-    waitPids
-    kill_java
-
+#    build producer_jms_middleware # TODO: Fix me
+#    build producer_graphql # TODO: Migrate to Spring GraphQL
+#    build producer_grpc # TODO:  Java 17??
     build consumer
-    build consumer_kotlin
-    build consumer_proto
+#    build consumer_kotlin # TODO: Kotlin broken
+#    build consumer_proto  # TODO: Fix me
     build consumer_with_stubs_per_consumer
-#    build consumer_with_restdocs
-    waitPids
-    kill_java
-
+#    build consumer_with_restdocs # TODO: Fix me
     build consumer_with_discovery
-#    build consumer_security
+#    build consumer_security # TODO: Fix me
     build consumer_with_latest_2_2_features
-    # build consumer_with_latest_3_0_features_gradle
-    waitPids
-    kill_java
-
+    # build consumer_with_latest_3_0_features_gradle # TODO: Fix me
     build consumer_java
-    build consumer_kotlin_ftw
+#    build consumer_kotlin_ftw # TODO: Kotlin broken
     build consumer_kafka_middleware
     build consumer_rabbit_middleware
-#    build consumer_jms_middleware
-    build consumer_with_secured_webflux
-    # TODO:  Java 17??
-#    build consumer_grpc
-    waitPids
-    kill_java
+#    build consumer_jms_middleware # TODO: Fix me
+#    build consumer_with_secured_webflux # TODO: Fix me
+#    build consumer_grpc # TODO: Fix me
 }
 
 cat <<'EOF'

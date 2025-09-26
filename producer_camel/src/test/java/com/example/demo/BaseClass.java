@@ -29,6 +29,15 @@ public abstract class BaseClass {
 
 	ObjectMapper objectMapper = new ObjectMapper(); // TODO: For sure serializing stuff in Camel can be done easier
 
+	public void triggerMessage(int age) throws JsonProcessingException {
+		Exchange exchange = new DefaultExchange(context);
+		Message message = new DefaultMessage(exchange);
+		message.setHeader("contentType", "application/json");
+		message.setBody(objectMapper.writeValueAsString(new Person(age)));
+		exchange.setMessage(message);
+		context.createProducerTemplate().send("seda:person", exchange);
+	}
+
 	@TestConfiguration
 	@EnableAutoConfiguration
 	static class MyTestConfiguration extends RouteConfiguration {
@@ -44,14 +53,5 @@ public abstract class BaseClass {
 		String finish() {
 			return "seda:verifications";
 		}
-	}
-
-	public void triggerMessage(int age) throws JsonProcessingException {
-		Exchange exchange = new DefaultExchange(context);
-		Message message = new DefaultMessage(exchange);
-		message.setHeader("contentType", "application/json");
-		message.setBody(objectMapper.writeValueAsString(new Person(age)));
-		exchange.setMessage(message);
-		context.createProducerTemplate().send("seda:person", exchange);
 	}
 }

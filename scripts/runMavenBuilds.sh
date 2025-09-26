@@ -9,7 +9,6 @@ export ROOT=${ROOT:-`pwd`}
 export BUILD_COMMON="${BUILD_COMMON:-true}"
 export SKIP_TESTS="${SKIP_TESTS:-false}"
 export CI="${CI:-false}"
-export PREPARE_FOR_WORKSHOPS="${PREPARE_FOR_WORKSHOPS:-false}"
 
 . ${ROOT}/scripts/common.sh
 
@@ -27,28 +26,16 @@ function build_maven() {
     if [[ "${BUILD_COMMON}" == "true" ]]; then
         echo -e "\n\nInstalling common\n\n"
         cd ${ROOT}/common
-        ./mvnw clean install -U -B
+        ./mvnw clean install -B -U
     fi
     cd ${ROOT}
 
-    echo -e "\n\nBuilding everything skipping tests? [${SKIP_TESTS}] after prepare for workshops? [${PREPARE_FOR_WORKSHOPS}]\n\n"
+    echo -e "\n\nBuilding everything skipping tests? [${SKIP_TESTS}]\n\n"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./mvnw clean install -Ptest -U -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+        ./mvnw clean install -Ptest -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true -U
     else
-        ./mvnw clean install -Ptest -U -B
+        ./mvnw clean install -Ptest -B -U
     fi
-    if [[ "${CI}" == "true" ]]; then
-        echo "Skipping high mem projects for CI build"
-        return 0
-    fi
-#    echo -e "Running the high memory requirement projects"
-#    if [[ "${SKIP_TESTS}" == "true" ]]; then
-#        ./mvnw clean install -Phighmem -pl producer_java -U -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
-#        ./mvnw clean install -Phighmem -pl consumer_java -U -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
-#    else
-#        ./mvnw clean install -Phighmem -U -B -pl producer_java
-#        ./mvnw clean install -Phighmem -U -B -pl consumer_java
-#    fi
 }
 
 cat <<'EOF'

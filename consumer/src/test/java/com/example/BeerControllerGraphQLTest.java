@@ -61,7 +61,7 @@ public class BeerControllerGraphQLTest extends AbstractTest {
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(REQUEST_BODY), String.class);
 
-		BDDAssertions.then(responseEntity.getStatusCodeValue()).isEqualTo(200);
+		BDDAssertions.then(responseEntity.getStatusCode().value()).isEqualTo(200);
 
 	}
 }

@@ -12,8 +12,8 @@ public class StuffController {
 	private static final String LOREM_IPSUM = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\nLorem Ipsum has been the industry's standard dummy text ever since the 1500s...\n";
 
 	@PostMapping(value = "/stuff",
-			consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	Stuff stuff(@RequestBody Stuff stuff) {
 		Assert.isTrue(stuff.comment.equals(LOREM_IPSUM), "Should have a matching comment");
 		return new Stuff(LOREM_IPSUM, "It worked", "success");

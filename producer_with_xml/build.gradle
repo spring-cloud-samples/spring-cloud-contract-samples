@@ -8,13 +8,11 @@ plugins {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 ext {
@@ -32,7 +30,6 @@ dependencies {
 	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: "$jacksonVersion"
 
 	testImplementation('org.springframework.cloud:spring-cloud-stream-test-binder')
-	testImplementation('javax.inject:javax.inject:1')
 	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	
@@ -48,6 +45,12 @@ dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
+}
+
+
+
+test {
+	failOnNoDiscoveredTests = false
 }
 
 contracts {

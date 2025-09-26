@@ -19,9 +19,9 @@ package com.example.fraud;
 import java.math.BigDecimal;
 
 import com.example.fraud.model.FraudCheck;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.json.JsonMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -50,9 +50,9 @@ public class StubGeneratorTests {
 
 	@BeforeEach
 	public void setup() {
-		ObjectMapper objectMappper = new ObjectMapper();
+		JsonMapper objectMapper = new JsonMapper();
 		// Possibly configure the mapper
-		JacksonTester.initFields(this, objectMappper);
+		JacksonTester.initFields(this, objectMapper);
 	}
 
 	@Test
@@ -62,7 +62,7 @@ public class StubGeneratorTests {
 		fraudCheck.setLoanAmount(BigDecimal.valueOf(99999.0));
 		client.put().uri("/fraudcheck")
 				.contentType(MediaType.valueOf("application/vnd.fraud.v1+json"))
-				.body(BodyInserters.fromObject(json.write(fraudCheck).getJson()))
+				.body(BodyInserters.fromValue(json.write(fraudCheck).getJson()))
 				.exchange().expectBody().jsonPath("$.fraudCheckStatus").isEqualTo("FRAUD")
 				.jsonPath("$.rejectionReason").isEqualTo("Amount too high")
 				.consumeWith(verify().jsonPath("$.clientId")
@@ -79,7 +79,7 @@ public class StubGeneratorTests {
 		fraudCheck.setLoanAmount(BigDecimal.valueOf(123.123));
 		client.put().uri("/fraudcheck")
 				.contentType(MediaType.valueOf("application/vnd.fraud.v1+json"))
-				.body(BodyInserters.fromObject(json.write(fraudCheck).getJson()))
+				.body(BodyInserters.fromValue(json.write(fraudCheck).getJson()))
 				.exchange().expectBody().jsonPath("$.fraudCheckStatus").isEqualTo("OK")
 				.jsonPath("$.rejectionReason").doesNotExist()
 				.consumeWith(verify().jsonPath("$.clientId")

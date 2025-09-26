@@ -11,4 +11,4 @@ pluginManagement {
         id("org.springframework.boot") version bootVersion
     }
 }
-rootProject.name = "consumer-kotlin-ftw-gradle"
+rootProject.name = "consumer-kotlin-ftw

@@ -17,12 +17,10 @@
 package com.example;
 
 import java.nio.charset.StandardCharsets;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
+import jakarta.annotation.Nullable;
 import org.assertj.core.api.BDDAssertions;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
@@ -56,8 +54,9 @@ import org.springframework.test.context.DynamicPropertySource;
 @ActiveProfiles("test")
 public class ApplicationTests {
 
-	
-	@Container static RabbitMQContainer rabbit = new RabbitMQContainer();
+
+	@Container
+	static RabbitMQContainer rabbit = new RabbitMQContainer();
 
 	@DynamicPropertySource
 	static void rabbitProperties(DynamicPropertyRegistry registry) {
@@ -100,7 +99,8 @@ class TestConfig {
 			@Override
 			public <T> void send(T payload, Map<String, Object> headers, String destination, @Nullable YamlContract contract) {
 				log.info("Sending a message to destination [{}]", destination);
-				send(org.springframework.messaging.support.MessageBuilder.withPayload(payload).copyHeaders(headers).build(), destination, contract);
+				send(org.springframework.messaging.support.MessageBuilder.withPayload(payload).copyHeaders(headers)
+						.build(), destination, contract);
 			}
 
 			private Message toMessage(org.springframework.messaging.Message<?> msg) {
@@ -111,9 +111,11 @@ class TestConfig {
 				newHeaders.forEach(messageProperties::setHeader);
 				if (payload instanceof String) {
 					String json = (String) payload;
-					Message message = MessageBuilder.withBody(json.getBytes(StandardCharsets.UTF_8)).andProperties(messageProperties).build();
+					Message message = MessageBuilder.withBody(json.getBytes(StandardCharsets.UTF_8))
+							.andProperties(messageProperties).build();
 					return message;
-				} else {
+				}
+				else {
 					throw new IllegalStateException("Payload is not a String");
 				}
 			}

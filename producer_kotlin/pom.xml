@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.4</version>
+		<version>4.0.0-M3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -76,7 +76,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
-		<kotlin.version>1.8.22</kotlin.version>
+		<kotlin.version>2.2.0</kotlin.version>
 		<spring-cloud.version>2025.1.0-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-contract.version>5.0.0-SNAPSHOT</spring-cloud-contract.version>
 	</properties>
@@ -205,14 +205,6 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -221,14 +213,6 @@
 			<url>https://repo.spring.io/snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
 		<pluginRepository>

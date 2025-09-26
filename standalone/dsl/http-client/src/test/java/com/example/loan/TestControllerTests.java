@@ -49,7 +49,7 @@ public class TestControllerTests {
 		ResponseEntity<String> response = new RestTemplate()
 				.getForEntity("http://localhost:" + this.port + "/example", String.class);
 		// then:
-		assertThat(response.getStatusCodeValue()).isEqualTo(200);
+		assertThat(response.getStatusCode().value()).isEqualTo(200);
 	}
 
 }

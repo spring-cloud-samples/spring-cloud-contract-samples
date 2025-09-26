@@ -16,12 +16,10 @@
 
 package com.example;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
+import jakarta.annotation.Nullable;
 import org.assertj.core.api.BDDAssertions;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;

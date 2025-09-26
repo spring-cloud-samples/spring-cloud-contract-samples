@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.test.client.TestRestTemplate;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
@@ -43,6 +43,6 @@ public class FooControllerTest {
 				.getForEntity("http://localhost:" + this.producerPort + "/bar",
 						String.class);
 
-		BDDAssertions.then(entity.getStatusCodeValue()).isEqualTo(404);
+		BDDAssertions.then(entity.getStatusCode().value()).isEqualTo(404);
 	}
 }

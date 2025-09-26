@@ -19,7 +19,6 @@ repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencyManagement {
@@ -32,9 +31,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
 	testImplementation 'org.springframework.cloud:spring-cloud-contract-wiremock'
 }
@@ -111,7 +108,7 @@ publishing {
 
 clean.doFirst {
 	delete 'target/snippets/stubs'
-	delete "~/.m2/repository/com/example/http-server-webclient-gradle"
+	delete "~/.m2/repository/com/example/http-server-webclient"
 }
 
 task resolveDependencies {

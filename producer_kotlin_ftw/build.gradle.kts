@@ -8,8 +8,8 @@ plugins {
 	id("org.springframework.cloud.contract")
 	id("maven-publish")
 	// Kotlin version needs to be aligned with Gradle
-	kotlin("jvm") version "1.8.22"
-	kotlin("plugin.spring") version "1.8.22"
+	kotlin("jvm") version "2.2.0"
+	kotlin("plugin.spring") version "2.2.0"
 }
 
 group = "com.example"
@@ -57,6 +57,12 @@ dependencies {
 
 
 
+
+
+test {
+	failOnNoDiscoveredTests = false
+}
+
 contracts {
 	contractsDslDir.set(file("src/test/resources/contracts"))
 	testFramework.set(org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5)
@@ -66,7 +72,7 @@ contracts {
 
 tasks.withType<Delete> {
 	doFirst {
-		delete("~/.m2/repository/com/example/producer-kotlin-ftw-gradle")
+		delete("~/.m2/repository/com/example/producer-kotlin-ftw)
 	}
 }
 

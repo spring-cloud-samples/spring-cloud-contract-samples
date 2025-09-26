@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController
 class StuffController {
 
     @PostMapping(value = ["/stuff"],
-            consumes = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE),
-            produces = arrayOf(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE),
+            produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
     internal fun stuff(@RequestBody stuff: Stuff): Stuff {
         Assert.isTrue(stuff.comment == LOREM_IPSUM, "Should have a matching comment")
         return Stuff(LOREM_IPSUM, "It worked", "success")

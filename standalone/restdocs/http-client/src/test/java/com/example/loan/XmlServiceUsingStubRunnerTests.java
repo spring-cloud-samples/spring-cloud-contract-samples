@@ -47,7 +47,7 @@ class XmlServiceUsingStubRunnerTests {
 						.contentType(MediaType.valueOf("application/xml;charset=UTF-8"))
 						.body(new XmlRequestBody("foo")), XmlResponseBody.class);
 
-		BDDAssertions.then(responseEntity.getStatusCodeValue()).isEqualTo(200);
+		BDDAssertions.then(responseEntity.getStatusCode().value()).isEqualTo(200);
 		BDDAssertions.then(responseEntity.getBody().status).isEqualTo("FULL");
 	}
 
@@ -59,7 +59,7 @@ class XmlServiceUsingStubRunnerTests {
 						.contentType(MediaType.valueOf("application/xml;charset=UTF-8"))
 						.body(new XmlRequestBody("")), XmlResponseBody.class);
 
-		BDDAssertions.then(responseEntity.getStatusCodeValue()).isEqualTo(200);
+		BDDAssertions.then(responseEntity.getStatusCode().value()).isEqualTo(200);
 		BDDAssertions.then(responseEntity.getBody().status).isEqualTo("EMPTY");
 	}
 

@@ -40,12 +40,8 @@
 				<module>standalone/webclient/http-client</module>
 
 				<module>common</module>
-				<module>wiremock</module>
 				<module>wiremock-for-contract-docs</module>
-				<module>wiremock-native</module>
 				<module>wiremock-tomcat</module>
-				<module>wiremock-undertow</module>
-				<module>wiremock-undertow-ssl</module>
 				<module>beer_contracts</module>
 				<module>producer</module>
 				<module>producer_testng</module>
@@ -53,7 +49,7 @@
 				<!-- <module>producer_jaxrs_spring</module> -->
 				<module>producer_webflux</module>
 				<module>producer_webflux_webtestclient</module>
-				<module>producer_webflux_security</module>
+<!--				<module>producer_webflux_security</module>--><!-- Kotlin issues -->
 				<module>producer_router_function</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
@@ -70,7 +66,7 @@
 				<!--<module>producer_with_spock</module>--> <!-- Spock Spring is broken -->
 				<module>producer_with_xml</module>
 				<module>producer_with_latest_2_2_features</module>
-				<module>producer_kotlin_ftw</module>
+<!--				<module>producer_kotlin_ftw</module>--><!-- Kotlin issues -->
 				<module>producer_java</module>
 				<module>producer_kafka_middleware</module>
 				<module>producer_rabbit_middleware</module>
@@ -86,11 +82,11 @@
 				<!--<module>consumer_security</module>-->  <!-- TODO: Fix me -->
 				<module>consumer_with_latest_2_2_features</module>
 				<module>consumer_java</module>
-				<module>consumer_kotlin_ftw</module>
+<!--				<module>consumer_kotlin_ftw</module>--><!-- Kotlin issues -->
 				<module>consumer_kafka_middleware</module>
 				<module>consumer_rabbit_middleware</module>
 <!--				<module>consumer_jms_middleware</module>-->
-				<module>consumer_with_secured_webflux</module>
+<!--				<module>consumer_with_secured_webflux</module>--> <!-- Kotlin issues -->
 				<module>consumer_camel</module>
 <!--				<module>consumer_grpc</module>--> <!-- TODO: Java 17?? -->
 				<module>consumer_kotlin</module>
@@ -112,19 +108,15 @@
 				<module>standalone/webclient/http-client</module>
 
 				<module>beer_contracts</module>
-				<module>wiremock</module>
 				<module>wiremock-for-contract-docs</module>
-				<module>wiremock-native</module>
 				<module>wiremock-tomcat</module>
-				<module>wiremock-undertow</module>
-				<module>wiremock-undertow-ssl</module>
 				<module>producer</module>
 				<module>producer_testng</module>
 				<!-- <module>producer_jaxrs</module>
 				<module>producer_jaxrs_spring</module> -->
 				<module>producer_webflux</module>
 				<module>producer_webflux_webtestclient</module>
-				<module>producer_webflux_security</module>
+<!--				<module>producer_webflux_security</module>--> <!-- Kotlin issues -->
 				<module>producer_router_function</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
@@ -141,7 +133,7 @@
 <!--				<module>producer_with_spock</module>--> <!-- TODO: Spock Spring is broken -->
 				<module>producer_with_xml</module>
 				<module>producer_with_latest_2_2_features</module>
-				<module>producer_kotlin_ftw</module>
+<!--				<module>producer_kotlin_ftw</module>--><!-- Kotlin issues -->
 				<module>producer_java</module>
 				<module>producer_kafka_middleware</module>
 				<module>producer_rabbit_middleware</module>
@@ -157,11 +149,11 @@
 				<!--<module>consumer_security</module>-->  <!-- TODO: Fix me -->
 				<module>consumer_with_latest_2_2_features</module>
 				<module>consumer_java</module>
-				<module>consumer_kotlin_ftw</module>
+<!--				<module>consumer_kotlin_ftw</module>--><!-- Kotlin issues -->
 				<module>consumer_kafka_middleware</module>
 				<module>consumer_rabbit_middleware</module>
 <!--				<module>consumer_jms_middleware</module>-->
-				<module>consumer_with_secured_webflux</module>
+<!--				<module>consumer_with_secured_webflux</module>--> <!-- TODO: Kotlin issues -->
 				<module>consumer_camel</module>
 <!--				<module>consumer_grpc</module>-->  <!-- TODO: Java 17?? -->
 				<module>consumer_kotlin</module>

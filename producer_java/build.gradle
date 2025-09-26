@@ -8,13 +8,11 @@ plugins {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 ext {
@@ -33,7 +31,6 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation('org.springframework.cloud:spring-cloud-stream-test-binder')
-	testImplementation('javax.inject:javax.inject:1')
 	
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	
@@ -56,6 +53,10 @@ contracts {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
 	}
 	contractsDslDir = new File(project.rootDir, "src/test/java/contracts")
+}
+
+test {
+	failOnNoDiscoveredTests = false
 }
 
 contractTest {

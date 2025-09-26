@@ -21,13 +21,11 @@ buildscript {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 ext {
@@ -46,7 +44,6 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation('org.springframework.cloud:spring-cloud-stream-test-binder')
-	testImplementation('javax.inject:javax.inject:1')
 	// tag::verifier_dep[]
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
 	// end::verifier_dep[]
@@ -68,6 +65,10 @@ contracts {
 	baseClassMappings {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
 	}
+}
+
+test {
+	failOnNoDiscoveredTests = false
 }
 
 contractTest {

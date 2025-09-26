@@ -3,7 +3,6 @@ buildscript {
         mavenCentral()
         mavenLocal()
         maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
     }
     dependencies {
         classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
@@ -16,7 +15,6 @@ apply plugin: 'maven-publish'
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
 
 repositories {
     mavenCentral()

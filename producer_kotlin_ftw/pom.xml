@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.4</version>
+		<version>4.0.0-M3</version>
 		<relativePath/>
 	</parent>
 
@@ -24,7 +24,7 @@
 		<spring-cloud-contract.version>5.0.0-SNAPSHOT</spring-cloud-contract.version>
 		<spring-cloud.version>2025.1.0-SNAPSHOT</spring-cloud.version>
 		<!-- Needs to align the version to what's there in Contract -->
-		<kotlin.version>1.8.22</kotlin.version>
+		<kotlin.version>2.2.0</kotlin.version>
 	</properties>
 
 	<dependencies>
@@ -214,14 +214,6 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -230,14 +222,6 @@
 			<url>https://repo.spring.io/snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>

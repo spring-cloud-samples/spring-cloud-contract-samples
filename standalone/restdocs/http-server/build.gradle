@@ -13,7 +13,6 @@ repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencyManagement {
@@ -40,6 +39,7 @@ contracts {
 		baseClassMapping('.*standalone.*', 'com.example.fraud.FraudBaseWithStandaloneSetup')
 		baseClassMapping('.*webapp.*', 'com.example.fraud.FraudBaseWithWebAppSetup')
 	}
+	contractsDslDir = file("src/test/resources/contracts")
 }
 
 generateClientStubs.enabled = false
@@ -111,7 +111,7 @@ publishing {
 
 clean.doFirst {
 	delete 'target/snippets/stubs'
-	delete "~/.m2/repository/com/example/http-server-restdocs-gradle"
+	delete "~/.m2/repository/com/example/http-server-restdocs"
 }
 
 task resolveDependencies {

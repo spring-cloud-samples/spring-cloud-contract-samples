@@ -9,13 +9,11 @@ plugins {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 sourceSets {
@@ -97,6 +95,10 @@ contracts {
 
 generateContractTests {
 	dependsOn("generateProto")
+}
+
+test {
+	failOnNoDiscoveredTests = false
 }
 
 contractTest {
