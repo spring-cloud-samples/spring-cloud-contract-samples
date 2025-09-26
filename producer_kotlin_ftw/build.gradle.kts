@@ -57,6 +57,12 @@ dependencies {
 
 
 
+
+
+test {
+	failOnNoDiscoveredTests = false
+}
+
 contracts {
 	contractsDslDir.set(file("src/test/resources/contracts"))
 	testFramework.set(org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5)
@@ -66,7 +72,7 @@ contracts {
 
 tasks.withType<Delete> {
 	doFirst {
-		delete("~/.m2/repository/com/example/producer-kotlin-ftw-gradle")
+		delete("~/.m2/repository/com/example/producer-kotlin-ftw)
 	}
 }
 

@@ -12,7 +12,6 @@ repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 ext {
@@ -24,7 +23,9 @@ println "Boot Version [${bootVersion}], Cloud version [${BOM_VERSION}]"
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.boot:spring-boot-starter-kafka")
 	implementation("org.springframework.kafka:spring-kafka")
+	implementation("com.fasterxml.jackson.core:jackson-databind")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.awaitility:awaitility:3.1.6")

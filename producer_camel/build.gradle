@@ -13,7 +13,6 @@ repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 ext {
@@ -43,6 +42,10 @@ dependencyManagement {
 contracts {
 	contractsDslDir = file("src/test/resources/contracts")
 	baseClassForTests = 'com.example.demo.BaseClass'
+}
+
+test {
+	failOnNoDiscoveredTests = false
 }
 
 contractTest {

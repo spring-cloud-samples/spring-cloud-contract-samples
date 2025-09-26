@@ -26,7 +26,6 @@ repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 ext {
@@ -66,6 +65,10 @@ contracts {
 	baseClassMappings {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
 	}
+}
+
+test {
+	failOnNoDiscoveredTests = false
 }
 
 contractTest {

@@ -15,7 +15,6 @@ repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencies {
@@ -41,6 +40,10 @@ contracts {
 	testFramework = "JUNIT5"
 	packageWithBaseClasses = 'com.example'
 	testMode = "JAXRSCLIENT"
+}
+
+test {
+	failOnNoDiscoveredTests = false
 }
 
 contractTest {

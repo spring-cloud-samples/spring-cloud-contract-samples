@@ -13,7 +13,6 @@ repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 ext {
@@ -41,6 +40,12 @@ dependencyManagement {
 }
 
 // tag::plugin[]
+
+
+test {
+	failOnNoDiscoveredTests = false
+}
+
 contracts {
 	contractsDslDir = file("src/test/resources/contracts")
 	testFramework = "JUNIT5"

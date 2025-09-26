@@ -13,7 +13,6 @@ repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 ext {
@@ -58,6 +57,10 @@ task generateProto {
 }
 
 compileJava.dependsOn(generateProto)
+
+test {
+	failOnNoDiscoveredTests = false
+}
 
 contracts {
 	contractsDslDir = file("src/test/resources/contracts")

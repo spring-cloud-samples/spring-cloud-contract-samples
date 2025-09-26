@@ -14,7 +14,6 @@ repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 // end::deps_repos[]
 
@@ -37,10 +36,8 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
 
 	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
-	testImplementation(group: 'org.springframework.cloud', name: 'spring-cloud-stream-test-binder')
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude(group: 'org.junit.vintage', module: 'junit-vintage-engine')
-	}
+	testImplementation('org.springframework.cloud:spring-cloud-stream-test-binder')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
 contractTest {
@@ -56,6 +53,10 @@ contractTest {
 			}
 		}
 	}
+}
+
+test {
+	failOnNoDiscoveredTests = false
 }
 
 publishing {
@@ -78,7 +79,7 @@ publishing {
 }
 
 clean.doFirst {
-	delete "~/.m2/repository/com/example/http-server-dsl-gradle"
+	delete "~/.m2/repository/com/example/http-server-dsl"
 }
 
 task resolveDependencies {

@@ -13,7 +13,6 @@ repositories {
 	mavenCentral()
 	mavenLocal()
 	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 ext {
@@ -54,6 +53,10 @@ contracts {
 		baseClassMapping(".*intoxication.*", "com.example.intoxication.BeerIntoxicationBase")
 	}
 	contractsDslDir = new File(project.rootDir, "src/test/java/contracts")
+}
+
+test {
+	failOnNoDiscoveredTests = false
 }
 
 contractTest {
