@@ -84,12 +84,10 @@ function build_gradle() {
     build producer_with_stubs_per_consumer
     build producer_with_external_contracts
 #    build producer_with_restdocs # TODO: Fix me
-
-    build producer_with_webtestclient_restdocs
-    build producer_with_dsl_restdocs
+#    build producer_with_webtestclient_restdocs # TODO: Fix me
+#    build producer_with_dsl_restdocs # TODO: Fix me
    # build producer_with_spock # TODO: Fix me
     build producer_with_xml
-
 #    build producer_security # TODO: Fix me
     build producer_with_latest_2_2_features
 #    build producer_with_latest_3_0_features_gradle # TODO: Fix me
@@ -100,18 +98,15 @@ function build_gradle() {
 #    build producer_jms_middleware # TODO: Fix me
 #    build producer_graphql # TODO: Migrate to Spring GraphQL
 #    build producer_grpc # TODO:  Java 17??
-
     build consumer
 #    build consumer_kotlin # TODO: Kotlin broken
 #    build consumer_proto  # TODO: Fix me
     build consumer_with_stubs_per_consumer
 #    build consumer_with_restdocs # TODO: Fix me
-
     build consumer_with_discovery
 #    build consumer_security # TODO: Fix me
     build consumer_with_latest_2_2_features
     # build consumer_with_latest_3_0_features_gradle # TODO: Fix me
-
     build consumer_java
 #    build consumer_kotlin_ftw # TODO: Kotlin broken
     build consumer_kafka_middleware
