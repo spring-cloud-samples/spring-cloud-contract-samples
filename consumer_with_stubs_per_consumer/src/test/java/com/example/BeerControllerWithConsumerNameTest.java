@@ -36,7 +36,7 @@ public class BeerControllerWithConsumerNameTest extends AbstractTest {
 
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
-	@Value("${stubrunner.runningstubs.beer-api-producer-with-stubs-per-consumer.port}") int producerPort;
+	@Value("${spring.cloud.contract.stubrunner.runningstubs.beer-api-producer-with-stubs-per-consumer.port}") int producerPort;
 
 	@BeforeEach
 	public void setupPort() {

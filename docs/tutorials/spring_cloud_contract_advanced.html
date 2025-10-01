@@ -1288,7 +1288,7 @@ We want the port to be set automatically.</p>
 <ul>
 <li>
 <p>Autowire the field annotated with
-<code>@Value("${stubrunner.runningstubs.artifactid.port}")</code>.</p>
+<code>@Value("${spring.cloud.contract.stubrunner.runningstubs.artifactid.port}")</code>.</p>
 </li>
 <li>
 <p>Use the autowired <code>StubFinder</code> interface, which includes the <code>findStub</code> method.</p>
@@ -1301,7 +1301,7 @@ We want the port to be set automatically.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Value("${stubrunner.runningstubs.beer-api-producer-advanced.port}") int stubPort;
+<pre class="prettyprint highlight"><code class="language-java" data-lang="java">@Value("${spring.cloud.contract.stubrunner.runningstubs.beer-api-producer-advanced.port}") int stubPort;
 
 @BeforeEach
 public void setupPort() {
