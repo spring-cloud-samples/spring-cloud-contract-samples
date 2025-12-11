@@ -17,8 +17,8 @@
 	<properties>
 		<java.version>17</java.version>
 		<kotlin.version>2.2.0</kotlin.version>
-		<spring-cloud.version>2025.1.1-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>5.0.1-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud.version>2024.0.4-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>4.2.4-SNAPSHOT</spring-cloud-contract.version>
 	</properties>
 
 	<dependencies>

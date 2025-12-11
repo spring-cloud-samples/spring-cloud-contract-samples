@@ -69,8 +69,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
-		<spring-cloud.version>2025.1.1-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>5.0.1-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud.version>2024.0.4-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>4.2.4-SNAPSHOT</spring-cloud-contract.version>
 		<testcontainers.version>1.17.6</testcontainers.version>
 	</properties>
 

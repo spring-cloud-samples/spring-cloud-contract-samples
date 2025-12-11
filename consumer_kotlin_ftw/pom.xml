@@ -21,7 +21,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
-		<spring-cloud.version>2025.1.1-SNAPSHOT</spring-cloud.version>
+		<spring-cloud.version>2024.0.4-SNAPSHOT</spring-cloud.version>
 		<!-- Aligned with Gradle -->
 		<kotlin.version>2.2.0</kotlin.version>
 	</properties>
