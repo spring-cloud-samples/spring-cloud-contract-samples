@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "Book",
+  "namespace": "com.example.kafka.avro",
+  "fields": [
+    {
+      "name": "isbn",
+      "type": "string"
+    },
+    {
+      "name": "title",
+      "type": "string"
+    },
+    {
+      "name": "author",
+      "type": "string"
+    }
+  ]
+}
