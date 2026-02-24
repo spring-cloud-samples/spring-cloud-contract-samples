@@ -36,7 +36,7 @@ import org.springframework.web.client.RestTemplate;
 @AutoConfigureStubRunner(ids = "com.example:http-server-restdocs")
 class XmlServiceUsingStubRunnerTests {
 
-	@Value("${stubrunner.runningstubs.http-server-restdocs.port}")
+	@Value("${spring.cloud.contract.stubrunner.runningstubs.http-server-restdocs.port}")
 	int port;
 
 	@Test

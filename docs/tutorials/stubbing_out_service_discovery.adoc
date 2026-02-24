@@ -76,13 +76,13 @@ Now let's assume that we call the producer application by using the
 `http://somenameforproducer/check` URL. You need to provide some properties to tell Stub
 Runner that the given service name (in our case, `somenameforproducer`) should be mapped
 to the running HTTP server stub of a given producer. Let's set those properties.
-Stub Runner requires you to set the `stubrunner.idsToServiceIds` mapping in which the key
+Stub Runner requires you to set the `spring.cloud.contract.stubrunner.idsToServiceIds` mapping in which the key
 is the artifact ID and the value is the service name in the code. You also need to define
 the `idsToServiceIds` property, as shown in the following code:
 
 [source,yml]
 ----
-stubrunner:
+spring.cloud.contract.stubrunner:
   idsToServiceIds:
     beer-api-producer: somenameforproducer
 ----
