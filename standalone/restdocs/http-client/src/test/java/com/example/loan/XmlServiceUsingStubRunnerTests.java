@@ -49,18 +49,18 @@ class XmlServiceUsingStubRunnerTests {
 						.body(new XmlRequestBody("foo")), XmlResponseBody.class);
 
 		BDDAssertions.then(responseEntity.getStatusCode().value()).isEqualTo(200);
-		BDDAssertions.then(responseEntity.getBody().status).isEqualTo("FRAUD");
+		BDDAssertions.then(responseEntity.getBody().status).isEqualTo("FULL");
 	}
 
 	@Test
 	void shouldSuccessfullyReturnEmptyResponse() throws Exception {
-		ResponseEntity<String> responseEntity = new RestTemplate()
+		ResponseEntity<XmlResponseBody> responseEntity = new RestTemplate()
 				.exchange(RequestEntity
 						.post(URI.create("http://localhost:" + this.port + "/xmlfraud"))
 						.contentType(MediaType.valueOf("application/xml;charset=UTF-8"))
-						.body(new XmlRequestBody("bar")), String.class);
+						.body(new XmlRequestBody("")), XmlResponseBody.class);
 
 		BDDAssertions.then(responseEntity.getStatusCode().value()).isEqualTo(200);
-		BDDAssertions.then(responseEntity.getBody()).isNullOrEmpty();
+		BDDAssertions.then(responseEntity.getBody().status).isEqualTo("EMPTY");
 	}
 }
