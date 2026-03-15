@@ -26,15 +26,15 @@ function build_maven() {
     if [[ "${BUILD_COMMON}" == "true" ]]; then
         echo -e "\n\nInstalling common\n\n"
         cd ${ROOT}/common
-        ./mvnw clean install -B -U
+        ./mvnw clean install -B
     fi
     cd ${ROOT}
 
     echo -e "\n\nBuilding everything skipping tests? [${SKIP_TESTS}]\n\n"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./mvnw clean install -Ptest -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true -U
+        ./mvnw clean install -Ptest -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else
-        ./mvnw clean install -Ptest -B -U
+        ./mvnw clean install -Ptest -B
     fi
 }
 
