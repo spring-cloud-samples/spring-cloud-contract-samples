@@ -29,7 +29,7 @@ export SKIP_COMPATIBILITY="${SKIP_COMPATIBILITY:-false}"
 if [[ "${SKIP_COMPATIBILITY}" != "true" ]]; then
 	echo -e "\n\nWill run compatibility build\n\n"
 	# TODO: Go back to snapshots one day
-	export CURRENT_BOOT_VERSION="2.7.5"
+	export CURRENT_BOOT_VERSION="4.0.3"
 	. ${ROOT}/scripts/runCompatibilityBuild.sh
 fi
 

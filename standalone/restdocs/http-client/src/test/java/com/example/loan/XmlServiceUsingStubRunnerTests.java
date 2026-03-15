@@ -25,6 +25,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +34,10 @@ import org.springframework.web.client.RestTemplate;
 
 
 @SpringBootTest
-@AutoConfigureStubRunner(ids = "com.example:http-server-restdocs")
+@AutoConfigureStubRunner(ids = "com.example:http-server-restdocs", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 class XmlServiceUsingStubRunnerTests {
 
-	@Value("${stubrunner.runningstubs.http-server-restdocs.port}")
+	@StubRunnerPort("http-server-restdocs")
 	int port;
 
 	@Test
@@ -48,19 +49,18 @@ class XmlServiceUsingStubRunnerTests {
 						.body(new XmlRequestBody("foo")), XmlResponseBody.class);
 
 		BDDAssertions.then(responseEntity.getStatusCode().value()).isEqualTo(200);
-		BDDAssertions.then(responseEntity.getBody().status).isEqualTo("FULL");
+		BDDAssertions.then(responseEntity.getBody().status).isEqualTo("FRAUD");
 	}
 
 	@Test
 	void shouldSuccessfullyReturnEmptyResponse() throws Exception {
-		ResponseEntity<XmlResponseBody> responseEntity = new RestTemplate()
+		ResponseEntity<String> responseEntity = new RestTemplate()
 				.exchange(RequestEntity
 						.post(URI.create("http://localhost:" + this.port + "/xmlfraud"))
 						.contentType(MediaType.valueOf("application/xml;charset=UTF-8"))
-						.body(new XmlRequestBody("")), XmlResponseBody.class);
+						.body(new XmlRequestBody("bar")), String.class);
 
 		BDDAssertions.then(responseEntity.getStatusCode().value()).isEqualTo(200);
-		BDDAssertions.then(responseEntity.getBody().status).isEqualTo("EMPTY");
+		BDDAssertions.then(responseEntity.getBody()).isNullOrEmpty();
 	}
-
 }

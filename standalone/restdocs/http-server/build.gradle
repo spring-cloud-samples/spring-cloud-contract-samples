@@ -27,6 +27,8 @@ dependencies {
 	implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+	testImplementation 'org.springframework.boot:spring-boot-restdocs'
 	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
 	// tag::dependencies[]
 	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'

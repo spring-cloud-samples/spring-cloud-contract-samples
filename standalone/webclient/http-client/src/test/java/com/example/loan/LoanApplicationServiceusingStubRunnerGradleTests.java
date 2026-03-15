@@ -28,19 +28,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
-
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest
-@AutoConfigureStubRunner(ids = "com.example:http-server-webclient")
+@AutoConfigureStubRunner(ids = "com.example:http-server-webclient", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 public class LoanApplicationServiceusingStubRunnerGradleTests {
 
 	@Autowired
 	LoanApplicationService service;
 
-	@Value("${stubrunner.runningstubs.http-server-webclient.port}")
+	@StubRunnerPort("http-server-webclient")
 	int port;
 
 	@BeforeEach

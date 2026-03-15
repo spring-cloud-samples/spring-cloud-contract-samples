@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Marius Bogoevici
  */
 @SpringBootTest(webEnvironment = WebEnvironment.NONE, properties = "spring.cloud.stream.bindings.input.destination=sensor-data", classes = {MessageConsumedTests.Config.class, Application.class})
-@AutoConfigureStubRunner(ids = "com.example:http-server-dsl:0.0.1", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
+@AutoConfigureStubRunner(ids = "com.example:http-server-dsl:+", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 public class MessageConsumedTests {
 
 	@Autowired

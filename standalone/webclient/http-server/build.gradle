@@ -32,6 +32,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation 'org.springframework.boot:spring-boot-restdocs'
+	testImplementation 'org.springframework.boot:spring-boot-webtestclient'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
 	testImplementation 'org.springframework.cloud:spring-cloud-contract-wiremock'
 }
