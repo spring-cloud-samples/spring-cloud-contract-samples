@@ -120,8 +120,8 @@
 				<module>producer_router_function</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
-				<module>producer_proto</module>
-				<module>producer_kotlin</module>
+<!--				<module>producer_proto</module>--> <!-- needs protoc binary -->
+<!--				<module>producer_kotlin</module>--> <!-- Kotlin issues -->
 				<!-- <module>producer_security</module> --> <!-- TODO: Fix me -->
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_git</module>
@@ -142,7 +142,7 @@
 <!--				<module>producer_graphql</module>--> <!-- TODO: Migrate to Spring GraphQL -->
 <!--				<module>producer_grpc</module>-->  <!-- TODO: Java 17?? -->
 				<module>consumer</module>
-				<module>consumer_proto</module>
+<!--				<module>consumer_proto</module>--> <!-- needs protoc binary -->
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
@@ -156,7 +156,7 @@
 <!--				<module>consumer_with_secured_webflux</module>--> <!-- TODO: Kotlin issues -->
 				<module>consumer_camel</module>
 <!--				<module>consumer_grpc</module>-->  <!-- TODO: Java 17?? -->
-				<module>consumer_kotlin</module>
+<!--				<module>consumer_kotlin</module>--> <!-- Kotlin issues -->
 			</modules>
 		</profile>
 	</profiles>
