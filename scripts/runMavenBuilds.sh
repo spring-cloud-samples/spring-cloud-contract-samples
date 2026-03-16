@@ -35,10 +35,10 @@ function build_maven() {
     # causing BasicAuthCache ClassCastException after ~25 modules
     if [[ "${SKIP_TESTS}" == "true" ]]; then
         ./mvnw clean install -Ptest-batch1 -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
-        ./mvnw clean install -Ptest-batch2 -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+        ./mvnw install -Ptest-batch2 -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else
         ./mvnw clean install -Ptest-batch1 -B
-        ./mvnw clean install -Ptest-batch2 -B
+        ./mvnw install -Ptest-batch2 -B
     fi
 }
 
