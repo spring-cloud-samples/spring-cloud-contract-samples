@@ -20,7 +20,7 @@ function clean() {
 
 function build_maven() {
     clean
-    
+
     prepare_git
 
     if [[ "${BUILD_COMMON}" == "true" ]]; then
@@ -31,18 +31,14 @@ function build_maven() {
     cd ${ROOT}
 
     echo -e "\n\nBuilding everything skipping tests? [${SKIP_TESTS}]\n\n"
-    # Split reactor into two batches to avoid SCC plugin classrealm
-    # accumulation causing BasicAuthCache ClassCastException after ~25 modules
+    # Build in two batches to avoid SCC plugin classrealm accumulation
+    # causing BasicAuthCache ClassCastException after ~25 modules
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./mvnw clean install -Ptest -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true \
-            -pl '!producer_kafka_middleware,!producer_rabbit_middleware,!producer_camel,!consumer,!consumer_with_stubs_per_consumer,!consumer_with_discovery,!consumer_with_restdocs,!consumer_with_latest_2_2_features,!consumer_java,!consumer_kafka_middleware,!consumer_rabbit_middleware,!consumer_camel'
-        ./mvnw install -Ptest -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true \
-            -pl 'producer_kafka_middleware,producer_rabbit_middleware,producer_camel,consumer,consumer_with_stubs_per_consumer,consumer_with_discovery,consumer_with_restdocs,consumer_with_latest_2_2_features,consumer_java,consumer_kafka_middleware,consumer_rabbit_middleware,consumer_camel'
+        ./mvnw clean install -Ptest-batch1 -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+        ./mvnw clean install -Ptest-batch2 -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else
-        ./mvnw clean install -Ptest -B \
-            -pl '!producer_kafka_middleware,!producer_rabbit_middleware,!producer_camel,!consumer,!consumer_with_stubs_per_consumer,!consumer_with_discovery,!consumer_with_restdocs,!consumer_with_latest_2_2_features,!consumer_java,!consumer_kafka_middleware,!consumer_rabbit_middleware,!consumer_camel'
-        ./mvnw install -Ptest -B \
-            -pl 'producer_kafka_middleware,producer_rabbit_middleware,producer_camel,consumer,consumer_with_stubs_per_consumer,consumer_with_discovery,consumer_with_restdocs,consumer_with_latest_2_2_features,consumer_java,consumer_kafka_middleware,consumer_rabbit_middleware,consumer_camel'
+        ./mvnw clean install -Ptest-batch1 -B
+        ./mvnw clean install -Ptest-batch2 -B
     fi
 }
 
