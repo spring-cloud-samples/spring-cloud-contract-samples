@@ -38,6 +38,7 @@ function build_maven() {
         ./mvnw install -Ptest-batch2 -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else
         ./mvnw clean install -Ptest-batch1 -B
+        prepare_git
         ./mvnw install -Ptest-batch2 -B
     fi
 }
