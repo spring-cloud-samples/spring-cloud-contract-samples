@@ -3,10 +3,10 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		// Workaround: SCC 5.0.3-SNAPSHOT plugin is missing this transitive dep
-		// needed by copyContracts task for Maven settings decryption. Remove
-		// when SCC plugin fixes its dependency declarations.
-		classpath 'org.apache.maven:maven-settings-builder:3.9.6'
+		// Workaround: SCC 5.0.3-SNAPSHOT plugin is missing Maven resolver
+		// transitive deps needed by copyContracts task. Remove when SCC
+		// plugin fixes its dependency declarations.
+		classpath 'org.apache.maven:maven-core:3.9.6'
 	}
 }
 
