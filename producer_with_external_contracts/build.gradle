@@ -1,3 +1,12 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.apache.maven:maven-core:3.9.6'
+	}
+}
+
 plugins {
 	id 'groovy'
 	id 'org.springframework.boot'
