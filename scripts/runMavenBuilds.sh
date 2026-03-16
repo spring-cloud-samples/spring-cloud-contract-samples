@@ -38,14 +38,14 @@ function build_maven() {
     fi
 
     # Build producer_with_xml separately to avoid SCC plugin classloader
-    # conflict (BasicAuthCache ClassCastException). Use -nsu to skip SNAPSHOT
-    # update checks since plugin JARs are already cached from the reactor build.
-    echo -e "\n\nBuilding producer_with_xml separately\n\n"
+    # conflict (BasicAuthCache ClassCastException). Use offline mode since
+    # all deps are cached from the reactor build above.
+    echo -e "\n\nBuilding producer_with_xml separately (offline)\n\n"
     cd ${ROOT}/producer_with_xml
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./mvnw clean install -B -nsu -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+        ./mvnw clean install -B -o -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else
-        ./mvnw clean install -B -nsu
+        ./mvnw clean install -B -o
     fi
     cd ${ROOT}
 }
