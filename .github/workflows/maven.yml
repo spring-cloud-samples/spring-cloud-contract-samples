@@ -21,7 +21,8 @@ jobs:
       with:
         java-version: 17
         distribution: temurin
-    - name: Set MAVEN_OPTS for native transport
-      run: echo "MAVEN_OPTS=-Dmaven.resolver.transport=native" >> $GITHUB_ENV
+    - name: Pre-resolve SCC plugin to avoid classloader conflict
+      run: |
+        cd common && ./mvnw dependency:resolve-plugins -B && cd ..
     - name: Build with Maven
       run: ./scripts/runMavenBuilds.sh

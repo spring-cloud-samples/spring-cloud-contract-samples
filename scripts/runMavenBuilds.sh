@@ -9,9 +9,6 @@ export ROOT=${ROOT:-`pwd`}
 export BUILD_COMMON="${BUILD_COMMON:-true}"
 export SKIP_TESTS="${SKIP_TESTS:-false}"
 export CI="${CI:-false}"
-# Use Java native HTTP transport to avoid httpclient classloader conflict
-# with SCC Maven plugin's extensions=true (BasicAuthCache ClassCastException)
-export MAVEN_OPTS="${MAVEN_OPTS:-} -Dmaven.resolver.transport=native"
 
 . ${ROOT}/scripts/common.sh
 
