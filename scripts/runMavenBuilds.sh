@@ -36,6 +36,18 @@ function build_maven() {
     else
         ./mvnw clean install -Ptest -B
     fi
+
+    # Build producer_with_xml separately to avoid SCC plugin classloader
+    # conflict (BasicAuthCache ClassCastException) that occurs when too many
+    # modules with extensions=true accumulate classrealms in a single reactor.
+    echo -e "\n\nBuilding producer_with_xml separately\n\n"
+    cd ${ROOT}/producer_with_xml
+    if [[ "${SKIP_TESTS}" == "true" ]]; then
+        ./mvnw clean install -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+    else
+        ./mvnw clean install -B
+    fi
+    cd ${ROOT}
 }
 
 cat <<'EOF'

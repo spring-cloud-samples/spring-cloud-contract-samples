@@ -24,6 +24,5 @@ jobs:
     - name: Pre-resolve SCC plugin to avoid classloader conflict
       run: |
         cd common && ./mvnw dependency:resolve-plugins -B && cd ..
-        ./mvnw dependency:resolve-plugins -Ptest -B || true
     - name: Build with Maven
       run: ./scripts/runMavenBuilds.sh
