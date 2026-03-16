@@ -31,14 +31,10 @@ function build_maven() {
     cd ${ROOT}
 
     echo -e "\n\nBuilding everything skipping tests? [${SKIP_TESTS}]\n\n"
-    # Serialize metadata resolution to avoid httpclient classrealm conflict
-    # (BasicAuthCache ClassCastException) that manifests when parallel resolver
-    # threads accumulate classrealms across many SCC plugin modules.
-    local RESOLVER_OPTS="-Daether.metadataResolver.threads=1"
     if [[ "${SKIP_TESTS}" == "true" ]]; then
-        ./mvnw clean install -Ptest -B ${RESOLVER_OPTS} -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
+        ./mvnw clean install -Ptest -B -DskipTests -DfailIfNoTests=false -Dspring.cloud.contract.verifier.skip=true -Dspring.cloud.contract.verifier.jar.skip=true
     else
-        ./mvnw clean install -Ptest -B ${RESOLVER_OPTS}
+        ./mvnw clean install -Ptest -B
     fi
 }
 
