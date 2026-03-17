@@ -40,7 +40,7 @@ class LoanApplicationServiceusingStubRunnerTests {
 	@Autowired
 	LoanApplicationService service;
 
-	@Value("${stubrunner.runningstubs.http-server-restdocs.port}")
+	@Value("${spring.cloud.contract.stubrunner.runningstubs.http-server-restdocs.port}")
 	int port;
 
 	@BeforeEach
