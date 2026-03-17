@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.0-M3</version>
+		<version>4.0.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -17,8 +17,8 @@
 	<properties>
 		<java.version>17</java.version>
 		<kotlin.version>2.2.0</kotlin.version>
-		<spring-cloud.version>2024.0.5-SNAPSHOT</spring-cloud.version>
-		<spring-cloud-contract.version>4.2.5-SNAPSHOT</spring-cloud-contract.version>
+		<spring-cloud.version>2025.1.2-SNAPSHOT</spring-cloud.version>
+		<spring-cloud-contract.version>5.0.3-SNAPSHOT</spring-cloud-contract.version>
 	</properties>
 
 	<dependencies>
@@ -69,6 +69,7 @@
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>spring-web-test-client</artifactId>
+			<version>5.5.7</version>
 			<scope>test</scope>
 			<optional>true</optional>
 		</dependency>

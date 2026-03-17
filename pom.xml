@@ -92,11 +92,10 @@
 				<module>consumer_kotlin</module>
 			</modules>
 		</profile>
+		<!-- Split test into two batches to avoid SCC plugin classrealm
+		     accumulation causing BasicAuthCache ClassCastException after ~25 modules -->
 		<profile>
-			<id>test</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
+			<id>test-batch1</id>
 			<modules>
 				<!-- standalone -->
 				<module>standalone/contracts</module>
@@ -112,51 +111,38 @@
 				<module>wiremock-tomcat</module>
 				<module>producer</module>
 				<module>producer_testng</module>
-				<!-- <module>producer_jaxrs</module>
-				<module>producer_jaxrs_spring</module> -->
 				<module>producer_webflux</module>
 				<module>producer_webflux_webtestclient</module>
-<!--				<module>producer_webflux_security</module>--> <!-- Kotlin issues -->
 				<module>producer_router_function</module>
 				<module>producer_yaml</module>
 				<module>producer_advanced</module>
-				<module>producer_proto</module>
-				<module>producer_kotlin</module>
-				<!-- <module>producer_security</module> --> <!-- TODO: Fix me -->
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_git</module>
 				<module>producer_with_empty_git</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>test-batch2</id>
+			<modules>
 				<module>producer_with_external_contracts</module>
 				<module>producer_with_restdocs</module>
 				<module>producer_with_webtestclient_restdocs</module>
 				<module>producer_with_dsl_restdocs</module>
-<!--				<module>producer_with_spock</module>--> <!-- TODO: Spock Spring is broken -->
 				<module>producer_with_xml</module>
 				<module>producer_with_latest_2_2_features</module>
-<!--				<module>producer_kotlin_ftw</module>--><!-- Kotlin issues -->
 				<module>producer_java</module>
 				<module>producer_kafka_middleware</module>
 				<module>producer_rabbit_middleware</module>
-<!--				<module>producer_jms_middleware</module>-->
 				<module>producer_camel</module>
-<!--				<module>producer_graphql</module>--> <!-- TODO: Migrate to Spring GraphQL -->
-<!--				<module>producer_grpc</module>-->  <!-- TODO: Java 17?? -->
 				<module>consumer</module>
-				<module>consumer_proto</module>
 				<module>consumer_with_stubs_per_consumer</module>
 				<module>consumer_with_discovery</module>
 				<module>consumer_with_restdocs</module>
-				<!--<module>consumer_security</module>-->  <!-- TODO: Fix me -->
 				<module>consumer_with_latest_2_2_features</module>
 				<module>consumer_java</module>
-<!--				<module>consumer_kotlin_ftw</module>--><!-- Kotlin issues -->
 				<module>consumer_kafka_middleware</module>
 				<module>consumer_rabbit_middleware</module>
-<!--				<module>consumer_jms_middleware</module>-->
-<!--				<module>consumer_with_secured_webflux</module>--> <!-- TODO: Kotlin issues -->
 				<module>consumer_camel</module>
-<!--				<module>consumer_grpc</module>-->  <!-- TODO: Java 17?? -->
-				<module>consumer_kotlin</module>
 			</modules>
 		</profile>
 	</profiles>

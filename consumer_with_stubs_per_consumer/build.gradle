@@ -28,6 +28,8 @@ dependencies {
 	testImplementation('org.springframework.cloud:spring-cloud-stream-test-binder')
 	testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
 	testImplementation("com.example:beer-common:0.0.1-SNAPSHOT")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 
 	// for compatibility
 	testImplementation('org.junit.jupiter:junit-jupiter-engine')

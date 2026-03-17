@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.cloud.stream.binder.test.TestChannelBinderConfiguration;
 
 
@@ -20,7 +21,7 @@ import static org.assertj.core.api.BDDAssertions.then;
  */
 @SpringBootTest(classes = {ClientApplication.class, BeerVerificationListenerClasspathTest.Config.class},
 		webEnvironment = WebEnvironment.NONE)
-@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs")
+@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 @DisabledIfEnvironmentVariable(named = "SKIP_COMPATIBILITY_TESTS", matches = "true")
 public class BeerVerificationListenerClasspathTest extends AbstractTest {
 

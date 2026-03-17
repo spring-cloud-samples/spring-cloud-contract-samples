@@ -6,10 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ClientApplication.class, webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090")
+@AutoConfigureStubRunner(ids = "com.example:beer-api-producer-restdocs:+:8090", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 
 @DirtiesContext
 public class BeerControllerClasspathTest extends AbstractTest {
@@ -32,7 +34,7 @@ public class BeerControllerClasspathTest extends AbstractTest {
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
 
-	@Value("${stubrunner.runningstubs.beer-api-producer-restdocs.port}") int producerPort;
+	@StubRunnerPort("beer-api-producer-restdocs") int producerPort;
 
 	@BeforeEach
 	public void setupPort() {

@@ -25,6 +25,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerPort;import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +34,10 @@ import org.springframework.web.client.RestTemplate;
 
 
 @SpringBootTest
-@AutoConfigureStubRunner(ids = "com.example:http-server-restdocs")
+@AutoConfigureStubRunner(ids = "com.example:http-server-restdocs", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 class XmlServiceUsingStubRunnerTests {
 
-	@Value("${stubrunner.runningstubs.http-server-restdocs.port}")
+	@StubRunnerPort("http-server-restdocs")
 	int port;
 
 	@Test
@@ -62,5 +63,4 @@ class XmlServiceUsingStubRunnerTests {
 		BDDAssertions.then(responseEntity.getStatusCode().value()).isEqualTo(200);
 		BDDAssertions.then(responseEntity.getBody().status).isEqualTo("EMPTY");
 	}
-
 }

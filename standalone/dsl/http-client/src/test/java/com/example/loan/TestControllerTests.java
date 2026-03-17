@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @AutoConfigureStubRunner(ids = {
-		"com.example:http-server-dsl:0.0.1:stubs:6565"}, stubsMode = StubRunnerProperties.StubsMode.LOCAL)
+		"com.example:http-server-dsl:+:stubs:6565"}, stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 @Disabled("TODO: Need to fix java parsing")
 public class TestControllerTests {
 	// end::autoconfigure_stubrunner[]
