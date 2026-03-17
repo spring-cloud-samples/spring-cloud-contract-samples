@@ -119,15 +119,15 @@
 				<module>producer_with_stubs_per_consumer</module>
 				<module>producer_with_git</module>
 				<module>producer_with_empty_git</module>
-				<module>producer_with_external_contracts</module>
-				<module>producer_with_restdocs</module>
-				<module>producer_with_webtestclient_restdocs</module>
-				<module>producer_with_dsl_restdocs</module>
 			</modules>
 		</profile>
 		<profile>
 			<id>test-batch2</id>
 			<modules>
+				<module>producer_with_external_contracts</module>
+				<module>producer_with_restdocs</module>
+				<module>producer_with_webtestclient_restdocs</module>
+				<module>producer_with_dsl_restdocs</module>
 				<module>producer_with_xml</module>
 				<module>producer_with_latest_2_2_features</module>
 				<module>producer_java</module>
