@@ -1,2 +1,2 @@
-stubrunner:
+spring.cloud.contract.stubrunner:
   stubs-mode: local
