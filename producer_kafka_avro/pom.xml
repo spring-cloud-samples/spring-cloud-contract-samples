@@ -169,7 +169,16 @@
 				<extensions>true</extensions>
 				<configuration>
 					<testFramework>JUNIT5</testFramework>
-					<baseClassForTests>com.example.kafka.producer.BaseClass</baseClassForTests>
+					<baseClassMappings>
+						<baseClassMapping>
+							<contractPackageRegex>.*json.*</contractPackageRegex>
+							<baseClassFQN>com.example.kafka.producer.AvroJsonContractTestBase</baseClassFQN>
+						</baseClassMapping>
+						<baseClassMapping>
+							<contractPackageRegex>.*binary.*</contractPackageRegex>
+							<baseClassFQN>com.example.kafka.producer.AvroBinaryContractTestBase</baseClassFQN>
+						</baseClassMapping>
+					</baseClassMappings>
 				</configuration>
 			</plugin>
 			<plugin>

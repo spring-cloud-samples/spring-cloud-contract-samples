@@ -7,18 +7,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.Tag;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.kafka.ConfluentKafkaContainer;
-import org.testcontainers.utility.DockerImageName;
-
-import tools.jackson.databind.json.JsonMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.verifier.converter.YamlContract;
@@ -28,6 +19,7 @@ import org.springframework.cloud.contract.verifier.messaging.internal.ContractVe
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.JsonKafkaHeaderMapper;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -38,14 +30,22 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.kafka.ConfluentKafkaContainer;
+import org.testcontainers.utility.DockerImageName;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import tools.jackson.databind.json.JsonMapper;
 
 @Tag("kafka-avro")
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = {
-		KafkaAvroProducerApplication.class, BaseClass.TestConfig.class })
+		KafkaAvroProducerApplication.class, AvroJsonContractTestBase.TestConfig.class })
 @AutoConfigureMessageVerifier
-@ActiveProfiles("contracts")
-class BaseClass {
+@ActiveProfiles({ "contracts", "avro-json" })
+public class AvroJsonContractTestBase {
 
 	@Autowired
 	private BookService bookService;
@@ -68,6 +68,7 @@ class BaseClass {
 	static class TestConfig {
 
 		@Bean
+		@Profile("avro-json")
 		KafkaMessageVerifier kafkaTemplateMessageVerifier() {
 			return new KafkaMessageVerifier();
 		}

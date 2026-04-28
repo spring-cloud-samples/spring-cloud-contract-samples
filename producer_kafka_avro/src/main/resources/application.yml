@@ -9,7 +9,8 @@ spring:
       group-id: kafka-avro-consumer-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      auto-offset-reset: earliest
       properties:
         specific.avro.reader: true
     properties:
-      schema.registry.url: mock://
+      schema.registry.url: mock://test
