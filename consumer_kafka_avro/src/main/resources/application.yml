@@ -1,0 +1,19 @@
+spring:
+  application-name: kafka-avro-consumer
+  kafka:
+    bootstrap-servers: localhost:9092
+    # producer settings below are only used by the collaboration tests
+    # (MessageVerifierSender in AvroBinary/JsonCollaborationTest publishes
+    # the stub-triggered message onto Kafka)
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    consumer:
+      group-id: kafka-avro-consumer-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      auto-offset-reset: earliest
+      properties:
+        specific.avro.reader: true
+    properties:
+      schema.registry.url: mock://test

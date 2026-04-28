@@ -1,0 +1,19 @@
+spring:
+  application-name: kafka-avro-producer
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    # consumer settings below are only used by the contract tests
+    # (KafkaMessageVerifier in AvroBinary/JsonContractTestBase consumes
+    # the produced message to verify it against the contract)
+    consumer:
+      group-id: kafka-avro-consumer-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      auto-offset-reset: earliest
+      properties:
+        specific.avro.reader: true
+    properties:
+      schema.registry.url: mock://test
