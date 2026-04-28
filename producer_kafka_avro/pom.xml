@@ -16,10 +16,8 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<spring-boot.version>4.0.1</spring-boot.version>
 		<kafka-avro-serializer.version>8.1.1</kafka-avro-serializer.version>
 		<spring-cloud.version>2025.1.0</spring-cloud.version>
-		<testcontainers.version>1.20.4</testcontainers.version>
 		<avro.version>1.12.0</avro.version>
 	</properties>
 
@@ -148,7 +146,7 @@
 			<plugin>
 				<groupId>org.apache.avro</groupId>
 				<artifactId>avro-maven-plugin</artifactId>
-				<version>1.11.3</version>
+				<version>${avro.version}</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>

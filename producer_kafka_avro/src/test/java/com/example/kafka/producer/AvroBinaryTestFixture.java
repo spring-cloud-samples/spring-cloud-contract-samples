@@ -32,7 +32,8 @@ class AvroBinaryTestFixture {
 				.build();
 
 		var bytes = toAvroBytes("book.returned", payload, "mock://test");
-		var path = Paths.get("producer_kafka_avro/src/test/resources/contracts/binary/bookReturnedMessage.bin");
+		var baseDir = System.getProperty("project.basedir", System.getProperty("user.dir"));
+		var path = Paths.get(baseDir, "src/test/resources/contracts/binary/bookReturnedMessage.bin");
 
 		saveFile(bytes, path);
 	}

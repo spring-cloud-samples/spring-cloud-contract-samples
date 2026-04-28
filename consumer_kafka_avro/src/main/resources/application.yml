@@ -2,6 +2,9 @@ spring:
   application-name: kafka-avro-consumer
   kafka:
     bootstrap-servers: localhost:9092
+    # producer settings below are only used by the collaboration tests
+    # (MessageVerifierSender in AvroBinary/JsonCollaborationTest publishes
+    # the stub-triggered message onto Kafka)
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer

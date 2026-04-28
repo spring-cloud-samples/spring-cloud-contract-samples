@@ -3,7 +3,6 @@ package com.example.kafka.consumer;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -121,13 +120,13 @@ class AvroBinaryCollaborationTest {
 		private final KafkaTemplate<String, byte[]> kafkaTemplate;
 
 		@Override
-		public void send(M message, String destination, @Nullable YamlContract contract) {
+		public void send(M message, String destination, YamlContract contract) {
 			send(message, emptyMap(), destination, contract);
 		}
 
 		@Override
 		public <T> void send(T payload, Map<String, Object> headers, String destination,
-				@Nullable YamlContract contract) {
+				YamlContract contract) {
 			Map<String, Object> newHeaders = headers != null ? new HashMap<>(headers) : new HashMap<>();
 			newHeaders.put(KafkaHeaders.TOPIC, destination);
 			MessageHeaders msgHeaders = new MessageHeaders(newHeaders);
