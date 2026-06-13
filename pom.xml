@@ -68,6 +68,7 @@
 				<module>producer_with_latest_2_2_features</module>
 <!--				<module>producer_kotlin_ftw</module>--><!-- Kotlin issues -->
 				<module>producer_java</module>
+				<module>producer_kafka_avro</module>
 				<module>producer_kafka_middleware</module>
 				<module>producer_rabbit_middleware</module>
 <!--				<module>producer_jms_middleware</module>-->
@@ -83,6 +84,7 @@
 				<module>consumer_with_latest_2_2_features</module>
 				<module>consumer_java</module>
 <!--				<module>consumer_kotlin_ftw</module>--><!-- Kotlin issues -->
+				<module>consumer_kafka_avro</module>
 				<module>consumer_kafka_middleware</module>
 				<module>consumer_rabbit_middleware</module>
 <!--				<module>consumer_jms_middleware</module>-->
@@ -135,6 +137,7 @@
 				<module>producer_with_latest_2_2_features</module>
 <!--				<module>producer_kotlin_ftw</module>--><!-- Kotlin issues -->
 				<module>producer_java</module>
+				<module>producer_kafka_avro</module>
 				<module>producer_kafka_middleware</module>
 				<module>producer_rabbit_middleware</module>
 <!--				<module>producer_jms_middleware</module>-->
@@ -150,6 +153,7 @@
 				<module>consumer_with_latest_2_2_features</module>
 				<module>consumer_java</module>
 <!--				<module>consumer_kotlin_ftw</module>--><!-- Kotlin issues -->
+				<module>consumer_kafka_avro</module>
 				<module>consumer_kafka_middleware</module>
 				<module>consumer_rabbit_middleware</module>
 <!--				<module>consumer_jms_middleware</module>-->

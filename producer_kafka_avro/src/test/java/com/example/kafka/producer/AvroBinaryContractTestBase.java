@@ -1,0 +1,106 @@
+package com.example.kafka.producer;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.junit.jupiter.api.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.verifier.converter.YamlContract;
+import org.springframework.cloud.contract.verifier.messaging.MessageVerifierReceiver;
+import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.JsonKafkaHeaderMapper;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.kafka.ConfluentKafkaContainer;
+import org.testcontainers.utility.DockerImageName;
+
+@Tag("kafka-avro")
+@Testcontainers
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.NONE,
+		classes = { KafkaAvroProducerApplication.class, AvroBinaryContractTestBase.TestConfig.class },
+		properties = "spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.ByteArrayDeserializer")
+@AutoConfigureMessageVerifier
+@ActiveProfiles({ "contracts", "avro-binary" })
+public class AvroBinaryContractTestBase {
+
+	@Autowired
+	private BookService bookService;
+
+	@Container
+	static ConfluentKafkaContainer kafka = new ConfluentKafkaContainer(
+			DockerImageName.parse("confluentinc/cp-kafka"));
+
+	@DynamicPropertySource
+	static void kafkaProperties(DynamicPropertyRegistry registry) {
+		registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
+	}
+
+	public void publishBookReturned() {
+		bookService.bookReturned("978-1234567890", "Contract Testing for Dummies", "John Doe");
+	}
+
+	@Configuration
+	static class TestConfig {
+
+		@Bean
+		@Profile("avro-binary")
+		KafkaMessageVerifier kafkaMessageVerifier() {
+			return new KafkaMessageVerifier();
+		}
+
+	}
+
+	static class KafkaMessageVerifier implements MessageVerifierReceiver<Message<?>> {
+
+		private final Map<String, BlockingQueue<Message<?>>> broker = new ConcurrentHashMap<>();
+
+		@Override
+		public Message<?> receive(String destination, long timeout, TimeUnit timeUnit,
+				YamlContract contract) {
+			try {
+				broker.putIfAbsent(destination, new ArrayBlockingQueue<>(1));
+				return broker.get(destination).poll(timeout, timeUnit);
+			}
+			catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		@KafkaListener(topics = { "book.returned" })
+		public void listen(ConsumerRecord<?, byte[]> payload,
+				@Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+			Map<String, Object> headers = new HashMap<>();
+			new JsonKafkaHeaderMapper().toHeaders(payload.headers(), headers);
+
+			broker.putIfAbsent(topic, new ArrayBlockingQueue<>(1));
+			broker.get(topic).add(MessageBuilder.createMessage(payload.value(),
+					new MessageHeaders(headers)));
+		}
+
+		@Override
+		public Message<?> receive(String destination, YamlContract contract) {
+			return receive(destination, 15, TimeUnit.SECONDS, contract);
+		}
+
+	}
+
+}
