@@ -23,6 +23,6 @@ stubsMode = StubRunnerProperties.StubsMode.REMOTE
 public class YourTestOnTheConsumerSide extends AbstractTest {
 }
 ----
-  * Another option is to pass the property `stubrunner.repositoryRoot` either as a
-   system / environment property, or via an `application.yml` and `stubrunner.stubs-mode`
+  * Another option is to pass the property `spring.cloud.contract.stubrunner.repositoryRoot` either as a
+   system / environment property, or via an `application.yml` and `spring.cloud.contract.stubrunner.stubs-mode`
    equal to `remote`

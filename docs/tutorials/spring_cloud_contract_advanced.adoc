@@ -589,7 +589,7 @@ include::{root}/consumer/src/test/java/com/example/GrumpyBartenderControllerTest
 How can you retrieve the port value then? There are two ways of doing so:
 
 * Autowire the field annotated with
-`@Value("${stubrunner.runningstubs.artifactid.port}")`.
+`@Value("${spring.cloud.contract.stubrunner.runningstubs.artifactid.port}")`.
 * Use the autowired `StubFinder` interface, which includes the `findStub` method.
 
 The following code shows an example of autowiring the field for
@@ -597,7 +597,7 @@ The following code shows an example of autowiring the field for
 
 [source,java]
 ----
-@Value("${stubrunner.runningstubs.beer-api-producer-advanced.port}") int stubPort;
+@Value("${spring.cloud.contract.stubrunner.runningstubs.beer-api-producer-advanced.port}") int stubPort;
 
 @BeforeEach
 public void setupPort() {

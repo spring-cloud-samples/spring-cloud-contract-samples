@@ -32,7 +32,7 @@ public class BeerControllerClasspathTest extends AbstractTest {
 	@Autowired MockMvc mockMvc;
 	@Autowired BeerController beerController;
 
-	@Value("${stubrunner.runningstubs.beer-api-producer-restdocs.port}") int producerPort;
+	@Value("${spring.cloud.contract.stubrunner.runningstubs.beer-api-producer-restdocs.port}") int producerPort;
 
 	@BeforeEach
 	public void setupPort() {
